@@ -5,7 +5,7 @@
     <home-header></home-header>
     <home-carousel></home-carousel>
     <home-categories></home-categories>
-    <home-promodeals></home-promodeals>
+    <categories-item></categories-item>
     <home-footer></home-footer>
   </div>
 </template>
@@ -14,8 +14,9 @@
   import HomeHeader from '../components/Home/HomeHeaderVisitor.vue'
   import HomeCarousel from '../components/Home/HomeCarousel.vue'
   import HomeCategories from '../components/Home/HomeCategories.vue'
-  import HomePromoDeals from '../components/Home/HomePromoDeals.vue'
   import Footer from '../components/Footer.vue'
+
+  import CategoriesItem from '../components/Home Items/CategoriesItem.vue'
 
   export default{
     name: 'Home',
@@ -29,7 +30,7 @@
       'home-header': HomeHeader,
       'home-carousel': HomeCarousel,
       'home-categories': HomeCategories,
-      'home-promodeals': HomePromoDeals,
+      'categories-item': CategoriesItem,
       'home-footer': Footer,
     },
 

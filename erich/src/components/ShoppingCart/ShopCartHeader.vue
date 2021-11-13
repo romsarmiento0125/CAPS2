@@ -27,7 +27,7 @@
               ></v-divider>
               <p
                 class="text-h4 ml-4"
-              >Signup</p>
+              >Shopping cart</p>
             </div>
           </v-col>
         </v-row>

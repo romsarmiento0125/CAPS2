@@ -1,20 +1,12 @@
 <template>
   <div>
     <login-header></login-header>
-    <div>
       <v-container
+        fluid
         class="pa-16"
       >
         <v-row>
           <v-col
-            offset-xl="4"
-            offset-lg="4"
-            offset-md="3"
-            offset-sm="2"
-            xl="4"
-            lg="4"
-            md="6"
-            sm="8"
           >
             <v-card
               class="rounded-xl pa-12"
@@ -79,42 +71,10 @@
               >
                 Sign in
               </v-btn>
-
-              <v-divider
-                class="ma-5"
-              ></v-divider>
-
-              <v-card-text
-                class="d-flex justify-center pb-0"
-              >
-                <v-btn
-                  color="blue darken-4"
-                  dark
-                  class="rounded-xl"
-                  width="230px"
-                  
-                >
-                  SIGN UP / REGISTER
-                </v-btn>
-              </v-card-text>
-
-              <v-card-text
-                class="d-flex justify-center pb-0"
-              >
-                <v-btn
-                  color="blue darken-4"
-                  dark
-                  class="rounded-xl"
-                  width="230px"
-                >
-                  LOGIN WITH GMAIL
-                </v-btn>
-              </v-card-text>
             </v-card>
           </v-col>
         </v-row>
       </v-container>
-    </div>
   </div>
 </template>
 

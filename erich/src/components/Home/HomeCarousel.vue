@@ -1,11 +1,12 @@
 <template>
   <div
-    class="ma-3 d-none d-sm-flex mt-16 pt-16"
+    class=" d-none d-sm-flex mt-11 pt-11"
   >
-    <v-container>
+    <v-container fluid>
       <v-row>
         <v-col
-          cols="12"
+          offset="1"
+          cols="10"
         >
           <v-carousel
             v-model="model"

@@ -5,6 +5,9 @@ import Test from '../views/TestViews.vue'
 import Login from '../views/Login.vue'
 import Signup from '../views/Signup.vue'
 import AdminPage from '../views/AdminPage.vue'
+import ShoppingCart from '../views/ShoppingCart.vue'
+import StoreOrders from '../views/StoreOrders.vue'
+import HomeItems from '../views/HomeItems.vue'
 
 Vue.use(VueRouter)
 
@@ -30,9 +33,24 @@ const routes = [
     component: Signup
   },
   {
-    path: '/admin',
-    name: 'AdminPage',
+    path: '/admin/:id',
+    name: 'Admin',
     component: AdminPage
+  },
+  {
+    path: '/cart/:id',
+    name: 'Cart',
+    component: ShoppingCart
+  },
+  {
+    path: '/store',
+    name: 'StoreOrders',
+    component: StoreOrders
+  },
+  {
+    path: '/item',
+    name: 'HomeItems',
+    component: HomeItems
   },
   // {
   //   path: '/about',
@@ -47,6 +65,16 @@ const routes = [
 const router = new VueRouter({
   routes,
   mode: 'history'
+})
+
+router.beforeEach((to, from, next) => {
+  console.log(to)
+  let documentTitle = `${ process.env.VUE_APP_TITLE } - ${ to.name }`
+  if(to.params.title){
+    documentTitle += ` - ${ to.params.title }`
+  }
+  document.title = documentTitle
+  next()
 })
 
 export default router
