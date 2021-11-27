@@ -11,17 +11,9 @@
             max-width="344"
           >
             <v-img
-              src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-              height="382px"
+              src="../../assets/p3.svg"
+              height="470px"
             ></v-img>
-
-            <v-card-title>
-              Top western road trips
-            </v-card-title>
-
-            <v-card-subtitle>
-              1,000 miles of wonder
-            </v-card-subtitle>
           </v-card>
         </v-col>
         <v-col

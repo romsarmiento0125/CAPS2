@@ -8,20 +8,12 @@
         >
           <v-card
             class="mx-auto"
-            max-width="344"
+            max-width="344px"
           >
             <v-img
-              src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-              height="382px"
+              src="../../assets/p1.svg"
+              height="430px"
             ></v-img>
-
-            <v-card-title>
-              Top western road trips
-            </v-card-title>
-
-            <v-card-subtitle>
-              1,000 miles of wonder
-            </v-card-subtitle>
           </v-card>
         </v-col>
         <v-col
@@ -29,11 +21,11 @@
         >
           <v-sheet
             class="mx-auto"
-            elevation="8"
+            elevation=""
           >
             <v-slide-group
               v-model="model"
-              class="pa-4"
+              class="pa-0 ma-0"
               active-class="success"
               show-arrows
             >

@@ -1,6 +1,6 @@
 <template>
   <div
-    class=" d-none d-sm-flex mt-11 pt-11"
+    class=" d-none d-sm-flex mt-15 pt-15"
   >
     <v-container fluid>
       <v-row>
@@ -11,7 +11,7 @@
           <v-carousel
             v-model="model"
             class="rounded-xl"
-            height="26vw"
+            height="29vw"
             hide-delimiters
             hide-delimiter-background
             cycle
@@ -20,7 +20,7 @@
             <v-carousel-item
               v-for="(item,i) in items"
               :key="i"
-              :src="item.src"
+              :src="require('../../assets/'+item.src)"
               reverse-transition="fade-transition"
               transition="fade-transition"
             >
@@ -39,16 +39,13 @@
       model: 0,
       items: [
         {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
+          src: 'carousel1.jpg',
         },
         {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
+          src: 'carousel1.jpg',
         },
         {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
+          src: 'carousel1.jpg',
         },
       ],
     }) 

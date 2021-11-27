@@ -71,7 +71,7 @@
               class="d-flex"
             >
                 <v-btn
-                ehite
+                white
                 text
               >
                 <v-icon>mdi-bell-outline</v-icon>
@@ -101,7 +101,7 @@
 
 <script>
   export default {
-    method: {
+    methods: {
       toHome() {
         alert("gg");
       }

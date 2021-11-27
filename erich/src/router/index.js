@@ -8,6 +8,7 @@ import AdminPage from '../views/AdminPage.vue'
 import ShoppingCart from '../views/ShoppingCart.vue'
 import StoreOrders from '../views/StoreOrders.vue'
 import HomeItems from '../views/HomeItems.vue'
+import Profiles from '../views/UserProfile.vue'
 
 Vue.use(VueRouter)
 
@@ -51,6 +52,11 @@ const routes = [
     path: '/item',
     name: 'HomeItems',
     component: HomeItems
+  },
+  {
+    path: '/profile',
+    name: 'Profiles',
+    component: Profiles
   },
   // {
   //   path: '/about',

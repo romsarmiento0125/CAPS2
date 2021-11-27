@@ -7,6 +7,8 @@
       >
         <v-row>
           <v-col
+            offset="4"
+            cols="4"
           >
             <v-card
               class="rounded-xl pa-12"
@@ -19,7 +21,7 @@
               <v-card-subtitle
                 class=""
               >
-                If you have an account, sign in with your email address
+                If you have an account, sign in with your number or email address
               </v-card-subtitle>
               
               <v-divider></v-divider>
@@ -27,29 +29,25 @@
               <v-card-text
                 class="pa-0 mt-5"
               >
-                <span>
-                  Email
-                </span>
                 <v-text-field
+                  v-model="usersData.usersEmail"
                   outlined
                   dense
                   class="mt-1"
-                  
+                  label="Email"
                 ></v-text-field>
               </v-card-text>
 
               <v-card-text
                 class="pa-0"
               >
-                <span>
-                  Password
-                </span>
                 <v-text-field
+                  v-model="usersData.usersPassword"
                   type="password"
                   outlined
                   dense
                   class="mt-1"
-                  
+                  label="Password"
                 ></v-text-field>
               </v-card-text>
 
@@ -67,7 +65,7 @@
               <v-btn
                 class="rounded-lg"
                 color="primary"
-                
+                @click="userLogin"
               >
                 Sign in
               </v-btn>
@@ -84,8 +82,36 @@
   export default {
     name: 'Login',
 
+    data: () => ({
+      usersData: {
+        usersEmail: "paul@gmail.com",
+        usersPassword: "admin123"
+      }
+    }),
+
     components: {
       'login-header': LoginHeader,
+    },
+
+    methods: {
+      userLogin() {
+        console.log("login");
+        // axios.post('', {
+        //   userLogin: this.usersData
+        // })
+        // .then(res => this.accCreateSuccess(res.data))
+        // .catch(err => console.error(err));
+        axios.post('http://127.0.0.1:8000/api/customerlogin/store',{
+          clientCred: this.usersData
+        })
+        .then(res => this.loginSuccess(res.data))
+        .catch(err => console.error(err));
+      },
+      loginSuccess(data) {
+        console.log(data);
+        this.$store.commit('storeCustomerInfo', data);
+        this.$router.push('/');
+      },
     }
   }
 </script>

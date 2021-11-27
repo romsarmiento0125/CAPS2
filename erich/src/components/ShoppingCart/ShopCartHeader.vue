@@ -7,6 +7,7 @@
       <v-container fluid>
         <v-row>
           <v-col
+            offset="1"
             cols="5"
           >
             <div

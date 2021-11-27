@@ -1,13 +1,16 @@
 <template>
   <div>
-    <v-container>
+    <v-container fluid>
       <v-row>
         <v-col
+          offset="1"
           cols="7"
+          class="d-flex justify-center"
         >
           <v-sheet
             color="#FFFFFF"
             width="100%"
+            class="my-10"
           >
             <v-row>
               <v-col>
@@ -41,7 +44,7 @@
                         <v-row
                         >
                           <v-col
-                            cols="6"
+                            cols=""
                           >
                             <div
                               class="d-flex align-center"
@@ -131,12 +134,14 @@
           </v-sheet>
         </v-col>
         <v-col
-          cols="5"
+          cols="4"
+          class="d-flex justify-center"
         >
           <v-sheet
             color="#FFFFFF"
             height="200"
-            width="100%"
+            width="80%"
+            class="my-10"
           >
             <v-row>
               <v-col>total</v-col>
