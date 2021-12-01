@@ -6,6 +6,8 @@ use App\Http\Controllers\erichcustomercontroller;
 use App\Http\Controllers\erichlogincontroller;
 use App\Http\Controllers\erichcategoryitemscontroller;
 use App\Http\Controllers\customercartcontroller;
+use App\Http\Controllers\erichgetcartitems;
+use App\Http\Controllers\erichheadercartcontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,4 +50,18 @@ Route::prefix('/customercart')->group( function () {
     Route::post('/store', [customercartcontroller::class, 'store']);
     Route::put('/{id}', [customercartcontroller::class, 'update']);
     Route::delete('/{id}', [customercartcontroller::class, 'destroy']);
+});
+
+Route::get('/headercart', [erichheadercartcontroller::class, 'index']);
+Route::prefix('/headercart')->group( function () {
+    Route::post('/store', [erichheadercartcontroller::class, 'store']);
+    Route::put('/{id}', [erichheadercartcontroller::class, 'update']);
+    Route::delete('/{id}', [erichheadercartcontroller::class, 'destroy']);
+});
+
+Route::get('/getcart', [erichgetcartitems::class, 'index']);
+Route::prefix('/getcart')->group( function () {
+    Route::post('/store', [erichgetcartitems::class, 'store']);
+    Route::put('/{id}', [erichgetcartitems::class, 'update']);
+    Route::delete('/{id}', [erichgetcartitems::class, 'destroy']);
 });

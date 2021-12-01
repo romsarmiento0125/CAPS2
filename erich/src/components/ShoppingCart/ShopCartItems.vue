@@ -14,15 +14,23 @@
           >
             <v-row>
               <v-col>
-                <p>product</p>
+                <p
+                  class="mt-3 mx-10"
+                >Product</p>
               </v-col>
               <v-col>
                 <div
-                  class="d-flex"
+                  class="d-flex mt-3"
                 >
-                  <p>quantity</p>
-                  <p>total price</p>
-                  <p>action</p>
+                  <p
+                    class="mx-10"
+                  >Quantity</p>
+                  <p
+                    class="mx-10"
+                  >Total Price</p>
+                  <p
+                    class="mx-10"
+                  >Action</p>
                 </div>
               </v-col>
             </v-row>
@@ -44,14 +52,11 @@
                         <v-row
                         >
                           <v-col
-                            cols=""
+                            cols="6"
                           >
                             <div
                               class="d-flex align-center"
                             >
-                              <v-checkbox
-
-                              ></v-checkbox>
                               <v-img
                                 height="120px"
                                 width="120px"
@@ -89,7 +94,7 @@
                                 <p
                                   class=" my-0 px-2"
                                 >
-                                  1
+                                  {{item.item_quantity}}
                                 </p>
                                 <v-btn
                                   depressed
@@ -110,7 +115,7 @@
                                   mdi-currency-php
                                 </v-icon>
                                 <p>
-                                  {{item.item_price}}
+                                  {{item.item_price * item.item_quantity}}
                                 </p>
                               </div>
 
@@ -118,7 +123,7 @@
                                 class="act justify-center"
                                 color="primary"
                                 plain
-                                disabled
+                                @click="deleteItems(item.item_code)"
                               >
                                 Delete
                               </v-btn>
@@ -144,21 +149,26 @@
             class="my-10"
           >
             <v-row>
-              <v-col>total</v-col>
-              <v-col>999</v-col>
+              <v-col>
+                <h2
+                >Total</h2>
+              </v-col>
+              <v-col>
+                <h2><v-icon>mdi-currency-php</v-icon>{{totPrice}}</h2>
+              </v-col>
             </v-row>
 
             <v-divider></v-divider>
 
             <v-row>
               <v-col>
-                <p>taxes and shipping are calasdjhasga</p>
+                <p>Taxes and <a class="text-decoration-underline">Shipping</a> are calculted at checkout</p>
                 <v-btn
                   color="primary"
                   :to="{name: 'Cart' , params: { id: 'place-order', title: 'Place Order'}}"
                   @click="showPlaceOrder()"
                 >
-                  Place Order
+                  Checkout
                 </v-btn>
               </v-col>
             </v-row>
@@ -173,16 +183,86 @@
   export default {
     data: () => ({
       items: [
-        {id: 0, item_name: "Koko Crunch", item_desc: "this is item description", item_price: 156.50, item_image: 'SamplePhoto.png'},
-        {id: 1, item_name: "Pancake Plus", item_desc: "this is item description", item_price: 79.95, item_image: 'SamplePhoto.png'},
-        {id: 2, item_name: "Gardenia", item_desc: "this is item description", item_price: 67.50, item_image: 'SamplePhoto.png'},
+        // {id: 0, item_name: "Koko Crunch", item_desc: "this is item description", item_price: 156.50, item_image: 'SamplePhoto.png'},
+        // {id: 1, item_name: "Pancake Plus", item_desc: "this is item description", item_price: 79.95, item_image: 'SamplePhoto.png'},
+        // {id: 2, item_name: "Gardenia", item_desc: "this is item description", item_price: 67.50, item_image: 'SamplePhoto.png'},
       ],
+      totPrice: 0,
     }),
+
+    computed: {
+      categoryItems() {
+        return this.$store.state.categoryItems;
+      },
+      cartItems() {
+        return this.$store.state.cartItems;
+      },
+      customerInfos() {
+        return this.$store.state.customerInfos;
+      },
+    },
     
     methods: {
       showPlaceOrder() {
         this.$emit('scItemsEmit');
+      },
+      showCartItems(data) {
+        var item;
+        
+        console.log("cart items");
+        console.log(data);
+        console.log(data[0]);
+        console.log(data[0].ItemCode);
+        console.log(data[0].Quantity);
+        console.log(data[0].id);
+        console.log(data.length);
+
+        console.log("category items");
+        console.log(this.categoryItems);
+        console.log(this.categoryItems[0]);
+        console.log(this.categoryItems[0].ItemCode);
+        console.log(this.categoryItems.length)
+        for(var i = 0; i < data.length; i++){
+          for(var j = 0; j < this.categoryItems.length; j++){
+            if(data[i].ItemCode == this.categoryItems[j].ItemCode){
+            item = {id: i,
+            item_name: this.categoryItems[i].Name,
+            item_desc: this.categoryItems[i].Description,
+            item_code: data[i].id,
+            item_quantity: data[i].Quantity,
+            item_price: this.categoryItems[i].RetailPrice,
+            item_image: 'SamplePhoto.png'}
+            this.items.push(item);
+            this.totPrice = this.totPrice + (data[i].Quantity * this.categoryItems[i].RetailPrice * 1);
+            console.log(i);
+            }
+          }
+        }
+        this.totPrice = (Math.round(this.totPrice * 100) / 100).toFixed(2);
+      },
+      getCartItems() {
+        this.items = [];
+        console.log(this.customerInfos.Email);
+        axios.post('http://127.0.0.1:8000/api/headercart/store', {
+          register: this.customerInfos.Email
+        })
+        .then(res => this.showCartItems(res.data))
+        //.then(res => console.log(res.data))
+        .catch(err => console.error(err));
+      },
+      deleteItems(code){
+        console.log("Delete this item");
+        console.log(code);
+        axios.delete('http://127.0.0.1:8000/api/getcart/'+ code)
+        //.then( res => console.log(res))
+        .then( res => this.getCartItems())
+        .catch(err => console.error(err))
       }
+    },
+
+    beforeMount() {
+      this.getCartItems();
+      //this.showCartItems();
     }
   }
 </script>

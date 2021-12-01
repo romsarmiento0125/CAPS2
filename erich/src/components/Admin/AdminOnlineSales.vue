@@ -18,7 +18,7 @@
       </v-row>
       <v-row>
         <v-col>
-          <h1>Total Sales</h1>
+          <h1>Online Sales</h1>
         </v-col>
         <v-col>
           <h1>Pie Graph</h1>

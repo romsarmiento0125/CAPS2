@@ -82,11 +82,12 @@
       // ],
       items: null,
       cartItems: {
-        id: "",
+        id: null,
         Email: "",
         Quantity: 1,
         ItemCode: "",
       },
+      cartCounter: 0,
     }),
 
     computed: {
@@ -95,12 +96,26 @@
       },
       customerInfos() {
         return this.$store.state.customerInfos;
+      },
+      cartQuantity(){
+        return this.$store.state.cartQuantity;
       }
     },
 
+    // watch: {
+    //   cartItems: function(data){
+    //     console.log("watch",data);
+    //   }
+    // }, 
+
+    // mounted(){
+    //   setTimeout(() => {
+    //     this.$store.state.cartItems = {cart: 0};
+    //   }, 3000);
+    // },
+
     // How Process Works. Ang i ssave mo lang sa cart ay yung email, itemcode at quantity.
     // Then if existing nayung item i update lang yung quantity.
-
     methods: {
       addToCartItems(code) {
         console.log("add to cart");
@@ -114,6 +129,7 @@
           //this.$router.push('/login');
         }
         else {
+          console.log(this.cartItems.id);
           console.log(this.cartItems.Email);
           console.log(this.cartItems.Quantity);
           console.log(this.cartItems.ItemCode);
@@ -123,12 +139,12 @@
           axios.post('http://127.0.0.1:8000/api/customercart/store', {
             register: this.cartItems
           })
-          .then(res => this.updateCartCounter(res.data))
+          .then(res => {
+            this.updateCartCounter(res.data)
+            //console.log(res);  
+          })
+          //.then(res => console.log(res.data))
           .catch(err => console.error(err));
-
-          //wrong statement here
-          //I think this update in item quantity will be fire after checkout
-          //this.updateItemQuantity(code);
         }
       },
       updateCartCounter(data){
@@ -139,6 +155,7 @@
         //if not success in adding items in cart it will fire update in quantity
         if(data === "addSuccess"){
           console.log("item added succesfully");
+          this.$store.commit('storeCartQuantity', this.$store.state.cartQuantity + 1);
           console.log(data);
         }
         else{
@@ -148,27 +165,30 @@
           axios.put('http://127.0.0.1:8000/api/customercart/' + data.id, {
             itemupdate: this.cartItems
           })
-          .then(res => console.log(res))
+          .then(res => {
+            console.log(res.data)
+            this.showQuantity(res.data)
+          })
           .catch(err => console.error(err));
           console.log("axios fired");
         }
       },
-      updateItemQuantity(code) {
-        console.log("this item minus stocks");
-        console.log(code);
+      showQuantity(data){
+        this.$store.commit('storeCartItems', data);
+        this.$store.commit('storeCartQuantity', this.$store.state.cartQuantity + 1);
       },
-      getCategoryItems() {
-        console.log("Get Items");
-        axios.get('http://127.0.0.1:8000/api/categoryitem')
-        .then(res => this.storeCategoryItems(res.data))
-        .catch(err => console.error(err));
-      },
-      storeCategoryItems(data) {
-        console.log("This is items data: ");
-        console.log(data);
-        this.$store.commit('storeCategoryItem', data);
-        this.showItems();
-      },
+      // getCategoryItems() {
+      //   console.log("Get Items");
+      //   axios.get('http://127.0.0.1:8000/api/categoryitem')
+      //   .then(res => this.storeCategoryItems(res.data))
+      //   .catch(err => console.error(err));
+      // },
+      // storeCategoryItems(data) {
+      //   console.log("This is items data: ");
+      //   console.log(data);
+      //   this.$store.commit('storeCategoryItem', data);
+      //   this.showItems();
+      // },
       showItems() {
         console.log("showItems: ");
         console.log(this.categoryItems);
@@ -178,7 +198,9 @@
     },
 
     beforeMount() {
-      this.getCategoryItems();
+      //this.getCategoryItems();
+      //this.items = this.categoryItems();
+      this.showItems();
     },
   }
 </script>

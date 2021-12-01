@@ -38,7 +38,10 @@
     computed: {
       customerInfos() {
         return this.$store.state.customerInfos;
-      }
+      },
+      categoryItems() {
+        return this.$store.state.categoryItems;
+      },
     },
 
     methods: {
@@ -50,11 +53,29 @@
           this.headerCond = false;
           console.log("headerCond false");
         }
-      }
+      },
+      getCategoryItems() {
+        console.log("Get Items");
+        axios.get('http://127.0.0.1:8000/api/categoryitem')
+        .then(res => this.storeCategoryItems(res.data))
+        .catch(err => console.error(err));
+      },
+      storeCategoryItems(data) {
+        console.log("This is items data: ");
+        //console.log(data);
+        this.$store.commit('storeCategoryItem', data);
+        this.showItems();
+      },
+      showItems() {
+        console.log("showItems: ");
+        console.log(this.categoryItems);
+        //this.items = this.categoryItems;
+      },
     },
 
     beforeMount() {
       this.navbarPicker();
+      this.getCategoryItems();
     },
   }
 </script>

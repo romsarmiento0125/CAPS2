@@ -22,7 +22,6 @@
                 max-height="100px"
                 max-width="100px"
               >
-                <a href="/"></a>
               </v-img>
             </router-link>
           </v-col>
@@ -42,24 +41,25 @@
               placeholder="Search for entire store here.."
             >
             </v-text-field>
-            <v-btn
-              height="auto"
-              dark
-              text
-              :to="{name: 'Cart' , params: { id: 'items', title: 'Items'}}"
+            <v-badge
+              overlap
+              color="red"
+              :content="cartQuantity"
             >
-              <v-icon
-                large
-                color="blue"
+              <v-btn
+                height="auto"
+                dark
+                text
+                :to="{name: 'Cart' , params: { id: 'items', title: 'Items'}}"
               >
-                mdi-cart-outline
-              </v-icon>
-              <span
-                class="white--text"
-              >
-                00
-              </span>
-            </v-btn>
+                <v-icon
+                  large
+                  color="blue"
+                >
+                  mdi-cart-outline
+                </v-icon>
+              </v-btn>
+            </v-badge>
           </v-col>
 
           <!-- Header Buttons -->
@@ -141,7 +141,15 @@
         { title: "Account", text: 'My Account', icon: 'mdi-account', to: "account"  },
         { title: "Purchase", text: 'My Purchase', icon: 'mdi-cart', to: "account"  },
       ],
+      customerEmail: "",
+      cartCounter: 0,
     }),
+
+    // watch: {
+    //   cartItems: function(data){
+    //     console.log("watch",data);
+    //   }
+    // },  
 
     methods: {
       accountButton(cond) {
@@ -155,14 +163,42 @@
         else if(cond == "logout"){
           window.location.href = "http://localhost:8080/";
         }
+      },
+      getItemsQuantity() {
+        console.log("This is Header Cart quantity");
+        console.log(this.customerInfos.Email);
+        this.customerEmail = this.customerInfos.Email;
+        axios.post('http://127.0.0.1:8000/api/headercart/store', {
+          register: this.customerEmail
+        })
+        .then(res => this.showQuantity(res.data))
+        //.then(res => console.log(res.data))
+        .catch(err => console.error(err));
+      },
+      showQuantity(data){
+        //console.log(data[0].Quantity);
+        //console.log(data.length);
+        for(var i = 0; i < data.length; i++){
+          this.cartCounter = this.cartCounter + data[i].Quantity;
+        }
+        this.$store.commit('storeCartQuantity', this.cartCounter);
       }
     },
 
     computed: {
       customerInfos() {
         return this.$store.state.customerInfos;
+      },
+      cartQuantity() {
+        return this.$store.state.cartQuantity;
       }
     },
+
+    // mounted(){
+    //   setTimeout(() => {
+    //     this.$store.state.cartItems = {cart: 0};
+    //   }, 3000);
+    // },
 
     beforeMount(){
       var ob1 = { title: "Admin", text: 'Admin', icon: 'mdi-cog-outline', to: "admin" };
@@ -184,6 +220,7 @@
       else{
         this.items.push(ob4);
       }
+      this.getItemsQuantity();
     },
   }
 </script>

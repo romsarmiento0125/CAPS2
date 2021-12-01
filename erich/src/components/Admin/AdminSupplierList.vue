@@ -16,7 +16,7 @@
       </v-row>
       <v-row>
         <v-col>
-          <h1>Table Inventory</h1>
+          <h1>Table Supplier</h1>
         </v-col>
       </v-row>
     </v-container>

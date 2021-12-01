@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\customercart;
-use App\Models\erichcustomer;
 use Illuminate\Http\Request;
 
 class customercartcontroller extends Controller
@@ -36,30 +35,35 @@ class customercartcontroller extends Controller
      */
     public function store(Request $request)
     {
-        $validatorEmail = customercart::pluck('Email');
-        $validatorItemCode = customercart::pluck('ItemCode');
         $getAll = customercart::all();
         $Email = $request->register['Email'];
         $ItemCode = $request->register['ItemCode'];
+        $validatorEmail = customercart::pluck('Email');
+        $validatorItemCode = customercart::where('Email', $Email)->pluck('ItemCode');
 
-        $emailCond = true;
-        $itemCodeCond = true;
+        $emailCond = "true";
+        $itemCodeCond = "true";
 
         foreach($validatorEmail as $value){
             //$rvalue = $rvalue.$value;
             if($Email == $value){
-                $emailCond = false;
+                $emailCond = "false";
+                //$emailCond = $value;
             }
         }
 
         foreach($validatorItemCode as $value){
             //$rvalue = $rvalue.$value;
             if($ItemCode == $value){
-                $itemCodeCond = false;
+                $itemCodeCond = "false";
+                //$itemCodeCond = $value;
             }
         }
 
-        if($emailCond || $itemCodeCond){
+        //return $emailCond.$itemCodeCond.$Email.$ItemCode;
+        //return $validatorItemCode;
+
+        if(($emailCond == "true") || ($itemCodeCond == "true")){
             $register = new customercart();
 
             $register->Email = $request->register['Email'];
@@ -78,6 +82,7 @@ class customercartcontroller extends Controller
                 $data = $value;
             }
             return $data;
+            //return "this is else";
         }
 
         
@@ -114,6 +119,8 @@ class customercartcontroller extends Controller
      */
     public function update(Request $request, $id)
     {
+        $getData = customercart::all();
+        $dataGet = $request->itemupdate["Email"];
         $existingItem = customercart::find($id);
         $existingQty = customercart::where('id', $id)->pluck('Quantity');
         foreach($existingQty as $value){
@@ -127,7 +134,9 @@ class customercartcontroller extends Controller
             $existingItem->Quantity = $add;
             $existingItem->ItemCode = $request->itemupdate["ItemCode"];
             $existingItem->save();
-            return "sucess";
+
+            //return $existingItem;
+            return $getData->where('Email', $dataGet)->values();
         }
         else{
             return "di success";

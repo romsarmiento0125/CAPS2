@@ -46,7 +46,7 @@
               height="auto"
               dark
               text
-              :to="{name: 'Cart' , params: { id: 'items', title: 'Items'}}"
+              to="/login"
             >
               <v-icon
                 large

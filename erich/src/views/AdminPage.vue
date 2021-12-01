@@ -10,13 +10,17 @@
             color="grey lighten-4"
             class="pa-4"
           >
-            <v-avatar
-              class="mb-4"
-              color="grey darken-1"
-              size="64"
-            ></v-avatar>
-
-            <div>john@vuetifyjs.com</div>
+            <router-link
+              to="/"
+            >
+              <v-img
+                contain
+                src="../assets/ERICH.svg"
+                max-height="100px"
+                max-width="100px"
+              >
+              </v-img>
+            </router-link>
           </v-sheet>
 
           <v-divider></v-divider>
@@ -32,10 +36,7 @@
               </v-list-item-icon> -->
 
               <v-list-item-content>
-                <v-list-item-title
-                  
-                  
-                >
+                <v-list-item-title>
                   <v-btn
                     color="primary"
                     :to="{name: link.Admin , params: { id: link.AdminId , title: link.AdminTitle}}"
@@ -56,8 +57,11 @@
           >
             <v-row>
               <v-col>
-                <admin-transactions v-if="aTransactions"></admin-transactions>
+                <admin-onlineSales v-if="aOnlineSales"></admin-onlineSales>
+                <admin-offlineSales v-else-if="aOfflineSales"></admin-offlineSales>
+                <admin-transactions v-else-if="aTransactions"></admin-transactions>
                 <admin-inventory v-else-if="aInventory"></admin-inventory>
+                <admin-supplierList v-else-if="aSupplierList"></admin-supplierList>
                 <admin-management v-else-if="aManagement"></admin-management>
                 <admin-dashboard v-else></admin-dashboard>
               </v-col>
@@ -105,8 +109,11 @@
 
 <script>
   import AdminDashboard from '../components/Admin/AdminDashboard.vue'
+  import AdminOnlineSales from '../components/Admin/AdminOnlineSales.vue'
+  import AdminOfflineSales from '../components/Admin/AdminOfflineSales.vue'
   import AdminTransactions from '../components/Admin/AdminTransactions.vue'
   import AdminInventoryItems from '../components/Admin/AdminInventoryItems.vue'
+  import AdminSupplierList from '../components/Admin/AdminSupplierList.vue'
   import AdminManagement from '../components/Admin/AdminManagement.vue'
 
   export default{
@@ -114,44 +121,89 @@
 
     components: {
       'admin-dashboard': AdminDashboard,
+      'admin-onlineSales': AdminOnlineSales,
+      'admin-offlineSales': AdminOfflineSales,
       'admin-transactions': AdminTransactions,
       'admin-inventory': AdminInventoryItems,
+      'admin-supplierList': AdminSupplierList,
       'admin-management': AdminManagement,
     },
 
     data: () => ({
+      aOnlineSales: false,
+      aOfflineSales: false,
       aTransactions: false,
       aInventory: false,
       aManagement: false,
+      aSupplierList: false,
       links: [
         {id: 1, AdminName: 'Dashboard', AdminCondition: 'as', Admin: 'Admin', AdminId: 'dashboard', AdminTitle: 'Dashboard'},
-        {id: 2, AdminName: 'Transactions', AdminCondition: 'at', Admin: 'Admin', AdminId: 'transaction', AdminTitle: 'Transaction'},
-        {id: 3, AdminName: 'Inventory', AdminCondition: 'ai', Admin: 'Admin', AdminId: 'inventory', AdminTitle: 'Inventory'},
-        {id: 4, AdminName: 'Admin Management', AdminCondition: 'am', Admin: 'Admin', AdminId: 'management', AdminTitle: 'Management'},
+        {id: 2, AdminName: 'Online Sales', AdminCondition: 'aon', Admin: 'Admin', AdminId: 'onlinesales', AdminTitle: 'Online Sales'},
+        {id: 3, AdminName: 'Offline Sales', AdminCondition: 'aof', Admin: 'Admin', AdminId: 'offlinesales', AdminTitle: 'Offline Sales'},
+        {id: 4, AdminName: 'Transactions', AdminCondition: 'at', Admin: 'Admin', AdminId: 'transaction', AdminTitle: 'Transaction'},
+        {id: 5, AdminName: 'Inventory', AdminCondition: 'ai', Admin: 'Admin', AdminId: 'inventory', AdminTitle: 'Inventory'},
+        {id: 6, AdminName: 'Supplier List', AdminCondition: 'asl', Admin: 'Admin', AdminId: 'supplierlist', AdminTitle: 'Supplier List'},
+        {id: 7, AdminName: 'Admin Management', AdminCondition: 'am', Admin: 'Admin', AdminId: 'management', AdminTitle: 'Management'},
       ],
     }),
 
     methods: {
       adminSidebar(cond){
-        if(cond == "at") {
+        if(cond == "aon") {
+          this.aOnlineSales = true,
+          this.aOfflineSales = false;
+          this.aTransactions = false;
+          this.aInventory = false;
+          this.aSupplierList = false;
+          this.aManagement = false;
+        }
+        else if(cond == "aof") {
+          this.aOnlineSales = false,
+          this.aOfflineSales = true;
+          this.aTransactions = false;
+          this.aInventory = false;
+          this.aSupplierList = false;
+          this.aManagement = false;
+        }
+        else if(cond == "at") {
+          this.aOnlineSales = false,
+          this.aOfflineSales = false;
           this.aTransactions = true;
           this.aInventory = false;
+          this.aSupplierList = false;
           this.aManagement = false;
         }
         else if(cond == "ai") {
+          this.aOnlineSales = false,
+          this.aOfflineSales = false;
           this.aTransactions = false;
           this.aInventory = true;
+          this.aSupplierList = false;
+          this.aManagement = false;
+        }
+        else if(cond == "asl") {
+          this.aOnlineSales = false,
+          this.aOfflineSales = false;
+          this.aTransactions = false;
+          this.aInventory = false;
+          this.aSupplierList = true;
           this.aManagement = false;
         }
         else if(cond == "am") {
+          this.aOnlineSales = false,
+          this.aOfflineSales = false;
           this.aTransactions = false;
           this.aInventory = false;
+          this.aSupplierList = false;
           this.aManagement = true;
         }
         else {
+          this.aOnlineSales = false,
+          this.aOfflineSales = false;
           this.aTransactions = false;
           this.aInventory = false;
-          this.aManagement = false;
+          this.aSupplierList = false;
+          this.aManagement =false;
         }
       }
     }

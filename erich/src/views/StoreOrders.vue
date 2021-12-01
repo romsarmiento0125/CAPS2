@@ -32,12 +32,14 @@
     methods: {
       saveItem() {
         alert(this.barcodeInv);
+        
       },
       showItem() {
         alert("item show");
       },
       handleBarcode(scanned_barcode) {
           this.barcodeBuy = scanned_barcode;
+          this.barcodeInv = scanned_barcode;
       },
       myfunc(evt){
         // // var barcode = '';

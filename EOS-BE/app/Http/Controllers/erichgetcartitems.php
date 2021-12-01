@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\customercart;
 use Illuminate\Http\Request;
-use App\Models\erichcustomer;
 
-class erichlogincontroller extends Controller
+class erichgetcartitems extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class erichlogincontroller extends Controller
      */
     public function index()
     {
-        return erichcustomer::all();
+        return customercart::all();
     }
 
     /**
@@ -35,28 +35,9 @@ class erichlogincontroller extends Controller
      */
     public function store(Request $request)
     {
-        $validator = erichcustomer::all();
-        $email = $request->clientCred['usersEmail'];
-        $pass = $request->clientCred['usersPassword'];
-        $validator = json_decode($validator, true);
-        $index = false;
-        $counter = 0;
-
-        for($i = 0; $i < count($validator); $i++){
-            if($validator[$i]['Email'] == $email && $validator[$i]['Password'] == $pass){
-                $index = true;
-                $counter = $i;
-                $i = count($validator) + 1;
-            }
-        }
-
-        if($index){
-            return $validator[$counter];
-        }
-        else{
-            //"Wrong credentials" string is use for validation in vue js
-            return "InvalidCredentials";
-        }
+        $getData = customercart::all();
+        $dataGet = $request->register;
+        return $getData->where('Email', $dataGet)->values();
     }
 
     /**
@@ -101,6 +82,15 @@ class erichlogincontroller extends Controller
      */
     public function destroy($id)
     {
-        //
+        $existingItem = customercart::find($id);
+
+        if( $existingItem){
+            $existingItem->delete();
+            return "Item succesfully deleted.";
+        }
+
+        return "Item not Found";
+        //return $existingItem;
+        //return $id;
     }
 }

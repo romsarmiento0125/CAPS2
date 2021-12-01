@@ -109,8 +109,13 @@
       },
       loginSuccess(data) {
         console.log(data);
-        this.$store.commit('storeCustomerInfo', data);
-        this.$router.push('/');
+        if(data == "InvalidCredentials"){
+          alert("Invalid Credentials");
+        }
+        else{
+          this.$store.commit('storeCustomerInfo', data);
+          this.$router.push('/');
+        }
       },
     }
   }
