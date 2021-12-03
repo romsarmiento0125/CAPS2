@@ -136,6 +136,7 @@
 
           //do axios post request to try to add items in cart
           console.log("axios Fire");
+          console.log(this.cartItems);
           axios.post('http://127.0.0.1:8000/api/customercart/store', {
             register: this.cartItems
           })

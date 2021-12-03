@@ -209,32 +209,43 @@
       showCartItems(data) {
         var item;
         
-        console.log("cart items");
-        console.log(data);
-        console.log(data[0]);
-        console.log(data[0].ItemCode);
-        console.log(data[0].Quantity);
-        console.log(data[0].id);
-        console.log(data.length);
+        // console.log("cart items");
+        // console.log(data);
+        // console.log(data[0]);
+        // console.log(data[1].ItemCode);
+        // console.log(data[0].Quantity);
+        // console.log(data[0].id);
+        // console.log(data.length);
 
-        console.log("category items");
-        console.log(this.categoryItems);
-        console.log(this.categoryItems[0]);
-        console.log(this.categoryItems[0].ItemCode);
-        console.log(this.categoryItems.length)
+        // console.log("category items");
+        // console.log(this.categoryItems);
+        // console.log(this.categoryItems[0]);
+        // console.log(this.categoryItems[2].ItemCode);
+        // console.log(this.categoryItems.length)
         for(var i = 0; i < data.length; i++){
           for(var j = 0; j < this.categoryItems.length; j++){
             if(data[i].ItemCode == this.categoryItems[j].ItemCode){
+            // alert("This is item Name " + this.categoryItems[j].Name + " " + this.categoryItems[j].Description
+            // + " This is item Code " + this.categoryItems[j].ItemCode + " This is item Quantity " + 
+            // data[i].Quantity + " This is item Retail Price " + this.categoryItems[j].RetailPrice + " This is item id " + i
+            // )
+            // console.log(i);
+            // console.log(this.categoryItems[j].Name,);
+            // console.log(this.categoryItems[j].ItemCode);
+            // console.log(data[i].ItemCode)
             item = {id: i,
-            item_name: this.categoryItems[i].Name,
-            item_desc: this.categoryItems[i].Description,
-            item_code: data[i].id,
+            item_name: this.categoryItems[j].Name,
+            item_desc: this.categoryItems[j].Description,
+            item_code: this.categoryItems[j].ItemCode,
             item_quantity: data[i].Quantity,
-            item_price: this.categoryItems[i].RetailPrice,
+            item_price: this.categoryItems[j].RetailPrice,
             item_image: 'SamplePhoto.png'}
             this.items.push(item);
-            this.totPrice = this.totPrice + (data[i].Quantity * this.categoryItems[i].RetailPrice * 1);
+            this.totPrice = this.totPrice + (data[i].Quantity * this.categoryItems[j].RetailPrice * 1);
             console.log(i);
+            }
+            else{
+              console.log("this is else");
             }
           }
         }
