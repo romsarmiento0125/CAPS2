@@ -4,24 +4,26 @@
       fluid
     >
       <v-row>
-        <v-col>
-          <p>cart>information>shipping>Payment</p>
+        <v-col
+          offset="1"
+        >
+          <h3>Delivery Method</h3>
         </v-col>
       </v-row>
       <v-row>
-        <v-col>
-          <h3>Chekout Method</h3>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col>
+        <v-col
+          offset="1"
+          cols="1"
+        >
           <v-btn
             @click="deliveryMethodCond()"
           >
             Ship
           </v-btn>
         </v-col>
-        <v-col>
+        <v-col
+          cols="1"
+        >
           <v-btn
             @click="pickupMethodCond()"
           >
@@ -35,21 +37,56 @@
       fluid
     >
       <v-row>
-        <v-col>
+        <v-col
+          offset="1"
+          cols="5"
+        >
           <v-container
             v-if="deliveryCond"
             fluid
           >
             <v-row>
-              <v-col>
-                <method-delivery></method-delivery>
-                <v-btn
-                  color="primary"
-                  :to="{name: 'Cart' , params: { id: 'delivery', title: 'Delivery'}}"
-                  @click="placeOrderDeliver()"
+              <v-col
+                class="ma-0 pa-0"
+              >
+                <v-sheet
+                  color="white"
+                  height="100%"
+                  width="100%"
                 >
-                  deliver
-                </v-btn>
+
+                  <method-delivery></method-delivery>
+                  <v-row
+                    class="ma-5 pa-5"
+                  >
+                    <v-col
+                      cols="6"
+                    >
+                      <div
+                        class="d-flex"
+                      >
+                        <v-btn
+                          plain
+                          color="blue"
+                          @click="returnToCartItems"
+                          small
+                        >
+                          <v-icon>mdi-chevron-left</v-icon>
+                          <p>return to cart</p>
+                        </v-btn>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          class=""
+                          color="primary"
+                          :to="{name: 'Cart' , params: { id: 'delivery', title: 'Delivery'}}"
+                          @click="placeOrderDeliver()"
+                        >
+                          deliver
+                        </v-btn>
+                      </div>
+                    </v-col>
+                  </v-row>
+                </v-sheet>
               </v-col>
             </v-row>
           </v-container>
@@ -60,29 +97,26 @@
           >
             <v-row>
               <v-col>
-                <method-pickup></method-pickup>
-                <v-btn
-                  color="primary"
-                  :to="{name: 'Cart' , params: { id: 'pickup', title: 'Pick Up'}}"
-                  @click="placeOrderPickup()"
+                <v-sheet
+                  color="white"
+                  height="100%"
+                  width="100%"
                 >
-                  Pickup
-                </v-btn>
+                  <method-pickup></method-pickup>
+                  <v-btn
+                    color="primary"
+                    :to="{name: 'Cart' , params: { id: 'pickup', title: 'Pick Up'}}"
+                    @click="placeOrderPickup()"
+                  >
+                    Pickup
+                  </v-btn>
+                </v-sheet>
               </v-col>
             </v-row>
           </v-container>
         </v-col>
         <v-col>
-          <v-row>
-            <v-col>
-              <h1>Items</h1>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col>
-              <h1>Totals</h1>
-            </v-col>
-          </v-row>
+          <order-items></order-items>
         </v-col>
       </v-row>
     </v-container>
@@ -94,11 +128,13 @@
 <script>
   import MethodDelivery from './DeliveryMethod/MethodDelivery.vue'
   import MethodPickup from './DeliveryMethod/MethodPickup.vue'
+  import ShopCartPlaceOrderItems from './ShopCartPlaceOrderItems.vue'
 
   export default {
     components: {
       'method-delivery': MethodDelivery,
-      'method-pickup': MethodPickup
+      'method-pickup': MethodPickup,
+      'order-items': ShopCartPlaceOrderItems
     },
 
     data: () => ({
@@ -111,6 +147,9 @@
       },
       placeOrderPickup() {
         this.$emit('scPlaceOrderPickup');
+      },
+      returnToCartItems(){
+        alert("emit something to show cart components");
       },
       deliveryMethodCond() {
         this.deliveryCond = true;

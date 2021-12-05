@@ -167,6 +167,7 @@
                   color="primary"
                   :to="{name: 'Cart' , params: { id: 'place-order', title: 'Place Order'}}"
                   @click="showPlaceOrder()"
+                  block
                 >
                   Checkout
                 </v-btn>
