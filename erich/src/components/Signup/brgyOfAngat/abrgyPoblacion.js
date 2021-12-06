@@ -1,8 +1,6 @@
-const aubrgyPB = [
-  { id: 1, ubrgy: 'underbrgy1'},
-  { id: 2, ubrgy: 'underbrgy2'},
-  { id: 3, ubrgy: 'underbrgy3'},
-  { id: 4, ubrgy: 'underbrgy4'},
+const aubrgyPBLCN = [
+  { id: 1, ubrgy: 'A.Cruz Street'},
+  { id: 2, ubrgy: 'DeGuzman Street'},
 ];
 
-export default aubrgyPB;
+export default aubrgyPBLCN;

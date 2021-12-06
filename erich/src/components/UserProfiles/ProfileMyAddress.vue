@@ -1,5 +1,56 @@
 <template>
   <div>
-    <h1>address</h1>
+    <v-container
+      fluid
+    >
+      <v-row>
+        <v-col>
+          <v-sheet
+            width="100%"
+            height="100%"
+          >
+            <v-row>
+              <v-col>
+                <div
+                  class="d-flex"
+                >
+                  <p>My Adress</p>
+                  <v-spacer></v-spacer>
+                  <v-btn>
+                    <p>Add New Address</p>
+                  </v-btn>
+                </div>
+              </v-col>
+            </v-row>
+            <v-divider></v-divider>
+            <v-row>
+              <v-col>
+                <div>
+                  <p>Default Address</p>
+                </div>
+                <div
+                  class="d-flex"
+                >
+                  <div>
+                    <p>Reyster Delrosario</p>
+                    <p>alisdufhalsdufhasufhasdufhasufhalsiudfhalsiudfhalsidufh</p>
+                  </div>
+                  <v-spacer></v-spacer>
+                  <div>
+                    <v-btn>
+                      <p>Edit</p>
+                    </v-btn>
+                    <v-btn>
+                      <p>Delete</p>
+                    </v-btn>
+                  </div>
+                </div>
+                <v-divider></v-divider>
+              </v-col>
+            </v-row>
+          </v-sheet>
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>

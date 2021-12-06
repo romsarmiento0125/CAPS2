@@ -157,7 +157,7 @@
           this.$router.push({path: '/profile'});
         }
         else if(cond == "admin"){
-          console.log("Admin");
+          //console.log("Admin");
           this.$router.push({path: '/admin/dashboard'});
         }
         else if(cond == "logout"){
@@ -165,8 +165,8 @@
         }
       },
       getItemsQuantity() {
-        console.log("This is Header Cart quantity");
-        console.log(this.customerInfos.Email);
+        //console.log("This is Header Cart quantity");
+        //console.log(this.customerInfos.Email);
         this.customerEmail = this.customerInfos.Email;
         axios.post('http://127.0.0.1:8000/api/headercart/store', {
           register: this.customerEmail

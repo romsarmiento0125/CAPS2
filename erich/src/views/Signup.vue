@@ -370,10 +370,35 @@
   import smbBarangays from '../components/Signup/StaMariaBarangay.js'
   import nbBarangays from '../components/Signup/NorzagarayBarangay.js'
   import abBarangays from '../components/Signup/AngatBarangay.js'
-  import subPBH from '../components/Signup/brgyOfSMB/sbrgyPulongbuhangin.js'
   import subBGBGN from '../components/Signup/brgyOfSMB/sbrgyBagbaguin.js'
-  import nubPBC from '../components/Signup/brgyOfNGaray/nbrgyPoblacion.js'
-  import aubPBC from '../components/Signup/brgyOfAngat/abrgyPoblacion.js'
+  import subBLSNG from '../components/Signup/brgyOfSMB/sbrgyBalasing.js'
+  import subBNAVST from '../components/Signup/brgyOfSMB/sbrgyBuenavista.js'
+  import subBLC from '../components/Signup/brgyOfSMB/sbrgyBulac.js'
+  import subCMNGYN from '../components/Signup/brgyOfSMB/sbrgyCamangyanan.js'
+  import subCTMN from '../components/Signup/brgyOfSMB/sbrgyCatmon.js'
+  import subCYPMB from '../components/Signup/brgyOfSMB/sbrgyCayPombo.js'
+  import subCYSIO from '../components/Signup/brgyOfSMB/sbrgyCaysio.js'
+  import subGYNG from '../components/Signup/brgyOfSMB/sbrgyGuyong.js'
+  import subLLKHN from '../components/Signup/brgyOfSMB/sbrgyLalakhan.js'
+  import subMGASWNGSP from '../components/Signup/brgyOfSMB/sbrgyMagAsawangSapa.js'
+  import subMHBNGPRNG from '../components/Signup/brgyOfSMB/sbrgyMahabangParang.js'
+  import subMNGHN from '../components/Signup/brgyOfSMB/sbrgyMangahan.js'
+  import subPRDA from '../components/Signup/brgyOfSMB/sbrgyParada.js'
+  import subPBLCN from '../components/Signup/brgyOfSMB/sbrgyPoblacion.js'
+  import subPBHNG from '../components/Signup/brgyOfSMB/sbrgyPulongbuhangin.js'
+  import subSNGBRL from '../components/Signup/brgyOfSMB/sbrgySanGabriel.js'
+  import subSNJSEPTG from '../components/Signup/brgyOfSMB/sbrgySanJosePatag.js'
+  import subSNTCLRA from '../components/Signup/brgyOfSMB/sbrgySantaClara.js'
+  import subSNTCRZ from '../components/Signup/brgyOfSMB/sbrgySantaCruz.js'
+  import subSNVCNTE from '../components/Signup/brgyOfSMB/sbrgySanVicente.js'
+  import subSLNGN from '../components/Signup/brgyOfSMB/sbrgySilangan.js'
+  import subTBNGBKD from '../components/Signup/brgyOfSMB/sbrgyTabingBakod.js'
+  import subTMNA from '../components/Signup/brgyOfSMB/sbrgyTumana.js'
+  import nubPRTDA from '../components/Signup/brgyOfNGaray/nbrgyPartida'
+  import nubPBLCN from '../components/Signup/brgyOfNGaray/nbrgyPoblacion.js'
+  import nubTGBE from '../components/Signup/brgyOfNGaray/nbrgyTigbe'
+  import aubPBLCN from '../components/Signup/brgyOfAngat/abrgyPoblacion.js'
+  import aubSTCRZ from '../components/Signup/brgyOfAngat/abrgyStaCruz'
 
   export default {
     name: 'Signup',
@@ -395,7 +420,7 @@
       ],
 
       barangays: smbBarangays,
-      UnderBarangays: subPBH,
+      UnderBarangays: subPBHNG,
 
       // barangays: [
       //   { id: 1, bName: "Pulong Buhangin"}W,
@@ -449,15 +474,15 @@
 
     methods: {
       register() {
-        console.log("register button");
-        console.log("Name: " + this.customerInfo.First_Name + " " + this.customerInfo.Last_Name);
-        console.log("Email: " + this.customerInfo.Email);
-        console.log("Password: " + this.customerInfo.Password);
-        console.log("Municipality: " + this.customerInfo.Municipality);
-        console.log("Barangay: " + this.customerInfo.Barangay);
-        console.log("Under Barangay: " + this.customerInfo.UnderBarangay);
-        console.log("Home Adress: " + this.customerInfo.HomeAddress);
-        console.log("Birthday: " + this.customerInfo.Birthday);
+        // console.log("register button");
+        // console.log("Name: " + this.customerInfo.First_Name + " " + this.customerInfo.Last_Name);
+        // console.log("Email: " + this.customerInfo.Email);
+        // console.log("Password: " + this.customerInfo.Password);
+        // console.log("Municipality: " + this.customerInfo.Municipality);
+        // console.log("Barangay: " + this.customerInfo.Barangay);
+        // console.log("Under Barangay: " + this.customerInfo.UnderBarangay);
+        // console.log("Home Adress: " + this.customerInfo.HomeAddress);
+        // console.log("Birthday: " + this.customerInfo.Birthday);
         axios.post('http://127.0.0.1:8000/api/customers/store', {
           register: this.customerInfo
         })
@@ -465,7 +490,7 @@
         .catch(err => console.error(err));
       },
       accCreateSuccess(data) {
-        console.log(data);
+        console.log("This is customer data: " + data);
         if(data == "emailInvalid"){
           alert("Your email is already taken. Try another email.")
         }
@@ -479,46 +504,174 @@
         this.customerInfo.Municipality = data;
         if(data == "Sta.Maria"){
           this.barangays = smbBarangays;
-          this.UnderBarangays = subPBH;
+          this.UnderBarangays = subPBHNG;
           this.customerInfo.Barangay = 'Pulong Buhangin';
-          this.customerInfo.UnderBarangay = "Gulod"
+          this.customerInfo.UnderBarangay = "A.DelRosarioStreet"
         }
         else if(data == "Norzagaray"){
           this.barangays = nbBarangays;
-          this.UnderBarangays = nubPBC;
+          this.UnderBarangays = nubPBLCN;
           this.customerInfo.Barangay = 'Poblacion';
-          this.customerInfo.UnderBarangay = "Tab-Tab"
+          this.customerInfo.UnderBarangay = "Antonia Heights Subd"
         }
         else if(data == 'Angat'){
           this.barangays = abBarangays;
-          this.UnderBarangays = aubPBC;
+          this.UnderBarangays = aubPBLCN;
           this.customerInfo.Barangay = 'Poblacion';
-          this.customerInfo.UnderBarangay = "underbrgy1"
+          this.customerInfo.UnderBarangay = "A.Cruz Street"
         }
       },
       barangayInput(data, bName){
-        console.log("brgy input");
+        //console.log("brgy input");
         this.customerInfo.Barangay = bName;
         if(data == "smbBagBaguin"){
-          console.log("Bgbgn");
+          //console.log("Bgbgn");
           this.UnderBarangays = subBGBGN;
-          this.customerInfo.Barangay = 'Pulong Buhangin';
-          this.customerInfo.UnderBarangay = "BGBGNData1"
+          this.customerInfo.Barangay = 'BagBaguin';
+          this.customerInfo.UnderBarangay = "GovFortunatoHaliliAve"
         }
-        else if(data == "smbPulong Buhangin"){
-          this.UnderBarangays = subPBH;
+        else if(data == "smbBalasing"){
+          this.UnderBarangays = subBLSNG;
+          this.customerInfo.Barangay = 'Balasing';
+          this.customerInfo.UnderBarangay = "834-830 Balasing SanJose Road"
+        }
+        else if(data == "smbBuenavista"){
+          this.UnderBarangays = subBNAVST;
+          this.customerInfo.Barangay = 'Buenavista';
+          this.customerInfo.UnderBarangay = "Altamonte"
+        }
+        else if(data == "smbBulac"){
+          this.UnderBarangays = subBLC;
+          this.customerInfo.Barangay = 'Bulac';
+          this.customerInfo.UnderBarangay = "Bulac"
+        }
+        else if(data == "smbCamangyan"){
+          this.UnderBarangays = subCMNGYN;
+          this.customerInfo.Barangay = 'Camangyan';
+          this.customerInfo.UnderBarangay = "E.CruzStreet"
+        }
+        else if(data == "smbCatmon"){
+          this.UnderBarangays = subCTMN;
+          this.customerInfo.Barangay = 'Catmon';
+          this.customerInfo.UnderBarangay = "HuloStreet"
+        }
+        else if(data == "smbCaypombo"){
+          this.UnderBarangays = subCYPMB;
+          this.customerInfo.Barangay = 'Caypombo';
+          this.customerInfo.UnderBarangay = "BrightHomes"
+        }
+        else if(data == "smbCaysio"){
+          this.UnderBarangays = subCYSIO;
+          this.customerInfo.Barangay = 'Caysio';
+          this.customerInfo.UnderBarangay = "CaysioRoad"
+        }
+        else if(data == "smbGuyong"){
+          this.UnderBarangays = subGYNG;
+          this.customerInfo.Barangay = 'Guyong';
+          this.customerInfo.UnderBarangay = "BulodStreet"
+        }
+        else if(data == "smblalakhan"){
+          this.UnderBarangays = subLLKHN;
+          this.customerInfo.Barangay = 'Lalakhan';
+          this.customerInfo.UnderBarangay = "LalakhanRoad"
+        }
+        else if(data == "smbMagAsawangSapa"){
+          this.UnderBarangays = subMGASWNGSP;
+          this.customerInfo.Barangay = 'Mag Asawang Sapa';
+          this.customerInfo.UnderBarangay = "BangkaBangkaRoad"
+        }
+        else if(data == "smbMahabangParang"){
+          this.UnderBarangays = subMHBNGPRNG;
+          this.customerInfo.Barangay = 'Mahabang Parang';
+          this.customerInfo.UnderBarangay = "MahabangParangRoad"
+        }
+        else if(data == "smbManggahan"){
+          this.UnderBarangays = subMNGHN;
+          this.customerInfo.Barangay = 'Manggahan';
+          this.customerInfo.UnderBarangay = "New Manggahan Industrial compound"
+        }
+        else if(data == "smbParada"){
+          this.UnderBarangays = subPRDA;
+          this.customerInfo.Barangay = 'Parada';
+          this.customerInfo.UnderBarangay = "C.DeJesusStreet"
+        }
+        else if(data == "smbPoblacion"){
+          this.UnderBarangays = subPBLCN;
+          this.customerInfo.Barangay = 'Poblacion';
+          this.customerInfo.UnderBarangay = "A.MorelesStreet"
+        }
+        else if(data == "smbPulongBuhangin"){
+          this.UnderBarangays = subPBHNG;
           this.customerInfo.Barangay = 'Pulong Buhangin';
-          this.customerInfo.UnderBarangay = "Gulod"
+          this.customerInfo.UnderBarangay = "A.DelRosarioStreet"
+        }
+        else if(data == "smbSanGabriel"){
+          this.UnderBarangays = subSNGBRL;
+          this.customerInfo.Barangay = 'San Gabriel';
+          this.customerInfo.UnderBarangay = "A.AguinaldoStreet"
+        }
+        else if(data == "smbSanJosePatag"){
+          this.UnderBarangays = subSNJSEPTG;
+          this.customerInfo.Barangay = 'San Jose Patag';
+          this.customerInfo.UnderBarangay = "BurgundyHomes"
+        }
+        else if(data == "smbSantaClara"){
+          this.UnderBarangays = subSNTCLRA;
+          this.customerInfo.Barangay = 'Santa Clara';
+          this.customerInfo.UnderBarangay = "AlMasiga"
+        }
+        else if(data == "smbSanVicente"){
+          this.UnderBarangays = subSNVCNTE;
+          this.customerInfo.Barangay = 'San Vicente';
+          this.customerInfo.UnderBarangay = "AlgeraHeights"
+        }
+        else if(data == "smbStaCruz"){
+          this.UnderBarangays = subSNTCRZ;
+          this.customerInfo.Barangay = 'Santa Cruz';
+          this.customerInfo.UnderBarangay = "Dr.TSantiagoStreet"
+        }
+        else if(data == "smbSilangan"){
+          this.UnderBarangays = subSLNGN;
+          this.customerInfo.Barangay = 'Silangan';
+          this.customerInfo.UnderBarangay = "AlMsigaStreet"
+        }
+        else if(data == "smbTabingBakod"){
+          this.UnderBarangays = subTBNGBKD;
+          this.customerInfo.Barangay = 'Tabing Bakod';
+          this.customerInfo.UnderBarangay = "A.B.nateo"
+        }
+        else if(data == "smbTumana"){
+          this.UnderBarangays = subTMNA;
+          this.customerInfo.Barangay = 'Tumana';
+          this.customerInfo.UnderBarangay = "KalabasaStreet"
+        }
+        else if(data == "nbPartida"){
+          this.UnderBarangays = nubPRTDA;
+          this.customerInfo.Barangay = 'Partida';
+          this.customerInfo.UnderBarangay = "Eden Ville Subdivision"
         }
         else if(data == "nbPoblacion"){
-          this.UnderBarangays = nubPBC;
+          this.UnderBarangays = nubPBLCN;
           this.customerInfo.Barangay = 'Poblacion';
-          this.customerInfo.UnderBarangay = "Tab-Tab"
+          this.customerInfo.UnderBarangay = "Antonia Heights Subd"
+        }
+        else if(data == "nbTigbe"){
+          this.UnderBarangays = nubTGBE;
+          this.customerInfo.Barangay = 'Tigbe';
+          this.customerInfo.UnderBarangay = "Barrio Road"
         }
         else if(data == "abPoblacion"){
-          this.UnderBarangays = aubPBC;
+          this.UnderBarangays = aubPBLCN;
           this.customerInfo.Barangay = 'Poblacion';
-          this.customerInfo.UnderBarangay = "underbrgy1"
+          this.customerInfo.UnderBarangay = "A.Cruz Street"
+        }
+        else if(data == "abSantaCruz"){
+          this.UnderBarangays = aubSTCRZ;
+          this.customerInfo.Barangay = 'Santa Cruz';
+          this.customerInfo.UnderBarangay = "Illescas Street"
+        }
+        else{
+          alert("Something wrong");
         }
       },
       underBarangayInput(data){

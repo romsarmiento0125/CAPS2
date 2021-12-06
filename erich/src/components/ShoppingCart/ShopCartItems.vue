@@ -84,6 +84,7 @@
                                   depressed
                                   color="transparent"
                                   class=""
+                                  @click="addQuantity()"
                                 >
                                   <v-icon
                                     x-large
@@ -99,6 +100,7 @@
                                 <v-btn
                                   depressed
                                   color="transparent"
+                                  @click="decreaseQuantity()"
                                 >
                                   <v-icon
                                     x-large
@@ -209,66 +211,61 @@
       },
       showCartItems(data) {
         var item;
+        console.log("cart items");
+        console.log(data.length);
+        console.log(data[0].Email);
+        console.log(this.customerInfos.Email)
         
-        // console.log("cart items");
-        // console.log(data);
-        // console.log(data[0]);
-        // console.log(data[1].ItemCode);
-        // console.log(data[0].Quantity);
-        // console.log(data[0].id);
-        // console.log(data.length);
-
-        // console.log("category items");
-        // console.log(this.categoryItems);
-        // console.log(this.categoryItems[0]);
-        // console.log(this.categoryItems[2].ItemCode);
-        // console.log(this.categoryItems.length)
         for(var i = 0; i < data.length; i++){
-          for(var j = 0; j < this.categoryItems.length; j++){
-            if(data[i].ItemCode == this.categoryItems[j].ItemCode){
-            // alert("This is item Name " + this.categoryItems[j].Name + " " + this.categoryItems[j].Description
-            // + " This is item Code " + this.categoryItems[j].ItemCode + " This is item Quantity " + 
-            // data[i].Quantity + " This is item Retail Price " + this.categoryItems[j].RetailPrice + " This is item id " + i
-            // )
-            // console.log(i);
-            // console.log(this.categoryItems[j].Name,);
-            // console.log(this.categoryItems[j].ItemCode);
-            // console.log(data[i].ItemCode)
-            item = {id: i,
-            item_name: this.categoryItems[j].Name,
-            item_desc: this.categoryItems[j].Description,
-            item_code: this.categoryItems[j].ItemCode,
-            item_quantity: data[i].Quantity,
-            item_price: this.categoryItems[j].RetailPrice,
-            item_image: 'SamplePhoto.png'}
-            this.items.push(item);
-            this.totPrice = this.totPrice + (data[i].Quantity * this.categoryItems[j].RetailPrice * 1);
-            console.log(i);
-            }
-            else{
-              console.log("this is else");
+          if(data[i].Email == this.customerInfos.Email){
+            for(var j = 0; j < this.categoryItems.length; j++){
+              if(data[i].ItemCode == this.categoryItems[j].ItemCode){
+              item = {id: data[i].id,
+              item_name: this.categoryItems[j].Name,
+              item_desc: this.categoryItems[j].Description,
+              item_code: this.categoryItems[j].ItemCode,
+              item_quantity: data[i].Quantity,
+              item_price: this.categoryItems[j].RetailPrice,
+              item_image: 'SamplePhoto.png'}
+              this.items.push(item);
+              this.totPrice = this.totPrice + (data[i].Quantity * this.categoryItems[j].RetailPrice * 1);
+              //console.log(i);
+              }
+              else{
+                //console.log("this is else");
+              }
             }
           }
         }
         this.totPrice = (Math.round(this.totPrice * 100) / 100).toFixed(2);
+        this.$store.commit('storeCartItems', this.items);
       },
       getCartItems() {
         this.items = [];
-        console.log(this.customerInfos.Email);
-        axios.post('http://127.0.0.1:8000/api/headercart/store', {
-          register: this.customerInfos.Email
-        })
-        .then(res => this.showCartItems(res.data))
-        //.then(res => console.log(res.data))
+        //console.log("This is customerInfos Email: " + this.customerInfos.Email);
+        axios.get('http://127.0.0.1:8000/api/headercart')
+        .then(res => {
+          this.showCartItems(res.data)
+          console.log(res.data)
+          })
         .catch(err => console.error(err));
       },
       deleteItems(code){
         console.log("Delete this item");
-        console.log(code);
+        //console.log(code);
         axios.delete('http://127.0.0.1:8000/api/getcart/'+ code)
         //.then( res => console.log(res))
         .then( res => this.getCartItems())
         .catch(err => console.error(err))
+      },
+      addQuantity(){
+        console.log("Quantity add");
+        console.log(this.cartItems);
+        console.log(this.cartItems[0].item_quantity);
+      },
+      decreaseQuantity(){
+        console.log("Quantity decrease");
+        console.log(this.cartItems);
       }
     },
 
@@ -276,5 +273,53 @@
       this.getCartItems();
       //this.showCartItems();
     }
-  }
+  }//export default closing bracket
+
+  //showCartItems methods with comments
+  // showCartItems(data) {
+  //   var item;
+    
+  //   // console.log("cart items");
+  //   // console.log(data);
+  //   // console.log(data[0]);
+  //   // console.log(data[1].ItemCode);
+  //   // console.log(data[0].Quantity);
+  //   // console.log(data[0].id);
+  //   // console.log(data.length);
+
+  //   // console.log("category items");
+  //   // console.log(this.categoryItems);
+  //   // console.log(this.categoryItems[0]);
+  //   // console.log(this.categoryItems[2].ItemCode);
+  //   // console.log(this.categoryItems.length)
+  //   for(var i = 0; i < data.length; i++){
+  //     for(var j = 0; j < this.categoryItems.length; j++){
+  //       if(data[i].ItemCode == this.categoryItems[j].ItemCode){
+  //       // alert("This is item Name " + this.categoryItems[j].Name + " " + this.categoryItems[j].Description
+  //       // + " This is item Code " + this.categoryItems[j].ItemCode + " This is item Quantity " + 
+  //       // data[i].Quantity + " This is item Retail Price " + this.categoryItems[j].RetailPrice + " This is item id " + i
+  //       // )
+  //       // console.log(i);
+  //       // console.log(this.categoryItems[j].Name,);
+  //       // console.log(this.categoryItems[j].ItemCode);
+  //       // console.log(data[i].ItemCode)
+  //       item = {id: i,
+  //       item_name: this.categoryItems[j].Name,
+  //       item_desc: this.categoryItems[j].Description,
+  //       item_code: this.categoryItems[j].ItemCode,
+  //       item_quantity: data[i].Quantity,
+  //       item_price: this.categoryItems[j].RetailPrice,
+  //       item_image: 'SamplePhoto.png'}
+  //       this.items.push(item);
+  //       this.totPrice = this.totPrice + (data[i].Quantity * this.categoryItems[j].RetailPrice * 1);
+  //       console.log(i);
+  //       }
+  //       else{
+  //         console.log("this is else");
+  //       }
+  //     }
+  //   }
+  //   this.totPrice = (Math.round(this.totPrice * 100) / 100).toFixed(2);
+  //   this.$store.commit('storeCartItems', this.items);
+  // },
 </script>

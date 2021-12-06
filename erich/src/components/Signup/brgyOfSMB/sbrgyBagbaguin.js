@@ -1,8 +1,8 @@
 const subrgyBGBGN = [
-  { id: 1, ubrgy: 'BGBGNData1'},
-  { id: 2, ubrgy: 'BGBGNData2'},
-  { id: 3, ubrgy: 'BGBGNData3'},
-  { id: 4, ubrgy: 'BGBGNData4'},
+  { id: 1, ubrgy: 'Gov Fortunato Halili Ave'},
+  { id: 2, ubrgy: 'Bunducan Street'},
+  { id: 3, ubrgy: 'Sulucan'},
+  { id: 4, ubrgy: 'Santa Maria Bypass Road'},
 ];
 
 export default subrgyBGBGN;
