@@ -43,8 +43,8 @@
                   <v-list-item-group
                   >
                     <v-list-item
-                      v-for="item in items"
-                      :key="item.id"
+                      v-for="(item, i) in items"
+                      :key="i"
                     >
                       <v-list-item-content
                         class="border ma-2 rounded-lg"
@@ -84,7 +84,7 @@
                                   depressed
                                   color="transparent"
                                   class=""
-                                  @click="addQuantity()"
+                                  @click="decreaseQuantity(item.id, i)"
                                 >
                                   <v-icon
                                     x-large
@@ -100,7 +100,7 @@
                                 <v-btn
                                   depressed
                                   color="transparent"
-                                  @click="decreaseQuantity()"
+                                  @click="addQuantity(item.id, i)"
                                 >
                                   <v-icon
                                     x-large
@@ -211,10 +211,12 @@
       },
       showCartItems(data) {
         var item;
-        console.log("cart items");
-        console.log(data.length);
-        console.log(data[0].Email);
-        console.log(this.customerInfos.Email)
+        this.totPrice = 0;
+        // console.log("cart items");
+        // console.log(data.length);
+        // console.log(data[0].Email);
+        // console.log(this.customerInfos.Email)
+        // console.log(data);
         
         for(var i = 0; i < data.length; i++){
           if(data[i].Email == this.customerInfos.Email){
@@ -226,7 +228,9 @@
               item_code: this.categoryItems[j].ItemCode,
               item_quantity: data[i].Quantity,
               item_price: this.categoryItems[j].RetailPrice,
-              item_image: 'SamplePhoto.png'}
+              item_image: 'SamplePhoto.png',
+              item_email: this.customerInfos.Email
+              }
               this.items.push(item);
               this.totPrice = this.totPrice + (data[i].Quantity * this.categoryItems[j].RetailPrice * 1);
               //console.log(i);
@@ -250,7 +254,7 @@
           })
         .catch(err => console.error(err));
       },
-      deleteItems(code){
+      deleteItems(code) {
         console.log("Delete this item");
         //console.log(code);
         axios.delete('http://127.0.0.1:8000/api/getcart/'+ code)
@@ -258,14 +262,38 @@
         .then( res => this.getCartItems())
         .catch(err => console.error(err))
       },
-      addQuantity(){
+      addQuantity(idcart, count) {
         console.log("Quantity add");
-        console.log(this.cartItems);
-        console.log(this.cartItems[0].item_quantity);
+        // console.log(this.cartItems);
+        // console.log(this.cartItems[count].id);
+        // console.log(idcart);
+        // console.log(count);
+        axios.put('http://127.0.0.1:8000/api/getcart/' + idcart, {
+          itemupdate: this.cartItems[count]
+        })
+        .then(res => {
+          //console.log(res.data)
+          this.showQuantity(res.data)
+        })
+        .catch(err => console.error(err));
       },
-      decreaseQuantity(){
+      decreaseQuantity(idcart, count) {
         console.log("Quantity decrease");
         console.log(this.cartItems);
+        axios.put('http://127.0.0.1:8000/api/headercart/' + idcart, {
+        itemupdate: this.cartItems[count]
+        })
+        .then(res => {
+          //console.log(res.data)
+          this.showQuantity(res.data)
+        })
+        .catch(err => console.error(err));
+      },
+      showQuantity(data) {
+        console.log("show quantity");
+        //console.log(data);
+        this.$store.commit('storeCartItems', data);
+        this.getCartItems();
       }
     },
 

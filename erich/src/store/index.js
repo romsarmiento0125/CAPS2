@@ -20,6 +20,7 @@ export default new Vuex.Store({
       state.categoryItems = payload
     },
     storeCartItems: (state, payload) => {
+      state.cartItems = {};
       state.cartItems = payload
     },
     storeCartQuantity: (state, payload) => {

@@ -71,7 +71,30 @@ class erichgetcartitems extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $getData = customercart::all();
+        $dataGet = $request->itemupdate["item_email"];
+        $existingItem = customercart::find($id);
+        $existingQty = customercart::where('id', $id)->pluck('Quantity');
+        foreach($existingQty as $value){
+            $qty = $value;
+        }
+        $add = $request->itemupdate["item_quantity"]+1;
+
+        if(true){
+            $existingItem->id = $id;
+            $existingItem->Email = $request->itemupdate["item_email"];
+            $existingItem->Quantity = $add;
+            $existingItem->ItemCode = $request->itemupdate["item_code"];
+            $existingItem->save();
+
+            //return $existingItem;
+            return $getData->where('Email', $dataGet)->values();
+        }
+        else{
+            return $getData->where('Email', $dataGet)->values();;
+        }
+
+        //return $request->itemupdate;
     }
 
     /**
