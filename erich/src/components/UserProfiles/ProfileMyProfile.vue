@@ -12,7 +12,9 @@
               <v-col>
                 <div>
                   <p>My Profile</p>
-                  <p>Manage and protect your account</p>
+                  <p
+                    class="display-1"
+                  >{{Username}}</p>
                 </div>
               </v-col>
             </v-row>
@@ -24,64 +26,52 @@
                 <div
                   class="d-flex"
                 >
-                  <p>Username</p>
-                  <v-text-field
-                    outlined
-                  ></v-text-field>
+                  <p
+                    class="title mr-2"
+                  >Name:</p>
+                  <p
+                    class="title"
+                  >{{Name}}</p>
                 </div>
                 <div
                   class="d-flex"
                 >
-                  <p>Name</p>
-                  <v-text-field
-                    outlined
-                  ></v-text-field>
+                  <p
+                    class="title mr-2"
+                  >Surname:</p>
+                  <p
+                    class="title"
+                  >{{Surname}}</p>
                 </div>
                 <div
                   class="d-flex"
                 >
-                  <p>Email</p>
+                  <p
+                    class="title mr-2"
+                  >Email:</p>
+                  <p
+                    class="title"
+                  >{{Email}}</p>
                 </div>
                 <div
                   class="d-flex"
                 >
-                  <p>Password</p>
+                  <p
+                    class="title mr-2"
+                  >Phone number:</p>
+                  <p
+                    class="title"
+                  >{{Mobilenumber}}</p>
                 </div>
                 <div
                   class="d-flex"
                 >
-                  <p>Phone number</p>
-                </div>
-                <div
-                  class=""
-                >
-                  <p>Date of birth</p>
-                  <v-menu
-                    ref="menu"
-                    v-model="menu"
-                    :close-on-content-click="false"
-                    transition="scale-transition"
-                    offset-y
-                    min-width="auto"
-                  >
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-text-field
-                        v-model="date"
-                        label="Birthday date"
-                        prepend-icon="mdi-calendar"
-                        readonly
-                        v-bind="attrs"
-                        v-on="on"
-                      ></v-text-field>
-                    </template>
-                    <v-date-picker
-                      v-model="date"
-                      :active-picker.sync="activePicker"
-                      :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
-                      min="1950-01-01"
-                      @change="save"
-                    ></v-date-picker>
-                  </v-menu>
+                  <p
+                    class="title mr-2"
+                  >Date of birth:</p>
+                  <p
+                    class="title"
+                  >{{Birthday}}</p>
                 </div>
                 <div>
                   <v-btn
@@ -124,22 +114,49 @@
 <script>
   export default {
     data: () => ({
-      activePicker: null,
-      date: null,
-      menu: false,
+      Username: "",
+      Name: "",
+      Surname: "",
+      Email: "",
+      Password: "",
+      Mobilenumber: "",
+      Birthday: "",
       rules: [
         value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
       ],
     }),
+
+    computed: {
+      customerInfos() {
+        return this.$store.state.customerInfos;
+      }
+    },
+
     watch: {
-      menu (val) {
+      menu(val) {
         val && setTimeout(() => (this.activePicker = 'YEAR'))
       },
     },
+
     methods: {
-      save (date) {
+      save(date) {
         this.$refs.menu.save(date)
       },
+      getCustomerInfo() {
+        console.log(this.customerInfos);
+      }
     },
+    
+    beforeMount() {
+      //this.getCustomerInfo();
+      console.log(this.customerInfos);
+      this.Username = this.customerInfos.First_Name + this.customerInfos.Last_Name;
+      this.Name = this.customerInfos.First_Name;
+      this.Surname = this.customerInfos.Last_Name;
+      this.Email = this.customerInfos.Email;
+      this.Password = this.customerInfos.Password;
+      this.Mobilenumber = this.customerInfos.Mobile_Number;
+      this.Birthday = this.customerInfos.Birthday;
+    }
   }
 </script>

@@ -101,11 +101,14 @@
         // })
         // .then(res => this.accCreateSuccess(res.data))
         // .catch(err => console.error(err));
+
         axios.post('http://127.0.0.1:8000/api/customerlogin/store',{
           clientCred: this.usersData
         })
         .then(res => this.loginSuccess(res.data))
         .catch(err => console.error(err));
+        
+        
       },
       loginSuccess(data) {
         console.log(data);

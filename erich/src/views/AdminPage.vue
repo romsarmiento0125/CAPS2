@@ -1,10 +1,11 @@
 <template>
   <div>
     <div>
-      <v-app id="inspire">
+      <v-app id="inspire" style="background: #F5F5F5;">
 
         <v-navigation-drawer
           app
+          
         >
           <v-sheet
             color="grey lighten-4"
@@ -50,10 +51,13 @@
           </v-list>
         </v-navigation-drawer>
 
-        <v-main>
+        <v-main
+          class="pa-0"
+        >
           <v-container
             class="py-8 px-6"
             fluid
+            
           >
             <v-row>
               <v-col>
@@ -63,7 +67,7 @@
                 <admin-inventory v-else-if="aInventory"></admin-inventory>
                 <admin-supplierList v-else-if="aSupplierList"></admin-supplierList>
                 <admin-management v-else-if="aManagement"></admin-management>
-                <admin-dashboard v-else></admin-dashboard>
+                <admin-dashboard v-else-if="aDashboard"></admin-dashboard>
               </v-col>
             </v-row>
           </v-container>
@@ -130,6 +134,7 @@
     },
 
     data: () => ({
+      aDashboard: true,
       aOnlineSales: false,
       aOfflineSales: false,
       aTransactions: false,
@@ -150,6 +155,7 @@
     methods: {
       adminSidebar(cond){
         if(cond == "aon") {
+          this.aDashboard = false,
           this.aOnlineSales = true,
           this.aOfflineSales = false;
           this.aTransactions = false;
@@ -158,6 +164,7 @@
           this.aManagement = false;
         }
         else if(cond == "aof") {
+          this.aDashboard = false,
           this.aOnlineSales = false,
           this.aOfflineSales = true;
           this.aTransactions = false;
@@ -166,6 +173,7 @@
           this.aManagement = false;
         }
         else if(cond == "at") {
+          this.aDashboard = false,
           this.aOnlineSales = false,
           this.aOfflineSales = false;
           this.aTransactions = true;
@@ -174,6 +182,7 @@
           this.aManagement = false;
         }
         else if(cond == "ai") {
+          this.aDashboard = false,
           this.aOnlineSales = false,
           this.aOfflineSales = false;
           this.aTransactions = false;
@@ -182,6 +191,7 @@
           this.aManagement = false;
         }
         else if(cond == "asl") {
+          this.aDashboard = false,
           this.aOnlineSales = false,
           this.aOfflineSales = false;
           this.aTransactions = false;
@@ -190,12 +200,22 @@
           this.aManagement = false;
         }
         else if(cond == "am") {
+          this.aDashboard = false,
           this.aOnlineSales = false,
           this.aOfflineSales = false;
           this.aTransactions = false;
           this.aInventory = false;
           this.aSupplierList = false;
           this.aManagement = true;
+        }
+        else if(cond == "as"){
+          this.aDashboard = true,
+          this.aOnlineSales = false,
+          this.aOfflineSales = false;
+          this.aTransactions = false;
+          this.aInventory = false;
+          this.aSupplierList = false;
+          this.aManagement =false;
         }
         else {
           this.aOnlineSales = false,

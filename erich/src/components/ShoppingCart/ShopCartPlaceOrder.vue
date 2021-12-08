@@ -68,6 +68,7 @@
                         <v-btn
                           plain
                           color="blue"
+                          :to="{name: 'Cart' , params: { id: 'items', title: 'Items'}}"
                           @click="returnToCartItems"
                           small
                         >
@@ -149,7 +150,8 @@
         this.$emit('scPlaceOrderPickup');
       },
       returnToCartItems(){
-        alert("emit something to show cart components");
+        //alert("emit something to show cart components");
+        this.$emit('scPickupDeliverFalse')
       },
       deliveryMethodCond() {
         this.deliveryCond = true;

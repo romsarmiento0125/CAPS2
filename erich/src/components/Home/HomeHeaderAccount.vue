@@ -139,11 +139,21 @@
       selectedItem: 0,
       items: [
         { title: "Account", text: 'My Account', icon: 'mdi-account', to: "account"  },
+        { title: "Address", text: 'My Address', icon: 'mdi-map-marker', to: "address"  },
         { title: "Purchase", text: 'My Purchase', icon: 'mdi-cart', to: "account"  },
       ],
       customerEmail: "",
       cartCounter: 0,
     }),
+
+    computed: {
+      customerInfos() {
+        return this.$store.state.customerInfos;
+      },
+      cartQuantity() {
+        return this.$store.state.cartQuantity;
+      }
+    },
 
     // watch: {
     //   cartItems: function(data){
@@ -154,6 +164,11 @@
     methods: {
       accountButton(cond) {
         if(cond == "account"){
+          this.$router.push({path: '/profile'});
+        }
+        else if(cond == "address"){
+          //console.log("Admin");
+          this.$store.commit('goToAddress');
           this.$router.push({path: '/profile'});
         }
         else if(cond == "admin"){
@@ -185,14 +200,7 @@
       }
     },
 
-    computed: {
-      customerInfos() {
-        return this.$store.state.customerInfos;
-      },
-      cartQuantity() {
-        return this.$store.state.cartQuantity;
-      }
-    },
+    
 
     // mounted(){
     //   setTimeout(() => {

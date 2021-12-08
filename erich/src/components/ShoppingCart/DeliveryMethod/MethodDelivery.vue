@@ -36,6 +36,7 @@
                 color="blue"
                 small
                 right
+                @click="changeAddress"
               >
                 Change Adress
               </v-btn>
@@ -61,5 +62,11 @@
   export default {
     data: () => ({
     }),
+    methods: {
+      changeAddress() {
+        this.$store.commit('goToAddress');
+        this.$router.push({path: '/profile'});
+      }
+    }
   }
 </script>

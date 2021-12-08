@@ -27,9 +27,10 @@
                 @click="profileCond('mad')"
                 plain
               >
-                My Adress
+                My Address
               </v-btn>
               <v-btn
+                @click="profileCond('mo')"
                 plain
               >
                 My Orders
@@ -65,6 +66,11 @@
       'profile-myaddress': ProfileMyAdress,
       'profile-myorders': profileMyOrders
     },
+    computed: {
+      goToAddress() {
+        return this.$store.state.userAddress;
+      },
+    },
 
     data: () => ({
       mProfile: true,
@@ -74,16 +80,36 @@
 
     methods: {
       profileCond(cond){
-        if(cond == "mad"){
+        if(cond == "mp") {
+          this.mProfile = true;
+          this.mAddress = false;
+          this.mOrders = false;
+        }
+        else if(cond == "mad"){
           this.mProfile = false;
           this.mAddress = true;
           this.mOrders = false;
+        }
+        else if(cond == "mo"){
+          this.mProfile = false;
+          this.mAddress = false;
+          this.mOrders = true;
         }
         else{
           this.mProfile = true;
           this.mAddress = false;
           this.mOrders = false;
         }
+      }
+    },
+
+    beforeMount() {
+      console.log("user profile");
+      console.log(this.goToAddress);
+      if(this.goToAddress){
+        this.mProfile = false;
+        this.mAddress = true;
+        this.mOrders = false;
       }
     }
   }

@@ -147,6 +147,7 @@
                         v-bind="attrs"
                         v-on="on"
                         class=""
+                        block
                       >
                         <h4>{{customerInfo.Municipality}}</h4>
                         <v-icon>mdi-chevron-down</v-icon>
@@ -192,6 +193,7 @@
                         v-bind="attrs"
                         v-on="on"
                         class=""
+                        block
                       >
                         <h4>{{customerInfo.Barangay}}</h4>
                         <v-icon>mdi-chevron-down</v-icon>
@@ -211,6 +213,7 @@
                             <v-btn
                               text
                               @click="barangayInput(barangay.brgyCond, barangay.brgy)"
+                              
                             >
                               {{barangay.brgy}}
                             </v-btn>
@@ -237,6 +240,7 @@
                         v-bind="attrs"
                         v-on="on"
                         class=""
+                        block
                       >
                         <h4>{{customerInfo.UnderBarangay}}</h4>
                         <v-icon>mdi-chevron-down</v-icon>
@@ -483,11 +487,13 @@
         // console.log("Under Barangay: " + this.customerInfo.UnderBarangay);
         // console.log("Home Adress: " + this.customerInfo.HomeAddress);
         // console.log("Birthday: " + this.customerInfo.Birthday);
+
         axios.post('http://127.0.0.1:8000/api/customers/store', {
           register: this.customerInfo
         })
         .then(res => this.accCreateSuccess(res.data))
         .catch(err => console.error(err));
+
       },
       accCreateSuccess(data) {
         console.log("This is customer data: " + data);
