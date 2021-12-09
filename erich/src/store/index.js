@@ -12,6 +12,7 @@ export default new Vuex.Store({
     cartQuantity: 0,
     totalPrice: 0,
     userAddress: false,
+    userOrder: false,
   },
   mutations: {
     storeCustomerInfo: (state, payload) => {
@@ -29,6 +30,13 @@ export default new Vuex.Store({
     },
     goToAddress: (state) => {
       state.userAddress = true;
+    },
+    goToOrder: (state) => {
+      state.userOrder = true;
+    },
+    toAddToOrderFalse: (state) => {
+      state.userAddress = false;
+      state.userOrder = false;
     }
   },
   actions: {

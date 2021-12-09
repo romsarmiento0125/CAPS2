@@ -132,9 +132,6 @@
         </v-col>
         <!-- Pie graph column -->
         <v-col>
-          <div id="chart">
-            <apexchart type="donut" :options="chartOptions" :series="series"></apexchart>
-          </div>
           <h1>Pie Graph</h1>
         </v-col>
       </v-row>

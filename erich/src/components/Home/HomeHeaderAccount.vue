@@ -140,7 +140,7 @@
       items: [
         { title: "Account", text: 'My Account', icon: 'mdi-account', to: "account"  },
         { title: "Address", text: 'My Address', icon: 'mdi-map-marker', to: "address"  },
-        { title: "Purchase", text: 'My Purchase', icon: 'mdi-cart', to: "account"  },
+        { title: "Purchase", text: 'My Purchase', icon: 'mdi-cart', to: "orders"  },
       ],
       customerEmail: "",
       cartCounter: 0,
@@ -169,6 +169,11 @@
         else if(cond == "address"){
           //console.log("Admin");
           this.$store.commit('goToAddress');
+          this.$router.push({path: '/profile'});
+        }
+        else if(cond == "orders"){
+          //console.log("Admin");
+          this.$store.commit('goToOrder');
           this.$router.push({path: '/profile'});
         }
         else if(cond == "admin"){

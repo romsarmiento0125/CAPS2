@@ -70,6 +70,9 @@
       goToAddress() {
         return this.$store.state.userAddress;
       },
+      goToOrder() {
+        return this.$store.state.userOrder;
+      },
     },
 
     data: () => ({
@@ -111,6 +114,12 @@
         this.mAddress = true;
         this.mOrders = false;
       }
+      if(this.goToOrder){
+        this.mProfile = false;
+        this.mAddress = false;
+        this.mOrders = true;
+      }
+      this.$store.commit('toAddToOrderFalse');
     }
   }
 </script>
