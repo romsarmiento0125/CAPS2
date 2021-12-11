@@ -86,6 +86,7 @@
                     class="mt-1"
                     :rules="emailRules"
                     required
+                    v-on:change="handleInputOnChange"
                     label="Email"
                   ></v-text-field>
                 </v-card-text>
@@ -102,6 +103,7 @@
                     :rules="mobileNumRules"
                     required
                     label="Mobile number"
+                    type="number"
                   ></v-text-field>
                 </v-card-text>
 
@@ -111,7 +113,7 @@
                 >
                   <v-text-field
                     v-model="customerInfo.Password"
-                    type="password"
+                    type="Password"
                     outlined
                     dense
                     class="mt-1"
@@ -330,13 +332,53 @@
 
 <!--  -->
 <!--  -->
+<!-- Start of Gender -->
+<!--  -->
+<!--  -->
+
+                <div>
+                  <p>Gender</p>
+                  <v-radio-group
+                    v-model="customerInfo.Gender"
+                    row
+                  >
+                    <v-radio
+                      label="Male"
+                      value="Male"
+                    ></v-radio>
+                    <v-radio
+                      label="Female"
+                      value="Female"
+                    ></v-radio>
+                    <v-radio
+                      label="Other"
+                      value="Other"
+                    ></v-radio>
+                  </v-radio-group>
+                </div>
+
+<!--  -->
+<!--  -->
+<!-- End of Gender -->
+<!--  -->
+<!--  -->
+
+<!--  -->
+<!--  -->
 <!-- Start of Register Button -->
 <!--  -->
 <!--  -->
                 
                 <!-- Terms and Confitions -->
                 <div>
-                  <p>by clicking Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ullam aperiam et impedit ratione, velit quos facilis voluptatibus. Quae, reiciendis laboriosam voluptate voluptatem expedita ullam, at, debitis consequatur voluptas dolore corrupti.</p>
+                  <p
+                    class="text-center caption"
+                  >By clicking Sign Up, you agree to our <router-link to="/">Terms</router-link>, Learn how we collect, 
+                  use and share your data in our <router-link to="/">Data Policy</router-link>
+                    and how we use cookies and similar technology in our <router-link to="/">Cookie Policy</router-link>, 
+                    you may receive Email message from us to verify 
+                    your account.
+                  </p>
                 </div>
 
                 <!-- Register Button -->
@@ -364,6 +406,23 @@
             </v-card>
           </v-col>
         </v-row>
+        <v-snackbar
+          v-model="snackbar"
+          :timeout="timeout"
+        >
+          {{ prompt }}
+
+          <template v-slot:action="{ attrs }">
+            <v-btn
+              color="blue"
+              text
+              v-bind="attrs"
+              @click="snackbar = false"
+            >
+              Close
+            </v-btn>
+          </template>
+        </v-snackbar>
       </v-container>
     </div>
   </div>
@@ -407,9 +466,14 @@
   export default {
     name: 'Signup',
 
+    components: {
+      'signup-header': SignupHeader,
+    },
+
     data: () => ({
-      menu: false,
-      confirmPass: "",
+      snackbar: false,
+      prompt: '',
+      timeout: 4000,
 
       // Date of birth drop down
       activePicker: null,
@@ -423,21 +487,9 @@
         { id: 3, mName: "Angat"},
       ],
 
+      // Default Value in condition
       barangays: smbBarangays,
       UnderBarangays: subPBHNG,
-
-      // barangays: [
-      //   { id: 1, bName: "Pulong Buhangin"}W,
-      //   { id: 2, bName: "Poblacion"},
-      //   { id: 3, bName: "Bayan"},
-      //   { id: 4, bName: "Partida"},
-      // ],
-      // underBarangays: [
-      //   { id: 1, ubName: "Tiera"},
-      //   { id: 2, ubName: "Tab-Tab"},
-      //   { id: 3, ubName: "Lawasan"},
-      //   { id: 4, ubName: "Iras"},
-      // ],
 
       // customerInfo data varaiables
       customerInfo: {
@@ -445,6 +497,7 @@
           Last_Name: "",
           Mobile_Number: "",
           Email: "",
+          Gender: "Other",
           Municipality: "Sta.Maria",
           Barangay: "Pulong Buhangin",
           UnderBarangay: "Gulod",
@@ -453,6 +506,7 @@
           Tag: "Customer",
           Password: "",
           id: "",
+          ShipFee: "Free",
         },
 
       // input validation
@@ -464,9 +518,10 @@
         v => (v.length <= 254) || 'Your surname is too long',
       ],
       emailRules: [
-        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+        v => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid',
       ],
       mobileNumRules: [
+        v => (v.length == 11) || 'Mobile number is invalid',
         v => (v.length == 11) || 'Mobile number is invalid',
       ],
       passRules: [
@@ -478,21 +533,56 @@
 
     methods: {
       register() {
-        // console.log("register button");
-        // console.log("Name: " + this.customerInfo.First_Name + " " + this.customerInfo.Last_Name);
-        // console.log("Email: " + this.customerInfo.Email);
-        // console.log("Password: " + this.customerInfo.Password);
-        // console.log("Municipality: " + this.customerInfo.Municipality);
-        // console.log("Barangay: " + this.customerInfo.Barangay);
-        // console.log("Under Barangay: " + this.customerInfo.UnderBarangay);
-        // console.log("Home Adress: " + this.customerInfo.HomeAddress);
-        // console.log("Birthday: " + this.customerInfo.Birthday);
-
-        axios.post('http://127.0.0.1:8000/api/customers/store', {
-          register: this.customerInfo
-        })
-        .then(res => this.accCreateSuccess(res.data))
-        .catch(err => console.error(err));
+        console.log("register button");
+        console.log("Name: " + this.customerInfo.First_Name + " " + this.customerInfo.Last_Name);
+        console.log("Email: " + this.customerInfo.Email);
+        console.log("Phone Number: " + this.customerInfo.Mobile_Number);
+        console.log("Password: " + this.customerInfo.Password);
+        console.log("Municipality: " + this.customerInfo.Municipality);
+        console.log("Barangay: " + this.customerInfo.Barangay);
+        console.log("Under Barangay: " + this.customerInfo.UnderBarangay);
+        console.log("Home Adress: " + this.customerInfo.HomeAddress);
+        console.log("Birthday: " + this.customerInfo.Birthday);
+        console.log("Birthday: " + this.customerInfo.Gender);
+        // axios.post('http://127.0.0.1:8000/api/customers/store', {
+        //   register: this.customerInfo
+        // })
+        // .then(res => this.accCreateSuccess(res.data))
+        // .catch(err => console.error(err));
+        if(this.customerInfo.First_Name != "" && this.customerInfo.Last_Name != "" && this.customerInfo.Email != "" && 
+        this.customerInfo.Mobile_Number != "" && this.customerInfo.Password != "" && this.customerInfo.HomeAddress != "" && 
+        this.customerInfo.Birthday != ""){
+          if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.customerInfo.Email)){
+            if(this.customerInfo.Mobile_Number.length == 11){
+              if((/[A-Z]/.test(this.customerInfo.Password)) && (/[A-Z]/.test(this.customerInfo.Password)) &&
+              (/[a-z]/.test(this.customerInfo.Password)) && (/[0-9]/.test(this.customerInfo.Password)) &&
+              (/[#?!@$%^&*-]/.test(this.customerInfo.Password) && (this.customerInfo.Password.length >= 8))
+              ){
+                axios.post('http://127.0.0.1:8000/api/customers/store', {
+                  register: this.customerInfo
+                })
+                .then(res => this.accCreateSuccess(res.data))
+                .catch(err => console.error(err));
+              }
+              else{
+                this.snackbar = true;
+                this.prompt = "yung pass"; 
+              }
+            }
+            else{
+              this.snackbar = true;
+              this.prompt = "Number po"; 
+            }
+          }
+          else{
+            this.snackbar = true;
+            this.prompt = "Yung email";
+          }
+        }
+        else{
+          this.snackbar = true;
+          this.prompt = "Paki kumpleto mga input field";
+        }
 
       },
       accCreateSuccess(data) {
@@ -686,6 +776,9 @@
       save (date) {
         this.$refs.menu.save(date)
       },
+      handleInputOnChange() {
+        this.customerInfo.Email = this.customerInfo.Email.toLowerCase()
+      }
     },
 
     watch: {
@@ -694,8 +787,30 @@
       },
     },
     
-    components: {
-      'signup-header': SignupHeader,
-    },
+    
   }
+
+      // barangays: [
+      //   { id: 1, bName: "Pulong Buhangin"}W,
+      //   { id: 2, bName: "Poblacion"},
+      //   { id: 3, bName: "Bayan"},
+      //   { id: 4, bName: "Partida"},
+      // ],
+      // underBarangays: [
+      //   { id: 1, ubName: "Tiera"},
+      //   { id: 2, ubName: "Tab-Tab"},
+      //   { id: 3, ubName: "Lawasan"},
+      //   { id: 4, ubName: "Iras"},
+      // ],
+
+      // console.log("register button");
+      // console.log("Name: " + this.customerInfo.First_Name + " " + this.customerInfo.Last_Name);
+      // console.log("Email: " + this.customerInfo.Email);
+      // console.log("Password: " + this.customerInfo.Password);
+      // console.log("Municipality: " + this.customerInfo.Municipality);
+      // console.log("Barangay: " + this.customerInfo.Barangay);
+      // console.log("Under Barangay: " + this.customerInfo.UnderBarangay);
+      // console.log("Home Adress: " + this.customerInfo.HomeAddress);
+      // console.log("Birthday: " + this.customerInfo.Birthday);
 </script>
+

@@ -73,6 +73,16 @@
                     class="title"
                   >{{Birthday}}</p>
                 </div>
+                <div
+                  class="d-flex"
+                >
+                  <p
+                    class="title mr-2"
+                  >Gender:</p>
+                  <p
+                    class="title"
+                  >{{Gender}}</p>
+                </div>
                 <div>
                   <v-btn
                     color="blue"
@@ -121,6 +131,7 @@
       Password: "",
       Mobilenumber: "",
       Birthday: "",
+      Gender: "",
       rules: [
         value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
       ],
@@ -157,6 +168,7 @@
       this.Password = this.customerInfos.Password;
       this.Mobilenumber = this.customerInfos.Mobile_Number;
       this.Birthday = this.customerInfos.Birthday;
+      this.Gender = this.customerInfos.Gender;
     }
   }
 </script>

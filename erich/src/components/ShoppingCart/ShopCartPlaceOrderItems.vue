@@ -45,7 +45,7 @@
                             <div
                               class="ma-5 pa-5"
                             >
-                              <span>{{(item.item_price * item.item_quantity)}}</span>
+                              <span>{{priceRound(item.item_price * item.item_quantity)}}</span>
                               <br>
                               <span>{{item.item_quantity}}</span>
                             </div>
@@ -170,6 +170,10 @@
             this.items.push(item);
             this.subTotPrice = this.subTotPrice + (this.cartItems[i].item_quantity * this.cartItems[i].item_price * 1);
         }
+      },
+      priceRound(price){
+        var rounded = (Math.round(price * 100) / 100).toFixed(2);
+        return rounded;
       }
     },
 

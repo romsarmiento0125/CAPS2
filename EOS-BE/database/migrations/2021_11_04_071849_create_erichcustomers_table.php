@@ -19,6 +19,7 @@ class CreateErichcustomersTable extends Migration
             $table->string('Last_Name');
             $table->bigInteger('Mobile_Number');
             $table->string('Email')->unique();
+            $table->string('Gender');
             $table->string('Municipality');
             $table->string('Barangay');
             $table->string('UnderBarangay');
@@ -26,6 +27,7 @@ class CreateErichcustomersTable extends Migration
             $table->string('Birthday');
             $table->string('Tag');
             $table->string('Password');
+            $table->string('ShipFee');
             $table->timestamps();
         });
     }

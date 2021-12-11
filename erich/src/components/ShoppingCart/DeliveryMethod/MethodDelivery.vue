@@ -12,21 +12,36 @@
           > 
             <p
               class="title ma-0 pa-0"
-            >Contact Information</p>
+            >
+              Contact Information
+            </p>
             <p
               class="ma-0 pa-0"
-            >Reyster Del Rosario</p>
+            >
+              {{Name}}&nbsp;{{Surname}}
+            </p>
             <p
               class="ma-0 pa-0"
-            >09098675786</p>
+            >
+              0{{Mobilenumber}}
+            </p>
           </div>
           <div
             class="pl-5 pt-5"
           >
             <p
               class="title ma-0 pa-0 "
-            >Delivery Address</p>
-            <p>adresskasdfjghsdkfjgsdkfjgsdfkjgsd sdf;gshdfg sd;fjgn ;jsadfg</p>
+            >
+              Delivery Address
+            </p>
+            <div
+              class="d-flex"
+            >
+              <p>{{Municipality}}&nbsp;</p>
+              <p>{{Barangay}}&nbsp;</p>
+              <p>{{UBarangay}}&nbsp;</p>
+              <p>{{HomeAddress}}&nbsp;</p>
+            </div>
             <div
               class="d-flex justify-end"
             >
@@ -49,7 +64,7 @@
               class="title ma-0 pa-0 "
             >Delivery Method</p>
             <div class="pa-5">
-              <p>Free</p>
+              <p>{{Shipping}}</p>
             </div>
           </div>
         </v-col>
@@ -61,12 +76,40 @@
 <script>
   export default {
     data: () => ({
+      Name: "",
+      Surname: "",
+      Mobilenumber: "",
+      Municipality: "",
+      Barangay: "",
+      UBarangay: "",
+      HomeAddress: "",
+      Shipping: "",
     }),
+
+    computed: {
+      customerInfos() {
+        return this.$store.state.customerInfos;
+      },
+    },
+
     methods: {
       changeAddress() {
         this.$store.commit('goToAddress');
         this.$router.push({path: '/profile'});
       }
+    },
+
+    beforeMount() {
+      //this.getCustomerInfo();
+      console.log(this.customerInfos);
+      this.Name = this.customerInfos.First_Name;
+      this.Surname = this.customerInfos.Last_Name;
+      this.Mobilenumber = this.customerInfos.Mobile_Number;
+      this.Municipality = this.customerInfos.Municipality;
+      this.Barangay = this.customerInfos.Barangay;
+      this.UBarangay = this.customerInfos.UnderBarangay;
+      this.HomeAddress = this.customerInfos.HomeAddress;
+      this.Shipping = this.customerInfos.ShipFee;
     }
   }
 </script>

@@ -117,7 +117,7 @@
                                   mdi-currency-php
                                 </v-icon>
                                 <p>
-                                  {{item.item_price * item.item_quantity}}
+                                  {{priceRound(item.item_price * item.item_quantity)}}
                                 </p>
                               </div>
 
@@ -294,6 +294,10 @@
         //console.log(data);
         this.$store.commit('storeCartItems', data);
         this.getCartItems();
+      },
+      priceRound(price){
+        var rounded = (Math.round(price * 100) / 100).toFixed(2);
+        return rounded;
       }
     },
 

@@ -32,8 +32,15 @@
                   class="d-flex"
                 >
                   <div>
-                    <p>Reyster Delrosario</p>
-                    <p>alisdufhalsdufhasufhasdufhasufhalsiudfhalsiudfhalsidufh</p>
+                    <p>{{Name}}&nbsp;{{Surname}}</p>
+                    <div
+                      class="d-flex"
+                    >
+                      <p>{{Municipality}}&nbsp;</p>
+                      <p>{{Barangay}}&nbsp;</p>
+                      <p>{{UBarangay}}&nbsp;</p>
+                      <p>{{HomeAddress}}</p>
+                    </div>
                   </div>
                   <v-spacer></v-spacer>
                   <div>
@@ -54,3 +61,35 @@
     </v-container>
   </div>
 </template>
+
+<script>
+  export default {
+    data: () => ({
+      Name: "",
+      Surname: "",
+      Email: "",
+      Municipality: "",
+      Barangay: "",
+      UBarangay: "",
+      HomeAddress: "",
+    }),
+
+      computed: {
+      customerInfos() {
+        return this.$store.state.customerInfos;
+      }
+    },
+
+    beforeMount() {
+      //this.getCustomerInfo();
+      console.log(this.customerInfos);
+      this.Name = this.customerInfos.First_Name;
+      this.Surname = this.customerInfos.Last_Name;
+      this.Email = this.customerInfos.Email;
+      this.Municipality = this.customerInfos.Municipality;
+      this.Barangay = this.customerInfos.Barangay;
+      this.UBarangay = this.customerInfos.UnderBarangay;
+      this.HomeAddress = this.customerInfos.HomeAddress;
+    }
+  }
+</script>

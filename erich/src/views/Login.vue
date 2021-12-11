@@ -85,7 +85,7 @@
     data: () => ({
       usersData: {
         usersEmail: "paul@gmail.com",
-        usersPassword: "admin123"
+        usersPassword: "@Admin123"
       }
     }),
 

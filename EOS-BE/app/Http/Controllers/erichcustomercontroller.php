@@ -47,6 +47,7 @@ class erichcustomercontroller extends Controller
         $register->Last_Name = $request->register['Last_Name'];
         $register->Mobile_Number = $request->register['Mobile_Number'];
         $register->Email = $request->register['Email'];
+        $register->Gender = $request->register['Gender'];
         $register->Municipality = $request->register['Municipality'];
         $register->Barangay = $request->register['Barangay'];
         $register->UnderBarangay = $request->register['UnderBarangay'];
@@ -54,6 +55,7 @@ class erichcustomercontroller extends Controller
         $register->Birthday = $request->register['Birthday'];
         $register->Tag = $request->register['Tag'];
         $register->Password = $request->register['Password'];
+        $register->ShipFee = $request->register['ShipFee'];
 
         foreach($func as $value){
             //$rvalue = $rvalue.$value;
