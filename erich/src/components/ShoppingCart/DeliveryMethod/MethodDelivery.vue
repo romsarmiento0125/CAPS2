@@ -90,6 +90,9 @@
       customerInfos() {
         return this.$store.state.customerInfos;
       },
+      customerAddress() {
+        return this.$store.state.customerAddress;
+      }
     },
 
     methods: {
@@ -105,10 +108,10 @@
       this.Name = this.customerInfos.First_Name;
       this.Surname = this.customerInfos.Last_Name;
       this.Mobilenumber = this.customerInfos.Mobile_Number;
-      this.Municipality = this.customerInfos.Municipality;
-      this.Barangay = this.customerInfos.Barangay;
-      this.UBarangay = this.customerInfos.UnderBarangay;
-      this.HomeAddress = this.customerInfos.HomeAddress;
+      this.Municipality = this.customerAddress.Municipality;
+      this.Barangay = this.customerAddress.Barangay;
+      this.UBarangay = this.customerAddress.UnderBarangay;
+      this.HomeAddress = this.customerAddress.HomeAddress;
       this.Shipping = this.customerInfos.ShipFee;
     }
   }

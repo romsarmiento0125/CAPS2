@@ -8,6 +8,8 @@ use App\Http\Controllers\erichcategoryitemscontroller;
 use App\Http\Controllers\customercartcontroller;
 use App\Http\Controllers\erichgetcartitems;
 use App\Http\Controllers\erichheadercartcontroller;
+use App\Http\Controllers\customeraddresscontroller;
+use App\Http\Controllers\loginaddresscontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,4 +66,18 @@ Route::prefix('/getcart')->group( function () {
     Route::post('/store', [erichgetcartitems::class, 'store']);
     Route::put('/{id}', [erichgetcartitems::class, 'update']);
     Route::delete('/{id}', [erichgetcartitems::class, 'destroy']);
+});
+
+Route::get('/customeraddress', [customeraddresscontroller::class, 'index']);
+Route::prefix('/customeraddress')->group( function () {
+    Route::post('/store', [customeraddresscontroller::class, 'store']);
+    Route::put('/{id}', [customeraddresscontroller::class, 'update']);
+    Route::delete('/{id}', [customeraddresscontroller::class, 'destroy']);
+});
+
+Route::get('/loginaddress', [loginaddresscontroller::class, 'index']);
+Route::prefix('/loginaddress')->group( function () {
+    Route::post('/store', [loginaddresscontroller::class, 'store']);
+    Route::put('/{id}', [loginaddresscontroller::class, 'update']);
+    Route::delete('/{id}', [loginaddresscontroller::class, 'destroy']);
 });

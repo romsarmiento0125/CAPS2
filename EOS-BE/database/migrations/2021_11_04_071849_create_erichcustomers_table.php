@@ -20,10 +20,6 @@ class CreateErichcustomersTable extends Migration
             $table->bigInteger('Mobile_Number');
             $table->string('Email')->unique();
             $table->string('Gender');
-            $table->string('Municipality');
-            $table->string('Barangay');
-            $table->string('UnderBarangay');
-            $table->string('HomeAddress');
             $table->string('Birthday');
             $table->string('Tag');
             $table->string('Password');

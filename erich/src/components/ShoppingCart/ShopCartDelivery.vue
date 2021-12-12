@@ -80,11 +80,44 @@
       'checkout-items': CheckOutItems,
     },
 
+    data: () => ({
+      Name: "",
+      Surname: "",
+      Mobilenumber: "",
+      Municipality: "",
+      Barangay: "",
+      UBarangay: "",
+      HomeAddress: "",
+      Shipping: "",
+    }),
+
+    computed: {
+      customerInfos() {
+        return this.$store.state.customerInfos;
+      },
+      customerAddress() {
+        return this.$store.state.customerAddress;
+      }
+    },
+
     methods: {
       checkOut() {
         alert('delivery checout');
         this.$router.push({path: '/'});
       }
+    },
+
+    beforeMount() {
+      //this.getCustomerInfo();
+      console.log(this.customerInfos);
+      this.Name = this.customerInfos.First_Name;
+      this.Surname = this.customerInfos.Last_Name;
+      this.Mobilenumber = this.customerInfos.Mobile_Number;
+      this.Municipality = this.customerAddress.Municipality;
+      this.Barangay = this.customerAddress.Barangay;
+      this.UBarangay = this.customerAddress.UnderBarangay;
+      this.HomeAddress = this.customerAddress.HomeAddress;
+      this.Shipping = this.customerInfos.ShipFee;
     }
   }
 </script>

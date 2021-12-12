@@ -108,18 +108,27 @@
         .then(res => this.loginSuccess(res.data))
         .catch(err => console.error(err));
         
-        
       },
-      loginSuccess(data) {
-        console.log(data);
-        if(data == "InvalidCredentials"){
+      loginSuccess(cinfo) {
+        console.log(cinfo);
+        if(cinfo == "InvalidCredentials"){
           alert("Invalid Credentials");
         }
         else{
-          this.$store.commit('storeCustomerInfo', data);
-          this.$router.push('/');
+          axios.post('http://127.0.0.1:8000/api/loginaddress/store',{
+            clientCred: this.usersData
+          })
+          .then(res => this.saveInfos(res.data, cinfo))
+          //.then(res => console.log(res.data))
+          .catch(err => console.error(err));
         }
       },
+      saveInfos(data, cinfo) {
+        console.log(data);
+        this.$store.commit('storeCustomerAddress', data);
+        this.$store.commit('storeCustomerInfo', cinfo);
+        this.$router.push('/');
+      }
     }
   }
 </script>

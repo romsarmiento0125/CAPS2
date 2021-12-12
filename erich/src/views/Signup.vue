@@ -493,21 +493,22 @@
 
       // customerInfo data varaiables
       customerInfo: {
-          First_Name: "",
-          Last_Name: "",
-          Mobile_Number: "",
-          Email: "",
-          Gender: "Other",
-          Municipality: "Sta.Maria",
-          Barangay: "Pulong Buhangin",
-          UnderBarangay: "Gulod",
-          HomeAddress: "",
-          Birthday: "",
-          Tag: "Customer",
-          Password: "",
-          id: "",
-          ShipFee: "Free",
-        },
+        First_Name: "",
+        Last_Name: "",
+        Mobile_Number: "",
+        Email: "",
+        Gender: "Other",
+        Municipality: "Sta.Maria",
+        Barangay: "Pulong Buhangin",
+        UnderBarangay: "Gulod",
+        HomeAddress: "",
+        Birthday: "",
+        Tag: "Customer",
+        Password: "",
+        id: "",
+        ShipFee: "Free",
+        Default: "True",
+      },
 
       // input validation
       valid: true,
@@ -585,16 +586,27 @@
         }
 
       },
+      saveAddress(cinfo){
+        axios.post('http://127.0.0.1:8000/api/customeraddress/store', {
+          register: this.customerInfo
+        })
+        .then(res => this.addressCreateSuccess(res.data, cinfo))
+        .catch(err => console.error(err));
+      },
       accCreateSuccess(data) {
         console.log("This is customer data: " + data);
         if(data == "emailInvalid"){
           alert("Your email is already taken. Try another email.")
         }
         else{
-          alert("Account Created Succesfully");
-          this.$store.commit('storeCustomerInfo', data);
-          this.$router.push('/');
+          this.saveAddress(data);
         }
+      },
+      addressCreateSuccess(data, cinfo) {
+        alert("Account Created Succesfully");
+        this.$store.commit('storeCustomerAddress', data);
+        this.$store.commit('storeCustomerInfo', cinfo);
+        this.$router.push('/');
       },
       municipalityInput(data){
         this.customerInfo.Municipality = data;

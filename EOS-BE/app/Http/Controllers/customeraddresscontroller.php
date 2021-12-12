@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\erichcustomer;
+use App\Models\customeraddress;
 
-class erichcustomercontroller extends Controller
+class customeraddresscontroller extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,7 @@ class erichcustomercontroller extends Controller
      */
     public function index()
     {
-        $email = erichcustomer::pluck('Email');
-        return $email;
+        return customeraddress::all();
     }
 
     /**
@@ -36,37 +35,17 @@ class erichcustomercontroller extends Controller
      */
     public function store(Request $request)
     {
-        $func = $this->index();
-        $email = $request->register['Email'];
+        $register = new customeraddress();
 
-        $cond = false;
-
-        $register = new erichcustomer();
-
-        $register->First_Name = $request->register['First_Name'];
-        $register->Last_Name = $request->register['Last_Name'];
-        $register->Mobile_Number = $request->register['Mobile_Number'];
         $register->Email = $request->register['Email'];
-        $register->Gender = $request->register['Gender'];
-        $register->Birthday = $request->register['Birthday'];
-        $register->Tag = $request->register['Tag'];
-        $register->Password = $request->register['Password'];
-        $register->ShipFee = $request->register['ShipFee'];
+        $register->Municipality = $request->register['Municipality'];
+        $register->Barangay = $request->register['Barangay'];
+        $register->UnderBarangay = $request->register['UnderBarangay'];
+        $register->HomeAddress = $request->register['HomeAddress'];
+        $register->Default = $request->register['Default'];
 
-        foreach($func as $value){
-            //$rvalue = $rvalue.$value;
-            if($email == $value){
-                return 'emailInvalid';
-            }
-            else{
-                $cond = true;
-            }
-        }
+        $register->save();
 
-        if($cond){
-            $register->save();
-        }
-        
         return $register;
     }
 

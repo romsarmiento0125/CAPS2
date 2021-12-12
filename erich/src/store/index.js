@@ -7,6 +7,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     customerInfos: {},
+    customerAddress: {},
     categoryItems: {},
     cartItems: {},
     cartQuantity: 0,
@@ -17,6 +18,9 @@ export default new Vuex.Store({
   mutations: {
     storeCustomerInfo: (state, payload) => {
       state.customerInfos = payload
+    },
+    storeCustomerAddress: (state, payload) => {
+      state.customerAddress = payload
     },
     storeCategoryItem: (state, payload) => {
       state.categoryItems = payload
