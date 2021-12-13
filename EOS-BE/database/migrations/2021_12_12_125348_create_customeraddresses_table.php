@@ -20,6 +20,7 @@ class CreateCustomeraddressesTable extends Migration
             $table->string('Barangay');
             $table->string('UnderBarangay');
             $table->string('HomeAddress');
+            $table->string('ShipFee');
             $table->string('Default');
             $table->timestamps();
         });

@@ -79,22 +79,11 @@
           >
             <p
               class="title"
-            >Receiving Method</p>
+            >Shipping</p>
             <v-spacer></v-spacer>
              <p
               class="title"
-            >pick up</p>
-          </div>
-          <div
-             class="d-flex"
-          >
-            <p
-              class="title"
-            >Cost</p>
-            <v-spacer></v-spacer>
-             <p
-              class="title"
-            >Free</p>
+            >{{shipFee}}</p>
           </div>
         </v-col>
       </v-row>
@@ -110,7 +99,7 @@
             <v-spacer></v-spacer>
             <p
               class="title"
-            >{{subTotPrice}} + ship fee</p>
+            >{{totPrice}}</p>
           </div>
         </v-col>
       </v-row>
@@ -128,6 +117,7 @@
       ],
       subTotPrice: 0,
       totPrice: 0,
+      shipFee: "",
     }),
 
     computed: {
@@ -140,10 +130,26 @@
       customerInfos() {
         return this.$store.state.customerInfos;
       },
+      customerAddress() {
+        return this.$store.state.customerAddress;
+      },
+      toPickUp() {
+        return this.$store.state.userPickUp;
+      }
+    },
+
+    watch: {
+      toPickUp() {
+        this.showCartItems();
+      }
     },
 
     methods: {
       showCartItems(){
+        this.items = [];
+        this.shipFee = "";
+        this.subTotPrice = 0;
+        this.totPrice = 0;
         var item;
 
         // console.log("show items");
@@ -170,15 +176,38 @@
             this.items.push(item);
             this.subTotPrice = this.subTotPrice + (this.cartItems[i].item_quantity * this.cartItems[i].item_price * 1);
         }
+        this.findShipFee();
       },
       priceRound(price){
         var rounded = (Math.round(price * 100) / 100).toFixed(2);
         return rounded;
+      },
+      findShipFee(){
+        if(this.toPickUp){
+          this.totPrice = this.subTotPrice;
+          this.shipFee = "Pick Up";
+        }
+        else{
+          for(var i = 0; i < this.customerAddress.length; i++){
+            if(this.customerAddress[i].Default == "True"){
+              if(this.customerAddress[i].ShipFee == "Free"){
+                this.totPrice = this.subTotPrice;
+                this.shipFee = this.customerAddress[i].ShipFee;
+              }
+              else{
+                this.shipFee = this.customerAddress[i].ShipFee;
+                this.totPrice = this.subTotPrice + (this.customerAddress[i].ShipFee * 1);
+              }
+            }
+          }
+        }
+        
       }
     },
 
     beforeMount(){
       this.showCartItems();
+      console.log(this.customerAddress);
     }
     
   }

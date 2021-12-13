@@ -155,9 +155,11 @@
       },
       deliveryMethodCond() {
         this.deliveryCond = true;
+        this.$store.commit('thisDeliver');
       },
       pickupMethodCond() {
         this.deliveryCond = false;
+        this.$store.commit('thisPickup');
       }
     }
   }

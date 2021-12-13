@@ -65,7 +65,8 @@
           offset="1"
           cols="5"
         >
-          <checkout-items></checkout-items>
+          <!-- <checkout-items></checkout-items> -->
+          <order-items></order-items>
         </v-col>
       </v-row>
     </v-container>
@@ -74,10 +75,12 @@
 
 <script>
   import CheckOutItems from './CheckoutItems.vue'
+  import ShopCartPlaceOrderItems from './ShopCartPlaceOrderItems.vue'
 
   export default {
     components: {
       'checkout-items': CheckOutItems,
+      'order-items': ShopCartPlaceOrderItems
     },
 
     data: () => ({

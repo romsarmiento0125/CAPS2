@@ -23,7 +23,6 @@ class CreateErichcustomersTable extends Migration
             $table->string('Birthday');
             $table->string('Tag');
             $table->string('Password');
-            $table->string('ShipFee');
             $table->timestamps();
         });
     }

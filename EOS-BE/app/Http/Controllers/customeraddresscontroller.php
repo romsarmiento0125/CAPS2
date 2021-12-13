@@ -42,6 +42,7 @@ class customeraddresscontroller extends Controller
         $register->Barangay = $request->register['Barangay'];
         $register->UnderBarangay = $request->register['UnderBarangay'];
         $register->HomeAddress = $request->register['HomeAddress'];
+        $register->ShipFee = $request->register['ShipFee'];
         $register->Default = $request->register['Default'];
 
         $register->save();

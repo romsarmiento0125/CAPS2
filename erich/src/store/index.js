@@ -14,6 +14,7 @@ export default new Vuex.Store({
     totalPrice: 0,
     userAddress: false,
     userOrder: false,
+    userPickUp: false,
   },
   mutations: {
     storeCustomerInfo: (state, payload) => {
@@ -41,7 +42,13 @@ export default new Vuex.Store({
     toAddToOrderFalse: (state) => {
       state.userAddress = false;
       state.userOrder = false;
-    }
+    },
+    thisPickup: (state) => {
+      state.userPickUp = true;
+    },
+    thisDeliver: (state) => {
+      state.userPickUp = false;
+    },
   },
   actions: {
   },

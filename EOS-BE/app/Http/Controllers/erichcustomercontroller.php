@@ -51,7 +51,6 @@ class erichcustomercontroller extends Controller
         $register->Birthday = $request->register['Birthday'];
         $register->Tag = $request->register['Tag'];
         $register->Password = $request->register['Password'];
-        $register->ShipFee = $request->register['ShipFee'];
 
         foreach($func as $value){
             //$rvalue = $rvalue.$value;

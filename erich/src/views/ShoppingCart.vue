@@ -26,13 +26,6 @@
   export default {
     name: 'ShoppingCart',
 
-    data: () => ({
-      scItems: true,
-      scPlaceOrder: false,
-      scDelivery: false,
-      scPickup: false,
-    }),
-
     components: {
       'shopcart-header': ShopCartHeader,
       'shopcart-footer': ShopCartFooter,
@@ -41,6 +34,13 @@
       'shopcart-deliver': ShopCartDelivery,
       'shopcart-pickup': ShopCartPickup,
     },
+
+    data: () => ({
+      scItems: true,
+      scPlaceOrder: false,
+      scDelivery: false,
+      scPickup: false,
+    }),
 
     methods: {
       scComponents(cond) {
@@ -69,6 +69,10 @@
           this.scPickup = false;
         }
       }
+    },
+
+    beforeMount(){
+      this.$store.commit('thisDeliver');
     }
   }
 </script>

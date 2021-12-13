@@ -62,7 +62,7 @@
           >
             <p
               class="title ma-0 pa-0 "
-            >Delivery Method</p>
+            >Delivery Fee</p>
             <div class="pa-5">
               <p>{{Shipping}}</p>
             </div>
@@ -99,20 +99,36 @@
       changeAddress() {
         this.$store.commit('goToAddress');
         this.$router.push({path: '/profile'});
+      },
+      insertAddress() {
+        // console.log(this.customerAddress);
+        // console.log(this.customerAddress[0].Default);
+        // console.log(this.customerAddress.length);
+        for(var i = 0; i < this.customerAddress.length; i++){
+          if(this.customerAddress[i].Default == "True"){
+            this.Municipality = this.customerAddress[i].Municipality;
+            this.Barangay = this.customerAddress[i].Barangay;
+            this.UBarangay = this.customerAddress[i].UnderBarangay;
+            this.HomeAddress = this.customerAddress[i].HomeAddress;
+            this.Shipping = this.customerAddress[i].ShipFee;
+          }
+        }
       }
     },
 
     beforeMount() {
       //this.getCustomerInfo();
       console.log(this.customerInfos);
+      console.log(this.customerAddress);
+      this.insertAddress()
       this.Name = this.customerInfos.First_Name;
       this.Surname = this.customerInfos.Last_Name;
       this.Mobilenumber = this.customerInfos.Mobile_Number;
-      this.Municipality = this.customerAddress.Municipality;
-      this.Barangay = this.customerAddress.Barangay;
-      this.UBarangay = this.customerAddress.UnderBarangay;
-      this.HomeAddress = this.customerAddress.HomeAddress;
-      this.Shipping = this.customerInfos.ShipFee;
+      // this.Municipality = this.customerAddress.Municipality;
+      // this.Barangay = this.customerAddress.Barangay;
+      // this.UBarangay = this.customerAddress.UnderBarangay;
+      // this.HomeAddress = this.customerAddress.HomeAddress;
+      
     }
   }
 </script>
