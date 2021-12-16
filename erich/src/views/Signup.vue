@@ -510,6 +510,11 @@
         Default: "True",
       },
 
+      usersData: {
+        usersEmail: "",
+        usersPassword: ""
+      },
+
       // input validation
       valid: true,
       fnameRules: [
@@ -602,9 +607,21 @@
           this.saveAddress(data);
         }
       },
-      addressCreateSuccess(data, cinfo) {
-        alert("Account Created Succesfully");
-        this.$store.commit('storeCustomerAddress', data);
+      addressCreateSuccess(creds, cinfo) {
+        //alert("Account Created Succesfully");
+        console.log("Account Created Succesfully");
+        console.log(creds);
+        if(creds != null){
+          this.usersData.usersEmail = creds.Email;
+
+          axios.post('http://127.0.0.1:8000/api/loginaddress/store',{
+            clientCred: this.usersData
+          })
+          .then(res => this.$store.commit('storeCustomerAddress', res.data))
+          //.then(res => console.log(res.data))
+          .catch(err => console.error(err));
+        }
+        // this.$store.commit('storeCustomerAddress', data);
         this.$store.commit('storeCustomerInfo', cinfo);
         this.$router.push('/');
       },

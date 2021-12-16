@@ -9,6 +9,7 @@ import ShoppingCart from '../views/ShoppingCart.vue'
 import StoreOrders from '../views/StoreOrders.vue'
 import HomeItems from '../views/HomeItems.vue'
 import Profiles from '../views/UserProfile.vue'
+import OnlineCashier from '../views/OnlineCashier.vue'
 
 Vue.use(VueRouter)
 
@@ -57,6 +58,11 @@ const routes = [
     path: '/profile',
     name: 'Profiles',
     component: Profiles
+  },
+  {
+    path: '/onlinecashier',
+    name: 'OnlineCashier',
+    component: OnlineCashier
   },
   // {
   //   path: '/about',

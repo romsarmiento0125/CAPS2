@@ -1,0 +1,37 @@
+<template>
+  <div
+    style="background-color: blue"
+  >
+    <v-container
+      fluid
+    >
+      <v-row>
+        <v-col>
+          <div>
+            <v-img
+              contain
+              src="../../assets/ERICH.svg"
+              max-height="100px"
+              max-width="100px"
+            >
+              <a href="/"></a>
+            </v-img>
+          </div>
+        </v-col>
+        <v-col>
+          <div>
+            <v-btn
+              href="/"
+            >
+              <p
+                class="title"
+              >
+                Logout
+              </p>
+            </v-btn>
+          </div>
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
+</template>

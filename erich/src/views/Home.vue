@@ -20,12 +20,6 @@
   export default {
     name: "Home",
 
-    data: () => ({
-      promodeals: true,
-      categoriesItem: false,
-      headerCond: true,
-    }),
-
     components: {
       "home-header": HomeHeader,
       "home-carousel": HomeCarousel,
@@ -34,6 +28,12 @@
       "home-footer": Footer,
       "home-header-acc": HomeHeaderAcc,
     },
+
+    data: () => ({
+      promodeals: true,
+      categoriesItem: false,
+      headerCond: true,
+    }),
 
     computed: {
       customerInfos() {
@@ -49,7 +49,7 @@
         //console.log("navbar picker");
         //console.log(this.customerInfos.Tag);
         if(this.customerInfos.Tag == "Customer" || this.customerInfos.Tag == "Admin"||
-          this.customerInfos.Tag == "Cashier"|| this.customerInfos.Tag == "Encoder"){
+          this.customerInfos.Tag == "Ocashier"|| this.customerInfos.Tag == "Pcashier"|| this.customerInfos.Tag == "Encoder"){
           this.headerCond = false;
           //console.log("headerCond false");
         }

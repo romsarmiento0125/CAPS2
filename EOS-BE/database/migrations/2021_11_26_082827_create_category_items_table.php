@@ -26,7 +26,7 @@ class CreateCategoryItemsTable extends Migration
             $table->string('ExpirationDate');
             $table->string('Image');
             $table->integer('Discount');
-            $table->decimal('Weigth', 5, 4);
+            $table->string('UnderCategory');
             $table->timestamps();
         });
     }
