@@ -142,15 +142,21 @@
       aManagement: false,
       aSupplierList: false,
       links: [
-        {id: 1, AdminName: 'Dashboard', AdminCondition: 'as', Admin: 'Admin', AdminId: 'dashboard', AdminTitle: 'Dashboard'},
-        {id: 2, AdminName: 'Online Sales', AdminCondition: 'aon', Admin: 'Admin', AdminId: 'onlinesales', AdminTitle: 'Online Sales'},
-        {id: 3, AdminName: 'Offline Sales', AdminCondition: 'aof', Admin: 'Admin', AdminId: 'offlinesales', AdminTitle: 'Offline Sales'},
-        {id: 4, AdminName: 'Transactions', AdminCondition: 'at', Admin: 'Admin', AdminId: 'transaction', AdminTitle: 'Transaction'},
-        {id: 5, AdminName: 'Inventory', AdminCondition: 'ai', Admin: 'Admin', AdminId: 'inventory', AdminTitle: 'Inventory'},
-        {id: 6, AdminName: 'Supplier List', AdminCondition: 'asl', Admin: 'Admin', AdminId: 'supplierlist', AdminTitle: 'Supplier List'},
-        {id: 7, AdminName: 'Admin Management', AdminCondition: 'am', Admin: 'Admin', AdminId: 'management', AdminTitle: 'Management'},
+        // {id: 1, AdminName: 'Dashboard', AdminCondition: 'as', Admin: 'Admin', AdminId: 'dashboard', AdminTitle: 'Dashboard'},
+        // {id: 2, AdminName: 'Online Sales', AdminCondition: 'aon', Admin: 'Admin', AdminId: 'onlinesales', AdminTitle: 'Online Sales'},
+        // {id: 3, AdminName: 'Offline Sales', AdminCondition: 'aof', Admin: 'Admin', AdminId: 'offlinesales', AdminTitle: 'Offline Sales'},
+        // {id: 4, AdminName: 'Transactions', AdminCondition: 'at', Admin: 'Admin', AdminId: 'transaction', AdminTitle: 'Transaction'},
+        // {id: 5, AdminName: 'Inventory', AdminCondition: 'ai', Admin: 'Admin', AdminId: 'inventory', AdminTitle: 'Inventory'},
+        // {id: 6, AdminName: 'Supplier List', AdminCondition: 'asl', Admin: 'Admin', AdminId: 'supplierlist', AdminTitle: 'Supplier List'},
+        // {id: 7, AdminName: 'Admin Management', AdminCondition: 'am', Admin: 'Admin', AdminId: 'management', AdminTitle: 'Management'},
       ],
     }),
+
+    computed: {
+      customerInfos() {
+        return this.$store.state.customerInfos;
+      },
+    },
 
     methods: {
       adminSidebar(cond){
@@ -225,7 +231,40 @@
           this.aSupplierList = false;
           this.aManagement =false;
         }
+      },
+      sideBarPicker(){
+        var l1 = {id: 1, AdminName: 'Dashboard', AdminCondition: 'as', Admin: 'Admin', AdminId: 'dashboard', AdminTitle: 'Dashboard'};
+        var l2 = {id: 2, AdminName: 'Online Sales', AdminCondition: 'aon', Admin: 'Admin', AdminId: 'onlinesales', AdminTitle: 'Online Sales'};
+        var l3 = {id: 3, AdminName: 'Offline Sales', AdminCondition: 'aof', Admin: 'Admin', AdminId: 'offlinesales', AdminTitle: 'Offline Sales'};
+        var l4 = {id: 4, AdminName: 'Transactions', AdminCondition: 'at', Admin: 'Admin', AdminId: 'transaction', AdminTitle: 'Transaction'};
+        var l5 = {id: 5, AdminName: 'Inventory', AdminCondition: 'ai', Admin: 'Admin', AdminId: 'inventory', AdminTitle: 'Inventory'};
+        var l6 = {id: 6, AdminName: 'Supplier List', AdminCondition: 'asl', Admin: 'Admin', AdminId: 'supplierlist', AdminTitle: 'Supplier List'};
+        var l7 = {id: 7, AdminName: 'Admin Management', AdminCondition: 'am', Admin: 'Admin', AdminId: 'management', AdminTitle: 'Management'};
+
+        if(this.customerInfos.Tag == "Admin"){
+          this.links.push(l1);
+          this.links.push(l2);
+          this.links.push(l3);
+          this.links.push(l4);
+          this.links.push(l5);
+          this.links.push(l6);
+          this.links.push(l7);
+        }
+        else if(this.customerInfos.Tag == "Encoder"){
+          this.links.push(l5);
+          this.links.push(l6);
+          this.aDashboard = false,
+          this.aOnlineSales = false,
+          this.aOfflineSales = false;
+          this.aTransactions = false;
+          this.aInventory = true;
+          this.aSupplierList = false;
+          this.aManagement = false;
+        }
       }
+    },
+    beforeMount(){
+      this.sideBarPicker();
     }
   }
 </script>

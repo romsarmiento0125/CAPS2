@@ -10,6 +10,7 @@ import StoreOrders from '../views/StoreOrders.vue'
 import HomeItems from '../views/HomeItems.vue'
 import Profiles from '../views/UserProfile.vue'
 import OnlineCashier from '../views/OnlineCashier.vue'
+import PhysicalCashier from '../views/PhysicalCashier.vue'
 
 Vue.use(VueRouter)
 
@@ -63,6 +64,11 @@ const routes = [
     path: '/onlinecashier',
     name: 'OnlineCashier',
     component: OnlineCashier
+  },
+  {
+    path: '/physicalcashier',
+    name: 'PhysicalCashier',
+    component: PhysicalCashier
   },
   // {
   //   path: '/about',

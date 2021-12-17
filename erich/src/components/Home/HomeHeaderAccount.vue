@@ -180,6 +180,10 @@
           //console.log("Admin");
           this.$router.push({path: '/admin/dashboard'});
         }
+        else if(cond == "onlinecashier"){
+          //console.log("Admin");
+          this.$router.push({path: '/onlinecashier'});
+        }
         else if(cond == "logout"){
           window.location.href = "http://localhost:8080/";
         }
@@ -215,14 +219,11 @@
 
     beforeMount(){
       var ob1 = { title: "Admin", text: 'Admin', icon: 'mdi-cog-outline', to: "admin" };
-      var ob2 = { title: "Cashier", text: 'Cashier', icon: 'mdi-cash-register', to: "admin" };
+      var ob2 = { title: "Cashier", text: 'Cashier', icon: 'mdi-cash-register', to: "onlinecashier" };
       var ob3 = { title: "Encoder", text: 'Encoder', icon: 'mdi-barcode-scan', to: "admin" };
       var ob4 = { title: "Logout", text: 'Logout', icon: 'mdi-logout', to: "logout"  };
       if(this.customerInfos.Tag == "Admin"){
         this.items.push(ob1);
-        this.items.push(ob4);
-      }
-      else if(this.customerInfos.Tag == "Cashier"){
         this.items.push(ob2);
         this.items.push(ob4);
       }

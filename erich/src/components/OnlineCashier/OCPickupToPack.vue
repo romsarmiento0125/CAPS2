@@ -1,8 +1,6 @@
 <template>
   <div>
-    <v-container
-      fluid
-    >
+    <v-container>
       <v-row>
         <v-col>
           <div>
@@ -28,9 +26,6 @@
             </v-btn>
             <v-btn>
               <p>Complete</p>
-            </v-btn>
-            <v-btn>
-              <p>Return/Replace</p>
             </v-btn>
             <v-btn>
               <p>Cancelled</p>
@@ -112,7 +107,7 @@
                   :key="n"
                 >
                   <td>{{info.IvNumber}} {{info.Name}}</td>
-                  <td><oc-orderdetails :ivNumber="info.IvNumber" :odDate="info.DueDate"></oc-orderdetails></td>
+                  <td><oc-orderdetails></oc-orderdetails></td>
                   <td>{{info.Address}}</td>
                   <td>{{info.Status}} {{info.DueDate}}</td>
                   <td>
@@ -136,14 +131,23 @@
       "oc-orderdetails": OCOrderDetails,
     },
 
-    data: () => ({
-      infos: [
-        { IvNumber: '001', Name: "Rom Paulo Sarmiento", Address: "Norzagaray Poblacion Antonia Heights Subd. Block 0 Lot 0", Status: "Prepairing",
-          DueDate: "Dec 19 2021", SubTotal: "900", ShipFee: "50", Discount: "0", Tax: "50", Total: "1000"},
-        { IvNumber: '002', Name: "Reyster Del Rosario", Address: "Sta.Maria Pulong Buhangin Gulod Lot 0 Block 0", Status: "Prepariring",
-          DueDate: "Dec 19 2021", SubTotal: "800", ShipFee: "50", Discount: "0", Tax: "50", Total: "900"},
-      ],
-    }),
+    data () {
+      return {
+        infos: [
+          { IvNumber: '001', Name: "Rom Paulo Sarmiento", Address: "Norzagaray Poblacion Antonia Heights Subd. Block 0 Lot 0", Status: "Prepairing",
+            DueDate: "Dec 19 2021", SubTotal: "900", ShipFee: "50", Discount: "0", Tax: "50", Total: "1000"},
+          { IvNumber: '002', Name: "Reyster Del Rosario", Address: "Sta.Maria Pulong Buhangin Gulod Lot 0 Block 0", Status: "Prepariring",
+            DueDate: "Dec 19 2021", SubTotal: "800", ShipFee: "50", Discount: "0", Tax: "50", Total: "900"},
+        ],
+        items: [
+          { IvNumber: '001', ItemName: "Bonakid", ItemDesc: "Ang sarap mo pia", Quantity: "5", RPrice: "50"},
+          { IvNumber: '001', ItemName: "Bonakid", ItemDesc: "Ang sarap mo pia", Quantity: "5", RPrice: "50"},
+          { IvNumber: '002', ItemName: "Bonakid", ItemDesc: "Ang sarap mo pia", Quantity: "5", RPrice: "50"},
+          { IvNumber: '002', ItemName: "Bonakid", ItemDesc: "Ang sarap mo pia", Quantity: "5", RPrice: "50"},
+          { IvNumber: '002', ItemName: "Bonakid", ItemDesc: "Ang sarap mo pia", Quantity: "5", RPrice: "50"},
+        ],
+      }
+    },
 
     computed: {
 

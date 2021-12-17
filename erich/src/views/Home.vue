@@ -52,10 +52,15 @@
       navbarPicker() {
         //console.log("navbar picker");
         //console.log(this.customerInfos.Tag);
-        if(this.customerInfos.Tag == "Customer" || this.customerInfos.Tag == "Admin"||
-          this.customerInfos.Tag == "Ocashier"|| this.customerInfos.Tag == "Pcashier"|| this.customerInfos.Tag == "Encoder"){
+        if(this.customerInfos.Tag == "Customer" || this.customerInfos.Tag == "Admin" || this.customerInfos.Tag == "Encoder"){
           this.headerCond = false;
           //console.log("headerCond false");
+        }
+        else if(this.customerInfos.Tag == "Ocashier"){
+          this.$router.push("/onlinecashier")
+        }
+        else if(this.customerInfos.Tag == "Pcashier"){
+          this.$router.push("/physicalcashier")
         }
       },
       getCategoryItems() {
