@@ -34,7 +34,7 @@
                 </v-card-text>
 
                 <v-img
-                  :src="require('../../assets/'+item.Image)"
+                  :src="require('../../assets/itemPhotos/'+item.Image)"
                   contain
                   max-height="200px"
                 ></v-img>

@@ -36,10 +36,10 @@ class erichcustomercontroller extends Controller
      */
     public function store(Request $request)
     {
-        $func = $this->index();
+        $func = erichcustomer::pluck('Email');
         $email = $request->register['Email'];
 
-        $cond = false;
+        $cond = true;
 
         $register = new erichcustomer();
 
@@ -55,18 +55,20 @@ class erichcustomercontroller extends Controller
         foreach($func as $value){
             //$rvalue = $rvalue.$value;
             if($email == $value){
-                return 'emailInvalid';
-            }
-            else{
-                $cond = true;
+                $cond = false;
             }
         }
 
         if($cond){
             $register->save();
+            return $register;
         }
+        else{
+            return "Email Invalid";
+        }
+
         
-        return $register;
+        return "hinde";
     }
 
     /**

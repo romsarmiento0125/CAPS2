@@ -4,6 +4,7 @@
     <home-header-acc v-else></home-header-acc>
     <home-carousel></home-carousel>
     <home-categories></home-categories>
+    <!-- <categories-item></categories-item> -->
     <home-promodeals></home-promodeals>
     <home-footer></home-footer>
   </div>
@@ -17,6 +18,8 @@
   import Footer from "../components/Footer.vue";
   import HomeHeaderAcc from "../components/Home/HomeHeaderAccount.vue";
 
+  import CategoriesItem from '../components/HomeItems/CategoriesItem.vue'
+
   export default {
     name: "Home",
 
@@ -27,6 +30,7 @@
       "home-promodeals": HomePromoDeals,
       "home-footer": Footer,
       "home-header-acc": HomeHeaderAcc,
+      'categories-item': CategoriesItem,
     },
 
     data: () => ({

@@ -493,18 +493,18 @@
 
       // customerInfo data varaiables
       customerInfo: {
-        First_Name: "",
-        Last_Name: "",
-        Mobile_Number: "",
-        Email: "",
+        First_Name: "Rom Paulo",
+        Last_Name: "Sarmiento",
+        Mobile_Number: "09755254700",
+        Email: "rom@gmail.com",
         Gender: "Other",
         Municipality: "Sta.Maria",
         Barangay: "Pulong Buhangin",
         UnderBarangay: "Gulod",
-        HomeAddress: "",
-        Birthday: "",
+        HomeAddress: "Block 4 Lot 0",
+        Birthday: "2000-01-25",
         Tag: "Customer",
-        Password: "",
+        Password: "@Admin123",
         id: "",
         ShipFee: "Free",
         Default: "True",
@@ -540,16 +540,16 @@
     methods: {
       register() {
         console.log("register button");
-        console.log("Name: " + this.customerInfo.First_Name + " " + this.customerInfo.Last_Name);
-        console.log("Email: " + this.customerInfo.Email);
-        console.log("Phone Number: " + this.customerInfo.Mobile_Number);
-        console.log("Password: " + this.customerInfo.Password);
-        console.log("Municipality: " + this.customerInfo.Municipality);
-        console.log("Barangay: " + this.customerInfo.Barangay);
-        console.log("Under Barangay: " + this.customerInfo.UnderBarangay);
-        console.log("Home Adress: " + this.customerInfo.HomeAddress);
-        console.log("Birthday: " + this.customerInfo.Birthday);
-        console.log("Birthday: " + this.customerInfo.Gender);
+        // console.log("Name: " + this.customerInfo.First_Name + " " + this.customerInfo.Last_Name);
+        // console.log("Email: " + this.customerInfo.Email);
+        // console.log("Phone Number: " + this.customerInfo.Mobile_Number);
+        // console.log("Password: " + this.customerInfo.Password);
+        // console.log("Municipality: " + this.customerInfo.Municipality);
+        // console.log("Barangay: " + this.customerInfo.Barangay);
+        // console.log("Under Barangay: " + this.customerInfo.UnderBarangay);
+        // console.log("Home Adress: " + this.customerInfo.HomeAddress);
+        // console.log("Birthday: " + this.customerInfo.Birthday);
+        // console.log("Birthday: " + this.customerInfo.Gender);
         // axios.post('http://127.0.0.1:8000/api/customers/store', {
         //   register: this.customerInfo
         // })
@@ -568,6 +568,7 @@
                   register: this.customerInfo
                 })
                 .then(res => this.accCreateSuccess(res.data))
+                //.then(res => console.log(res.data))
                 .catch(err => console.error(err));
               }
               else{
