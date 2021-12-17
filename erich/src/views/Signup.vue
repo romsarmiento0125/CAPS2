@@ -460,8 +460,7 @@
   import nubPRTDA from '../components/Signup/brgyOfNGaray/nbrgyPartida'
   import nubPBLCN from '../components/Signup/brgyOfNGaray/nbrgyPoblacion.js'
   import nubTGBE from '../components/Signup/brgyOfNGaray/nbrgyTigbe'
-  import aubPBLCN from '../components/Signup/brgyOfAngat/abrgyPoblacion.js'
-  import aubSTCRZ from '../components/Signup/brgyOfAngat/abrgyStaCruz'
+  import aubPY from '../components/Signup/brgyOfAngat/abrgyPulogYantok.js'
 
   export default {
     name: 'Signup',
@@ -642,9 +641,9 @@
         }
         else if(data == 'Angat'){
           this.barangays = abBarangays;
-          this.UnderBarangays = aubPBLCN;
-          this.customerInfo.Barangay = 'Poblacion';
-          this.customerInfo.UnderBarangay = "A.Cruz Street"
+          this.UnderBarangays = aubPY;
+          this.customerInfo.Barangay = 'Pulong Yantok';
+          this.customerInfo.UnderBarangay = "Pinaglagarian"
         }
       },
       barangayInput(data, bName){
@@ -787,14 +786,9 @@
           this.customerInfo.UnderBarangay = "Barrio Road"
         }
         else if(data == "abPoblacion"){
-          this.UnderBarangays = aubPBLCN;
-          this.customerInfo.Barangay = 'Poblacion';
-          this.customerInfo.UnderBarangay = "A.Cruz Street"
-        }
-        else if(data == "abSantaCruz"){
-          this.UnderBarangays = aubSTCRZ;
-          this.customerInfo.Barangay = 'Santa Cruz';
-          this.customerInfo.UnderBarangay = "Illescas Street"
+          this.UnderBarangays = aubPY;
+          this.customerInfo.Barangay = 'Pulong Yantok';
+          this.customerInfo.UnderBarangay = "Pinaglagarian"
         }
         else{
           alert("Something wrong");

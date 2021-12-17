@@ -64,7 +64,7 @@ class erichcustomercontroller extends Controller
             return $register;
         }
         else{
-            return "Email Invalid";
+            return "emailInvalid";
         }
 
         
