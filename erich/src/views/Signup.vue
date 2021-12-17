@@ -660,11 +660,11 @@
           this.customerInfo.Barangay = 'Balasing';
           this.customerInfo.UnderBarangay = "834-830 Balasing SanJose Road"
         }
-        else if(data == "smbBuenavista"){
-          this.UnderBarangays = subBNAVST;
-          this.customerInfo.Barangay = 'Buenavista';
-          this.customerInfo.UnderBarangay = "Altamonte"
-        }
+        // else if(data == "smbBuenavista"){
+        //   this.UnderBarangays = subBNAVST;
+        //   this.customerInfo.Barangay = 'Buenavista';
+        //   this.customerInfo.UnderBarangay = "Altamonte"
+        // }
         else if(data == "smbBulac"){
           this.UnderBarangays = subBLC;
           this.customerInfo.Barangay = 'Bulac';
@@ -705,11 +705,11 @@
           this.customerInfo.Barangay = 'Mag Asawang Sapa';
           this.customerInfo.UnderBarangay = "BangkaBangkaRoad"
         }
-        else if(data == "smbMahabangParang"){
-          this.UnderBarangays = subMHBNGPRNG;
-          this.customerInfo.Barangay = 'Mahabang Parang';
-          this.customerInfo.UnderBarangay = "MahabangParangRoad"
-        }
+        // else if(data == "smbMahabangParang"){
+        //   this.UnderBarangays = subMHBNGPRNG;
+        //   this.customerInfo.Barangay = 'Mahabang Parang';
+        //   this.customerInfo.UnderBarangay = "MahabangParangRoad"
+        // }
         else if(data == "smbManggahan"){
           this.UnderBarangays = subMNGHN;
           this.customerInfo.Barangay = 'Manggahan';
@@ -730,11 +730,11 @@
           this.customerInfo.Barangay = 'Pulong Buhangin';
           this.customerInfo.UnderBarangay = "A.DelRosarioStreet"
         }
-        else if(data == "smbSanGabriel"){
-          this.UnderBarangays = subSNGBRL;
-          this.customerInfo.Barangay = 'San Gabriel';
-          this.customerInfo.UnderBarangay = "A.AguinaldoStreet"
-        }
+        // else if(data == "smbSanGabriel"){
+        //   this.UnderBarangays = subSNGBRL;
+        //   this.customerInfo.Barangay = 'San Gabriel';
+        //   this.customerInfo.UnderBarangay = "A.AguinaldoStreet"
+        // }
         else if(data == "smbSanJosePatag"){
           this.UnderBarangays = subSNJSEPTG;
           this.customerInfo.Barangay = 'San Jose Patag';
@@ -745,31 +745,31 @@
           this.customerInfo.Barangay = 'Santa Clara';
           this.customerInfo.UnderBarangay = "AlMasiga"
         }
-        else if(data == "smbSanVicente"){
-          this.UnderBarangays = subSNVCNTE;
-          this.customerInfo.Barangay = 'San Vicente';
-          this.customerInfo.UnderBarangay = "AlgeraHeights"
-        }
+        // else if(data == "smbSanVicente"){
+        //   this.UnderBarangays = subSNVCNTE;
+        //   this.customerInfo.Barangay = 'San Vicente';
+        //   this.customerInfo.UnderBarangay = "AlgeraHeights"
+        // }
         else if(data == "smbStaCruz"){
           this.UnderBarangays = subSNTCRZ;
           this.customerInfo.Barangay = 'Santa Cruz';
           this.customerInfo.UnderBarangay = "Dr.TSantiagoStreet"
         }
-        else if(data == "smbSilangan"){
-          this.UnderBarangays = subSLNGN;
-          this.customerInfo.Barangay = 'Silangan';
-          this.customerInfo.UnderBarangay = "AlMsigaStreet"
-        }
-        else if(data == "smbTabingBakod"){
-          this.UnderBarangays = subTBNGBKD;
-          this.customerInfo.Barangay = 'Tabing Bakod';
-          this.customerInfo.UnderBarangay = "A.B.nateo"
-        }
-        else if(data == "smbTumana"){
-          this.UnderBarangays = subTMNA;
-          this.customerInfo.Barangay = 'Tumana';
-          this.customerInfo.UnderBarangay = "KalabasaStreet"
-        }
+        // else if(data == "smbSilangan"){
+        //   this.UnderBarangays = subSLNGN;
+        //   this.customerInfo.Barangay = 'Silangan';
+        //   this.customerInfo.UnderBarangay = "AlMsigaStreet"
+        // }
+        // else if(data == "smbTabingBakod"){
+        //   this.UnderBarangays = subTBNGBKD;
+        //   this.customerInfo.Barangay = 'Tabing Bakod';
+        //   this.customerInfo.UnderBarangay = "A.B.nateo"
+        // }
+        // else if(data == "smbTumana"){
+        //   this.UnderBarangays = subTMNA;
+        //   this.customerInfo.Barangay = 'Tumana';
+        //   this.customerInfo.UnderBarangay = "KalabasaStreet"
+        // }
         else if(data == "nbPartida"){
           this.UnderBarangays = nubPRTDA;
           this.customerInfo.Barangay = 'Partida';
@@ -785,7 +785,7 @@
           this.customerInfo.Barangay = 'Tigbe';
           this.customerInfo.UnderBarangay = "Barrio Road"
         }
-        else if(data == "abPoblacion"){
+        else if(data == "abPulongYantok"){
           this.UnderBarangays = aubPY;
           this.customerInfo.Barangay = 'Pulong Yantok';
           this.customerInfo.UnderBarangay = "Pinaglagarian"
