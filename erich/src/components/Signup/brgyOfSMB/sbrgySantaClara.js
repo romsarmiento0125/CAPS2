@@ -1,14 +1,11 @@
 const subrgySNTCLRA = [
-  { id: 1, ubrgy: 'AlMasiga'},
+  { id: 1, ubrgy: 'Al Masiga'},
   { id: 2, ubrgy: 'Gitio'},
-  { id: 3, ubrgy: 'GlendaleResidencePhase1'},
-  { id: 4, ubrgy: 'GlendaleResidencePhase2'},
-  { id: 5, ubrgy: 'JcIgnacioStreet'},
-  { id: 6, ubrgy: 'NarraStreet'},
-  { id: 7, ubrgy: 'IpilStreet'},
-  { id: 8, ubrgy: 'RuizStreet'},
-  { id: 9, ubrgy: 'SantaMariaBypassRoad'},
-  { id: 10, ubrgy: 'SantaMariaPandiRoad'},
+  { id: 3, ubrgy: 'Glendale Residence Phase 1'},
+  { id: 4, ubrgy: 'Glendale Residence Phase 2'},
+  { id: 5, ubrgy: 'JcIgnacio Street'},
+  { id: 6, ubrgy: 'Ipil Street'},
+  { id: 7, ubrgy: 'SantaMaria Bypass Road'},
 ];
 
 export default subrgySNTCLRA;

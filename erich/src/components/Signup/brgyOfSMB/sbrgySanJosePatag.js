@@ -1,17 +1,16 @@
 const subrgySNJSEPTG = [
-  { id: 1, ubrgy: 'BurgundyHomes'},
+  { id: 1, ubrgy: 'Burgundy Homes'},
   { id: 2, ubrgy: 'Gipit'},
-  { id: 3, ubrgy: 'GulodI'},
-  { id: 4, ubrgy: 'GulodII'},
+  { id: 3, ubrgy: 'Gulod I'},
+  { id: 4, ubrgy: 'Gulod II'},
   { id: 5, ubrgy: 'Libis'},
-  { id: 6, ubrgy: 'MatangTubing'},
-  { id: 7, ubrgy: 'SanJoseMacaibanRoad'},
-  { id: 8, ubrgy: 'PetuniaFarm'},
-  { id: 9, ubrgy: 'SampaguitaAve'},
-  { id: 10, ubrgy: 'SitioLote'},
-  { id: 11, ubrgy: 'SitioPatayangManok'},
-  { id: 12, ubrgy: 'SitioPisang'},
-  { id: 13, ubrgy: 'R.MercadoStreet'},
+  { id: 6, ubrgy: 'SanJose Macaiban Road'},
+  { id: 7, ubrgy: 'Petunia Farm'},
+  { id: 8, ubrgy: 'Sampaguita Ave'},
+  { id: 9, ubrgy: 'Sitio Lote'},
+  { id: 10, ubrgy: 'Sitio Patayang Manok'},
+  { id: 11, ubrgy: 'Sitio Pisang'},
+  { id: 12, ubrgy: 'R.Mercado Street'},
 ];
 
 export default subrgySNJSEPTG;

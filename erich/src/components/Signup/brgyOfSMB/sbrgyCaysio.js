@@ -1,11 +1,9 @@
 const subrgyCYSIO = [
-  { id: 1 , ubrgy: 'CaysioRoad'},
-  { id: 2, ubrgy: 'Luwasan'},
-  { id: 3, ubrgy: 'GlenwoodsStreet'},
-  { id: 4, ubrgy: 'MiradorStreet'},
-  { id: 5, ubrgy: 'NorthVille'},
-  { id: 6, ubrgy: 'SitioMaligaya'},
-  { id: 7, ubrgy: 'St.CristobalStreet'},
+  { id: 1 , ubrgy: 'Caysio Road'},
+  { id: 2, ubrgy: 'Glenwoods Street'},
+  { id: 3, ubrgy: 'North Ville'},
+  { id: 4, ubrgy: 'Sitio Maligaya'},
+  { id: 5, ubrgy: 'St.Cristobal Street'},
 ];
 
 export default subrgyCYSIO;

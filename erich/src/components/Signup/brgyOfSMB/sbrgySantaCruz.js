@@ -1,11 +1,11 @@
 const subrgySNTCRZ = [
-  { id: 1, ubrgy: 'Dr.TSantiagoStreet'},
-  { id: 2, ubrgy: 'MabuhayStreet'},
-  { id: 3, ubrgy: 'MaligayaStreet'},
-  { id: 4, ubrgy: 'MatahimikStreet'},
-  { id: 5, ubrgy: 'MatapatStreet'},
-  { id: 6, ubrgy: 'MapayapaStreet'},
-  { id: 7, ubrgy: 'Sta.CruzBukid'},
+  { id: 1, ubrgy: 'Dr.TSantiago Street'},
+  { id: 2, ubrgy: 'Mabuhay Street'},
+  { id: 3, ubrgy: 'Maligaya Street'},
+  { id: 4, ubrgy: 'Matahimik Street'},
+  { id: 5, ubrgy: 'Matapat Street'},
+  { id: 6, ubrgy: 'Mapayapa Street'},
+  { id: 7, ubrgy: 'Sta.Cruz Bukid'},
 ];
 
 export default subrgySNTCRZ;
