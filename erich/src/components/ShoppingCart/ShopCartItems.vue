@@ -61,7 +61,7 @@
                                 height="120px"
                                 width="120px"
                                 contain
-                                :src="require('../../assets/'+item.item_image)"
+                                :src="require('../../assets/itemPhotos/'+item.item_image)"
                               ></v-img>
                               <v-list-item-title>
                                 <span>{{item.item_name}}</span>
@@ -125,7 +125,7 @@
                                 class="act justify-center"
                                 color="primary"
                                 plain
-                                @click="deleteItems(item.item_code)"
+                                @click="deleteItems(item.id)"
                               >
                                 Delete
                               </v-btn>
@@ -217,6 +217,7 @@
         // console.log(data[0].Email);
         // console.log(this.customerInfos.Email)
         // console.log(data);
+        console.log(this.categoryItems);
         
         for(var i = 0; i < data.length; i++){
           if(data[i].Email == this.customerInfos.Email){
@@ -228,7 +229,7 @@
               item_code: this.categoryItems[j].ItemCode,
               item_quantity: data[i].Quantity,
               item_price: this.categoryItems[j].RetailPrice,
-              item_image: 'SamplePhoto.png',
+              item_image: this.categoryItems[j].Image,
               item_email: this.customerInfos.Email
               }
               this.items.push(item);
@@ -256,10 +257,14 @@
       },
       deleteItems(code) {
         console.log("Delete this item");
-        //console.log(code);
+        console.log(code);
         axios.delete('http://127.0.0.1:8000/api/getcart/'+ code)
         //.then( res => console.log(res))
-        .then( res => this.getCartItems())
+        //.then( res => this.getCartItems())
+        .then( res => {
+          this.getCartItems()
+          console.log(res.data)
+        })
         .catch(err => console.error(err))
       },
       addQuantity(idcart, count) {

@@ -23,7 +23,7 @@
             <p
               class="ma-0 pa-0"
             >
-              0{{Mobilenumber}}
+              {{Mobilenumber}}
             </p>
           </div>
           <div

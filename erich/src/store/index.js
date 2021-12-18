@@ -17,6 +17,7 @@ export default new Vuex.Store({
     userPickUp: false,
     oCashierDeliver: true,
     oCashierPickup: false,
+    customerItems: {},
   },
   mutations: {
     storeCustomerInfo: (state, payload) => {
@@ -58,6 +59,10 @@ export default new Vuex.Store({
     oCashierPickup: (state) => {
       state.oCashierDeliver = false;
       state.oCashierPickup = true;
+    },
+    storeCustomerItems: (state, payload) => {
+      state.customerItems = {};
+      state.customerItems = payload
     },
   },
   actions: {

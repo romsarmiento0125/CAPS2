@@ -29,7 +29,7 @@
                           height="120px"
                           width="120px"
                           contain
-                          :src="require('../../assets/'+item.item_image)"
+                          :src="require('../../assets/itemPhotos/'+item.item_image)"
                         ></v-img>
                         <v-list-item-title>
                           <div
@@ -201,7 +201,9 @@
             }
           }
         }
-        
+        // console.log("items");
+        // console.log(this.items);
+        this.$store.commit('storeCustomerItems', this.items);
       }
     },
 

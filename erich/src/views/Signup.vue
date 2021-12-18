@@ -261,7 +261,7 @@
                           <v-list-item-content>
                              <v-btn
                               text
-                              @click="underBarangayInput(UnderBarangay.ubrgy)"
+                              @click="underBarangayInput(UnderBarangay.ubrgy, UnderBarangay.SFee)"
                             >
                               {{UnderBarangay.ubrgy}}
                             </v-btn>
@@ -539,16 +539,17 @@
     methods: {
       register() {
         console.log("register button");
-        // console.log("Name: " + this.customerInfo.First_Name + " " + this.customerInfo.Last_Name);
-        // console.log("Email: " + this.customerInfo.Email);
-        // console.log("Phone Number: " + this.customerInfo.Mobile_Number);
-        // console.log("Password: " + this.customerInfo.Password);
-        // console.log("Municipality: " + this.customerInfo.Municipality);
-        // console.log("Barangay: " + this.customerInfo.Barangay);
-        // console.log("Under Barangay: " + this.customerInfo.UnderBarangay);
-        // console.log("Home Adress: " + this.customerInfo.HomeAddress);
-        // console.log("Birthday: " + this.customerInfo.Birthday);
-        // console.log("Birthday: " + this.customerInfo.Gender);
+        console.log("Name: " + this.customerInfo.First_Name + " " + this.customerInfo.Last_Name);
+        console.log("Email: " + this.customerInfo.Email);
+        console.log("Phone Number: " + this.customerInfo.Mobile_Number);
+        console.log("Password: " + this.customerInfo.Password);
+        console.log("Municipality: " + this.customerInfo.Municipality);
+        console.log("Barangay: " + this.customerInfo.Barangay);
+        console.log("Under Barangay: " + this.customerInfo.UnderBarangay);
+        console.log("Home Adress: " + this.customerInfo.HomeAddress);
+        console.log("Birthday: " + this.customerInfo.Birthday);
+        console.log("Gender: " + this.customerInfo.Gender);
+        console.log("Ship Fee: " + this.customerInfo.ShipFee);
         // axios.post('http://127.0.0.1:8000/api/customers/store', {
         //   register: this.customerInfo
         // })
@@ -632,18 +633,21 @@
           this.UnderBarangays = subPBHNG;
           this.customerInfo.Barangay = 'Pulong Buhangin';
           this.customerInfo.UnderBarangay = "A.DelRosarioStreet"
+          this.customerInfo.ShipFee = "Free"
         }
         else if(data == "Norzagaray"){
           this.barangays = nbBarangays;
           this.UnderBarangays = nubPBLCN;
           this.customerInfo.Barangay = 'Poblacion';
           this.customerInfo.UnderBarangay = "Antonia Heights Subd"
+          this.customerInfo.ShipFee = "120"
         }
         else if(data == 'Angat'){
           this.barangays = abBarangays;
           this.UnderBarangays = aubPY;
           this.customerInfo.Barangay = 'Pulong Yantok';
           this.customerInfo.UnderBarangay = "Pinaglagarian"
+          this.customerInfo.ShipFee = "85"
         }
       },
       barangayInput(data, bName){
@@ -654,11 +658,13 @@
           this.UnderBarangays = subBGBGN;
           this.customerInfo.Barangay = 'BagBaguin';
           this.customerInfo.UnderBarangay = "GovFortunatoHaliliAve"
+          this.customerInfo.ShipFee = "120"
         }
         else if(data == "smbBalasing"){
           this.UnderBarangays = subBLSNG;
           this.customerInfo.Barangay = 'Balasing';
           this.customerInfo.UnderBarangay = "834-830 Balasing SanJose Road"
+          this.customerInfo.ShipFee = "45"
         }
         // else if(data == "smbBuenavista"){
         //   this.UnderBarangays = subBNAVST;
@@ -669,41 +675,49 @@
           this.UnderBarangays = subBLC;
           this.customerInfo.Barangay = 'Bulac';
           this.customerInfo.UnderBarangay = "Bulac"
+          this.customerInfo.ShipFee = "65"
         }
         else if(data == "smbCamangyan"){
           this.UnderBarangays = subCMNGYN;
           this.customerInfo.Barangay = 'Camangyan';
-          this.customerInfo.UnderBarangay = "E.CruzStreet"
+          this.customerInfo.UnderBarangay = "Kalabasa Street"
+          this.customerInfo.ShipFee = "120"
         }
         else if(data == "smbCatmon"){
           this.UnderBarangays = subCTMN;
           this.customerInfo.Barangay = 'Catmon';
-          this.customerInfo.UnderBarangay = "HuloStreet"
+          this.customerInfo.UnderBarangay = "Kalsadang Munti"
+          this.customerInfo.ShipFee = "85"
         }
         else if(data == "smbCaypombo"){
           this.UnderBarangays = subCYPMB;
           this.customerInfo.Barangay = 'Caypombo';
-          this.customerInfo.UnderBarangay = "BrightHomes"
+          this.customerInfo.UnderBarangay = "Bright Homes Phase 1"
+          this.customerInfo.ShipFee = "45"
         }
         else if(data == "smbCaysio"){
           this.UnderBarangays = subCYSIO;
           this.customerInfo.Barangay = 'Caysio';
-          this.customerInfo.UnderBarangay = "CaysioRoad"
+          this.customerInfo.UnderBarangay = "Caysio Road"
+          this.customerInfo.ShipFee = "65"
         }
         else if(data == "smbGuyong"){
           this.UnderBarangays = subGYNG;
           this.customerInfo.Barangay = 'Guyong';
-          this.customerInfo.UnderBarangay = "BulodStreet"
+          this.customerInfo.UnderBarangay = "Bulod Street"
+          this.customerInfo.ShipFee = "85"
         }
         else if(data == "smblalakhan"){
           this.UnderBarangays = subLLKHN;
           this.customerInfo.Barangay = 'Lalakhan';
-          this.customerInfo.UnderBarangay = "LalakhanRoad"
+          this.customerInfo.UnderBarangay = "Narra Street"
+          this.customerInfo.ShipFee = "120"
         }
         else if(data == "smbMagAsawangSapa"){
           this.UnderBarangays = subMGASWNGSP;
           this.customerInfo.Barangay = 'Mag Asawang Sapa';
-          this.customerInfo.UnderBarangay = "BangkaBangkaRoad"
+          this.customerInfo.UnderBarangay = "Bangka Bangka Road"
+          this.customerInfo.ShipFee = "35"
         }
         // else if(data == "smbMahabangParang"){
         //   this.UnderBarangays = subMHBNGPRNG;
@@ -713,22 +727,26 @@
         else if(data == "smbManggahan"){
           this.UnderBarangays = subMNGHN;
           this.customerInfo.Barangay = 'Manggahan';
-          this.customerInfo.UnderBarangay = "New Manggahan Industrial compound"
+          this.customerInfo.UnderBarangay = "Sta Maria Pandi Road"
+          this.customerInfo.ShipFee = "85"
         }
         else if(data == "smbParada"){
           this.UnderBarangays = subPRDA;
           this.customerInfo.Barangay = 'Parada';
-          this.customerInfo.UnderBarangay = "C.DeJesusStreet"
+          this.customerInfo.UnderBarangay = "C.DeJesus Street"
+          this.customerInfo.ShipFee = "100"
         }
         else if(data == "smbPoblacion"){
           this.UnderBarangays = subPBLCN;
           this.customerInfo.Barangay = 'Poblacion';
-          this.customerInfo.UnderBarangay = "A.MorelesStreet"
+          this.customerInfo.UnderBarangay = "A.Moreles Street"
+          this.customerInfo.ShipFee = "120"
         }
         else if(data == "smbPulongBuhangin"){
           this.UnderBarangays = subPBHNG;
           this.customerInfo.Barangay = 'Pulong Buhangin';
-          this.customerInfo.UnderBarangay = "A.DelRosarioStreet"
+          this.customerInfo.UnderBarangay = "A.Del Rosario Street"
+          this.customerInfo.ShipFee = "Free"
         }
         // else if(data == "smbSanGabriel"){
         //   this.UnderBarangays = subSNGBRL;
@@ -738,12 +756,14 @@
         else if(data == "smbSanJosePatag"){
           this.UnderBarangays = subSNJSEPTG;
           this.customerInfo.Barangay = 'San Jose Patag';
-          this.customerInfo.UnderBarangay = "BurgundyHomes"
+          this.customerInfo.UnderBarangay = "Burgundy Homes"
+          this.customerInfo.ShipFee = "85"
         }
         else if(data == "smbSantaClara"){
           this.UnderBarangays = subSNTCLRA;
           this.customerInfo.Barangay = 'Santa Clara';
           this.customerInfo.UnderBarangay = "AlMasiga"
+          this.customerInfo.ShipFee = "120"
         }
         // else if(data == "smbSanVicente"){
         //   this.UnderBarangays = subSNVCNTE;
@@ -753,7 +773,8 @@
         else if(data == "smbStaCruz"){
           this.UnderBarangays = subSNTCRZ;
           this.customerInfo.Barangay = 'Santa Cruz';
-          this.customerInfo.UnderBarangay = "Dr.TSantiagoStreet"
+          this.customerInfo.UnderBarangay = "Dr.TSantiago Street"
+          this.customerInfo.ShipFee = "120"
         }
         // else if(data == "smbSilangan"){
         //   this.UnderBarangays = subSLNGN;
@@ -774,28 +795,33 @@
           this.UnderBarangays = nubPRTDA;
           this.customerInfo.Barangay = 'Partida';
           this.customerInfo.UnderBarangay = "Eden Ville Subdivision"
+          this.customerInfo.ShipFee = "120"
         }
         else if(data == "nbPoblacion"){
           this.UnderBarangays = nubPBLCN;
           this.customerInfo.Barangay = 'Poblacion';
           this.customerInfo.UnderBarangay = "Antonia Heights Subd"
+          this.customerInfo.ShipFee = "120"
         }
         else if(data == "nbTigbe"){
           this.UnderBarangays = nubTGBE;
           this.customerInfo.Barangay = 'Tigbe';
           this.customerInfo.UnderBarangay = "Barrio Road"
+          this.customerInfo.ShipFee = "100"
         }
         else if(data == "abPulongYantok"){
           this.UnderBarangays = aubPY;
           this.customerInfo.Barangay = 'Pulong Yantok';
           this.customerInfo.UnderBarangay = "Pinaglagarian"
+          this.customerInfo.ShipFee = "85"
         }
         else{
           alert("Something wrong");
         }
       },
-      underBarangayInput(data){
+      underBarangayInput(data, fee){
         this.customerInfo.UnderBarangay = data;
+        this.customerInfo.ShipFee = fee;
       },
       save (date) {
         this.$refs.menu.save(date)

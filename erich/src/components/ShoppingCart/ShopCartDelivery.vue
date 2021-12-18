@@ -17,34 +17,32 @@
             >
               <p
                 class="title"
-              >Order #A8-6580</p>
-              <p>Thank you Reyster<p>
+              >Order #{{InvoiceNumber}}</p>
+              <p>Thank you&nbsp;{{Name}}<p>
               <div>
                 <div>
                   <p>Your Order is confirmed</p>
                   <p>Please give our driver the exact amount.</p>
                 </div>
                 <div>
-                  <p>Customer Information</p>
+                  <p
+                    class="title"
+                  >Customer Information</p>
                   <div
                     class="d-flex"
                   >
                     <div>
                       <p>Contact Information</p>
-                      <p>Lorem ipsum</p>
-                    </div>
-                    <div>
-                      <p>Payment Method</p>
-                      <p>Cash on Delivery</p>
+                      <p>{{Mobilenumber}}</p>
                     </div>
                   </div>
                   <div>
                     <p>Shipping Adress</p>
-                    <p>lorem ipsum</p>
+                    <p>{{CompleteAddress}}</p>
                   </div>
                   <div>
-                    <p>Shipping Method</p>
-                    <p>Rate: P100</p>
+                    <p>Shipping Fee</p>
+                    <p>{{Shipping}}</p>
                   </div>
                 </div>
               </div>
@@ -85,13 +83,14 @@
 
     data: () => ({
       Name: "",
-      Surname: "",
       Mobilenumber: "",
       Municipality: "",
       Barangay: "",
       UBarangay: "",
       HomeAddress: "",
+      CompleteAddress: "",
       Shipping: "",
+      InvoiceNumber: "",
     }),
 
     computed: {
@@ -100,27 +99,58 @@
       },
       customerAddress() {
         return this.$store.state.customerAddress;
+      },
+      storeCustomerItems() {
+        return this.$store.state.customerItems;
       }
     },
 
     methods: {
       checkOut() {
         alert('delivery checout');
-        this.$router.push({path: '/'});
+        
+        //this.$router.push({path: '/'});
+      },
+      generateInvoiceNum(){
+        var today = new Date();
+        var day = String(today.getDate()).padStart(2, '0');
+        var month = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var year = today.getFullYear();
+        var r1 = Math.floor(Math.random() * 9) + 1;
+        var r2 = Math.floor(Math.random() * 9) + 1;
+        var r3 = Math.floor(Math.random() * 9) + 1;
+        var r4 = Math.floor(Math.random() * 9) + 1;
+        var r5 = Math.floor(Math.random() * 9) + 1;
+        this.InvoiceNumber = "1" + year + month + day + r1 + r2 + r3 + r4 + r5;
+      },
+      insertAddress() {
+        // console.log(this.customerAddress);
+        // console.log(this.customerAddress[0].Default);
+        // console.log(this.customerAddress.length);
+        for(var i = 0; i < this.customerAddress.length; i++){
+          if(this.customerAddress[i].Default == "True"){
+            this.Municipality = this.customerAddress[i].Municipality;
+            this.Barangay = this.customerAddress[i].Barangay;
+            this.UBarangay = this.customerAddress[i].UnderBarangay;
+            this.HomeAddress = this.customerAddress[i].HomeAddress;
+            this.Shipping = this.customerAddress[i].ShipFee;
+            this.CompleteAddress = this.Municipality + " " + this.Barangay + " " + this.UBarangay + " " + this.HomeAddress;
+          }
+        }
       }
     },
 
     beforeMount() {
       //this.getCustomerInfo();
+      console.log("gg");
       console.log(this.customerInfos);
-      this.Name = this.customerInfos.First_Name;
-      this.Surname = this.customerInfos.Last_Name;
+      console.log(this.customerAddress);
+      console.log(this.storeCustomerItems);
+      this.Name = this.customerInfos.First_Name + " " + this.customerInfos.Last_Name;
       this.Mobilenumber = this.customerInfos.Mobile_Number;
       this.Municipality = this.customerAddress.Municipality;
-      this.Barangay = this.customerAddress.Barangay;
-      this.UBarangay = this.customerAddress.UnderBarangay;
-      this.HomeAddress = this.customerAddress.HomeAddress;
-      this.Shipping = this.customerInfos.ShipFee;
+      this.generateInvoiceNum();
+      this.insertAddress();
     }
   }
 </script>
