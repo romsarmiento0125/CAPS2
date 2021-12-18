@@ -419,7 +419,7 @@
                   <v-btn
                     color="blue darken-4"
                     dark
-                    class="rounded-lg"
+                    class="rounded-lg px-10"
                     @click="register()"
                     
                   >
