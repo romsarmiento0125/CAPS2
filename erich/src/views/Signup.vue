@@ -28,7 +28,8 @@
                   class="font-weight-black 
                   pt-0
                   pl-0 
-                  text-h5"
+                  text-h5
+                  "
                   
                 >
                   Create an Account
@@ -417,7 +418,7 @@
                   class="d-flex justify-center pb-0"
                 >
                   <v-btn
-                    color="blue darken-4"
+                    color="#1106A0"
                     dark
                     class="rounded-lg px-10"
                     @click="register()"
