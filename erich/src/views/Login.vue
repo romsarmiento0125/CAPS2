@@ -14,12 +14,12 @@
               class="rounded-xl pa-12"
             >
               <v-card-title
-                class="font-weight-black pt-0"
+                class="font-weight-black pt-0 pl-0 text-h5"
               >
                 Registered Customer
               </v-card-title>
               <v-card-subtitle
-                class=""
+                class="pl-0"
               >
                 If you have an account, sign in with your number or email address
               </v-card-subtitle>
@@ -56,16 +56,17 @@
               >
                 <a
                   href=""
-                  class=""
+                  class="pb-1"
                 >
                   Forgot Your Password?
                 </a>
               </v-card-text>
 
               <v-btn
-                class="rounded-lg"
+                class="rounded-lg px-10"
                 color="primary"
                 @click="userLogin"
+                
               >
                 Sign in
               </v-btn>

@@ -2,6 +2,7 @@
   <v-app>
     <v-main
       style="background-color:#EDEDF0"
+      class="description"
     >
       <router-view/>
     </v-main>
@@ -18,3 +19,15 @@ export default {
   }),
 };
 </script>
+
+<style>
+@font-face {
+  font-family: "RedHatDisplay";
+  src: local("RedHatDisplay"),
+   url(./assets/Fonts/RedHatDisplay-VariableFont_wght.ttf) format("truetype");
+}
+.description{
+     font-family: "RedHatDisplay", Helvetica, Arial;
+  }
+</style>
+
