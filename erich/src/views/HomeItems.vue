@@ -52,7 +52,7 @@
           this.headerCond = false;
           console.log("headerCond false");
         }
-      }
+      },
     },
 
     beforeMount() {

@@ -41,12 +41,12 @@
         {
           src: 'carousel1.jpg',
         },
-        {
-          src: 'carousel1.jpg',
-        },
-        {
-          src: 'carousel1.jpg',
-        },
+        // {
+        //   src: 'carousel1.jpg',
+        // },
+        // {
+        //   src: 'carousel1.jpg',
+        // },
       ],
     }) 
   }

@@ -202,7 +202,7 @@
     beforeMount() {
       this.getCategoryItems();
       //this.items = this.categoryItems();
-      alert('Categories Item');
+      alert('Home Categories Item');
       this.showItems();
     },
   }
