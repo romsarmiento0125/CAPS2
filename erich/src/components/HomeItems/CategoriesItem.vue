@@ -30,6 +30,7 @@
                 >
                   <p
                     class="ma-0"
+                    v-if="item.Discount != 0"
                   >{{item.Discount}}</p>
                 </v-card-text>
 
@@ -178,18 +179,18 @@
         this.$store.commit('storeCartItems', data);
         this.$store.commit('storeCartQuantity', this.$store.state.cartQuantity + 1);
       },
-      // getCategoryItems() {
-      //   console.log("Get Items");
-      //   axios.get('http://127.0.0.1:8000/api/categoryitem')
-      //   .then(res => this.storeCategoryItems(res.data))
-      //   .catch(err => console.error(err));
-      // },
-      // storeCategoryItems(data) {
-      //   console.log("This is items data: ");
-      //   console.log(data);
-      //   this.$store.commit('storeCategoryItem', data);
-      //   this.showItems();
-      // },
+      getCategoryItems() {
+        console.log("Get Items");
+        axios.get('http://127.0.0.1:8000/api/categoryitem')
+        .then(res => this.storeCategoryItems(res.data))
+        .catch(err => console.error(err));
+      },
+      storeCategoryItems(data) {
+        console.log("This is items data: ");
+        console.log(data);
+        this.$store.commit('storeCategoryItem', data);
+        this.showItems();
+      },
       showItems() {
         console.log("showItems: ");
         console.log(this.categoryItems);
@@ -199,8 +200,9 @@
     },
 
     beforeMount() {
-      //this.getCategoryItems();
+      this.getCategoryItems();
       //this.items = this.categoryItems();
+      alert('Categories Item');
       this.showItems();
     },
   }
