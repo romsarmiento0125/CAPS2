@@ -18,15 +18,17 @@
                 <v-img
                   contain
                   src="../../assets/ERICH.svg"
-                  max-height="100px"
-                  max-width="100px"
+                  max-height="120x"
+                  max-width="120px"
+                  class="mr-1"
                 ></v-img>
               </router-link>
               <v-divider
                 vertical
+                
               ></v-divider>
               <p
-                class="text-h4 ml-4"
+                class="text-h5 ml-3 pt-1 grey--text text--darken-1"
               >Signup</p>
             </div>
           </v-col>

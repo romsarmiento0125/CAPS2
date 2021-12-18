@@ -25,15 +25,20 @@
                 lazy-validation
               >
                 <v-card-title
-                  class="font-weight-black pt-0"
+                  class="font-weight-black 
+                  pt-0
+                  pl-0 
+                  text-h5"
+                  
                 >
                   Create an Account
                 </v-card-title>
                 <v-card-subtitle
-                  class=""
+                  class="pl-0"
                 >
                   It's quick and easy
                 </v-card-subtitle>
+              
                 
                 <v-divider></v-divider>
                 
@@ -136,7 +141,7 @@
 <!--  -->
                 <!-- Municipality -->
                 <v-card-text
-                  class="py-2 px-0"
+                  class="py-2 px-0 pt-0"
                 >
                   <v-menu
                     offset-y
@@ -150,8 +155,16 @@
                         v-on="on"
                         class=""
                         block
+                        outlined
+                        color="grey"
                       >
-                        <h4>{{customerInfo.Municipality}}</h4>
+                        <h4 
+                          class="grey--text 
+                          text--darken-3 
+                          font-weight-regular"
+                          >{{customerInfo.Municipality}}
+                        </h4>
+                          <v-spacer></v-spacer>
                         <v-icon>mdi-chevron-down</v-icon>
                       </v-btn>
                     </template>
@@ -182,7 +195,7 @@
 
                 <!-- Barangay -->
                 <v-card-text
-                  class="py-2 px-0"
+                  class="px-0 "
                 >
                   <v-menu
                     offset-y
@@ -196,8 +209,15 @@
                         v-on="on"
                         class=""
                         block
+                        outlined
+                        color="grey"
                       >
-                        <h4>{{customerInfo.Barangay}}</h4>
+                        <h4 
+                          class="grey--text
+                          text--darken-3 
+                          font-weight-regular"
+                        >{{customerInfo.Barangay}}</h4>
+                          <v-spacer></v-spacer>
                         <v-icon>mdi-chevron-down</v-icon>
                       </v-btn>
                     </template>
@@ -229,7 +249,7 @@
 
                 <!-- Under Barangay -->
                 <v-card-text
-                  class="py-2 px-0"
+                  class="py-0 px-0 pt-2 pb-5  "
                 >
                   <v-menu
                     offset-y
@@ -243,8 +263,15 @@
                         v-on="on"
                         class=""
                         block
+                        outlined
+                        color="grey"
                       >
-                        <h4>{{customerInfo.UnderBarangay}}</h4>
+                        <h5 
+                          class="grey--text 
+                          text--darken-3 
+                          font-weight-regular"
+                        >{{customerInfo.UnderBarangay}}</h5>
+                        <v-spacer></v-spacer>
                         <v-icon>mdi-chevron-down</v-icon>
                       </v-btn>
                     </template>
@@ -272,9 +299,11 @@
                     </v-list>
                   </v-menu>
                 </v-card-text>
-
+                
                 <!-- Home Address -->
-                <v-textarea
+                
+                  <v-textarea
+                  class="py-2 px-0 pb-0"
                   v-model="customerInfo.HomeAddress"
                   label="Home Address"
                   auto-grow
@@ -282,6 +311,8 @@
                   rows="1"
                   row-height="15"
                 ></v-textarea>
+                
+                
 
 <!--  -->
 <!--  -->
@@ -295,7 +326,7 @@
 <!--  -->
 <!--  -->
 
-                <div>
+                <div class="py-0 px-0 pb-0">
                   <v-menu
                     ref="menu"
                     v-model="menu"
