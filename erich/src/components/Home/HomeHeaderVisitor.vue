@@ -19,8 +19,9 @@
               <v-img
                 contain
                 src="../../assets/ERICH.svg"
-                max-height="100px"
-                max-width="100px"
+                max-height="120px"
+                max-width="120px"
+                class="pb-1"
               >
                 <a href="/"></a>
               </v-img>
@@ -33,6 +34,8 @@
             cols="6"
           >
             <v-text-field
+              class="py-2"
+              color="#1106A0"
               append-icon="mdi-magnify"
               hide-details="auto"
               outlined
@@ -50,9 +53,9 @@
             >
               <v-icon
                 large
-                color="blue"
+                color="#1106A0"
               >
-                mdi-cart-outline
+                mdi-cart
               </v-icon>
               <span
                 class="white--text"
@@ -68,25 +71,34 @@
             cols="2"
           >
             <div
-              class="d-flex"
+              class="d-flex 
+              ml-10 
+              qfont 
+              "
             >
                 <v-btn
                 white
                 text
               >
-                <v-icon>mdi-bell-outline</v-icon>
+                <v-icon
+                medium
+                color="#1106A0"
+                >mdi-bell</v-icon>
               </v-btn>
               <v-btn
+                medium
+                outlined             
+                color="#1106A0"
                 white
-                text
-                to="/signup"
+                to="/signup"             
               >
                 Sign Up
               </v-btn>
               <v-btn
+                class="ml-3 indigo--text text--darken-4"
+                medium
                 white
-                text
-                class="rounded-0"
+                color="white"                
                 to="/login"
               >
                 Login
@@ -108,6 +120,19 @@
     }
   }
 </script>
+
+<style scoped>
+@font-face {
+  font-family: "Quicksand";
+  src: local("Quicksand"),
+   url(../../assets/Fonts/Quicksand-Bold.ttf) format("truetype");
+}
+.qfont{
+     font-family: "Quicksand", Helvetica, Arial;
+  }
+
+
+</style>
 
 <!-- <v-btn
   dark

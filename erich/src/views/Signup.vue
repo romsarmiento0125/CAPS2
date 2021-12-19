@@ -29,6 +29,7 @@
                   pt-0
                   pl-0 
                   text-h5
+                  grey--text text--darken-3w
                   "
                   
                 >
@@ -250,7 +251,7 @@
 
                 <!-- Under Barangay -->
                 <v-card-text
-                  class="py-0 px-0 pt-2 pb-5  "
+                  class="px-0 py-2 pb-5"
                 >
                   <v-menu
                     offset-y
@@ -267,11 +268,11 @@
                         outlined
                         color="grey"
                       >
-                        <h5 
+                        <h4 
                           class="grey--text 
                           text--darken-3 
                           font-weight-regular"
-                        >{{customerInfo.UnderBarangay}}</h5>
+                        >{{customerInfo.UnderBarangay}}</h4>
                         <v-spacer></v-spacer>
                         <v-icon>mdi-chevron-down</v-icon>
                       </v-btn>
@@ -368,21 +369,27 @@
 <!--  -->
 <!--  -->
 
-                <div>
+                <div>                
                   <p>Gender</p>
                   <v-radio-group
+                
                     v-model="customerInfo.Gender"
                     row
+                    
+                    
                   >
                     <v-radio
+                      color="#1106A0"
                       label="Male"
                       value="Male"
                     ></v-radio>
                     <v-radio
+                    color="#1106A0"
                       label="Female"
                       value="Female"
                     ></v-radio>
                     <v-radio
+                    color="#1106A0"
                       label="Other"
                       value="Other"
                     ></v-radio>
@@ -405,9 +412,9 @@
                 <div>
                   <p
                     class="text-center caption"
-                  >By clicking Sign Up, you agree to our <router-link to="/">Terms</router-link>, Learn how we collect, 
-                  use and share your data in our <router-link to="/">Data Policy</router-link>
-                    and how we use cookies and similar technology in our <router-link to="/">Cookie Policy</router-link>, 
+                  >By clicking Sign Up, you agree to our <router-link to="/" class="indigo--text text--darken-4">Terms</router-link>, Learn how we collect, 
+                  use and share your data in our <router-link to="/" class="indigo--text text--darken-4">Data Policy</router-link>
+                    and how we use cookies and similar technology in our <router-link to="/" class="indigo--text text--darken-4">Cookie Policy</router-link>, 
                     you may receive Email message from us to verify 
                     your account.
                   </p>
@@ -896,3 +903,8 @@
       // console.log("Birthday: " + this.customerInfo.Birthday);
 </script>
 
+<style scoped>
+.router-link{
+  color: #1106A0 ;
+}
+</style>
