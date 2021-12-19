@@ -15,6 +15,7 @@ class CreateCustomerOrderInfosTable extends Migration
     {
         Schema::create('customer_order_infos', function (Blueprint $table) {
             $table->id();
+            $table->string('Email');
             $table->string('InvoiceNumber');
             $table->string('Name');
             $table->text('CompleteAddress');
