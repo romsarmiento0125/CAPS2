@@ -14,7 +14,7 @@
               class="rounded-xl pa-12"
             >
               <v-card-title
-                class="font-weight-black pt-0 pl-0 text-h5"
+                class="font-weight-black pt-0 pl-0 text-h5 grey--text text--darken-3"
               >
                 Registered Customer
               </v-card-title>
@@ -56,15 +56,17 @@
               >
                 <a
                   href=""
-                  class="pb-1"
+                  class="pb-1 indigo--text text--darken-4"
+                  
                 >
                   Forgot Your Password?
                 </a>
               </v-card-text>
 
               <v-btn
+                dark
                 class="rounded-lg px-10"
-                color="primary"
+                color="#1106A0"
                 @click="userLogin"
                 
               >
