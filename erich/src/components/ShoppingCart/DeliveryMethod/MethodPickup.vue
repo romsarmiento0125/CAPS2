@@ -15,10 +15,10 @@
             >Contact Information</p>
             <p
               class="ma-0 pa-0"
-            >Reyster Del Rosario</p>
+            >{{this.customerInfos.First_Name}}&nbsp;{{this.customerInfos.Last_Name}}</p>
             <p
               class="ma-0 pa-0"
-            >09098675786</p>
+            >{{this.customerInfos.Mobile_Number}}</p>
           </div>
           <div
             class="pl-5 pt-5"
@@ -51,40 +51,49 @@
                   :active-picker.sync="activePicker"
                   :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
                   min="1950-01-01"
-                  @change="save"
+                  @change="ydm"
                 ></v-date-picker>
               </v-menu>
             </div>
             <div>
-              <v-menu
-                ref="menu"
-                v-model="menu2"
-                :close-on-content-click="false"
-                :nudge-right="40"
+              <v-dialog
+                v-model="modal2"
                 :return-value.sync="time"
-                transition="scale-transition"
-                offset-y
-                max-width="290px"
-                min-width="290px"
+                persistent
+                width="290px"
               >
                 <template v-slot:activator="{ on, attrs }">
                   <v-text-field
-                    v-model="time"
-                    label="Select a pickup time"
-                    append-icon="mdi-chevron-down"
+                    v-model="oras"
+                    label="Picker in dialog"
+                    prepend-icon="mdi-clock-time-four-outline"
                     readonly
                     v-bind="attrs"
                     v-on="on"
-                    outlined
                   ></v-text-field>
                 </template>
                 <v-time-picker
-                  v-if="menu2"
+                  v-if="modal2"
                   v-model="time"
                   full-width
-                  @click:minute="$refs.menu.save(time)"
-                ></v-time-picker>
-              </v-menu>
+                >
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    text
+                    color="primary"
+                    @click="modal2 = false"
+                  >
+                    Cancel
+                  </v-btn>
+                  <v-btn
+                    text
+                    color="primary"
+                    @click="saveTime(time)"
+                  >
+                    OK
+                  </v-btn>
+                </v-time-picker>
+              </v-dialog>
             </div>
           </div>
         </v-col>
@@ -101,14 +110,26 @@
       menu: false,
       time: null,
       menu2: false,
+      modal2: false,
+      oras: null,
     }),
 
+    computed: {
+      customerInfos() {
+        return this.$store.state.customerInfos;
+      },
+    },
+
     methods: {
-      save (date) {
-        console.log("save");
-        this.$refs.menu.save(date)
+      ydm (date) {
+        console.log(date);
         this.menu = false;
       },
+      saveTime(data) {
+        console.log(data)
+        this.oras = data;
+        this.modal2 = false
+      }
     },
      
 

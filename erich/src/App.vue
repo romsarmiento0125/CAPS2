@@ -29,5 +29,7 @@ export default {
 .description{
      font-family: "RedHatDisplay", Helvetica, Arial;
   }
+
+  /* pag nabasa moto ibig sabihin sanay ka mag basa hahahahaha */
 </style>
 
