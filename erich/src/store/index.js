@@ -64,6 +64,9 @@ export default new Vuex.Store({
       state.customerItems = {};
       state.customerItems = payload
     },
+    cleanCustomerItems: (state, payload) => {
+      state.customerItems = {};
+    },
   },
   actions: {
   },

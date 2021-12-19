@@ -166,7 +166,7 @@
         // console.log(this.cartItems.length);
 
         for(var i = 0; i < this.cartItems.length; i++){
-          item = {id: i,
+          item = {id: this.cartItems[i].id,
             item_name: this.cartItems[i].item_name,
             item_desc: this.cartItems[i].item_desc,
             item_code: this.cartItems[i].item_code,
@@ -209,6 +209,8 @@
 
     beforeMount(){
       this.showCartItems();
+      // console.log("Cart Items");
+      // console.log(this.cartItems);
       console.log(this.customerAddress);
     }
     

@@ -84,7 +84,7 @@
                                   depressed
                                   color="transparent"
                                   class=""
-                                  @click="decreaseQuantity(item.id, i)"
+                                  @click="decreaseQuantity(item.id, i, item.item_quantity)"
                                 >
                                   <v-icon
                                     x-large
@@ -282,17 +282,23 @@
         })
         .catch(err => console.error(err));
       },
-      decreaseQuantity(idcart, count) {
+      decreaseQuantity(idcart, count, quantity) {
         console.log("Quantity decrease");
-        console.log(this.cartItems);
-        axios.put('http://127.0.0.1:8000/api/headercart/' + idcart, {
-        itemupdate: this.cartItems[count]
-        })
-        .then(res => {
-          //console.log(res.data)
-          this.showQuantity(res.data)
-        })
-        .catch(err => console.error(err));
+        console.log(quantity);
+        if(quantity < 2){
+          alert("Remove the item");
+          this.deleteItems(idcart);
+        }
+        else{
+          axios.put('http://127.0.0.1:8000/api/headercart/' + idcart, {
+            itemupdate: this.cartItems[count]
+          })
+          .then(res => {
+            //console.log(res.data)
+            this.showQuantity(res.data)
+          })
+          .catch(err => console.error(err));
+          }
       },
       showQuantity(data) {
         console.log("show quantity");
