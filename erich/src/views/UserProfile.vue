@@ -103,12 +103,24 @@
           this.mAddress = false;
           this.mOrders = false;
         }
+      },
+      getUserOrder() {
+        axios.get('http://127.0.0.1:8000/api/userorder')
+        .then(res => console.log(res.data))
+        .catch(err => console.error(err));
+      },
+      getUserOrderItems() {
+        axios.get('http://127.0.0.1:8000/api/userorderitems')
+        .then(res => console.log(res.data))
+        .catch(err => console.error(err));
       }
     },
 
     beforeMount() {
       console.log("user profile");
       console.log(this.goToAddress);
+      this.getUserOrder();
+      this.getUserOrderItems();
       if(this.goToAddress){
         this.mProfile = false;
         this.mAddress = true;

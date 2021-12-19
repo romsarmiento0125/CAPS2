@@ -67,7 +67,34 @@
           <order-items></order-items>
         </v-col>
       </v-row>
+      <v-row>
+        <v-dialog
+          v-model="dialog"
+          persistent
+          max-width="290"
+        >
+          <v-card>
+            <v-card-title class="text-h5">
+              Tapos kana umorder.
+            </v-card-title>
+            <v-card-text>Eto ang iyong receipt number:&nbsp;{{customerOrder.InvoiceNumber}}</v-card-text>
+            <v-card-text>Yung order mo pending pa antayin mo may mag text sayo</v-card-text>
+            <v-card-text></v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="green darken-1"
+                text
+                @click="closeDialog"
+              >
+                Agree
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-row>
     </v-container>
+    
   </div>
 </template>
 
@@ -82,7 +109,9 @@
     },
 
     data: () => ({
+      dialog: false,
       customerOrder: {
+        Email: "",
         Name: "",
         Mobilenumber: "",
         Municipality: "",
@@ -121,6 +150,7 @@
       checkOut() {
         //alert('delivery checout');
         this.insertCustomerItems();
+        console.log("Email: " + this.customerOrder.Email);
         console.log("Name: " + this.customerOrder.Name);
         console.log("Mobile Number:  " + this.customerOrder.Mobilenumber);
         console.log("Complete Address: " + this.customerOrder.CompleteAddress);
@@ -135,7 +165,7 @@
         console.log(this.customerOrderItems);
         //this.$router.push({path: '/'});
 
-        //this.cleanCart();
+        this.cleanCart();
 
         axios.post('http://127.0.0.1:8000/api/customerorder/store', {
           register: this.customerOrder
@@ -146,16 +176,18 @@
         })
         //.then(res => console.log(res.data))
         .catch(err => console.error(err));
+
+        this.showMessage();
       },
       storeCustomerOrderItems() {
         console.log("customer order items");
         for(var i = 0; i < this.customerOrderItems.length; i++){
+          console.log("store customer order:" + i);
           axios.post('http://127.0.0.1:8000/api/customerorderitems/store', {
             register: this.customerOrderItems[i]
           })
           .then(res => {
-            this.cleanCart()
-            console.log(res);  
+            console.log(res.data);  
           })
           //.then(res => console.log(res.data))
           .catch(err => console.error(err));
@@ -163,7 +195,6 @@
       },
       cleanCart(){
         for(var i = 0; i < this.customerOrderItems.length; i++){
-          //console.log(this.customerOrderItems[i].id)
           axios.delete('http://127.0.0.1:8000/api/getcart/'+ this.customerOrderItems[i].id)
           .then( res => {
             //this.getCartItems()
@@ -172,7 +203,12 @@
           .catch(err => console.error(err))
         }
         this.$store.commit('cleanCustomerItems');
-
+      },
+      showMessage(){
+        this.dialog = true;
+      },
+      closeDialog() {
+        this.dialog = false;
         this.$router.push({path: '/'});
       },
       generateInvoiceNum(){
@@ -239,6 +275,7 @@
       console.log(this.customerAddress);
       console.log("Store Customer Items");
       console.log(this.storeCustomerItems);
+      this.customerOrder.Email = this.customerInfos.Email;
       this.customerOrder.Name = this.customerInfos.First_Name + " " + this.customerInfos.Last_Name;
       this.customerOrder.Mobilenumber = this.customerInfos.Mobile_Number;
       this.generateInvoiceNum();

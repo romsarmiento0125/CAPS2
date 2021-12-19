@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\customerOrderInfo;
+use App\Models\customerOrderItems;
 
-class customerOrderInfoController extends Controller
+class userOrderItemsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class customerOrderInfoController extends Controller
      */
     public function index()
     {
-        return customerOrderInfo::all();
+        return customerOrderItems::all();
     }
 
     /**
@@ -35,23 +35,7 @@ class customerOrderInfoController extends Controller
      */
     public function store(Request $request)
     {
-        $register = new customerOrderInfo();
-
-        $register->Email = $request->register['Email'];
-        $register->InvoiceNumber = $request->register['InvoiceNumber'];
-        $register->Name = $request->register['Name'];
-        $register->CompleteAddress = $request->register['CompleteAddress'];
-        $register->Status = $request->register['OrderStatus'];
-        $register->AdjustedDate = $request->register['AdjustedDate'];
-        $register->ShipFee = $request->register['Shipping'];
-        $register->Discount = $request->register['Discount'];
-        $register->Tax = $request->register['OrderTax'];
-        $register->SubTotal = $request->register['SubTotal'];
-        $register->Total = $request->register['Total'];
-
-        $register->save();
-
-        return $register;
+        //
     }
 
     /**
