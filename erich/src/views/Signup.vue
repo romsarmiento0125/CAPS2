@@ -142,7 +142,7 @@
 <!--  -->
                 <!-- Municipality -->
                 <v-card-text
-                  class="py-2 px-0 pt-0"
+                  class="py-1 px-0 pt-0"
                 >
                   <v-menu
                     offset-y
@@ -159,12 +159,12 @@
                         outlined
                         color="grey"
                       >
-                        <h4 
+                        <h5 
                           class="grey--text 
                           text--darken-3 
-                          font-weight-regular"
+                          font-weight-bold"
                           >{{customerInfo.Municipality}}
-                        </h4>
+                        </h5>
                           <v-spacer></v-spacer>
                         <v-icon>mdi-chevron-down</v-icon>
                       </v-btn>
@@ -196,7 +196,7 @@
 
                 <!-- Barangay -->
                 <v-card-text
-                  class="px-0 "
+                  class="px-0 py-0"
                 >
                   <v-menu
                     offset-y
@@ -213,11 +213,11 @@
                         outlined
                         color="grey"
                       >
-                        <h4 
+                        <h5 
                           class="grey--text
                           text--darken-3 
-                          font-weight-regular"
-                        >{{customerInfo.Barangay}}</h4>
+                          font-weight-bold"
+                        >{{customerInfo.Barangay}}</h5>
                           <v-spacer></v-spacer>
                         <v-icon>mdi-chevron-down</v-icon>
                       </v-btn>
@@ -250,7 +250,7 @@
 
                 <!-- Under Barangay -->
                 <v-card-text
-                  class="py-0 px-0 pt-2 pb-5  "
+                  class="px-0 py-1 pb-5"
                 >
                   <v-menu
                     offset-y
@@ -270,7 +270,7 @@
                         <h5 
                           class="grey--text 
                           text--darken-3 
-                          font-weight-regular"
+                          font-weight-bold"
                         >{{customerInfo.UnderBarangay}}</h5>
                         <v-spacer></v-spacer>
                         <v-icon>mdi-chevron-down</v-icon>
