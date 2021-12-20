@@ -10,7 +10,7 @@
         >
           <v-carousel
             v-model="model"
-            class="rounded-xl"
+            class="rounded-xl color=black"
             height="29vw"
             hide-delimiters
             hide-delimiter-background
