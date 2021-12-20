@@ -170,6 +170,7 @@
                   :to="{name: 'Cart' , params: { id: 'place-order', title: 'Place Order'}}"
                   @click="showPlaceOrder()"
                   block
+                  :disabled="checkoutButton"
                 >
                   Checkout
                 </v-btn>
@@ -191,6 +192,7 @@
         // {id: 2, item_name: "Gardenia", item_desc: "this is item description", item_price: 67.50, item_image: 'SamplePhoto.png'},
       ],
       totPrice: 0,
+      checkoutButton: true,
     }),
 
     computed: {
@@ -203,6 +205,9 @@
       customerInfos() {
         return this.$store.state.customerInfos;
       },
+      cartQuantity() {
+        return this.$store.state.cartQuantity;
+      }
     },
     
     methods: {
@@ -210,6 +215,7 @@
         this.$emit('scItemsEmit');
       },
       showCartItems(data) {
+        var qty = 0;
         var item;
         this.totPrice = 0;
         // console.log("cart items");
@@ -244,6 +250,7 @@
         }
         this.totPrice = (Math.round(this.totPrice * 100) / 100).toFixed(2);
         this.$store.commit('storeCartItems', this.items);
+        this.checkoutButtonChecker();
       },
       getCartItems() {
         this.items = [];
@@ -283,7 +290,7 @@
         .catch(err => console.error(err));
       },
       decreaseQuantity(idcart, count, quantity) {
-        console.log("Quantity decrease");
+        console.log("Quantity decrease",);
         console.log(quantity);
         if(quantity < 2){
           alert("Remove the item");
@@ -298,13 +305,25 @@
             this.showQuantity(res.data)
           })
           .catch(err => console.error(err));
-          }
+        }
       },
       showQuantity(data) {
         console.log("show quantity");
         //console.log(data);
         this.$store.commit('storeCartItems', data);
         this.getCartItems();
+      },
+      checkoutButtonChecker(){
+        console.log("cartQutantity cheker");
+        console.log(this.cartQuantity);
+        if(this.totPrice == 0){
+          console.log("items is null");
+          this.checkoutButton = true;
+        }
+        else{
+          console.log("else");
+          this.checkoutButton = false;
+      }
       },
       priceRound(price){
         var rounded = (Math.round(price * 100) / 100).toFixed(2);
@@ -315,6 +334,7 @@
     beforeMount() {
       this.getCartItems();
       //this.showCartItems();
+      console.log("before mount");
     }
   }//export default closing bracket
 

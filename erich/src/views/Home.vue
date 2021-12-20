@@ -63,10 +63,42 @@
           this.$router.push("/physicalcashier")
         }
       },
+      getUserOrder() {
+        axios.post('http://127.0.0.1:8000/api/userorder/store', {
+            register: this.customerInfos.Email
+          })
+          .then(res => {
+            this.$store.commit('storeUserProfileOrders', res.data);
+            this.getUserOrderItems(res.data)
+          })
+          //.then(res => console.log(res.data))
+          .catch(err => console.error(err));
+        
+      },
+      getUserOrderItems(data) {
+        //console.log("Get user order items");
+        //console.log(data);
+        //console.log(data.length);
+        var items = [];
+        for(var i = 0; i < data.length; i++){
+          axios.post('http://127.0.0.1:8000/api/userorderitems/store', {
+            register: data[i].InvoiceNumber
+          })
+          .then(res => {
+            for(var j = 0; j < res.data.length; j++){
+              items.push(res.data[j]);
+            }
+          })
+          .catch(err => console.error(err));
+        }
+        //console.log(items);
+        this.$store.commit('storeUserProfileOrderItems', items);
+      }
     },
 
     beforeMount() {
       this.navbarPicker();
+      this.getUserOrder();
     },
   }
 </script>

@@ -113,7 +113,7 @@
         
       },
       loginSuccess(cinfo) {
-        console.log(cinfo);
+        //console.log(cinfo);
         if(cinfo == "InvalidCredentials"){
           alert("Invalid Credentials");
         }
@@ -127,7 +127,7 @@
         }
       },
       saveInfos(data, cinfo) {
-        console.log(data);
+        //console.log(data);
         this.$store.commit('storeCustomerAddress', data);
         this.$store.commit('storeCustomerInfo', cinfo);
         this.$router.push('/');

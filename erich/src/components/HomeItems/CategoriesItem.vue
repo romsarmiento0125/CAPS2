@@ -125,9 +125,9 @@
 
         //The if condition fire if there is no account login
         //The else condition fire there is account login
-        if(this.cartItems.Email === ""){
+        if(this.cartItems.Email == undefined){
           console.log("login ka muna");
-          //this.$router.push('/login');
+          this.$router.push('/login');
         }
         else {
           console.log(this.cartItems.id);

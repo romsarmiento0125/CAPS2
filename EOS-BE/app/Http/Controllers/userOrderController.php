@@ -35,7 +35,9 @@ class userOrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $getData = customerOrderInfo::all();
+        $dataGet = $request->register;
+        return $getData->where('Email', $dataGet)->values();
     }
 
     /**
