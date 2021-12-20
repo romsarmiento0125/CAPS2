@@ -160,7 +160,7 @@
     
     beforeMount() {
       //this.getCustomerInfo();
-      console.log(this.customerInfos);
+      //console.log(this.customerInfos);
       this.Username = this.customerInfos.First_Name + this.customerInfos.Last_Name;
       this.Name = this.customerInfos.First_Name;
       this.Surname = this.customerInfos.Last_Name;

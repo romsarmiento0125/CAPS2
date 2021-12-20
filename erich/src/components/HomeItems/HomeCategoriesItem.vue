@@ -123,11 +123,14 @@
         this.cartItems.Email = this.customerInfos.Email;
         this.cartItems.ItemCode = code;
 
+        console.log(this.cartItems.Email);
+        console.log(this.customerInfos.Email);
+
         //The if condition fire if there is no account login
         //The else condition fire there is account login
-        if(this.cartItems.Email === ""){
+        if(this.cartItems.Email == undefined){
           console.log("login ka muna");
-          //this.$router.push('/login');
+          this.$router.push('/login');
         }
         else {
           console.log(this.cartItems.id);
@@ -180,20 +183,20 @@
         this.$store.commit('storeCartQuantity', this.$store.state.cartQuantity + 1);
       },
       getCategoryItems() {
-        console.log("Get Items");
+        //console.log("Get Items");
         axios.get('http://127.0.0.1:8000/api/categoryitem')
         .then(res => this.storeCategoryItems(res.data))
         .catch(err => console.error(err));
       },
       storeCategoryItems(data) {
-        console.log("This is items data: ");
-        console.log(data);
+        //console.log("This is items data: ");
+        //console.log(data);
         this.$store.commit('storeCategoryItem', data);
         this.showItems();
       },
       showItems() {
-        console.log("showItems: ");
-        console.log(this.categoryItems);
+        //console.log("showItems: ");
+        //console.log(this.categoryItems);
         this.items = this.categoryItems;
       },
       
@@ -202,7 +205,6 @@
     beforeMount() {
       this.getCategoryItems();
       //this.items = this.categoryItems();
-      alert('Home Categories Item');
       this.showItems();
     },
   }

@@ -86,7 +86,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  console.log(to)
+  //console.log(to)
   let documentTitle = `${ process.env.VUE_APP_TITLE } - ${ to.name }`
   if(to.params.title){
     documentTitle += ` - ${ to.params.title }`

@@ -9,24 +9,38 @@
         height="100%"
         class="mb-5"
       >
-        <v-row>
+        <v-row
+          class="mx-5"
+        >
           <v-col>
-            <p>All</p>
+            <v-btn>
+              <p>All</p>
+            </v-btn>
           </v-col>
           <v-col>
-            <p>To Pack</p>
+            <v-btn>
+              <p>To Pack</p>
+            </v-btn>
           </v-col>
           <v-col>
-            <p>To Receive</p>
+            <v-btn>
+              <p>To Receive</p>
+            </v-btn>
           </v-col>
           <v-col>
-            <p>To Pickup</p>
+            <v-btn>
+              <p>To Pickup</p>
+            </v-btn>
           </v-col>
           <v-col>
-            <p>Complete</p>
+            <v-btn>
+              <p>Complete</p>
+            </v-btn>
           </v-col>
           <v-col>
-            <p>Cancelled</p>
+            <v-btn>
+              <p>Cancelled</p>
+            </v-btn>
           </v-col>
         </v-row>
       </v-sheet>
@@ -36,7 +50,7 @@
             <div class="mt-5"></div>
             <v-divider></v-divider>
             <div>
-              <p>Items</p>
+              <upo-allitems></upo-allitems>
             </div>
             <v-divider></v-divider>
             <div class="mb-5"></div>
@@ -46,3 +60,37 @@
     </v-container>
   </div>
 </template>
+
+<script>
+  import UPOAllItem from './UserProfileOrders/OrderAllItem.vue'
+
+  export default {
+    components: {
+      'upo-allitems': UPOAllItem,
+    },
+
+    computed: {
+      userProfileOrders() {
+        return this.$store.state.userProfileOrders;
+      },
+      userProfileOrderItems() {
+        return this.$store.state.userProfileOrderItems;
+      }
+    },
+
+    data: () => ({
+      
+    }),
+
+    methods: {
+       
+    },
+
+    beforeMount() {
+      console.log("Profile my orders");
+      
+      console.log(this.userProfileOrders);
+      console.log(this.userProfileOrderItems);
+    }
+  }
+</script>

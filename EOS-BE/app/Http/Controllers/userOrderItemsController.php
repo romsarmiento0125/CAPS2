@@ -35,7 +35,9 @@ class userOrderItemsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $getData = customerOrderItems::all();
+        $dataGet = $request->register;
+        return $getData->where('InvoiceNumber', $dataGet)->values();
     }
 
     /**

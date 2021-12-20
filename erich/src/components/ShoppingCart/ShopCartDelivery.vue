@@ -182,6 +182,9 @@
       storeCustomerOrderItems() {
         console.log("customer order items");
         for(var i = 0; i < this.customerOrderItems.length; i++){
+          setTimeout(
+            
+          )
           console.log("store customer order:" + i);
           axios.post('http://127.0.0.1:8000/api/customerorderitems/store', {
             register: this.customerOrderItems[i]

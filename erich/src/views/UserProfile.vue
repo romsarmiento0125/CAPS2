@@ -43,7 +43,9 @@
             </div>
           </v-sheet>
         </v-col>
-        <v-col>
+        <v-col
+          cols="9"
+        >
           <profile-myprofile v-if="mProfile"></profile-myprofile>
           <profile-myaddress v-else-if="mAddress"></profile-myaddress>
           <profile-myorders v-else-if="mOrders"></profile-myorders>
@@ -67,6 +69,9 @@
       'profile-myorders': profileMyOrders
     },
     computed: {
+      customerInfos() {
+        return this.$store.state.customerInfos;
+      },
       goToAddress() {
         return this.$store.state.userAddress;
       },
@@ -105,22 +110,44 @@
         }
       },
       getUserOrder() {
-        axios.get('http://127.0.0.1:8000/api/userorder')
-        .then(res => console.log(res.data))
-        .catch(err => console.error(err));
+        axios.post('http://127.0.0.1:8000/api/userorder/store', {
+            register: this.customerInfos.Email
+          })
+          .then(res => {
+            this.$store.commit('storeUserProfileOrders', res.data);
+            this.getUserOrderItems(res.data)
+          })
+          //.then(res => console.log(res.data))
+          .catch(err => console.error(err));
+        
+        
       },
-      getUserOrderItems() {
-        axios.get('http://127.0.0.1:8000/api/userorderitems')
-        .then(res => console.log(res.data))
-        .catch(err => console.error(err));
+      getUserOrderItems(data) {
+        //console.log("Get user order items");
+        //console.log(data);
+        //console.log(data.length);
+        var items = [];
+        for(var i = 0; i < data.length; i++){
+          axios.post('http://127.0.0.1:8000/api/userorderitems/store', {
+            register: data[i].InvoiceNumber
+          })
+          .then(res => {
+            for(var j = 0; j < res.data.length; j++){
+              items.push(res.data[j]);
+            }
+          })
+          .catch(err => console.error(err));
+        }
+        //console.log(items);
+        this.$store.commit('storeUserProfileOrderItems', items);
       }
     },
 
     beforeMount() {
-      console.log("user profile");
-      console.log(this.goToAddress);
+      //console.log("user profile");
+      //console.log(this.goToAddress);
       this.getUserOrder();
-      this.getUserOrderItems();
+     // this.getUserOrderItems();
       if(this.goToAddress){
         this.mProfile = false;
         this.mAddress = true;
