@@ -85,7 +85,7 @@
 
       <v-row>
         <v-col>
-          <v-simple-table height="300px">
+          <v-simple-table height="">
             <template v-slot:default>
               <thead>
                 <tr>
@@ -108,13 +108,21 @@
               </thead>
               <tbody>
                 <tr
-                  v-for="(info, n) in infos"
+                  v-for="(info, n) in userAllOrders"
                   :key="n"
                 >
-                  <td>{{info.IvNumber}} {{info.Name}}</td>
-                  <td><oc-orderdetails :ivNumber="info.IvNumber" :odDate="info.DueDate"></oc-orderdetails></td>
-                  <td>{{info.Address}}</td>
-                  <td>{{info.Status}} {{info.DueDate}}</td>
+                  <td>#{{info.InvoiceNumber}} <br> {{info.Name}}</td>
+                  <td><oc-orderdetails
+                    :ivNumber="info.InvoiceNumber"
+                    :odDate="info.AdjustedDate"
+                    :sTotal="info.SubTotal"
+                    :shipMethod="info.ShipFee"
+                    :dDiscount="info.Discount"
+                    :tTax="info.Tax"
+                    :tTotal="info.Total"
+                  ></oc-orderdetails></td>
+                  <td>{{info.CompleteAddress}}</td>
+                  <td>{{info.Status}} <br> To Avoid cancellation please send the <br> products until &nbsp;{{info.AdjustedDate}}</td>
                   <td>
                     <v-btn>Actions</v-btn>
                   </td>
@@ -138,15 +146,17 @@
 
     data: () => ({
       infos: [
-        { IvNumber: '001', Name: "Rom Paulo Sarmiento", Address: "Norzagaray Poblacion Antonia Heights Subd. Block 0 Lot 0", Status: "Prepairing",
-          DueDate: "Dec 19 2021", SubTotal: "900", ShipFee: "50", Discount: "0", Tax: "50", Total: "1000"},
-        { IvNumber: '002', Name: "Reyster Del Rosario", Address: "Sta.Maria Pulong Buhangin Gulod Lot 0 Block 0", Status: "Prepariring",
-          DueDate: "Dec 19 2021", SubTotal: "800", ShipFee: "50", Discount: "0", Tax: "50", Total: "900"},
+        // { IvNumber: '001', Name: "Rom Paulo Sarmiento", Address: "Norzagaray Poblacion Antonia Heights Subd. Block 0 Lot 0", Status: "Prepairing",
+        //   DueDate: "Dec 19 2021", SubTotal: "900", ShipFee: "50", Discount: "0", Tax: "50", Total: "1000"},
+        // { IvNumber: '002', Name: "Reyster Del Rosario", Address: "Sta.Maria Pulong Buhangin Gulod Lot 0 Block 0", Status: "Prepariring",
+        //   DueDate: "Dec 19 2021", SubTotal: "800", ShipFee: "50", Discount: "0", Tax: "50", Total: "900"},
       ],
     }),
 
     computed: {
-
+      userAllOrders() {
+        return this.$store.state.userAllOrders;
+      },
     },
 
     methods: {
@@ -157,8 +167,13 @@
         else if(cond == "pickup"){
           this.$store.commit('oCashierPickup');
         }
-        
       }
+    },
+
+    beforeMount(){
+      // console.log(this.userProfileOrders);
+      // console.log(this.userProfileOrderItems);
+      //this.infos = this.userAllOrders;
     }
   }
 </script>

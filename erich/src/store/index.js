@@ -20,6 +20,8 @@ export default new Vuex.Store({
     customerItems: {},
     userProfileOrders: {},
     userProfileOrderItems: {},
+    userAllOrders: {},
+    userAllOrdersItems: {},
   },
   mutations: {
     //Views Login.vue
@@ -101,6 +103,16 @@ export default new Vuex.Store({
       state.userProfileOrderItems = {};
       state.userProfileOrderItems = payload;
     },
+    //Views OnlineCashier.vue
+    storeUserAllOrders: (state, payload) => {
+      state.userAllOrders = {};
+      state.userAllOrders = payload;
+    },
+    //Views OnlineCashier.vue
+    storeUserAllOrdersItems: (state, payload) => {
+      state.userAllOrdersItems = {};
+      state.userAllOrdersItems = payload;
+    }
   },
   actions: {
   },

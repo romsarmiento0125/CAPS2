@@ -48,11 +48,9 @@
         <v-row>
           <v-col>
             <div class="mt-5"></div>
-            <v-divider></v-divider>
             <div>
               <upo-allitems></upo-allitems>
             </div>
-            <v-divider></v-divider>
             <div class="mb-5"></div>
           </v-col>
         </v-row>

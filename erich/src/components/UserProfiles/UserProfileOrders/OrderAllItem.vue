@@ -2,52 +2,62 @@
   <div>
     <v-container fluid>
       <v-row>
-        <v-col
-          offset=""
-          cols=""
-          class=""
-        >
-          <v-list>
-            <v-list-item-group
-            >
-              <v-list-item
-                v-for="order in orders"
-                :key="order.id"
-              >
-                <v-list-item-content
-                  class="border ma-2 rounded-lg"
+        <v-col>
+          <div
+            class="my-2"
+            v-for="order in orders"
+            :key="order.id"
+          >
+            <v-divider></v-divider>
+            <v-row>
+              <v-col>
+                <p>{{order.Status}}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <p>Invoice &nbsp; #: &nbsp; {{order.InvoiceNumber}}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <div
+                  v-for="item in items"
+                  :key="item.id"
                 >
-                  <v-row
+                  <div
+                    v-if="order.InvoiceNumber == item.InvoiceNumber"
+                    class="d-flex"
                   >
-                    <v-col
-                      cols=""
-                    >
-                      <div
-                        class="d-flex align-center"
-                      >
-                        <v-list-item-title>
-                          <div
-                            class="d-flex"
-                          >
-                            <div
-                              class="ma-5 pa-5"
-                            >
-                              <span>{{order.InvoiceNumber}}</span>
-                            </div>
-                            <div
-                              class="ma-5 pa-5"
-                            >
-                              <span>{{order.Total}}</span>
-                            </div>
-                          </div>
-                        </v-list-item-title>
-                      </div>
-                    </v-col>
-                  </v-row>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list-item-group>
-          </v-list>
+                    <div>
+                      <v-img
+                        :src="require('../../../assets/itemPhotos/'+item.ItemImage)"
+                        contain
+                        max-width="100px"
+                        max-height="100px"
+                      ></v-img>
+                    </div>
+                    <div>
+                      <p>{{item.ItemName}}</p>
+                      <p>{{item.ItemDesc}}</p>
+                      <p>{{item.Quantity}}</p>
+                    </div>
+                    <v-spacer></v-spacer>
+                    <div>
+                       <p>{{item.Quantity * item.RetailPrice}}</p>
+                    </div>
+                  </div>
+                  
+                </div>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                {{order.Total}}
+              </v-col>
+            </v-row>
+            <v-divider></v-divider>
+          </div>
         </v-col>
       </v-row>
     </v-container>
@@ -58,6 +68,7 @@
   export default {
     data: () => ({
        orders: [],
+       items: [],
     }),
 
     computed: {
@@ -84,6 +95,7 @@
       console.log(this.userProfileOrders);
       console.log(this.userProfileOrderItems);
       this.orders = this.userProfileOrders;
+      this.items = this.userProfileOrderItems;
     }
     
   }

@@ -35,19 +35,32 @@ class customerOrderItemsController extends Controller
      */
     public function store(Request $request)
     {
-        $register = new customerOrderItems();
+        
 
-        $register->InvoiceNumber = $request->register['item_invNumber'];
-        $register->ItemName = $request->register['item_Name'];
-        $register->ItemDesc = $request->register['item_Desc'];
-        $register->Quantity = $request->register['item_Quantity'];
-        $register->RetailPrice = $request->register['item_Price'];
-        $register->ItemCode = $request->register['item_Code'];
-        $register->ItemImage = $request->register['item_Image'];
+        for($i = 0; $i < count($request->register); $i++){
+            $register = new customerOrderItems();
+            $register->InvoiceNumber = $request->register[$i]['item_invNumber'];
+            $register->ItemName = $request->register[$i]['item_Name'];
+            $register->ItemDesc = $request->register[$i]['item_Desc'];
+            $register->Quantity = $request->register[$i]['item_Quantity'];
+            $register->RetailPrice = $request->register[$i]['item_Price'];
+            $register->ItemCode = $request->register[$i]['item_Code'];
+            $register->ItemImage = $request->register[$i]['item_Image'];
+            $register->save();
+        }
 
-        $register->save();
+        // $register->InvoiceNumber = $request->register['item_invNumber'];
+        // $register->ItemName = $request->register['item_Name'];
+        // $register->ItemDesc = $request->register['item_Desc'];
+        // $register->Quantity = $request->register['item_Quantity'];
+        // $register->RetailPrice = $request->register['item_Price'];
+        // $register->ItemCode = $request->register['item_Code'];
+        // $register->ItemImage = $request->register['item_Image'];
 
-        return $register;
+        
+
+        return "Success";
+       // return $request->register[0]['item_invNumber'];
     }
 
     /**
