@@ -37,22 +37,21 @@
               <v-list-item-group
               >
                 <v-list-item
-                  v-for="(item, i) in items"
+                  v-for="(item, i) in userAllOrdersItems"
                   :key="i"
                 >
                   <v-list-item-content
-                    class="border ma-2 rounded-lg"
-                    v-if="ivNumber == item.IvNumber"
+                    v-if="ivNumber == item.InvoiceNumber"
                   >
                     <div>
-                      <p>{{item.ItemName}}</p>
+                      <p>{{item.Name}}</p>
                       
                       <div
                         class="d-flex"
                       >
                         <p>{{item.ItemDesc}}</p>
                         <v-spacer></v-spacer>
-                        <p>{{priceRound(item.RPrice * item.Quantity)}}</p>
+                        <p>{{priceRound(item.RetailPrice * item.Quantity)}}</p>
                       </div>
                     </div>
                   </v-list-item-content>
@@ -60,6 +59,30 @@
               </v-list-item-group>
             </v-list>
           </v-card-text>
+          <div
+            class=""
+          >
+            <div>
+              <p>SubTotal</p>
+              <p>{{sTotal}}</p>
+            </div>
+            <div>
+              <p>Shipping Method</p>
+              <p>{{shipMethod}}</p>
+            </div>
+            <div>
+              <p>Discount</p>
+              <p>{{dDiscount}}</p>
+            </div>
+            <div>
+              <p>Tax</p>
+              <p>{{tTax}}</p>
+            </div>
+            <div>
+              <p>Total</p>
+              <p>{{tTotal}}</p>
+            </div>
+          </div>
           <v-card-actions class="justify-end">
             <v-btn
               text
@@ -74,23 +97,34 @@
 
 <script>
   export default {
-    props: ['ivNumber', 'odDate'],
+    props: ['ivNumber', 'odDate', 'sTotal', 'shipMethod', 'dDiscount', 'tTax', 'tTotal'],
 
     data: () => ({
       items: [
-        { IvNumber: '001', ItemName: "Bonakid", ItemDesc: "Ang sarap mo pia", Quantity: "5", RPrice: "50"},
-        { IvNumber: '001', ItemName: "Bonakid", ItemDesc: "Ang sarap mo pia", Quantity: "5", RPrice: "50"},
-        { IvNumber: '002', ItemName: "Bonakid", ItemDesc: "Ang sarap mo pia", Quantity: "5", RPrice: "50"},
-        { IvNumber: '002', ItemName: "Bonakid", ItemDesc: "Ang sarap mo pia", Quantity: "5", RPrice: "50"},
-        { IvNumber: '002', ItemName: "Bonakid", ItemDesc: "Ang sarap mo pia", Quantity: "5", RPrice: "50"},
+        // { IvNumber: '001', ItemName: "Bonakid", ItemDesc: "Ang sarap mo pia", Quantity: "5", RPrice: "50"},
+        // { IvNumber: '001', ItemName: "Bonakid", ItemDesc: "Ang sarap mo pia", Quantity: "5", RPrice: "50"},
+        // { IvNumber: '002', ItemName: "Bonakid", ItemDesc: "Ang sarap mo pia", Quantity: "5", RPrice: "50"},
+        // { IvNumber: '002', ItemName: "Bonakid", ItemDesc: "Ang sarap mo pia", Quantity: "5", RPrice: "50"},
+        // { IvNumber: '002', ItemName: "Bonakid", ItemDesc: "Ang sarap mo pia", Quantity: "5", RPrice: "50"},
       ],
+      ite: 0,
     }),
+
+    computed: {
+      userAllOrdersItems() {
+        return this.$store.state.userAllOrdersItems;
+      },
+    },
 
     methods: {
       priceRound(price){
         var rounded = (Math.round(price * 100) / 100).toFixed(2);
         return rounded;
       },
+    },
+
+    beforeMount(){
+      
     }
   }
 </script>

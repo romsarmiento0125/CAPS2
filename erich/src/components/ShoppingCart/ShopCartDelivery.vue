@@ -180,28 +180,20 @@
         this.showMessage();
       },
       storeCustomerOrderItems() {
-        console.log("customer order items");
-        for(var i = 0; i < this.customerOrderItems.length; i++){
-          setTimeout(
-            
-          )
-          console.log("store customer order:" + i);
-          axios.post('http://127.0.0.1:8000/api/customerorderitems/store', {
-            register: this.customerOrderItems[i]
+        axios.post('http://127.0.0.1:8000/api/customerorderitems/store', {
+            register: this.customerOrderItems
           })
           .then(res => {
             console.log(res.data);  
           })
-          //.then(res => console.log(res.data))
           .catch(err => console.error(err));
-        }
       },
       cleanCart(){
         for(var i = 0; i < this.customerOrderItems.length; i++){
           axios.delete('http://127.0.0.1:8000/api/getcart/'+ this.customerOrderItems[i].id)
           .then( res => {
-            //this.getCartItems()
-            console.log(res.data)
+            console.log("Delete")
+            console.log(res.data);
           })
           .catch(err => console.error(err))
         }

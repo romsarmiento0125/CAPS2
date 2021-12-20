@@ -32,5 +32,31 @@
         return this.$store.state.oCashierPickup;
       }
     },
+
+    methods: {
+      getAllOrder(){
+        axios.get('http://127.0.0.1:8000/api/customerorder')
+        .then(res => {
+          console.log(res.data);
+          this.$store.commit('storeUserAllOrders', res.data);
+        })
+        //.then(res => console.log(res.data))
+        .catch(err => console.error(err));
+      },
+      getAllOrderItems(){
+        axios.get('http://127.0.0.1:8000/api/customerorderitems')
+        .then(res => {
+          console.log(res.data);
+          this.$store.commit('storeUserAllOrdersItems', res.data);
+        })
+        //.then(res => console.log(res.data))
+        .catch(err => console.error(err));
+      }
+    },
+
+    beforeMount(){
+      this.getAllOrder();
+      this.getAllOrderItems();
+    }
   }
 </script>
