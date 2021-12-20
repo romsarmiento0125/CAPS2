@@ -8,7 +8,7 @@
           offset="1"
           cols="2"
         >
-          <h3>Browse by Category</h3>
+          <h2>Browse by Category</h2>
         </v-col>
       </v-row>
       <v-row>
@@ -54,28 +54,40 @@
               <div
                 class="ma-2"
                 rounded
+
               >
-                <v-card
-                  height="110px"
-                  width="250px"
-                  class="rounded-lg mx-5"
-                  color="grey"
-                  @click="toCategoriseItem(categorie.ccond)"
-                >
-                  <v-img
-                    height="50px"
+                <v-hover>
+                  <template v-slot:default="{hover}">
+                  <v-card
+                    :elevation="hover? 4:0"
+                    height="110px"
                     width="300px"
-                    src="https://picsum.photos/1920/1080?random"
+                    class="rounded-lg mx-5"
+                    
+                    :style="{'background-color':hover ?'#E2E0FF':'#EDEDF0'}"
+                    @click="toCategoriseItem(categorie.ccond)"
                   >
-                  </v-img>
-                  <v-card-title
-                    class="d-flex justify-center ma-0 pa-0"
-                  >
-                    <h4>
-                      {{categorie.cname}}
-                    </h4>
-                  </v-card-title>
-                </v-card>
+                    <div class="d-flex justify-center">
+                      <div class="mt-5" >
+                        <v-img contain
+                          height="100%"
+                          width="100%"
+                          src="../../assets/CategoryPics/Breads.png"
+                          >
+                        </v-img>
+                      </div> 
+                    </div>          
+                    <v-card-title
+                      class="d-flex justify-center ma-0 pa-0"
+                    >
+                      <h5 class="grey--text text--darken-2">
+                        {{categorie.cname}}
+                      </h5>
+                    </v-card-title>
+                  </v-card>
+                  </template>
+                </v-hover>
+                
               </div>
             </v-slide-item>
           </v-slide-group>
@@ -90,7 +102,7 @@
   export default {
     data: () => ({
       categories: [
-        { id: 1, cname: "Snacks", cimg: "SamplePhoto.png", ccond: "snacks"},
+        { id: 1, cname: "Snacks", cimg: "Breads.png", ccond: "snacks"},
         { id: 2, cname: "Bakery", cimg: "SamplePhoto.png", ccond: "bakery"},
         { id: 3, cname: "Sweets", cimg: "SamplePhoto.png", ccond: "sweets"},
         { id: 4, cname: "Pasta", cimg: "SamplePhoto.png", ccond: "pasta"},
