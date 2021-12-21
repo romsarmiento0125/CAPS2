@@ -37,11 +37,10 @@
               <v-list-item-group
               >
                 <v-list-item
-                  v-for="(item, i) in userAllOrdersItems"
+                  v-for="(item, i) in orders"
                   :key="i"
                 >
                   <v-list-item-content
-                    v-if="ivNumber == item.InvoiceNumber"
                   >
                     <div>
                       <p>{{item.Name}}</p>
@@ -97,7 +96,7 @@
 
 <script>
   export default {
-    props: ['ivNumber', 'odDate', 'sTotal', 'shipMethod', 'dDiscount', 'tTax', 'tTotal'],
+    props: ['ivNumber', 'orders', 'odDate', 'sTotal', 'shipMethod', 'dDiscount', 'tTax', 'tTotal'],
 
     data: () => ({
       items: [

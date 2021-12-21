@@ -14,6 +14,8 @@ use App\Http\Controllers\customerOrderInfoController;
 use App\Http\Controllers\customerOrderItemsController;
 use App\Http\Controllers\userOrderController;
 use App\Http\Controllers\userOrderItemsController;
+use App\Http\Controllers\userDeliverItemsController;
+use App\Http\Controllers\userCompleteItemsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -112,4 +114,18 @@ Route::prefix('/userorderitems')->group( function () {
     Route::post('/store', [userOrderItemsController::class, 'store']);
     Route::put('/{id}', [userOrderItemsController::class, 'update']);
     Route::delete('/{id}', [userOrderItemsController::class, 'destroy']);
+});
+
+Route::get('/customerdeliveritems', [userDeliverItemsController::class, 'index']);
+Route::prefix('/customerdeliveritems')->group( function () {
+    Route::post('/store', [userDeliverItemsController::class, 'store']);
+    Route::put('/{id}', [userDeliverItemsController::class, 'update']);
+    Route::delete('/{id}', [userDeliverItemsController::class, 'destroy']);
+});
+
+Route::get('/customercompleteitems', [userCompleteItemsController::class, 'index']);
+Route::prefix('/customercompleteitems')->group( function () {
+    Route::post('/store', [userCompleteItemsController::class, 'store']);
+    Route::put('/{id}', [userCompleteItemsController::class, 'update']);
+    Route::delete('/{id}', [userCompleteItemsController::class, 'destroy']);
 });

@@ -20,8 +20,15 @@ export default new Vuex.Store({
     customerItems: {},
     userProfileOrders: {},
     userProfileOrderItems: {},
+    userAllOrdersCons: {},
     userAllOrders: {},
-    userAllOrdersItems: {},
+    ocDeliverToPack: true,
+    ocDeliverToDelivery: false,
+    ocDeliverToComplete: false,
+    ocDeliverToReturn: false,
+    ocDeliverToCancel: false,
+    userAllDeliver: {},
+    userAllComplete: {},
   },
   mutations: {
     //Views Login.vue
@@ -106,13 +113,72 @@ export default new Vuex.Store({
     //Views OnlineCashier.vue
     storeUserAllOrders: (state, payload) => {
       state.userAllOrders = {};
+      state.userAllOrdersCons = {};
+      state.userAllOrdersCons = payload;
       state.userAllOrders = payload;
     },
-    //Views OnlineCashier.vue
-    storeUserAllOrdersItems: (state, payload) => {
-      state.userAllOrdersItems = {};
-      state.userAllOrdersItems = payload;
-    }
+    //Components OnlineCashier OCDeliveryToPack.vue
+    filterAllOrdersItems: (state, payload) => {
+      let result = state.userAllOrdersCons.filter(res => res.Status == payload);
+      state.userAllOrders = result;
+      // console.log(state.userAllOrders);
+      // console.log(state.userAllOrdersCons);
+    },
+    //Components OnlineCashier OCDeliveryToPack.vue
+    showAllOrdersItems: (state) => {
+      state.userAllOrders = {};
+      state.userAllOrders = state.userAllOrdersCons;
+    },
+    //Components OnlineCashier OCDelivery.vue
+    ocDeliverToPack: (state) => {
+      state.ocDeliverToPack = true;
+      state.ocDeliverToDelivery = false;
+      state.ocDeliverToComplete = false;
+      state.ocDeliverToReturn = false;
+      state.ocDeliverToCancel = false;
+    },
+    //Components OnlineCashier OCDelivery.vue
+    ocDeliverToDeliver: (state) => {
+      state.ocDeliverToPack = false;
+      state.ocDeliverToDelivery = true;
+      state.ocDeliverToComplete = false;
+      state.ocDeliverToReturn = false;
+      state.ocDeliverToCancel = false;
+    },
+    //Components OnlineCashier OCDelivery.vue
+    ocDeliverToComplete: (state) => {
+      state.ocDeliverToPack = false;
+      state.ocDeliverToDelivery = false;
+      state.ocDeliverToComplete = true;
+      state.ocDeliverToReturn = false;
+      state.ocDeliverToCancel = false;
+    },
+    //Components OnlineCashier OCDelivery.vue
+    ocDeliverToReturn: (state) => {
+      state.ocDeliverToPack = false;
+      state.ocDeliverToDelivery = false;
+      state.ocDeliverToComplete = false;
+      state.ocDeliverToReturn = true;
+      state.ocDeliverToCancel = false;
+    },
+    //Components OnlineCashier OCDelivery.vue
+    ocDeliverToCancel: (state) => {
+      state.ocDeliverToPack = false;
+      state.ocDeliverToDelivery = false;
+      state.ocDeliverToComplete = false;
+      state.ocDeliverToReturn = false;
+      state.ocDeliverToCancel = true;
+    },
+    //Components OnlineCashier Delivery OCDeliveryToDeliver.vue
+    storeUserAllDeliver: (state, payload) => {
+      state.userAllDeliver = {},
+      state.userAllDeliver = payload;
+    },
+    //Components OnlineCashier Delivery OCDeliveryToComplete.vue
+    storeUserAllComplete: (state, payload) => {
+      state.userAllComplete = {},
+      state.userAllComplete = payload;
+    },
   },
   actions: {
   },

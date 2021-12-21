@@ -59,23 +59,6 @@
             <p>Order</p>
           </div>
         </v-col>
-        <v-col>
-          <div
-            class="d-flex"
-          >
-              <p><v-text-field
-                append-icon="mdi-magnify"
-                hide-details="auto"
-                outlined
-                dense
-                height="small"
-                background-color="white"
-                placeholder="Search for entire store here.."
-              >
-              </v-text-field></p>
-              <v-btn>Sort</v-btn>
-            </div>
-        </v-col>
       </v-row>
 
       <v-row>

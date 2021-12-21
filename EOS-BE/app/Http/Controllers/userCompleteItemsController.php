@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\customerOrderInfo;
+use App\Models\customerCompleteItems;
 
-class customerOrderInfoController extends Controller
+class userCompleteItemsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class customerOrderInfoController extends Controller
      */
     public function index()
     {
-        return customerOrderInfo::with('orders')->get();
+        return customerCompleteItems::with('orders')->get();
     }
 
     /**
@@ -35,7 +35,7 @@ class customerOrderInfoController extends Controller
      */
     public function store(Request $request)
     {
-        $register = new customerOrderInfo();
+        $register = new customerCompleteItems();
 
         $register->Email = $request->register['Email'];
         $register->InvoiceNumber = $request->register['InvoiceNumber'];
@@ -77,7 +77,7 @@ class customerOrderInfoController extends Controller
      */
     public function edit($id)
     {
-        
+        //
     }
 
     /**
@@ -89,28 +89,7 @@ class customerOrderInfoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $existingItem = customerOrderInfo::find($id);
-
-        $existingItem->id = $id;
-        $existingItem->Email = $request->register['Email'];
-        $existingItem->InvoiceNumber = $request->register['InvoiceNumber'];
-        $existingItem->Name = $request->register['Name'];
-        $existingItem->MobileNumber = $request->register['Mobilenumber'];
-        $existingItem->CompleteAddress = $request->register['CompleteAddress'];
-        $existingItem->Status = $request->register['OrderStatus'];
-        $existingItem->OrderYear = $request->register['OrderYear'];
-        $existingItem->OrderMonth = $request->register['OrderMonth'];
-        $existingItem->OrderDay = $request->register['OrderDay'];
-        $existingItem->AdjustedDate = $request->register['AdjustedDate'];
-        $existingItem->ShipFee = $request->register['Shipping'];
-        $existingItem->Discount = $request->register['Discount'];
-        $existingItem->Tax = $request->register['OrderTax'];
-        $existingItem->SubTotal = $request->register['SubTotal'];
-        $existingItem->Total = $request->register['Total'];
-        $existingItem->save();
-
-        //return $existingItem;
-        return "goods";
+        //
     }
 
     /**
@@ -121,13 +100,6 @@ class customerOrderInfoController extends Controller
      */
     public function destroy($id)
     {
-        $existingItem = customerOrderInfo::find($id);
-
-        if( $existingItem){
-            $existingItem->delete();
-            return "Item succesfully deleted.";
-        }
-
-        return "Item not Found";
+        //
     }
 }

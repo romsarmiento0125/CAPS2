@@ -121,6 +121,9 @@
         CompleteAddress: "",
         Shipping: "",
         InvoiceNumber: "",
+        OrderYear: "",
+        OrderMonth: "",
+        OrderDay: "",
         AdjustedDate: "",
         OrderStatus: "Pending",
         OrderTax: 0,
@@ -217,7 +220,10 @@
         var r4 = Math.floor(Math.random() * 9) + 1;
         var r5 = Math.floor(Math.random() * 9) + 1;
         this.customerOrder.InvoiceNumber = "1" + year + month + day + r1 + r2 + r3 + r4 + r5;
-        this.customerOrder.AdjustedDate = year + "-" + month + "-" + (day * 1 + 3);
+        this.customerOrder.OrderYear = year;
+        this.customerOrder.OrderMonth = month;
+        this.customerOrder.OrderDay = day;
+        this.customerOrder.AdjustedDate = year + "-" + month + "-" + (day * 1 + 2);
       },
       insertAddress() {
         // console.log(this.customerAddress);

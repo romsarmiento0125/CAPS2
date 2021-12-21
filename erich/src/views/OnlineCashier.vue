@@ -8,8 +8,9 @@
 
 <script>
   import OCHeader from '../components/OnlineCashier/OCHeader.vue'
-  import OCDeliver from '../components/OnlineCashier/OCDeliveryToPack.vue'
-  import OCPickup from '../components/OnlineCashier/OCPickupToPack.vue'
+  import OCDeliver from '../components/OnlineCashier/OCDelivery.vue'
+  import OCPickup from '../components/OnlineCashier/OCPickup.vue'
+
 
   export default {
     name: "OnlineCashier",
@@ -30,7 +31,7 @@
       },
       oCashierPickup() {
         return this.$store.state.oCashierPickup;
-      }
+      },
     },
 
     methods: {
@@ -40,23 +41,30 @@
           console.log(res.data);
           this.$store.commit('storeUserAllOrders', res.data);
         })
-        //.then(res => console.log(res.data))
         .catch(err => console.error(err));
       },
-      getAllOrderItems(){
-        axios.get('http://127.0.0.1:8000/api/customerorderitems')
+      getAllDeliver(){
+        axios.get('http://127.0.0.1:8000/api/customerdeliveritems')
         .then(res => {
           console.log(res.data);
-          this.$store.commit('storeUserAllOrdersItems', res.data);
+          this.$store.commit('storeUserAllDeliver', res.data);
         })
-        //.then(res => console.log(res.data))
         .catch(err => console.error(err));
-      }
+      },
+      getAllComplete(){
+        axios.get('http://127.0.0.1:8000/api/customercompleteitems')
+        .then(res => {
+          console.log(res.data);
+          this.$store.commit('storeUserAllComplete', res.data);
+        })
+        .catch(err => console.error(err));
+      },
     },
 
     beforeMount(){
       this.getAllOrder();
-      this.getAllOrderItems();
+      this.getAllDeliver();
+      this.getAllComplete();
     }
   }
 </script>

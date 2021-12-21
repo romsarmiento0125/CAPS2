@@ -6,11 +6,10 @@ use App\Models\customerOrderItems;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class customerOrderInfo extends Model
+class customerDeliverItems extends Model
 {
     use HasFactory;
     public function orders(){
         return $this->hasMany(customerOrderItems::class,'InvoiceNumber','InvoiceNumber');
     }
 }
-
