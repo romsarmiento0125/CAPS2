@@ -19,8 +19,9 @@
               <v-img
                 contain
                 src="../../assets/ERICH.svg"
-                max-height="100px"
-                max-width="100px"
+                max-height="120px"
+                max-width="120px"
+                class="pb-1"
               >
               </v-img>
             </router-link>
@@ -29,9 +30,10 @@
           <!-- Header Search Bar -->
           <v-col
             class="d-flex align-center"
-            cols="6"
+            cols="5"
           >
             <v-text-field
+              color="#1106A0"
               append-icon="mdi-magnify"
               hide-details="auto"
               outlined
@@ -43,7 +45,7 @@
             </v-text-field>
             <v-badge
               overlap
-              color="red"
+              color="#FFA600"
               :content="cartQuantity"
             >
               <v-btn
@@ -54,9 +56,9 @@
               >
                 <v-icon
                   large
-                  color="blue"
+                  color="#1106A0"
                 >
-                  mdi-cart-outline
+                  mdi-cart
                 </v-icon>
               </v-btn>
             </v-badge>
@@ -65,20 +67,25 @@
           <!-- Header Buttons -->
           <v-col
             class="d-flex align-center"
-            cols="2"
+            cols="3"
           >
-            <div
-              class="d-flex"
-            >
               <v-btn
                 white
                 text
+                medium
+                color="#1106A0"
+                elevation="0"
               >
-                <v-icon>mdi-bell-outline</v-icon>
+                <v-icon>mdi-bell</v-icon>
               </v-btn>
+            <div
+              class="d-flex"
+            >
               <div class="text-center">
                 <p
-                  class="ma-0 pa-0"
+                  class="my-0 py-0 
+                  d-flex 
+                  "
                 >{{customerInfos.First_Name}} {{customerInfos.Last_Name}}</p>
                 <v-menu
                   offset-y
@@ -91,9 +98,11 @@
                       text
                       v-bind="attrs"
                       v-on="on"
-                      class=""
+                      class="qfont elevation-5 px-2"
+                      color="#1106A0"           
                     >
-                      <h4>My Acoount</h4>
+                      <h4 class="font-weight-black">My Account</h4>
+                      <v-spacer></v-spacer>
                       <v-icon>mdi-chevron-down</v-icon>
                     </v-btn>
                   </template>
@@ -101,7 +110,7 @@
                   <v-list dense>
                     <v-list-item-group
                       v-model="selectedItem"
-                      color="primary"
+                      color="#1106A0"
                       
                     >
                       <v-list-item
@@ -118,8 +127,11 @@
                     </v-list-item-group>
                   </v-list>
                 </v-menu>
-               <v-avatar>
-                <img
+               <v-avatar
+               class="ml-2"
+               >
+                 
+                <img 
                   src="https://cdn.vuetifyjs.com/images/john.jpg"
                   alt="John"
                 >
@@ -238,6 +250,23 @@
     },
   }
 </script>
+
+<style scoped>
+@font-face {
+  font-family: "Quicksand";
+  src: local("Quicksand"),
+   url(../../assets/Fonts/Quicksand-Bold.ttf) format("truetype");
+}
+.qfont{
+     font-family: "Quicksand", Helvetica, Arial;
+  }
+
+
+</style>
+
+
+
+
 
 <!-- <v-btn
   dark

@@ -76,15 +76,17 @@
               qfont 
               "
             >
-                <v-btn
+                <!-- <v-btn
                 white
                 text
               >
                 <v-icon
+                
                 medium
                 color="#1106A0"
+                class="ev"
                 >mdi-bell</v-icon>
-              </v-btn>
+              </v-btn> -->
               <v-btn
                 medium
                 outlined             

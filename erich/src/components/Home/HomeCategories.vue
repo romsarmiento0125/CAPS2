@@ -45,7 +45,7 @@
     
           <v-slide-group
             multiple
-            show-arrows
+            show-arrows       
           >
             <v-slide-item
               v-for="categorie in categories"
@@ -59,10 +59,11 @@
                 <v-hover>
                   <template v-slot:default="{hover}">
                   <v-card
+                    
                     :elevation="hover? 4:0"
-                    height="110px"
+                    height="100px"
                     width="300px"
-                    class="rounded-lg mx-5"
+                    class="rounded-lg mx-5 elevation-0"
                     
                     :style="{'background-color':hover ?'#E2E0FF':'#EDEDF0'}"
                     @click="toCategoriseItem(categorie.ccond)"
@@ -72,7 +73,7 @@
                         <v-img contain
                           height="100%"
                           width="100%"
-                          src="../../assets/CategoryPics/Breads.png"
+                          :src="require('../../assets/CategoryPics/'+categorie.cimg)"
                           >
                         </v-img>
                       </div> 
@@ -102,15 +103,16 @@
   export default {
     data: () => ({
       categories: [
-        { id: 1, cname: "Snacks", cimg: "Breads.png", ccond: "snacks"},
-        { id: 2, cname: "Bakery", cimg: "SamplePhoto.png", ccond: "bakery"},
-        { id: 3, cname: "Sweets", cimg: "SamplePhoto.png", ccond: "sweets"},
-        { id: 4, cname: "Pasta", cimg: "SamplePhoto.png", ccond: "pasta"},
-        { id: 5, cname: "Personal Care", cimg: "SamplePhoto.png", ccond: "personalCare"},
-        { id: 6, cname: "Baking", cimg: "SamplePhoto.png", ccond: "baking"},
-        { id: 7, cname: "Powdered", cimg: "SamplePhoto.png", ccond: "powdered"},
-        { id: 8, cname: "Frozen Goods", cimg: "SamplePhoto.png", ccond: "frozenGoods"},
-        { id: 9, cname: "Canned Goods", cimg: "SamplePhoto.png", ccond: "cannedGoods"},
+        { id: 1, cname: "Snacks", cimg: "Snacks.png", ccond: "snacks"},
+        { id: 2, cname: "Bakery", cimg: "Breads.png", ccond: "bakery"},
+        { id: 3, cname: "Sweets", cimg: "Snacks.png", ccond: "sweets"},
+        { id: 4, cname: "Pasta", cimg: "Pantry.png", ccond: "pasta"},
+        { id: 5, cname: "Personal Care", cimg: "Pantry.png", ccond: "personalCare"},
+        { id: 6, cname: "Baking", cimg: "Beverages.png", ccond: "baking"},
+        { id: 7, cname: "Powdered", cimg: "Pantry.png", ccond: "powdered"},
+        { id: 8, cname: "Frozen Goods", cimg: "Frozen.png", ccond: "frozenGoods"},
+        { id: 9, cname: "Canned Goods", cimg: "Snacks.png", ccond: "cannedGoods"},
+        { id: 10, cname: "Promo Deals", cimg: "Pantry.png", ccond: "sweets"},
       ],
     }),
     methods: {
