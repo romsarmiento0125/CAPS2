@@ -112,7 +112,9 @@
                   >
                     <div class="text-center">
                       <v-btn
-                        @click="toDeliver()"
+                        @click="toDeliver(info.AdjustedDate, info.id, info.Email, info.MobileNumber, info.InvoiceNumber, info.Name, info.CompleteAddress,
+                                  info.OrderYear, info.OrderMonth, info.OrderDay, info.ShipFee, info.Discount, info.Tax,
+                                  info.SubTotal, info.Total)"
                       >
                         <p> deliver </p>
                       </v-btn>
@@ -144,7 +146,6 @@
         //   DueDate: "Dec 19 2021", SubTotal: "800", ShipFee: "50", Discount: "0", Tax: "50", Total: "900"},
       ],
       counters: 3,
-      orderid: 0,
       orderUpdate: {
         Email: "",
         Name: "",
@@ -214,9 +215,9 @@
         this.orderUpdate.Discount = Discount;
         this.orderUpdate.SubTotal = SubTotal;
         this.orderUpdate.Total = Total;
-        this.orderid = id;
+        console.log("Order update");
         console.log(this.orderUpdate);
-        axios.put('http://127.0.0.1:8000/api/customerorder/' + this.orderid, {
+        axios.put('http://127.0.0.1:8000/api/customerorder/' + id, {
             register: this.orderUpdate
           })
           .then(res => {
@@ -224,27 +225,43 @@
             this.getAllOrder();
           })
           .catch(err => console.error(err));
-          console.log("axios fired");
       },
-      toDeliver(){
+      toDeliver(date, id, Email, MobileNumber, InvoiceNumber, Name, CompleteAddress, OrderYear, OrderMonth,
+        OrderDay, ShipFee, Discount, Tax, SubTotal, Total){
+        console.log("To Deliver");
+        this.orderUpdate.Email = Email;
+        this.orderUpdate.Name = Name;
+        this.orderUpdate.Mobilenumber = MobileNumber;
+        this.orderUpdate.CompleteAddress = CompleteAddress;
+        this.orderUpdate.Shipping = ShipFee;
+        this.orderUpdate.InvoiceNumber = InvoiceNumber;
+        this.orderUpdate.OrderYear = OrderYear;
+        this.orderUpdate.OrderMonth = OrderMonth;
+        this.orderUpdate.OrderDay = OrderDay;
+        this.orderUpdate.AdjustedDate = date;
         this.orderUpdate.OrderStatus = "Deliver";
+        this.orderUpdate.OrderTax = Tax;
+        this.orderUpdate.Discount = Discount;
+        this.orderUpdate.SubTotal = SubTotal;
+        this.orderUpdate.Total = Total;
         axios.post('http://127.0.0.1:8000/api/customerdeliveritems/store', {
             register: this.orderUpdate
           })
           .then(res => {
-            this.toDelete();
+            this.toDelete(id);
             console.log(res.data);  
           })
           .catch(err => console.error(err));
       },
-      toDelete(){
-        axios.delete('http://127.0.0.1:8000/api/customerorder/'+ this.orderid)
+      toDelete(id){
+        axios.delete('http://127.0.0.1:8000/api/customerorder/'+ id)
           .then( res => {
             console.log("Delete")
             console.log(res.data);
+            this.getAllOrder();
           })
           .catch(err => console.error(err))
-        this.getAllOrder();
+        
       },
       getAllOrder(){
         axios.get('http://127.0.0.1:8000/api/customerorder')
@@ -257,6 +274,7 @@
     },
 
     beforeMount(){
+      this.getAllOrder();
       // console.log(this.userProfileOrders);
       // console.log(this.userProfileOrderItems);
       //this.infos = this.userAllOrders;

@@ -141,6 +141,7 @@
           .then( res => {
             console.log("Delete")
             console.log(res.data);
+            this.getAllDeliver();
           })
           .catch(err => console.error(err))
       },
