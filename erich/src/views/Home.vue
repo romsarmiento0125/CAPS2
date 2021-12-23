@@ -73,7 +73,7 @@
           })
           //.then(res => console.log(res.data))
           .catch(err => console.error(err));
-        
+
       },
       getUserOrderItems(data) {
         //console.log("Get user order items");
