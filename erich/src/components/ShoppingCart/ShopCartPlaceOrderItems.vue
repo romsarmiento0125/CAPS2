@@ -5,63 +5,81 @@
         <v-col
           offset=""
           cols=""
-          class=""
+          class="mx-15 mb-5 pa-0"
         >
-          <v-list>
-            <v-list-item-group
+          <div
+            class="d-flex justify-center"
+          >
+            <v-list
+              color="transparent"
+              class="ma-0 pa-0"
             >
-              <v-list-item
-                v-for="item in items"
-                :key="item.id"
+              <v-list-item-group
               >
-                <v-list-item-content
-                  class="border ma-2 rounded-lg"
+                <v-simple-table
+                  height="500px"
                 >
-                  <v-row
+                  <v-list-item
+                    v-for="item in items"
+                    :key="item.id"
+                    class="ma-0 pa-0"
                   >
-                    <v-col
-                      cols=""
+                    <v-list-item-content
                     >
-                      <div
-                        class="d-flex align-center"
+                      <v-row
                       >
-                        <v-img
-                          height="120px"
-                          width="120px"
-                          contain
-                          :src="require('../../assets/itemPhotos/'+item.item_image)"
-                        ></v-img>
-                        <v-list-item-title>
+                        <v-col
+                          cols=""
+                          class="ma-0 pa-0"
+                        >
                           <div
-                            class="d-flex"
+                            class="d-flex align-center grey lighten-3"
+                            
                           >
-                            <div
-                              class="ma-5 pa-5"
-                            >
-                              <span>{{item.item_name}}</span>
-                              <br>
-                              <span>{{item.item_desc}}</span>
+                            <div>
+                              <v-img
+                                height="120px"
+                                width="120px"
+                                contain
+                                :src="require('../../assets/itemPhotos/'+item.item_image)"
+                              ></v-img>
                             </div>
-                            <div
-                              class="ma-5 pa-5"
-                            >
-                              <span>{{priceRound(item.item_price * item.item_quantity)}}</span>
-                              <br>
-                              <span>{{item.item_quantity}}</span>
-                            </div>
+                            
+                            <v-list-item-title>
+                              <div
+                                class="d-flex"
+                              >
+                                <div
+                                  class="ma-5 pa-5"
+                                >
+                                  <span>{{item.item_name}}</span>
+                                  <br>
+                                  <span>{{item.item_desc}}</span>
+                                </div>
+                                <div
+                                  class="ma-5 pa-5"
+                                >
+                                  <span>{{priceRound(item.item_price * item.item_quantity)}}</span>
+                                  <br>
+                                  <span>{{item.item_quantity}}</span>
+                                </div>
+                              </div>
+                            </v-list-item-title>
                           </div>
-                        </v-list-item-title>
-                      </div>
-                    </v-col>
-                  </v-row>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list-item-group>
-          </v-list>
+                        </v-col>
+                      </v-row>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-simple-table>
+              </v-list-item-group>
+            </v-list>
+          </div>
         </v-col>
       </v-row>
       <v-divider></v-divider>
-      <v-row>
+      <v-row
+        class="mt-3"
+      >
         <v-col>
           <div
             class="d-flex"
@@ -211,7 +229,7 @@
       this.showCartItems();
       // console.log("Cart Items");
       // console.log(this.cartItems);
-      console.log(this.customerAddress);
+      //console.log(this.customerAddress);
     }
     
   }

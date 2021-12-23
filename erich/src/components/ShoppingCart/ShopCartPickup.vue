@@ -17,15 +17,12 @@
             >
               <p
                 class="title"
-              >Order #A8-6580</p>
-              <p>Thank you Reyster<p>
+              >Order #:{{customerOrder.InvoiceNumber}}</p>
+              <p>Thank you&nbsp;{{customerInfos.First_Name}}&nbsp;{{customerInfos.Last_Name}}<p>
               <div>
                 <div>
                   <p>Your Order is confirmed</p>
                   <p>Please give our driver the exact amount.</p>
-                </div>
-                <div>
-                  <p>Barcode insert here</p>
                 </div>
               </div>
             </div>
@@ -63,11 +60,61 @@
       'order-items': ShopCartPlaceOrderItems
     },
 
+    data: () => ({
+      dialog: false,
+      customerOrder: {
+        Email: "",
+        Name: "",
+        Mobilenumber: "",
+        InvoiceNumber: "",
+        pickupDate: "",
+        pickupTime: "",
+        OrderTax: 0,
+        Discount: 0,
+        SubTotal: 0,
+        Total: 0,
+      },
+    }),
+
+    computed: {
+      customerInfos() {
+        return this.$store.state.customerInfos;
+      },
+      pickupDate() {
+        return this.$store.state.pickupDate;
+      },
+      pickupTime() {
+        return this.$store.state.pickupTime;
+      },
+      storeCustomerItems() {
+        return this.$store.state.customerItems;
+      },
+    },
+
     methods: {
       checkOut() {
         alert('pickup checkout');
         this.$router.push({path: '/'});
-      }
+      },
+      generateInvoiceNum(){
+        var today = new Date();
+        var day = String(today.getDate()).padStart(2, '0');
+        var month = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var year = today.getFullYear();
+        var r1 = Math.floor(Math.random() * 9) + 1;
+        var r2 = Math.floor(Math.random() * 9) + 1;
+        var r3 = Math.floor(Math.random() * 9) + 1;
+        var r4 = Math.floor(Math.random() * 9) + 1;
+        var r5 = Math.floor(Math.random() * 9) + 1;
+        this.customerOrder.InvoiceNumber = "1" + year + month + day + r1 + r2 + r3 + r4 + r5;
+      },
+    },
+
+    beforeMount() {
+      this.generateInvoiceNum();
+      console.log(this.customerInfos);
+      console.log(this.pickupDate);
+      console.log(this.pickupTime);
     }
   }
 </script>

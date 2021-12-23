@@ -29,6 +29,8 @@ export default new Vuex.Store({
     ocDeliverToCancel: false,
     userAllDeliver: {},
     userAllComplete: {},
+    pickupDate: "",
+    pickupTime: "",
   },
   mutations: {
     //Views Login.vue
@@ -178,6 +180,16 @@ export default new Vuex.Store({
     storeUserAllComplete: (state, payload) => {
       state.userAllComplete = {},
       state.userAllComplete = payload;
+    },
+    //Components ShoppingCart DeliveryMethod MethodPickup.vue
+    pickupDate: (state, payload) => {
+      state.pickupDate = {},
+      state.pickupDate = payload;
+    },
+    //Components ShoppingCart DeliveryMethod MethodPickup.vue
+    pickupTime: (state, payload) => {
+      state.pickupTime = {},
+      state.pickupTime = payload;
     },
   },
   actions: {

@@ -229,21 +229,23 @@
                         color="primary"
                         
                       >
-                        <v-list-item
-                          v-for="barangay in barangays"
-                          :key="barangay.id"
-                        >
-                          <v-list-item-content>
-                            <v-btn
-                              text
-                              @click="barangayInput(barangay.brgyCond, barangay.brgy)"
-                              
-                            >
-                              {{barangay.brgy}}
-                            </v-btn>
-                            <!-- <v-list-item-title v-text="barangay.brgy"></v-list-item-title> -->
-                          </v-list-item-content>
-                        </v-list-item>
+                        <v-simple-table height="300px">
+                          <v-list-item
+                            v-for="barangay in barangays"
+                            :key="barangay.id"
+                          >
+                            <v-list-item-content>
+                              <v-btn
+                                text
+                                @click="barangayInput(barangay.brgyCond, barangay.brgy)"
+                                
+                              >
+                                {{barangay.brgy}}
+                              </v-btn>
+                              <!-- <v-list-item-title v-text="barangay.brgy"></v-list-item-title> -->
+                            </v-list-item-content>
+                          </v-list-item>
+                        </v-simple-table>
                       </v-list-item-group>
                     </v-list>
                   </v-menu>
@@ -283,20 +285,22 @@
                         color="primary"
                         
                       >
-                        <v-list-item
-                          v-for="UnderBarangay in UnderBarangays"
-                          :key="UnderBarangay.id"
-                        >
-                          <v-list-item-content>
-                             <v-btn
-                              text
-                              @click="underBarangayInput(UnderBarangay.ubrgy, UnderBarangay.SFee)"
-                            >
-                              {{UnderBarangay.ubrgy}}
-                            </v-btn>
-                            <!-- <v-list-item-title v-text="underBarangay.ubrgy"></v-list-item-title> -->
-                          </v-list-item-content>
-                        </v-list-item>
+                        <v-simple-table height="300px">
+                          <v-list-item
+                            v-for="UnderBarangay in UnderBarangays"
+                            :key="UnderBarangay.id"
+                          >
+                            <v-list-item-content>
+                              <v-btn
+                                text
+                                @click="underBarangayInput(UnderBarangay.ubrgy, UnderBarangay.SFee)"
+                              >
+                                {{UnderBarangay.ubrgy}}
+                              </v-btn>
+                              <!-- <v-list-item-title v-text="underBarangay.ubrgy"></v-list-item-title> -->
+                            </v-list-item-content>
+                          </v-list-item>
+                        </v-simple-table>
                       </v-list-item-group>
                     </v-list>
                   </v-menu>

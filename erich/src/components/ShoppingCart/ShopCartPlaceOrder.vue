@@ -73,7 +73,9 @@
                           small
                         >
                           <v-icon>mdi-chevron-left</v-icon>
-                          <p>return to cart</p>
+                          <p
+                            class="pa-0 ma-0"
+                          >return to cart</p>
                         </v-btn>
                         <v-spacer></v-spacer>
                         <v-btn

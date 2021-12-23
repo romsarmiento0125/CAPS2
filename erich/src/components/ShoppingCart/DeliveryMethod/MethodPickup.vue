@@ -66,7 +66,7 @@
                   <v-text-field
                     v-model="oras"
                     label="Picker in dialog"
-                    prepend-icon="mdi-clock-time-four-outline"
+                    outlined
                     readonly
                     v-bind="attrs"
                     v-on="on"
@@ -124,11 +124,13 @@
       ydm (date) {
         console.log(date);
         this.menu = false;
+        this.$store.commit('pickupDate', date);
       },
       saveTime(data) {
         console.log(data)
         this.oras = data;
         this.modal2 = false
+        this.$store.commit('pickupTime', data);
       }
     },
      
