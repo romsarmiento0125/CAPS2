@@ -17,7 +17,7 @@
             >
               <p
                 class="title"
-              >Order #:{{customerOrder.InvoiceNumber}}</p>
+              >Order #:{{customerPickup.InvoiceNumber}}</p>
               <p>Thank you&nbsp;{{customerInfos.First_Name}}&nbsp;{{customerInfos.Last_Name}}<p>
               <div>
                 <div>
@@ -62,7 +62,7 @@
 
     data: () => ({
       dialog: false,
-      customerOrder: {
+      customerPickup: {
         Email: "",
         Name: "",
         Mobilenumber: "",
@@ -74,6 +74,9 @@
         SubTotal: 0,
         Total: 0,
       },
+      customerPickupItems: [
+
+      ],
     }),
 
     computed: {
@@ -94,7 +97,12 @@
     methods: {
       checkOut() {
         alert('pickup checkout');
-        this.$router.push({path: '/'});
+        console.log("Check out");
+        console.log(this.customerPickupItems);
+        console.log(this.customerPickup);
+        console.log(this.pickupDate);
+        console.log(this.pickupTime);
+        //this.$router.push({path: '/'});
       },
       generateInvoiceNum(){
         var today = new Date();
@@ -106,15 +114,34 @@
         var r3 = Math.floor(Math.random() * 9) + 1;
         var r4 = Math.floor(Math.random() * 9) + 1;
         var r5 = Math.floor(Math.random() * 9) + 1;
-        this.customerOrder.InvoiceNumber = "1" + year + month + day + r1 + r2 + r3 + r4 + r5;
+        this.customerPickup.InvoiceNumber = "2" + year + month + day + r1 + r2 + r3 + r4 + r5;
       },
+      insertCustomerItems() {
+        this.customerPickupItems = [];
+        var item;
+        var subtotal = 0;
+        console.log("Insert Customer Items");
+        console.log(this.storeCustomerItems);
+        console.log(this.storeCustomerItems.length);
+        for(var i = 0; i < this.storeCustomerItems.length; i++){
+          item = {id: this.storeCustomerItems[i].id,
+            item_invNumber: this.customerPickup.InvoiceNumber,
+            item_Name: this.storeCustomerItems[i].item_name,
+            item_Desc: this.storeCustomerItems[i].item_desc,
+            item_Image: this.storeCustomerItems[i].item_image,
+            item_Quantity: this.storeCustomerItems[i].item_quantity,
+            item_Price: this.storeCustomerItems[i].item_price,
+            item_Code: this.storeCustomerItems[i].item_code,}
+          this.customerPickupItems.push(item);
+          subtotal = subtotal + this.storeCustomerItems[i].item_quantity * this.storeCustomerItems[i].item_price;
+        }
+        this.customerPickup.SubTotal = subtotal;
+      }
     },
 
     beforeMount() {
       this.generateInvoiceNum();
-      console.log(this.customerInfos);
-      console.log(this.pickupDate);
-      console.log(this.pickupTime);
+      this.insertCustomerItems();
     }
   }
 </script>
