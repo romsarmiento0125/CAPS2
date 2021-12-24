@@ -49,9 +49,10 @@
                 <v-date-picker
                   v-model="date"
                   :active-picker.sync="activePicker"
-                  :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
-                  min="1950-01-01"
+                  :max="maxDate"
+                  :min="minDate"
                   @change="ydm"
+                  
                 ></v-date-picker>
               </v-menu>
             </div>
@@ -65,8 +66,8 @@
                 <template v-slot:activator="{ on, attrs }">
                   <v-text-field
                     v-model="oras"
-                    label="Picker in dialog"
-                    prepend-icon="mdi-clock-time-four-outline"
+                    label="Pick Time"
+                    outlined
                     readonly
                     v-bind="attrs"
                     v-on="on"
@@ -112,6 +113,8 @@
       menu2: false,
       modal2: false,
       oras: null,
+      minDate: null,
+      maxDate: null,
     }),
 
     computed: {
@@ -124,11 +127,27 @@
       ydm (date) {
         console.log(date);
         this.menu = false;
+        this.$store.commit('pickupDate', date);
       },
       saveTime(data) {
         console.log(data)
         this.oras = data;
         this.modal2 = false
+        this.$store.commit('pickupTime', data);
+      },
+      setTimeAndDate() {
+        var today = new Date();
+        var day = String(today.getDate()).padStart(2, '0');
+        var month = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var year = today.getFullYear();
+        var date = year + "-" + month + "-" + day;
+        var oras = (today.getHours() + 3)+ ":" + today.getMinutes();
+        this.date = date;
+        this.oras = oras;
+        this.minDate = year + "-" + month + "-" + day;
+        this.maxDate = (year + 5) + "-" + month + "-" + day;
+        this.ydm(date);
+        this.saveTime(oras);
       }
     },
      
@@ -138,5 +157,10 @@
         val && setTimeout(() => (this.activePicker = 'YEAR'))
       },
     },
+
+    beforeMount() {
+      this.setTimeAndDate();
+
+    }
   }
 </script>

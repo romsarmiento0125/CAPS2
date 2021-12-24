@@ -10,12 +10,13 @@
           <v-sheet
             color="#FFFFFF"
             width="100%"
-            class="my-10"
+            class="py-2 my-10"
+            rounded="lg"
           >
             <v-row>
               <v-col>
                 <p
-                  class="mt-3 mx-10"
+                  class="mt-3 mx-10 title"
                 >Product</p>
               </v-col>
               <v-col>
@@ -23,13 +24,13 @@
                   class="d-flex mt-3"
                 >
                   <p
-                    class="mx-10"
+                    class="mx-10 title"
                   >Quantity</p>
                   <p
-                    class="mx-10"
+                    class="mx-10 title"
                   >Total Price</p>
                   <p
-                    class="mx-10"
+                    class="mx-10 title"
                   >Action</p>
                 </div>
               </v-col>
@@ -39,34 +40,50 @@
 
             <v-row>
               <v-col>
-                <v-list>
+                <v-list
+                  class="my-0 py-0"
+                >
                   <v-list-item-group
+                    v-for="(item, i) in items"
+                      :key="i"
                   >
                     <v-list-item
-                      v-for="(item, i) in items"
-                      :key="i"
+                      class="my-0 py-0"
                     >
                       <v-list-item-content
-                        class="border ma-2 rounded-lg"
+                        class="border ma-2"
                       >
                         <v-row
                         >
                           <v-col
                             cols="6"
+                            class="my-0 py-0"
                           >
                             <div
                               class="d-flex align-center"
                             >
                               <v-img
-                                height="120px"
-                                width="120px"
+                                max-height="150px"
+                                max-width="210px"
                                 contain
                                 :src="require('../../assets/itemPhotos/'+item.item_image)"
                               ></v-img>
                               <v-list-item-title>
-                                <span>{{item.item_name}}</span>
-                                <br>
-                                <span>{{item.item_desc}}</span>
+                                <p
+                                  class="my-0 py-0 headline"
+                                >
+                                  {{item.item_name}}
+                                </p>
+                                <p
+                                  class="my-0 py-0 blue--text"
+                                >
+                                  {{item.item_desc}}
+                                </p>
+                                <p
+                                  class="my-0 py-0"
+                                >
+                                  {{item.item_price}}
+                                </p>
                               </v-list-item-title>
                             </div>
                           </v-col>
@@ -79,21 +96,23 @@
                             >
                               <div
                                 class="qtt d-flex align-center justify-center"
+                                style="border-style: solid; border-width: 1px 1px;"
                               >
                                 <v-btn
                                   depressed
                                   color="transparent"
                                   class=""
                                   @click="decreaseQuantity(item.id, i, item.item_quantity)"
+                                  
                                 >
                                   <v-icon
-                                    x-large
+                                    
                                   >
-                                    mdi-minus-box-outline
+                                    mdi-minus
                                   </v-icon>
                                 </v-btn>
                                 <p
-                                  class=" my-0 px-2"
+                                  class="my-0 px-2 subtitle-1"
                                 >
                                   {{item.item_quantity}}
                                 </p>
@@ -101,28 +120,30 @@
                                   depressed
                                   color="transparent"
                                   @click="addQuantity(item.id, i)"
+                                  
                                 >
                                   <v-icon
-                                    x-large
                                   >
-                                    mdi-plus-box-outline
+                                    mdi-plus
                                   </v-icon>
                                 </v-btn>
                               </div>
 
                               <div
-                                class="tp my-0 d-flex align-center justify-center"
+                                class="tp my-0 mx-15 d-flex align-center justify-center"
                               >
                                 <v-icon>
                                   mdi-currency-php
                                 </v-icon>
-                                <p>
+                                <p
+                                  class="pa-0 ma-0"
+                                >
                                   {{priceRound(item.item_price * item.item_quantity)}}
                                 </p>
                               </div>
 
                               <v-btn
-                                class="act justify-center"
+                                class="act justify-center mx-6"
                                 color="primary"
                                 plain
                                 @click="deleteItems(item.id)"
@@ -134,6 +155,7 @@
                         </v-row>
                       </v-list-item-content>
                     </v-list-item>
+                    <v-divider></v-divider>
                   </v-list-item-group>
                 </v-list>
               </v-col>
@@ -146,17 +168,32 @@
         >
           <v-sheet
             color="#FFFFFF"
-            height="200"
+            height="220px"
             width="80%"
-            class="my-10"
+            class="py-2 my-10"
+            rounded="lg"
+            style="position: relative;"
           >
             <v-row>
-              <v-col>
-                <h2
-                >Total</h2>
+              <v-col
+              >
+                <h3
+                  class="my-4 mx-10"
+                >
+                  Total
+                </h3>
               </v-col>
               <v-col>
-                <h2><v-icon>mdi-currency-php</v-icon>{{totPrice}}</h2>
+                <div
+                  class="d-flex justify-end"
+                >
+                  <h3
+                  class="my-4 mx-10"
+                  >
+                    <v-icon>mdi-currency-php</v-icon>{{totPrice}}
+                  </h3>
+                </div>
+                
               </v-col>
             </v-row>
 
@@ -164,16 +201,29 @@
 
             <v-row>
               <v-col>
-                <p>Taxes and <a class="text-decoration-underline">Shipping</a> are calculted at checkout</p>
-                <v-btn
-                  color="primary"
-                  :to="{name: 'Cart' , params: { id: 'place-order', title: 'Place Order'}}"
-                  @click="showPlaceOrder()"
-                  block
-                  :disabled="checkoutButton"
+                <p
+                  class="my-3 mx-7"
                 >
-                  Checkout
-                </v-btn>
+                  Taxes and <router-link to="/" class="text-decoration-underline">Shipping</router-link> are calculted at checkout
+                </p>
+                <div
+                  class="mx-8 mt-12"
+                >
+                  <v-btn
+                    color="primary"
+                    :to="{name: 'Cart' , params: { id: 'place-order', title: 'Place Order'}}"
+                    @click="showPlaceOrder()"
+                    block
+                    :disabled="checkoutButton"
+                  >
+                    <p
+                      class="py-0 my-0"
+                    >
+                      Checkout
+                    </p>
+                  </v-btn>
+                </div>
+                
               </v-col>
             </v-row>
           </v-sheet>
