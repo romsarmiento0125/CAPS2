@@ -46,6 +46,32 @@
           <order-items></order-items>
         </v-col>
       </v-row>
+      <v-row>
+        <v-dialog
+          v-model="dialog"
+          persistent
+          max-width="290"
+        >
+          <v-card>
+            <v-card-title class="text-h5">
+              Tapos kana umorder.
+            </v-card-title>
+            <v-card-text>Eto ang iyong receipt number:&nbsp;{{customerPickup.InvoiceNumber}}</v-card-text>
+            <v-card-text>Yung order mo pending pa antayin mo may mag text sayo</v-card-text>
+            <v-card-text></v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="green darken-1"
+                text
+                @click="closeDialog"
+              >
+                Agree
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-row>
     </v-container>
   </div>
 </template>
@@ -67,6 +93,7 @@
         Name: "",
         Mobilenumber: "",
         InvoiceNumber: "",
+        Status: "Pending",
         pickupDate: "",
         pickupTime: "",
         OrderTax: 0,
@@ -96,13 +123,61 @@
 
     methods: {
       checkOut() {
-        alert('pickup checkout');
-        console.log("Check out");
-        console.log(this.customerPickupItems);
-        console.log(this.customerPickup);
-        console.log(this.pickupDate);
-        console.log(this.pickupTime);
+        //console.log("Check out");
+        // console.log(this.customerInfos);
+        // console.log(this.customerPickup);
+        // console.log(this.pickupDate);
+        // console.log(this.pickupTime);
         //this.$router.push({path: '/'});
+
+        
+
+        this.customerPickup.Name = this.customerInfos.First_Name + " " + this.customerInfos.Last_Name;
+        this.customerPickup.Email = this.customerInfos.Email;
+        this.customerPickup.Mobilenumber = this.customerInfos.Mobile_Number;
+        this.customerPickup.pickupDate = this.pickupDate;
+        this.customerPickup.pickupTime = this.pickupTime;
+        
+        axios.post('http://127.0.0.1:8000/api/customerpickup/store', {
+          register: this.customerPickup
+        })
+        .then(res => {
+          this.storeCustomerPickupItems()
+          //console.log(res.data);  
+        })
+        .catch(err => console.error(err));
+
+        this.cleanCart();
+        this.showMessage();
+      },
+      storeCustomerPickupItems(){
+        axios.post('http://127.0.0.1:8000/api/customerpickupitems/store', {
+            register: this.customerPickupItems
+          })
+          .then(res => {
+            //console.log(res.data);  
+          })
+          .catch(err => console.error(err));
+      },
+      cleanCart(){
+        // console.log("Clean Cart");
+        // console.log(this.customerPickupItems);
+        for(var i = 0; i < this.customerPickupItems.length; i++){
+          axios.delete('http://127.0.0.1:8000/api/getcart/'+ this.customerPickupItems[i].id)
+          .then( res => {
+            //console.log("Delete")
+            //console.log(res.data);
+          })
+          .catch(err => console.error(err))
+        }
+        this.$store.commit('cleanCustomerItems');
+      },
+      showMessage(){
+        this.dialog = true;
+      },
+      closeDialog() {
+        this.dialog = false;
+        this.$router.push({path: '/'});
       },
       generateInvoiceNum(){
         var today = new Date();
@@ -120,9 +195,9 @@
         this.customerPickupItems = [];
         var item;
         var subtotal = 0;
-        console.log("Insert Customer Items");
-        console.log(this.storeCustomerItems);
-        console.log(this.storeCustomerItems.length);
+        // console.log("Insert Customer Items");
+        // console.log(this.storeCustomerItems);
+        // console.log(this.storeCustomerItems.length);
         for(var i = 0; i < this.storeCustomerItems.length; i++){
           item = {id: this.storeCustomerItems[i].id,
             item_invNumber: this.customerPickup.InvoiceNumber,

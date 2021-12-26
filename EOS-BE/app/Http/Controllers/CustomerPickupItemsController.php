@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\customerPickupItems;
 
 class CustomerPickupItemsController extends Controller
 {
@@ -34,7 +35,19 @@ class CustomerPickupItemsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        for($i = 0; $i < count($request->register); $i++){
+            $register = new customerPickupItems();
+            $register->InvoiceNumber = $request->register[$i]['item_invNumber'];
+            $register->ItemName = $request->register[$i]['item_Name'];
+            $register->ItemDesc = $request->register[$i]['item_Desc'];
+            $register->Quantity = $request->register[$i]['item_Quantity'];
+            $register->RetailPrice = $request->register[$i]['item_Price'];
+            $register->ItemCode = $request->register[$i]['item_Code'];
+            $register->ItemImage = $request->register[$i]['item_Image'];
+            $register->save();
+        }
+
+        return "Success";
     }
 
     /**

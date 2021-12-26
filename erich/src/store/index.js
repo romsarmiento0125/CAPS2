@@ -31,6 +31,10 @@ export default new Vuex.Store({
     userAllComplete: {},
     pickupDate: "",
     pickupTime: "",
+    ocPickupToPack: true,
+    ocPickupToPick: false,
+    ocPickupToComplete: false,
+    ocPickupToCancel: false,
   },
   mutations: {
     //Views Login.vue
@@ -190,6 +194,34 @@ export default new Vuex.Store({
     pickupTime: (state, payload) => {
       state.pickupTime = {},
       state.pickupTime = payload;
+    },
+    //Components OnlineCashier OCPickup.vue
+    ocPickupToPack: (state) => {
+      state.ocPickupToPack = true;
+      state.ocPickupToPick = false;
+      state.ocPickupToComplete = false;
+      state.ocPickupToCancel = false;
+    },
+    //Components OnlineCashier OCPickup.vue
+    ocPickupToDeliver: (state) => {
+      state.ocPickupToPack = false;
+      state.ocPickupToPick = true;
+      state.ocPickupToComplete = false;
+      state.ocPickupToCancel = false;
+    },
+    //Components OnlineCashier OCPickup.vue
+    ocPickupToComplete: (state) => {
+      state.ocPickupToPack = false;
+      state.ocPickupToPick = false;
+      state.ocPickupToComplete = true;
+      state.ocPickupToCancel = false;
+    },
+    //Components OnlineCashier OCPickup.vue
+    ocPickupToCancel: (state) => {
+      state.ocPickupToPack = false;
+      state.ocPickupToPick = false;
+      state.ocPickupToComplete = false;
+      state.ocPickupToCancel = true;
     },
   },
   actions: {
