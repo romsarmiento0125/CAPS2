@@ -110,9 +110,7 @@
     }),
 
     computed: {
-      userAllOrdersItems() {
-        return this.$store.state.userAllOrdersItems;
-      },
+
     },
 
     methods: {

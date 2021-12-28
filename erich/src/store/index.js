@@ -35,6 +35,8 @@ export default new Vuex.Store({
     ocPickupToPick: false,
     ocPickupToComplete: false,
     ocPickupToCancel: false,
+    userPickupOrders: {},
+    userPickupOrdersCons: {},
   },
   mutations: {
     //Views Login.vue
@@ -222,6 +224,13 @@ export default new Vuex.Store({
       state.ocPickupToPick = false;
       state.ocPickupToComplete = false;
       state.ocPickupToCancel = true;
+    },
+    //Views OnlineCashier.vue
+    storeUserPickupOrders: (state, payload) => {
+      state.userPickupOrders = {};
+      state.userPickupOrdersCons = {};
+      state.userPickupOrdersCons = payload;
+      state.userPickupOrders = payload;
     },
   },
   actions: {

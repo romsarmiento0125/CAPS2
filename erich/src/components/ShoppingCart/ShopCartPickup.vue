@@ -211,6 +211,7 @@
           subtotal = subtotal + this.storeCustomerItems[i].item_quantity * this.storeCustomerItems[i].item_price;
         }
         this.customerPickup.SubTotal = subtotal;
+        this.customerPickup.Total = subtotal;
       }
     },
 

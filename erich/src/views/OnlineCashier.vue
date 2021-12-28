@@ -38,7 +38,6 @@
       getAllOrder(){
         axios.get('http://127.0.0.1:8000/api/customerorder')
         .then(res => {
-          console.log(res.data);
           this.$store.commit('storeUserAllOrders', res.data);
         })
         .catch(err => console.error(err));
@@ -46,7 +45,6 @@
       getAllDeliver(){
         axios.get('http://127.0.0.1:8000/api/customerdeliveritems')
         .then(res => {
-          console.log(res.data);
           this.$store.commit('storeUserAllDeliver', res.data);
         })
         .catch(err => console.error(err));
@@ -54,10 +52,16 @@
       getAllComplete(){
         axios.get('http://127.0.0.1:8000/api/customercompleteitems')
         .then(res => {
-          console.log(res.data);
           this.$store.commit('storeUserAllComplete', res.data);
         })
         .catch(err => console.error(err));
+      },
+      getPickupOrder(){
+        axios.get('http://127.0.0.1:8000/api/customerpickup')
+          .then(res => {
+            this.$store.commit('storeUserPickupOrders', res.data);
+          })
+          .catch(err => console.error(err));
       },
     },
 
@@ -65,6 +69,7 @@
       this.getAllOrder();
       this.getAllDeliver();
       this.getAllComplete();
+      this.getPickupOrder();
     }
   }
 </script>

@@ -40,7 +40,7 @@
                   v-for="(info, n) in userAllDeliver"
                   :key="n"
                 >
-                  <td>#{{info.InvoiceNumber}} <br> {{info.Name}}</td>
+                  <td>{{info.Name}} <br> {{info.MobileNumber}}</td>
                   <td><oc-orderdetails
                     :ivNumber="info.InvoiceNumber"
                     :orders="info.orders"

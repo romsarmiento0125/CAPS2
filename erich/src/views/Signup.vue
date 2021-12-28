@@ -643,9 +643,12 @@
         .catch(err => console.error(err));
       },
       accCreateSuccess(data) {
-        console.log("This is customer data: " + data);
-        if(data == "emailInvalid"){
+        console.log(data);
+        if(data == "wrongemail"){
           alert("Your email is already taken. Try another email.")
+        }
+        else if(data == "wrongnumber"){
+          alert("Your number is already taken. Try another number.")
         }
         else{
           this.saveAddress(data);

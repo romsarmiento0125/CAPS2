@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container>
+    <v-container fluid>
       <v-row>
         <v-col>
           <div
@@ -12,7 +12,7 @@
 
       <v-row>
         <v-col>
-          <v-simple-table height="300px">
+          <v-simple-table height="650px">
             <template v-slot:default>
               <thead>
                 <tr>
@@ -23,10 +23,10 @@
                     Order Details
                   </th>
                   <th>
-                    Customer Address
+                    Pick up Date
                   </th>
                   <th>
-                    Status/Countdown
+                    Status
                   </th>
                   <th>
                     Actions
@@ -35,15 +35,24 @@
               </thead>
               <tbody>
                 <tr
-                  v-for="(info, n) in infos"
+                  v-for="(info, n) in userPickupOrders"
                   :key="n"
                 >
-                  <td>{{info.IvNumber}} {{info.Name}}</td>
-                  <td><oc-orderdetails></oc-orderdetails></td>
-                  <td>{{info.Address}}</td>
-                  <td>{{info.Status}} {{info.DueDate}}</td>
+                  <td>{{info.Name}} <br> {{info.MobileNumber}}</td>
+                  <td><oc-orderdetails
+                    :ivNumber="info.InvoiceNumber"
+                    :orders="info.orders"
+                    :odDate="info.PickupDate"
+                    :sTotal="info.SubTotal"
+                    shipMethod="Pickup"
+                    :dDiscount="info.Discount"
+                    :tTax="info.Tax"
+                    :tTotal="info.Total"
+                  ></oc-orderdetails></td>
+                  <td>{{info.PickupDate}} <br> {{info.PickupTime}}</td>
+                  <td>{{info.Status}}</td>
                   <td>
-                    <v-btn>Actions</v-btn>
+                    <v-btn>Accept</v-btn>
                   </td>
                 </tr>
               </tbody>
@@ -65,27 +74,30 @@
 
     data () {
       return {
-        infos: [
-          { IvNumber: '001', Name: "Rom Paulo Sarmiento", Address: "Norzagaray Poblacion Antonia Heights Subd. Block 0 Lot 0", Status: "Prepairing",
-            DueDate: "Dec 19 2021", SubTotal: "900", ShipFee: "50", Discount: "0", Tax: "50", Total: "1000"},
-          { IvNumber: '002', Name: "Reyster Del Rosario", Address: "Sta.Maria Pulong Buhangin Gulod Lot 0 Block 0", Status: "Prepariring",
-            DueDate: "Dec 19 2021", SubTotal: "800", ShipFee: "50", Discount: "0", Tax: "50", Total: "900"},
-        ],
-        items: [
-          { IvNumber: '001', ItemName: "Bonakid", ItemDesc: "Ang sarap mo pia", Quantity: "5", RPrice: "50"},
-          { IvNumber: '001', ItemName: "Bonakid", ItemDesc: "Ang sarap mo pia", Quantity: "5", RPrice: "50"},
-          { IvNumber: '002', ItemName: "Bonakid", ItemDesc: "Ang sarap mo pia", Quantity: "5", RPrice: "50"},
-          { IvNumber: '002', ItemName: "Bonakid", ItemDesc: "Ang sarap mo pia", Quantity: "5", RPrice: "50"},
-          { IvNumber: '002', ItemName: "Bonakid", ItemDesc: "Ang sarap mo pia", Quantity: "5", RPrice: "50"},
-        ],
+        infos: [],
+        items: [],
       }
     },
 
     computed: {
-
+      userPickupOrders() {
+        return this.$store.state.userPickupOrders;
+      },
     },
 
     methods: {
+      getPickupOrder(){
+        axios.get('http://127.0.0.1:8000/api/customerpickup')
+          .then(res => {
+            console.log(res.data);
+            this.$store.commit('storeUserPickupOrders', res.data);
+          })
+          .catch(err => console.error(err));
+      },
+    },
+
+    beforeMount() {
+      this.getPickupOrder();
     }
   }
 </script>
