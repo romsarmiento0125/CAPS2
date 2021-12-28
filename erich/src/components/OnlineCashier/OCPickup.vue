@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container>
+    <v-container fluid> 
       <v-row>
         <v-col>
           <div>
@@ -109,12 +109,12 @@
       },
     },
     beforeMount() {
-      axios.get('http://127.0.0.1:8000/api/customerpickup')
-        .then(res => {
-          console.log(res.data);
-          //this.$store.commit('storeUserAllOrders', res.data);
-        })
-        .catch(err => console.error(err));
+      // axios.get('http://127.0.0.1:8000/api/customerpickup')
+      //   .then(res => {
+      //     console.log(res.data);
+      //     //this.$store.commit('storeUserAllOrders', res.data);
+      //   })
+      //   .catch(err => console.error(err));
     }
   }
 </script>
