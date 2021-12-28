@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\customerPickupInfos;
 
 class CustomerPickupInfosController extends Controller
 {
@@ -13,7 +14,7 @@ class CustomerPickupInfosController extends Controller
      */
     public function index()
     {
-        //
+        return customerPickupInfos::with('orders')->get();
     }
 
     /**
@@ -34,7 +35,23 @@ class CustomerPickupInfosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $register = new customerPickupInfos();
+
+        $register->Email = $request->register['Email'];
+        $register->InvoiceNumber = $request->register['InvoiceNumber'];
+        $register->Name = $request->register['Name'];
+        $register->MobileNumber = $request->register['Mobilenumber'];
+        $register->Status = $request->register['Status'];
+        $register->PickupDate = $request->register['pickupDate'];
+        $register->PickupTime = $request->register['pickupTime'];
+        $register->Discount = $request->register['Discount'];
+        $register->Tax = $request->register['OrderTax'];
+        $register->SubTotal = $request->register['SubTotal'];
+        $register->Total = $request->register['Total'];
+
+        $register->save();
+
+        return $register;
     }
 
     /**
