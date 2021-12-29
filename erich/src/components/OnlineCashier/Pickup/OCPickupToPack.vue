@@ -3,6 +3,28 @@
     <v-container fluid>
       <v-row>
         <v-col>
+          <div>
+            <v-btn
+              @click="showAllToPack()"
+            >
+              <p>All</p>
+            </v-btn>
+            <v-btn
+              @click="showToProcessToPack()"
+            >
+              <p>To Process</p>
+            </v-btn>
+            <v-btn
+              @click="showProcessedToPack()"
+            >
+              <p>Processed</p>
+            </v-btn>
+          </div>
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col>
           <div
           >
             <p>Order</p>
@@ -51,8 +73,17 @@
                   ></oc-orderdetails></td>
                   <td>{{info.PickupDate}} <br> {{info.PickupTime}}</td>
                   <td>{{info.Status}}</td>
-                  <td>
-                    <v-btn>Accept</v-btn>
+                  <td v-if="info.Status == 'Pending'">
+                    <v-btn
+                      @click="toPickupProcess(info.id, info.Email, info.InvoiceNumber, info.Name, info.MobileNumber, info.PickupDate,
+                                info.PickupTime, info.Discount, info.Tax, info.SubTotal, info.Total)"
+                    >Accept</v-btn>
+                  </td>
+                  <td v-else-if="info.Status == 'Pickup'">
+                    <v-btn
+                      @click="toPickupPickup(info.id, info.Email, info.InvoiceNumber, info.Name, info.MobileNumber, info.PickupDate,
+                                info.PickupTime, info.Discount, info.Tax, info.SubTotal, info.Total)"
+                    >To Claim</v-btn>
                   </td>
                 </tr>
               </tbody>
@@ -72,12 +103,21 @@
       "oc-orderdetails": OCOrderDetails,
     },
 
-    data () {
-      return {
-        infos: [],
-        items: [],
-      }
-    },
+    data: () => ({
+      orderPickup: {
+        Email: "",
+        InvoiceNumber: "",
+        Name: "",
+        Mobilenumber: "",
+        OrderStatus: "Pending",
+        PickupDate: "",
+        PickupTime: "",
+        Discount: 0,
+        OrderTax: 0,
+        SubTotal: 0,
+        Total: 0,
+      },
+    }),
 
     computed: {
       userPickupOrders() {
@@ -86,6 +126,74 @@
     },
 
     methods: {
+      showAllToPack(){
+        this.$store.commit('showAllPickupItems');
+      },
+      showToProcessToPack(){
+        this.$store.commit('filterAllPickupItems', 'Pending');
+      },
+      showProcessedToPack(){
+        this.$store.commit('filterAllPickupItems', 'Pickup');
+      },
+      toPickupProcess(id, email, ivNumber, name, mobileNum, pickupDate, pickupTime, discount, tax, subTotal, total){
+        this.orderPickup.Email = email;
+        this.orderPickup.InvoiceNumber = ivNumber;
+        this.orderPickup.Name = name;
+        this.orderPickup.Mobilenumber = mobileNum;
+        this.orderPickup.OrderStatus = "Pickup"
+        this.orderPickup.PickupDate = pickupDate;
+        this.orderPickup.PickupTime = pickupTime;
+        this.orderPickup.Discount = discount;
+        this.orderPickup.OrderTax = tax;
+        this.orderPickup.SubTotal = subTotal;
+        this.orderPickup.Total = total;
+
+        console.log(id);
+        console.log(this.orderPickup);
+
+        axios.put('http://127.0.0.1:8000/api/customerpickup/' + id, {
+            register: this.orderPickup
+          })
+          .then(res => {
+            console.log(res.data);
+            this.getPickupOrder();
+          })
+          .catch(err => console.error(err));
+
+        
+      },
+      toPickupPickup(id, email, ivNumber, name, mobileNum, pickupDate, pickupTime, discount, tax, subTotal, total){
+        this.orderPickup.Email = email;
+        this.orderPickup.InvoiceNumber = ivNumber;
+        this.orderPickup.Name = name;
+        this.orderPickup.Mobilenumber = mobileNum;
+        this.orderPickup.OrderStatus = "Claim"
+        this.orderPickup.PickupDate = pickupDate;
+        this.orderPickup.PickupTime = pickupTime;
+        this.orderPickup.Discount = discount;
+        this.orderPickup.OrderTax = tax;
+        this.orderPickup.SubTotal = subTotal;
+        this.orderPickup.Total = total;
+
+        axios.post('http://127.0.0.1:8000/api/customerpickuppickup/store', {
+            register: this.orderPickup
+          })
+          .then(res => {
+            this.toDelete(id);
+            console.log(res.data);  
+          })
+          .catch(err => console.error(err));
+      },
+      toDelete(id){
+        axios.delete('http://127.0.0.1:8000/api/customerpickup/'+ id)
+          .then( res => {
+            console.log("Delete")
+            console.log(res.data);
+            this.getPickupOrder();
+          })
+          .catch(err => console.error(err))
+        
+      },
       getPickupOrder(){
         axios.get('http://127.0.0.1:8000/api/customerpickup')
           .then(res => {

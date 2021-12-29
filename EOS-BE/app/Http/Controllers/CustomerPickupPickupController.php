@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\customerPickupInfos;
+use App\Models\customerPickupPickup;
 
-class CustomerPickupInfosController extends Controller
+class CustomerPickupPickupController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class CustomerPickupInfosController extends Controller
      */
     public function index()
     {
-        return customerPickupInfos::with('orders')->get();
+        return customerPickupPickup::with('orders')->get();
     }
 
     /**
@@ -35,15 +35,15 @@ class CustomerPickupInfosController extends Controller
      */
     public function store(Request $request)
     {
-        $register = new customerPickupInfos();
+        $register = new customerPickupPickup();
 
         $register->Email = $request->register['Email'];
         $register->InvoiceNumber = $request->register['InvoiceNumber'];
         $register->Name = $request->register['Name'];
         $register->MobileNumber = $request->register['Mobilenumber'];
-        $register->Status = $request->register['Status'];
-        $register->PickupDate = $request->register['pickupDate'];
-        $register->PickupTime = $request->register['pickupTime'];
+        $register->Status = $request->register['OrderStatus'];
+        $register->PickupDate = $request->register['PickupDate'];
+        $register->PickupTime = $request->register['PickupTime'];
         $register->Discount = $request->register['Discount'];
         $register->Tax = $request->register['OrderTax'];
         $register->SubTotal = $request->register['SubTotal'];
@@ -85,24 +85,7 @@ class CustomerPickupInfosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $existingItem = customerPickupInfos::find($id);
-
-        $existingItem->id = $id;
-        $existingItem->Email = $request->register['Email'];
-        $existingItem->InvoiceNumber = $request->register['InvoiceNumber'];
-        $existingItem->Name = $request->register['Name'];
-        $existingItem->MobileNumber = $request->register['Mobilenumber'];
-        $existingItem->Status = $request->register['OrderStatus'];
-        $existingItem->PickupDate = $request->register['PickupDate'];
-        $existingItem->PickupTime = $request->register['PickupTime'];
-        $existingItem->Discount = $request->register['Discount'];
-        $existingItem->Tax = $request->register['OrderTax'];
-        $existingItem->SubTotal = $request->register['SubTotal'];
-        $existingItem->Total = $request->register['Total'];
-        $existingItem->save();
-
-        //return $existingItem;
-        return "goods";
+        //
     }
 
     /**
@@ -113,7 +96,7 @@ class CustomerPickupInfosController extends Controller
      */
     public function destroy($id)
     {
-        $existingItem = customerPickupInfos::find($id);
+        $existingItem = customerPickupPickup::find($id);
 
         if( $existingItem){
             $existingItem->delete();

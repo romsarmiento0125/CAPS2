@@ -63,6 +63,22 @@
           })
           .catch(err => console.error(err));
       },
+      getPickupPickup(){
+        axios.get('http://127.0.0.1:8000/api/customerpickuppickup')
+          .then(res => {
+            console.log(res.data);
+            this.$store.commit('storeUserAllPickup', res.data);
+          })
+          .catch(err => console.error(err));
+      },
+      getPickupComplete(){
+        axios.get('http://127.0.0.1:8000/api/customerpickupcomplete')
+          .then(res => {
+            console.log(res.data);
+            this.$store.commit('storeUserPickupComplete', res.data);
+          })
+          .catch(err => console.error(err));
+      },
     },
 
     beforeMount(){
@@ -70,6 +86,8 @@
       this.getAllDeliver();
       this.getAllComplete();
       this.getPickupOrder();
+      this.getPickupPickup();
+      this.getPickupComplete();
     }
   }
 </script>

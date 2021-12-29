@@ -18,6 +18,9 @@ use App\Http\Controllers\userDeliverItemsController;
 use App\Http\Controllers\userCompleteItemsController;
 use App\Http\Controllers\CustomerPickupInfosController;
 use App\Http\Controllers\CustomerPickupItemsController;
+use App\Http\Controllers\CustomerPickupPickupController;
+use App\Http\Controllers\CustomerPickupCompleteController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -144,4 +147,18 @@ Route::prefix('/customerpickupitems')->group( function () {
     Route::post('/store', [CustomerPickupItemsController::class, 'store']);
     Route::put('/{id}', [CustomerPickupItemsController::class, 'update']);
     Route::delete('/{id}', [CustomerPickupItemsController::class, 'destroy']);
+});
+
+Route::get('/customerpickuppickup', [CustomerPickupPickupController::class, 'index']);
+Route::prefix('/customerpickuppickup')->group( function () {
+    Route::post('/store', [CustomerPickupPickupController::class, 'store']);
+    Route::put('/{id}', [CustomerPickupPickupController::class, 'update']);
+    Route::delete('/{id}', [CustomerPickupPickupController::class, 'destroy']);
+});
+
+Route::get('/customerpickupcomplete', [CustomerPickupCompleteController::class, 'index']);
+Route::prefix('/customerpickupcomplete')->group( function () {
+    Route::post('/store', [CustomerPickupCompleteController::class, 'store']);
+    Route::put('/{id}', [CustomerPickupCompleteController::class, 'update']);
+    Route::delete('/{id}', [CustomerPickupCompleteController::class, 'destroy']);
 });

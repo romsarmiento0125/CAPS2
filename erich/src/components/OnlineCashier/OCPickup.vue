@@ -26,7 +26,7 @@
             <v-btn
               @click="pickupToPicker('deliver')"
             >
-              <p>On Delivery</p>
+              <p>To Pickup</p>
             </v-btn>
             <v-btn
               @click="pickupToPicker('complete')"
