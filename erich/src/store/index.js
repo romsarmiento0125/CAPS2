@@ -37,6 +37,8 @@ export default new Vuex.Store({
     ocPickupToCancel: false,
     userPickupOrders: {},
     userPickupOrdersCons: {},
+    userPickupPickup: {},
+    userPickupComplete: {},
   },
   mutations: {
     //Views Login.vue
@@ -231,6 +233,28 @@ export default new Vuex.Store({
       state.userPickupOrdersCons = {};
       state.userPickupOrdersCons = payload;
       state.userPickupOrders = payload;
+    },
+    //Components OnlineCashier OCDeliveryToPack.vue
+    filterAllPickupItems: (state, payload) => {
+      let result = state.userPickupOrdersCons.filter(res => res.Status == payload);
+      state.userPickupOrders = result;
+      // console.log(state.userAllOrders);
+      // console.log(state.userAllOrdersCons);
+    },
+    //Components OnlineCashier OCDeliveryToPack.vue
+    showAllPickupItems: (state) => {
+      state.userPickupOrders = {};
+      state.userPickupOrders = state.userPickupOrdersCons;
+    },
+    //Components OnlineCashier Pickup OCPickupToPickup.vue
+    storeUserAllPickup: (state, payload) => {
+      state.userPickupPickup = {},
+      state.userPickupPickup = payload;
+    },
+    //Components OnlineCashier Pickup OCPickupToComplete.vue
+    storeUserPickupComplete: (state, payload) => {
+      state.userPickupComplete = {},
+      state.userPickupComplete = payload;
     },
   },
   actions: {
