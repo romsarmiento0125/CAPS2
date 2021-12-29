@@ -64,6 +64,8 @@ class erichcustomercontroller extends Controller
             $register->Password = $request->register['Password'];
 
             $register->save();
+
+            return $register;
         }   
 
         // if($cond){
