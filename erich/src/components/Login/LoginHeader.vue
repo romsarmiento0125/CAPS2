@@ -27,7 +27,7 @@
                 vertical
               ></v-divider>
               <p
-                class="text-h5 ml-3 pt-1 grey--text text--darken-1"
+                class="text-h5 ml-3 my-0 pt-1 grey--text text--darken-1"
               >Login</p>
             </div>
           </v-col>

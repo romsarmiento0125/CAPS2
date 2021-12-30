@@ -16,7 +16,7 @@
             <v-row>
               <v-col>
                 <p
-                  class="mt-3 mx-10 title"
+                  class="mt-3 pl-15 ml-7 title"
                 >Product</p>
               </v-col>
               <v-col>
@@ -24,13 +24,13 @@
                   class="d-flex mt-3"
                 >
                   <p
-                    class="mx-10 title"
+                    class="mx-10 title fontTitle"
                   >Quantity</p>
                   <p
-                    class="mx-10 title"
+                    class="mx-10 title fontTitle"
                   >Total Price</p>
                   <p
-                    class="mx-10 title"
+                    class="mx-10 title fontTitle"
                   >Action</p>
                 </div>
               </v-col>
@@ -70,17 +70,17 @@
                               ></v-img>
                               <v-list-item-title>
                                 <p
-                                  class="my-0 py-0 headline"
+                                  class="my-0 py-0 title"
                                 >
                                   {{item.item_name}}
                                 </p>
                                 <p
-                                  class="my-0 py-0 blue--text"
+                                  class="my-0 py-0 blue--text text--darken-4 subtitle-1"
                                 >
                                   {{item.item_desc}}
                                 </p>
                                 <p
-                                  class="my-0 py-0"
+                                  class="my-0 py-0 subtitle-2"
                                 >
                                   {{item.item_price}}
                                 </p>
@@ -96,7 +96,7 @@
                             >
                               <div
                                 class="qtt d-flex align-center justify-center"
-                                style="border-style: solid; border-width: 1px 1px;"
+                                style="border-style: solid; border-width: 1px 1px; border-color: #BDBDBD"
                               >
                                 <v-btn
                                   depressed
@@ -106,13 +106,13 @@
                                   
                                 >
                                   <v-icon
-                                    
+                                    color="#757575"
                                   >
                                     mdi-minus
                                   </v-icon>
                                 </v-btn>
                                 <p
-                                  class="my-0 px-2 subtitle-1"
+                                  class="my-0 px-2 subtitle-1 grey--text text--darken-2 font-weight-bold" 
                                 >
                                   {{item.item_quantity}}
                                 </p>
@@ -123,6 +123,7 @@
                                   
                                 >
                                   <v-icon
+                                    color="#757575"
                                   >
                                     mdi-plus
                                   </v-icon>
@@ -132,19 +133,19 @@
                               <div
                                 class="tp my-0 mx-15 d-flex align-center justify-center"
                               >
-                                <v-icon>
+                                <v-icon small>
                                   mdi-currency-php
                                 </v-icon>
                                 <p
-                                  class="pa-0 ma-0"
+                                  class="pa-0 ma-0 subtitle-1 grey--text text--darken-1"
                                 >
                                   {{priceRound(item.item_price * item.item_quantity)}}
                                 </p>
                               </div>
 
                               <v-btn
-                                class="act justify-center mx-6"
-                                color="primary"
+                                class="act justify-center mx-6 font-weight-bold"
+                                color="#1106A0"
                                 plain
                                 @click="deleteItems(item.id)"
                               >
@@ -178,7 +179,7 @@
               <v-col
               >
                 <h3
-                  class="my-4 mx-10"
+                  class="my-4 mx-10 title fontTitle"
                 >
                   Total
                 </h3>
@@ -188,9 +189,9 @@
                   class="d-flex justify-end"
                 >
                   <h3
-                  class="my-4 mx-10"
+                  class="my-4 mx-10 title fontTitle"
                   >
-                    <v-icon>mdi-currency-php</v-icon>{{totPrice}}
+                    <v-icon color="#464646">mdi-currency-php</v-icon>{{totPrice}}
                   </h3>
                 </div>
                 
@@ -202,15 +203,17 @@
             <v-row>
               <v-col>
                 <p
-                  class="my-3 mx-7"
+                  class="my-3 mx-10"
                 >
-                  Taxes and <router-link to="/" class="text-decoration-underline">Shipping</router-link> are calculted at checkout
+                  Taxes and <router-link to="/" class="text-decoration-underline indigo--text text--darken-4">Shipping</router-link> are calculted at checkout
                 </p>
                 <div
                   class="mx-8 mt-12"
                 >
                   <v-btn
-                    color="primary"
+                    dark
+                    color="#1106A0"
+                    class="mx-2"
                     :to="{name: 'Cart' , params: { id: 'place-order', title: 'Place Order'}}"
                     @click="showPlaceOrder()"
                     block
@@ -436,3 +439,9 @@
   //   this.$store.commit('storeCartItems', this.items);
   // },
 </script>
+<style scoped>
+.fontTitle{
+color: #464646;
+}
+
+</style>

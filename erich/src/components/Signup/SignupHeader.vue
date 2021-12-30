@@ -28,7 +28,7 @@
                 
               ></v-divider>
               <p
-                class="text-h5 ml-3 pt-1 grey--text text--darken-1"
+                class="text-h5 ml-3 pt-1 my-0 grey--text text--darken-1"
               >Signup</p>
             </div>
           </v-col>
