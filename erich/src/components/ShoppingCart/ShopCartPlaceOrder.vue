@@ -15,20 +15,49 @@
           offset="1"
           cols="1"
         >
-          <v-btn
-            @click="deliveryMethodCond()"
-          >
-            Ship
-          </v-btn>
+          <div>
+            
+            <v-btn
+              @click="deliveryMethodCond()"
+              :color="shipBtn"
+            >
+              <v-icon
+                :color="shipIcon"
+              >
+                mdi-truck-delivery-outline
+              </v-icon>
+              <p
+                class="my-0 py-0 px-2"
+                :style="shipText"
+              >
+                Ship
+              </p>
+            </v-btn>
+          </div>
+          
         </v-col>
         <v-col
           cols="1"
         >
-          <v-btn
-            @click="pickupMethodCond()"
-          >
-            Pick Up
-          </v-btn>
+          <div>
+            <v-btn
+              @click="pickupMethodCond()"
+              :color="pickBtn"
+            >
+              <v-icon
+                :color="pickIcon"
+              >
+                mdi-store
+              </v-icon>
+              <p
+                class="my-0 py-0"
+                :style="pickText"
+              >
+                Pick Up
+              </p>
+            </v-btn>
+          </div>
+          
         </v-col>
       </v-row>
     </v-container>
@@ -39,7 +68,7 @@
       <v-row>
         <v-col
           offset="1"
-          cols="5"
+          cols="4"
         >
           <v-container
             v-if="deliveryCond"
@@ -54,7 +83,6 @@
                   height="100%"
                   width="100%"
                 >
-
                   <method-delivery></method-delivery>
                   <v-row
                     class="ma-5 pa-5"
@@ -118,7 +146,10 @@
             </v-row>
           </v-container>
         </v-col>
-        <v-col>
+        <v-col
+          offset="1"
+          cols="5"
+        >
           <order-items></order-items>
         </v-col>
       </v-row>
@@ -142,6 +173,12 @@
 
     data: () => ({
       deliveryCond: true,
+      shipIcon: "white",
+      shipBtn: "blue",
+      shipText: "color: white",
+      pickIcon: "blue",
+      pickBtn: "white",
+      pickText: "color: blue",
     }),
 
     methods: {
@@ -158,10 +195,22 @@
       deliveryMethodCond() {
         this.deliveryCond = true;
         this.$store.commit('thisDeliver');
+        this.shipIcon = "white";
+        this.shipBtn = "blue";
+        this.shipText = "color: white";
+        this.pickIcon = "blue";
+        this.pickBtn = "white";
+        this.pickText = "color: blue";
       },
       pickupMethodCond() {
         this.deliveryCond = false;
         this.$store.commit('thisPickup');
+        this.shipIcon = "blue";
+        this.shipBtn = "white";
+        this.shipText = "color: blue";
+        this.pickIcon = "white";
+        this.pickBtn = "blue";
+        this.pickText = "color: white";
       }
     }
   }

@@ -1,23 +1,26 @@
 <template>
   <div>
-    <v-container fluid>
+    <v-container
+      fluid
+      class="con"
+    >
       <v-row>
         <v-col
-          offset=""
-          cols=""
+          offset="1"
+          cols="10"
           class="mx-15 mb-5 pa-0"
         >
           <div
-            class="d-flex justify-center"
+            class=""
           >
             <v-list
-              color="transparent"
+              color=""
               class="ma-0 pa-0"
             >
               <v-list-item-group
               >
                 <v-simple-table
-                  height="500px"
+                  height="400px"
                 >
                   <v-list-item
                     v-for="item in items"
@@ -29,42 +32,57 @@
                       <v-row
                       >
                         <v-col
-                          cols=""
+                          cols="8"
                           class="ma-0 pa-0"
                         >
                           <div
-                            class="d-flex align-center grey lighten-3"
+                            class="d-flex ma-2"
                             
                           >
-                            <div>
-                              <v-img
-                                height="120px"
-                                width="120px"
-                                contain
-                                :src="require('../../assets/itemPhotos/'+item.item_image)"
-                              ></v-img>
-                            </div>
-                            
-                            <v-list-item-title>
+                            <div
+                              class="d-flex"
+                            >
                               <div
-                                class="d-flex"
+                                class="imgbg ma-1 pa-0"
                               >
-                                <div
-                                  class="ma-5 pa-5"
-                                >
-                                  <span>{{item.item_name}}</span>
-                                  <br>
-                                  <span>{{item.item_desc}}</span>
-                                </div>
-                                <div
-                                  class="ma-5 pa-5"
-                                >
-                                  <span>{{priceRound(item.item_price * item.item_quantity)}}</span>
-                                  <br>
-                                  <span>{{item.item_quantity}}</span>
-                                </div>
+                                <v-img
+                                  height="120px"
+                                  width="120px"
+                                  contain
+                                  :src="require('../../assets/itemPhotos/'+item.item_image)"
+                                ></v-img>
                               </div>
-                            </v-list-item-title>
+                            
+                           
+                              <div
+                                class="d-flex align-center"
+                              >
+                                <span>{{item.item_name}}</span>
+                                &nbsp;
+                                <span>{{item.item_desc}}</span>
+                              </div>
+                            </div>
+                      
+                            
+                        
+                          </div>
+                        </v-col>
+                        <v-col
+                          cols="4"
+                          class="d-flex justify-end"
+                        >
+                          <div
+                            class="d-flex align-center mr-5"
+                          >
+                            <div
+                              class=""
+                            >
+                              <span>{{item.item_quantity}}&nbsp;x&nbsp;{{item.item_price}}</span>
+                              <br>
+                              <span
+                                class="title"
+                              >P&nbsp;{{priceRound(item.item_price * item.item_quantity)}}</span>
+                            </div>
                           </div>
                         </v-col>
                       </v-row>
@@ -80,7 +98,10 @@
       <v-row
         class="mt-3"
       >
-        <v-col>
+        <v-col
+          offset="1"
+          cols="10"
+        >
           <div
             class="d-flex"
           >
@@ -90,7 +111,7 @@
             <v-spacer></v-spacer>
             <p
               class="title"
-            >{{subTotPrice}}</p>
+            >{{priceRound(subTotPrice)}}</p>
           </div>
           <div
              class="d-flex"
@@ -107,7 +128,10 @@
       </v-row>
       <v-divider></v-divider>
       <v-row>
-        <v-col>
+        <v-col
+          offset="1"
+          cols="10"
+        >
           <div
             class="d-flex"
           >
@@ -117,7 +141,7 @@
             <v-spacer></v-spacer>
             <p
               class="title"
-            >{{totPrice}}</p>
+            >{{priceRound(totPrice)}}</p>
           </div>
         </v-col>
       </v-row>
@@ -234,3 +258,16 @@
     
   }
 </script>
+
+<style scoped>
+  .con *{
+    background-color: transparent;
+  }
+  .imgbg{
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: white;
+  }
+
+
+</style>
