@@ -50,11 +50,11 @@
 
     methods: {
       navbarPicker() {
-        console.log("navbar picker");
-        console.log(this.customerInfos.Tag);
+        // console.log("navbar picker");
+        // console.log(this.customerInfos.Tag);
         if(this.customerInfos.Tag == "Customer" || this.customerInfos.Tag == "Admin" || this.customerInfos.Tag == "Encoder"){
           this.headerCond = false;
-          console.log("headerCond: " + this.headerCond);
+          // console.log("headerCond: " + this.headerCond);
         }
         else if(this.customerInfos.Tag == "Ocashier"){
           this.$router.push("/onlinecashier")
