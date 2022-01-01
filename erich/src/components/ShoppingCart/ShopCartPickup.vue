@@ -204,11 +204,12 @@
             item_Name: this.storeCustomerItems[i].item_name,
             item_Desc: this.storeCustomerItems[i].item_desc,
             item_Image: this.storeCustomerItems[i].item_image,
+            item_Discount: this.storeCustomerItems[i].item_discount,
             item_Quantity: this.storeCustomerItems[i].item_quantity,
             item_Price: this.storeCustomerItems[i].item_price,
             item_Code: this.storeCustomerItems[i].item_code,}
           this.customerPickupItems.push(item);
-          subtotal = subtotal + this.storeCustomerItems[i].item_quantity * this.storeCustomerItems[i].item_price;
+          subtotal = (subtotal + ((this.storeCustomerItems[i].item_quantity * this.storeCustomerItems[i].item_price * 1) - ((this.storeCustomerItems[i].item_quantity * this.storeCustomerItems[i].item_price * 1) * (this.storeCustomerItems[i].item_discount / 100) )));
         }
         this.customerPickup.SubTotal = subtotal;
         this.customerPickup.Total = subtotal;

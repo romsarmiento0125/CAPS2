@@ -33,14 +33,16 @@
             cols="5"
           >
             <v-text-field
+              class="py-2"
               color="#1106A0"
-              append-icon="mdi-magnify"
               hide-details="auto"
               outlined
+              prepend-inner-icon="mdi-magnify"
               dense
-              height="small"
               background-color="white"
               placeholder="Search for entire store here.."
+              v-model="searchKey"
+              v-on:keyup="toSearch(searchKey)"
             >
             </v-text-field>
             <v-badge
@@ -156,6 +158,7 @@
       ],
       customerEmail: "",
       cartCounter: 0,
+      searchKey: "",
     }),
 
     computed: {
@@ -174,6 +177,9 @@
     // },  
 
     methods: {
+      toSearch(data){
+        this.$store.commit('searchItem', data);
+      },
       accountButton(cond) {
         if(cond == "account"){
           this.$router.push({path: '/profile'});

@@ -77,11 +77,11 @@
                             <div
                               class=""
                             >
-                              <span>{{item.item_quantity}}&nbsp;x&nbsp;{{item.item_price}}</span>
+                              <span>{{item.item_quantity}}&nbsp;x&nbsp;{{priceRound(item.item_price - ((item.item_discount / 100) * item.item_price))}}</span>
                               <br>
                               <span
                                 class="title"
-                              >P&nbsp;{{priceRound(item.item_price * item.item_quantity)}}</span>
+                              >P&nbsp;{{priceRound((item.item_price - ((item.item_discount / 100) * item.item_price)) * item.item_quantity)}}</span>
                             </div>
                           </div>
                         </v-col>
@@ -214,9 +214,11 @@
             item_code: this.cartItems[i].item_code,
             item_quantity: this.cartItems[i].item_quantity,
             item_price: this.cartItems[i].item_price,
-            item_image: this.cartItems[i].item_image}
+            item_image: this.cartItems[i].item_image,
+            item_discount: this.cartItems[i].item_discount
+            }
             this.items.push(item);
-            this.subTotPrice = this.subTotPrice + (this.cartItems[i].item_quantity * this.cartItems[i].item_price * 1);
+            this.subTotPrice = (this.subTotPrice + ((this.cartItems[i].item_quantity * this.cartItems[i].item_price * 1) - ((this.cartItems[i].item_quantity * this.cartItems[i].item_price * 1) * (this.cartItems[i].item_discount / 100) )));
         }
         this.findShipFee();
       },

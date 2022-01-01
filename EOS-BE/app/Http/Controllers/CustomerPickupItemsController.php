@@ -40,6 +40,7 @@ class CustomerPickupItemsController extends Controller
             $register->InvoiceNumber = $request->register[$i]['item_invNumber'];
             $register->ItemName = $request->register[$i]['item_Name'];
             $register->ItemDesc = $request->register[$i]['item_Desc'];
+            $register->Discount = $request->register[$i]['item_Discount'];
             $register->Quantity = $request->register[$i]['item_Quantity'];
             $register->RetailPrice = $request->register[$i]['item_Price'];
             $register->ItemCode = $request->register[$i]['item_Code'];

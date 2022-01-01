@@ -39,6 +39,7 @@ export default new Vuex.Store({
     userPickupOrdersCons: {},
     userPickupPickup: {},
     userPickupComplete: {},
+    searchItem: "",
   },
   mutations: {
     //Views Login.vue
@@ -255,6 +256,10 @@ export default new Vuex.Store({
     storeUserPickupComplete: (state, payload) => {
       state.userPickupComplete = {},
       state.userPickupComplete = payload;
+    },
+    searchItem: (state, payload) => {
+      state.searchItem = {},
+      state.searchItem = payload;
     },
   },
   actions: {
