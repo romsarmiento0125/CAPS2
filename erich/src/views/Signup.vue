@@ -29,7 +29,7 @@
                   pt-0
                   pl-0 
                   text-h5
-                  grey--text text--darken-3w
+                  fontTitle
                   "
                   
                 >
@@ -913,5 +913,8 @@
 <style scoped>
 .router-link{
   color: #1106A0 ;
+}
+.fontTitle{
+  color: #464646;
 }
 </style>

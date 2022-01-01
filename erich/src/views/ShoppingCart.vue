@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div
+  style="background-color:#EDEDF0"
+  >
     <!-- <shopcart-header></shopcart-header>
     <shopcart-items @scItemsEmit="scComponents('ph')"  v-if="scItems"></shopcart-items>
     <shopcart-placeorder @scPlaceOrderDeliver="scComponents('dl')" @scPlaceOrderPickup="scComponents('pu')" v-else-if="scPlaceOrder"></shopcart-placeorder>
@@ -76,3 +78,4 @@
     }
   }
 </script>
+

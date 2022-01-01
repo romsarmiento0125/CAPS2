@@ -14,7 +14,7 @@
               class="rounded-xl pa-12"
             >
               <v-card-title
-                class="font-weight-black pt-0 pl-0 text-h5 grey--text text--darken-3"
+                class="font-weight-black pt-0 pl-0 text-h5 fontTitle"
               >
                 Registered Customer
               </v-card-title>
@@ -135,3 +135,8 @@
     }
   }
 </script>
+<style scoped>
+.fontTitle{
+  color: #464646;
+}
+</style>
