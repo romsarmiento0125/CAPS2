@@ -201,24 +201,24 @@
         this.cartItems.Email = this.customerInfos.Email;
         this.cartItems.ItemCode = code;
 
-        console.log(this.cartItems.Email);
-        console.log(this.customerInfos.Email);
+        // console.log(this.cartItems.Email);
+        // console.log(this.customerInfos.Email);
 
         //The if condition fire if there is no account login
         //The else condition fire there is account login
         if(this.cartItems.Email == undefined){
-          console.log("login ka muna");
+          // console.log("login ka muna");
           this.$router.push('/login');
         }
         else {
-          console.log(this.cartItems.id);
-          console.log(this.cartItems.Email);
-          console.log(this.cartItems.Quantity);
-          console.log(this.cartItems.ItemCode);
+          // console.log(this.cartItems.id);
+          // console.log(this.cartItems.Email);
+          // console.log(this.cartItems.Quantity);
+          // console.log(this.cartItems.ItemCode);
 
           //do axios post request to try to add items in cart
-          console.log("axios Fire");
-          console.log(this.cartItems);
+          // console.log("axios Fire");
+          // console.log(this.cartItems);
           axios.post('http://127.0.0.1:8000/api/customercart/store', {
             register: this.cartItems
           })
@@ -231,29 +231,29 @@
         }
       },
       updateCartCounter(data){
-        console.log("update cart counter");
-        console.log(data);
+        // console.log("update cart counter");
+        // console.log(data);
         
         //check if the post id success in adding items in cart.
         //if not success in adding items in cart it will fire update in quantity
         if(data === "addSuccess"){
-          console.log("item added succesfully");
+          // console.log("item added succesfully");
           this.$store.commit('storeCartQuantity', this.$store.state.cartQuantity + 1);
-          console.log(data);
+          // console.log(data);
         }
         else{
-          console.log("Fire Axios");
-          console.log(data);
-          console.log(data.id);
+          // console.log("Fire Axios");
+          // console.log(data);
+          // console.log(data.id);
           axios.put('http://127.0.0.1:8000/api/customercart/' + data.id, {
             itemupdate: this.cartItems
           })
           .then(res => {
-            console.log(res.data)
+            // console.log(res.data)
             this.showQuantity(res.data)
           })
           .catch(err => console.error(err));
-          console.log("axios fired");
+          // console.log("axios fired");
         }
       },
       showQuantity(data){
