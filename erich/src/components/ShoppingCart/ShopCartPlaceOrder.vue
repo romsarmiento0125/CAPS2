@@ -7,7 +7,7 @@
         <v-col
           offset="1"
         >
-          <h3>Delivery Method</h3>
+          <h3 class="mt-4">Delivery Method</h3>
         </v-col>
       </v-row>
       <v-row>

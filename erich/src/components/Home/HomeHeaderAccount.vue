@@ -72,13 +72,11 @@
             cols="3"
           >
               <v-btn
-                white
+                dark
                 text
                 medium
-                color="#1106A0"
-                elevation="0"
               >
-                <v-icon>mdi-bell</v-icon>
+                <v-icon color="#1106A0">mdi-bell</v-icon>
               </v-btn>
             <div
               class="d-flex"
@@ -100,7 +98,7 @@
                       text
                       v-bind="attrs"
                       v-on="on"
-                      class="qfont elevation-5 px-2"
+                      class="qfont elevation-4 px-2"
                       color="#1106A0"           
                     >
                       <h4 class="font-weight-black">My Account</h4>
