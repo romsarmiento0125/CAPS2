@@ -33,18 +33,35 @@
             class="d-flex align-center"
             cols="6"
           >
+  
             <v-text-field
               class="py-2"
               color="#1106A0"
-              append-icon="mdi-magnify"
               hide-details="auto"
               outlined
+              prepend-inner-icon="mdi-magnify"
               dense
-              height="small"
               background-color="white"
               placeholder="Search for entire store here.."
+              v-model="searchKey"
+              v-on:keyup="toSearch(searchKey)"
             >
             </v-text-field>
+              <!-- <v-btn
+                class="my-0 py-0"
+                outlined
+                color="black"
+                large
+                max-height="40px"
+              >
+                <v-icon
+                  
+                >
+                  mdi-magnify
+                </v-icon>
+              </v-btn> -->
+            
+            
             <v-btn
               height="auto"
               dark
@@ -115,9 +132,15 @@
 
 <script>
   export default {
+     data: () => ({
+      searchKey: "",
+    }),
     methods: {
       toHome() {
         alert("gg");
+      },
+      toSearch(data){
+        this.$store.commit('searchItem', data);
       }
     }
   }

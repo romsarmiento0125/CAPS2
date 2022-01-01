@@ -82,7 +82,7 @@
                                 <p
                                   class="my-0 py-0"
                                 >
-                                  {{item.item_price}}
+                                  {{priceRound(item.item_price - ((item.item_discount / 100) * item.item_price))}}
                                 </p>
                               </v-list-item-title>
                             </div>
@@ -138,7 +138,7 @@
                                 <p
                                   class="pa-0 ma-0"
                                 >
-                                  {{priceRound(item.item_price * item.item_quantity)}}
+                                  {{priceRound((item.item_price - ((item.item_discount / 100) * item.item_price)) * item.item_quantity)}}
                                 </p>
                               </div>
 
@@ -274,6 +274,7 @@
         // console.log(this.customerInfos.Email)
         // console.log(data);
         console.log(this.categoryItems);
+        console.log(this.categoryItems[0].Discount)
         
         for(var i = 0; i < data.length; i++){
           if(data[i].Email == this.customerInfos.Email){
@@ -286,10 +287,11 @@
               item_quantity: data[i].Quantity,
               item_price: this.categoryItems[j].RetailPrice,
               item_image: this.categoryItems[j].Image,
-              item_email: this.customerInfos.Email
+              item_email: this.customerInfos.Email,
+              item_discount: this.categoryItems[j].Discount
               }
               this.items.push(item);
-              this.totPrice = this.totPrice + (data[i].Quantity * this.categoryItems[j].RetailPrice * 1);
+              this.totPrice = (this.totPrice + ((data[i].Quantity * this.categoryItems[j].RetailPrice * 1) - ((data[i].Quantity * this.categoryItems[j].RetailPrice * 1) * (this.categoryItems[j].Discount / 100) )));
               //console.log(i);
               }
               else{
@@ -384,7 +386,7 @@
     beforeMount() {
       this.getCartItems();
       //this.showCartItems();
-      console.log("before mount");
+      //console.log("before mount");
     }
   }//export default closing bracket
 

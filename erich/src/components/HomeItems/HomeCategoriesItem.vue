@@ -13,7 +13,7 @@
         >
           <v-row>
             <v-col
-              v-for="item in items"
+              v-for="item in showItems"
               :key="item.id"
               cols="6"
               sm="4"
@@ -22,49 +22,105 @@
               xl="2"
             >
               <v-card
-                width="275px"
-                class="ma-2"
+                min-height="460px"
+                min-width="230px"
+                max-height="460px"
+                max-width="230px"
+                class=""
               >
-                <v-card-text
-                  class="pb-0"
-                >
-                  <p
-                    class="ma-0"
-                    v-if="item.Discount != 0"
-                  >{{item.Discount}}</p>
-                </v-card-text>
-
-                <v-img
-                  :src="require('../../assets/itemPhotos/'+item.Image)"
-                  contain
-                  max-height="200px"
-                ></v-img>
-
-                <v-card-title>
-                  {{item.RetailPrice}}
-                </v-card-title>
-
-                <v-card-subtitle>
-                  <span class="text-decoration-line-through">{{(item.SupplierPrice * 1) + (item.SupplierPrice * .05)}}</span>
-                  <br>
-                  <span>{{item.Name}}</span>
-                  <br>
-                  <span>{{item.Description}}</span>
-                  <br>
-                  <span>{{item.Quantity}}</span>
-                </v-card-subtitle>
-
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn
-                    icon
-                    @click="addToCartItems(item.ItemCode)"
+                <div>
+                  <div
+                    class="d-flex pt-1 pl-2"
                   >
-                    <v-icon>
-                      mdi-cart-outline
+                    <p
+                      class="border ma-0 py-0 px-1 title pink--text"
+                      v-if="item.Discount != 0"
+                      style="border: 1px solid red; border-radius: 5px"
+                    >
+                      -{{item.Discount}}%
+                    </p>
+                    <p
+                      class="pb-4"
+                      v-else
+                    >
+                      
+                    </p>
+                  </div>
+                
+
+                  <v-img
+                    :src="require('../../assets/itemPhotos/'+item.Image)"
+                    min-height="200px"
+                    min-width="230px"
+                    max-height="200px"
+                    max-width="230px"
+                    contain
+                  ></v-img>
+
+                  <v-card-title
+                    class="blue--text"
+                  >
+                    <v-icon
+                      color="blue"
+                    >
+                      mdi-currency-php
                     </v-icon>
-                  </v-btn>
-                </v-card-actions>
+                    {{priceRound(item.RetailPrice - ((item.Discount / 100) * item.RetailPrice))}}
+                  </v-card-title>
+
+                  <v-card-subtitle
+                    class="py-0"
+                  >
+                    <span 
+                      class="text-decoration-line-through"
+                      v-if="item.Discount != 0"
+                    >
+                      <v-icon
+                        small
+                      >
+                        mdi-currency-php
+                      </v-icon>
+                      {{priceRound((item.SupplierPrice * 1) + (item.SupplierPrice * .05))}}
+                    </span>
+                    <br>
+                    <span
+                      class="d-inline-block text-truncate subtitle-1"
+                      style="max-width: 200px;" 
+                    >{{item.Name}}</span>
+                    <br>
+                    <span>
+                      {{item.Size}}
+                    </span>
+                    <br>
+                    <span
+                      class="d-inline-block text-truncate"
+                      style="max-width: 200px;" 
+                    >{{item.Description}}</span>
+                    <br>
+                    
+                    <span>{{item.Quantity}} &nbsp; Pcs Available</span>
+                  </v-card-subtitle>
+                </div>
+
+                <div
+                  class=""
+                >
+                  <div
+                    class="d-flex"
+                  >
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      x-large
+                      icon
+                      color="primary"
+                      @click="addToCartItems(item.ItemCode)"
+                    >
+                      <v-icon>
+                        mdi-cart-outline
+                      </v-icon>
+                    </v-btn>
+                  </div>
+                </div>
               </v-card>
             </v-col>
           </v-row>
@@ -77,11 +133,8 @@
 <script>
   export default {
     data: () => ({
-      // items: [
-      //   {id: 1, Name: "Mini Oreo", Description: "Chocolate Flavored Cream", Price: 41.10, Size: "67 Grams", Quantity: 99,
-      //     ItemCode:"7622300761363", Category: "Biscuits", ExpirationDate: "01\/24\/2024", Image:"SamplePhoto.png", Discount: 10, Weigth: 0.1000},
-      // ],
-      items: null,
+      showItems: null,
+      searchKey: "",
       cartItems: {
         id: null,
         Email: "",
@@ -100,14 +153,33 @@
       },
       cartQuantity(){
         return this.$store.state.cartQuantity;
+      },
+      searchKeyWords() {
+        return this.$store.state.searchItem;
+      },
+      computedShowItems(){
+        // return this.showItems.filter((item) => {
+        //   return item.Name.match(this.searchKeyWord);
+        // });
+        var sk = this.searchKeyWords;
+        var re = new RegExp(sk, 'gi');
+        return this.showItems.filter((item) => {
+          return item.Name.match(re);
+        });
+        // return this.showItems.filter((item) => {
+        //   return item;
+        // });
       }
     },
 
-    // watch: {
-    //   cartItems: function(data){
-    //     console.log("watch",data);
-    //   }
-    // }, 
+    watch: {
+      // cartItems: function(data){
+      //   console.log("watch",data);
+      // }
+      searchKeyWords() {
+        this.filterItems();
+      }
+    }, 
 
     // mounted(){
     //   setTimeout(() => {
@@ -118,6 +190,12 @@
     // How Process Works. Ang i ssave mo lang sa cart ay yung email, itemcode at quantity.
     // Then if existing nayung item i update lang yung quantity.
     methods: {
+      filterItems(){
+        //console.log(this.searchKeyWords)
+        this.showItems = this.categoryItems;
+        this.showItems = this.computedShowItems;
+      },
+      
       addToCartItems(code) {
         console.log("add to cart");
         this.cartItems.Email = this.customerInfos.Email;
@@ -185,27 +263,25 @@
       getCategoryItems() {
         //console.log("Get Items");
         axios.get('http://127.0.0.1:8000/api/categoryitem')
-        .then(res => this.storeCategoryItems(res.data))
+        .then(res => {
+          this.storeCategoryItems(res.data)
+          this.showItems = res.data;
+          })
         .catch(err => console.error(err));
       },
       storeCategoryItems(data) {
         //console.log("This is items data: ");
         //console.log(data);
         this.$store.commit('storeCategoryItem', data);
-        this.showItems();
       },
-      showItems() {
-        //console.log("showItems: ");
-        //console.log(this.categoryItems);
-        this.items = this.categoryItems;
-      },
-      
+      priceRound(price){
+        var rounded = (Math.round(price * 100) / 100).toFixed(2);
+        return rounded;
+      }
     },
 
     beforeMount() {
       this.getCategoryItems();
-      //this.items = this.categoryItems();
-      this.showItems();
     },
   }
 </script>
