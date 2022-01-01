@@ -276,8 +276,8 @@
         // console.log(data[0].Email);
         // console.log(this.customerInfos.Email)
         // console.log(data);
-        console.log(this.categoryItems);
-        console.log(this.categoryItems[0].Discount)
+        // console.log(this.categoryItems);
+        // console.log(this.categoryItems[0].Discount)
         
         for(var i = 0; i < data.length; i++){
           if(data[i].Email == this.customerInfos.Email){
@@ -313,24 +313,24 @@
         axios.get('http://127.0.0.1:8000/api/headercart')
         .then(res => {
           this.showCartItems(res.data)
-          console.log(res.data)
+          // console.log(res.data)
           })
         .catch(err => console.error(err));
       },
       deleteItems(code) {
-        console.log("Delete this item");
-        console.log(code);
+        // console.log("Delete this item");
+        // console.log(code);
         axios.delete('http://127.0.0.1:8000/api/getcart/'+ code)
         //.then( res => console.log(res))
         //.then( res => this.getCartItems())
         .then( res => {
           this.getCartItems()
-          console.log(res.data)
+          // console.log(res.data)
         })
         .catch(err => console.error(err))
       },
       addQuantity(idcart, count) {
-        console.log("Quantity add");
+        // console.log("Quantity add");
         // console.log(this.cartItems);
         // console.log(this.cartItems[count].id);
         // console.log(idcart);
@@ -345,8 +345,8 @@
         .catch(err => console.error(err));
       },
       decreaseQuantity(idcart, count, quantity) {
-        console.log("Quantity decrease",);
-        console.log(quantity);
+        // console.log("Quantity decrease",);
+        // console.log(quantity);
         if(quantity < 2){
           alert("Remove the item");
           this.deleteItems(idcart);
@@ -363,20 +363,20 @@
         }
       },
       showQuantity(data) {
-        console.log("show quantity");
+        // console.log("show quantity");
         //console.log(data);
         this.$store.commit('storeCartItems', data);
         this.getCartItems();
       },
       checkoutButtonChecker(){
-        console.log("cartQutantity cheker");
-        console.log(this.cartQuantity);
+        // console.log("cartQutantity cheker");
+        // console.log(this.cartQuantity);
         if(this.totPrice == 0){
-          console.log("items is null");
+          // console.log("items is null");
           this.checkoutButton = true;
         }
         else{
-          console.log("else");
+          // console.log("else");
           this.checkoutButton = false;
       }
       },

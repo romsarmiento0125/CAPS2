@@ -10,14 +10,23 @@
             height="100%"
           >
             <v-row>
-              <v-col>
+              <v-col
+                class="mx-10"
+              >
                 <div
                   class="d-flex"
                 >
-                  <p>My Adress</p>
+                  <p
+                    class="title"
+                  >My Address</p>
                   <v-spacer></v-spacer>
-                  <v-btn>
-                    <p>Add New Address</p>
+                  <v-btn
+                    color="orange"
+                    @click="addNewAddress"
+                  >
+                    <p
+                      class="my-0 white--text"
+                    >Add New Address</p>
                   </v-btn>
                 </div>
               </v-col>
@@ -25,33 +34,6 @@
             <v-divider></v-divider>
             <v-row>
               <v-col>
-                <!-- <div>
-                  <p>Default Address</p>
-                </div>
-                <div
-                  class="d-flex"
-                >
-                  <div>
-                    <p>{{Name}}&nbsp;{{Surname}}</p>
-                    <div
-                      class="d-flex"
-                    >
-                      <p>{{Municipality}}&nbsp;</p>
-                      <p>{{Barangay}}&nbsp;</p>
-                      <p>{{UBarangay}}&nbsp;</p>
-                      <p>{{HomeAddress}}</p>
-                    </div>
-                  </div>
-                  <v-spacer></v-spacer>
-                  <div>
-                    <v-btn>
-                      <p>Edit</p>
-                    </v-btn>
-                    <v-btn>
-                      <p>Delete</p>
-                    </v-btn>
-                  </div>
-                </div> -->
                 <v-list dense>
                   <v-list-item-group
                     
@@ -61,25 +43,43 @@
                       v-for="(item, i) in items"
                       :key="i"
                     >
-                      <div>
-                        <v-subheader>{{item.Default}}</v-subheader>
-                        <p>{{item.Name}}&nbsp;{{item.Surname}}</p>
+                      <div
+                        class="ml-5 my-2"
+                      >
+                        <v-subheader
+                          v-if="item.Default == 'Default'"
+                          class="blue--text"
+                        >Default Address</v-subheader>
+                        <p
+                          class="my-0"
+                        >{{item.Name}}&nbsp;{{item.Surname}}</p>
                         <div
                           class="d-flex"
                         >
-                          <p>{{item.Municipality}}&nbsp;</p>
-                          <p>{{item.Barangay}}&nbsp;</p>
+                          <p>{{item.HomeAddress}}&nbsp;</p>
                           <p>{{item.UBarangay}}&nbsp;</p>
-                          <p>{{item.HomeAddress}}</p>
+                          <p>{{item.Barangay}}&nbsp;</p>
+                          <p>{{item.Municipality}}</p>
                         </div>
                       </div>
                       <v-spacer></v-spacer>
                       <div>
-                        <v-btn>
-                          <p>Edit</p>
+                        <v-btn
+                          plain
+                          @click="editAddress"
+                        >
+                          <p
+                            class="my-0"
+                          >Edit</p>
                         </v-btn>
-                        <v-btn>
-                          <p>Delete</p>
+                        <v-btn
+                          plain
+                          v-if="item.Default != 'Default'"
+                          @click="deleteAddress"
+                        >
+                          <p
+                            class="my-0"
+                          >Delete</p>
                         </v-btn>
                       </div>
                     </v-list-item>
@@ -134,6 +134,15 @@
           //console.log("loop");
           this.items.push(item)
         }
+      },
+      deleteAddress() {
+        alert("Delete button is not functioning");
+      },
+      editAddress(){
+        alert("Edit button is not functioning");
+      },
+      addNewAddress(){
+        alert("Add new address button is not functioning");
       }
     },
 

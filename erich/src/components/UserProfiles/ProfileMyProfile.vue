@@ -5,15 +5,19 @@
     >
       <v-row>
         <v-col
-          cols="9"
+          cols="12"
         >
-          <v-sheet>
+          <v-sheet
+            class="pl-5"
+          >
             <v-row>
               <v-col>
                 <div>
-                  <p>My Profile</p>
                   <p
-                    class="display-1"
+                    class="subtitle-1 my-0"
+                  >Welcome</p>
+                  <p
+                    class="headline my-0"
                   >{{Username}}</p>
                 </div>
               </v-col>
@@ -21,86 +25,201 @@
             <v-divider></v-divider>
             <v-row>
               <v-col
-                cols="7"
+                cols="8"
               >
                 <div
                   class="d-flex"
                 >
                   <p
-                    class="title mr-2"
+                    class="subtitle-1 mr-2 my-0"
                   >Name:</p>
                   <p
-                    class="title"
+                    class="subtitle-1 my-0"
                   >{{Name}}</p>
                 </div>
                 <div
                   class="d-flex"
                 >
                   <p
-                    class="title mr-2"
+                    class="subtitle-1 mr-2 my-0"
                   >Surname:</p>
                   <p
-                    class="title"
+                    class="subtitle-1 my-0"
                   >{{Surname}}</p>
                 </div>
                 <div
-                  class="d-flex"
+                  class="d-flex align-center"
                 >
                   <p
-                    class="title mr-2"
+                    class="subtitle-1 mr-2 my-0"
                   >Email:</p>
                   <p
-                    class="title"
+                    class="subtitle-1 my-0"
                   >{{Email}}</p>
+                  <v-btn
+                    plain
+                    x-small
+                    color="primary"
+                    @click="editUserEmail"
+                  >
+                    <p
+                      class="my-0"
+                    >change</p>
+                  </v-btn>
                 </div>
                 <div
                   class="d-flex"
                 >
                   <p
-                    class="title mr-2"
+                    class="subtitle-1 mr-2 my-0"
                   >Phone number:</p>
                   <p
-                    class="title"
+                    class="subtitle-1 my-0"
                   >{{Mobilenumber}}</p>
                 </div>
                 <div
                   class="d-flex"
                 >
                   <p
-                    class="title mr-2"
+                    class="subtitle-1 mr-2 my-0"
                   >Date of birth:</p>
                   <p
-                    class="title"
+                    class="subtitle-1 my-0"
                   >{{Birthday}}</p>
                 </div>
                 <div
                   class="d-flex"
                 >
                   <p
-                    class="title mr-2"
+                    class="subtitle-1 mr-2 my-0"
                   >Gender:</p>
                   <p
-                    class="title"
+                    class="subtitle-1 my-0"
                   >{{Gender}}</p>
                 </div>
-                <div>
-                  <v-btn
-                    color="blue"
+                <div
+                  class="mt-6"
+                >
+                  <v-dialog
+                    v-model="dialog"
+                    persistent
+                    max-width="600px"
                   >
-                    <p>save</p>
-                  </v-btn>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn
+                        color="primary"
+                        dark
+                        v-bind="attrs"
+                        v-on="on"
+                      >
+                        Edit
+                      </v-btn>
+                    </template>
+                    <v-card>
+                      <v-card-title>
+                        <span class="text-h5">User Profile</span>
+                      </v-card-title>
+                      <v-card-text>
+                        <v-container>
+                          <v-row>
+                            <v-col
+                              cols="6"
+                            >
+                              <v-text-field
+                                label="First Name"
+                                required
+                                v-model="Name"
+                              ></v-text-field>
+                            </v-col>
+                            <v-col
+                              cols="6"
+                            >
+                              <v-text-field
+                                label="Last Name"
+                                required
+                                v-model="Username"
+                              ></v-text-field>
+                            </v-col>
+                            <v-col cols="12">
+                              <v-text-field
+                                label="Phone Number"
+                                required
+                                v-model="Mobilenumber"
+                              ></v-text-field>
+                            </v-col>
+                            <v-col cols="12">
+                              <v-menu
+                                ref="menu"
+                                v-model="menu"
+                                :close-on-content-click="false"
+                                transition="scale-transition"
+                                offset-y
+                                min-width="auto"
+                              >
+                                <template v-slot:activator="{ on, attrs }">
+                                  <v-text-field
+                                    v-model="Birthday"
+                                    label="Date Of Birth"
+                                    readonly
+                                    v-bind="attrs"
+                                    v-on="on"
+                                    outlined
+                                  ></v-text-field>
+                                </template>
+                                <v-date-picker
+                                  v-model="Birthday"
+                                  :active-picker.sync="activePicker"
+                                  :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
+                                  min="1950-01-01"
+                                  @change="save"
+                                ></v-date-picker>
+                              </v-menu>
+                            </v-col>
+                            <v-col
+                              cols="12"
+                              sm="6"
+                            >
+                              <v-autocomplete
+                                :items="['Male', 'Female', 'Other']"
+                                label="Gender"
+                                v-model="Gender"
+                              ></v-autocomplete>
+                            </v-col>
+                          </v-row>
+                        </v-container>
+                      </v-card-text>
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          color="blue darken-1"
+                          text
+                          @click="dialog = false"
+                        >
+                          Close
+                        </v-btn>
+                        <v-btn
+                          color="blue darken-1"
+                          text
+                          @click="editUserProfiles"
+                        >
+                          Save
+                        </v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
                 </div>
               </v-col>
               <v-divider
                 vertical
               ></v-divider>
               <v-col
-                cols="2"
+                cols="4"
               >
                 <div>
                   <v-img
-                    src="https://picsum.photos/510/300?random"
-                    aspect-ratio="1.7"
+                    src="../../assets/ERICH.svg"
+                    aspect-ratio="2"
+                    contain
                   ></v-img>
                 </div>
                 <div>
@@ -135,6 +254,11 @@
       rules: [
         value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
       ],
+      dialog: false,
+
+      activePicker: null,
+      date: null,
+      menu: false,
     }),
 
     computed: {
@@ -155,13 +279,20 @@
       },
       getCustomerInfo() {
         console.log(this.customerInfos);
+      },
+      editUserProfiles() {
+        this.dialog = false;
+        alert("Button Not Yet Working");
+      },
+      editUserEmail(){
+        alert("Button Not Yet Working");
       }
     },
     
     beforeMount() {
       //this.getCustomerInfo();
       //console.log(this.customerInfos);
-      this.Username = this.customerInfos.First_Name + this.customerInfos.Last_Name;
+      this.Username = this.customerInfos.First_Name + " " + this.customerInfos.Last_Name;
       this.Name = this.customerInfos.First_Name;
       this.Surname = this.customerInfos.Last_Name;
       this.Email = this.customerInfos.Email;

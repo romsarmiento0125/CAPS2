@@ -7,7 +7,7 @@
     >
       <v-row>
         <v-col
-          offset="1"
+          offset="2"
           cols="1"
         >
           <v-sheet
@@ -44,7 +44,7 @@
           </v-sheet>
         </v-col>
         <v-col
-          cols="9"
+          cols="7"
         >
           <profile-myprofile v-if="mProfile"></profile-myprofile>
           <profile-myaddress v-else-if="mAddress"></profile-myaddress>
