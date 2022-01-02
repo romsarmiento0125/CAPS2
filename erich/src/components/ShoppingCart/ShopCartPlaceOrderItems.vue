@@ -46,8 +46,8 @@
                                 class="imgbg ma-1 pa-0"
                               >
                                 <v-img
-                                  height="120px"
-                                  width="120px"
+                                  height="100px"
+                                  width="100px"
                                   contain
                                   :src="require('../../assets/itemPhotos/'+item.item_image)"
                                 ></v-img>
@@ -57,7 +57,7 @@
                               <div
                                 class="d-flex align-center"
                               >
-                                <span>{{item.item_name}}</span>
+                                <span class="ma-3">{{item.item_name}}</span>
                                 &nbsp;
                                 <span>{{item.item_desc}}</span>
                               </div>
@@ -80,7 +80,7 @@
                               <span>{{item.item_quantity}}&nbsp;x&nbsp;{{priceRound(item.item_price - ((item.item_discount / 100) * item.item_price))}}</span>
                               <br>
                               <span
-                                class="title"
+                                class="title fontNum"
                               >P&nbsp;{{priceRound((item.item_price - ((item.item_discount / 100) * item.item_price)) * item.item_quantity)}}</span>
                             </div>
                           </div>
@@ -110,7 +110,7 @@
             >Subtotal</p>
             <v-spacer></v-spacer>
             <p
-              class="title"
+              class="mt-1"
             >{{priceRound(subTotPrice)}}</p>
           </div>
           <div
@@ -121,7 +121,7 @@
             >Shipping</p>
             <v-spacer></v-spacer>
              <p
-              class="title"
+              class="mt-2 "
             >{{shipFee}}</p>
           </div>
         </v-col>
@@ -136,11 +136,11 @@
             class="d-flex"
           >
             <p
-              class="title"
+              class="title fontBlue mt-5"
             >Total</p>
             <v-spacer></v-spacer>
             <p
-              class="title"
+              class="title fontBlue mt-5"
             >{{priceRound(totPrice)}}</p>
           </div>
         </v-col>
@@ -266,10 +266,15 @@
     background-color: transparent;
   }
   .imgbg{
-    border: 1px solid black;
+    border: 1px solid #787885;
     border-radius: 5px;
     background-color: white;
   }
-
+  .fontNum{
+    color: #464646;
+  }
+  .fontBlue{
+    color: #1106A0;
+  }
 
 </style>

@@ -15,7 +15,7 @@
           offset="1"
           cols="1"
         >
-          <div>
+          <div class="mx-0">
             
             <v-btn
               @click="deliveryMethodCond()"
@@ -27,7 +27,7 @@
                 mdi-truck-delivery-outline
               </v-icon>
               <p
-                class="my-0 py-0 px-2"
+                class="my-0 py-0 px-3"
                 :style="shipText"
               >
                 Ship
@@ -39,7 +39,7 @@
         <v-col
           cols="1"
         >
-          <div>
+          <div class="ml-1">
             <v-btn
               @click="pickupMethodCond()"
               :color="pickBtn"
@@ -85,35 +85,43 @@
                 >
                   <method-delivery></method-delivery>
                   <v-row
-                    class="ma-5 pa-5"
+                    class="ma-5 pa-0 pb-7"
                   >
                     <v-col
-                      cols="6"
+                      cols="12"
+                      class="pa-0 ma-0"
                     >
                       <div
-                        class="d-flex"
+                        class=""
                       >
-                        <v-btn
-                          plain
-                          color="blue"
-                          :to="{name: 'Cart' , params: { id: 'items', title: 'Items'}}"
-                          @click="returnToCartItems"
-                          small
-                        >
-                          <v-icon>mdi-chevron-left</v-icon>
-                          <p
-                            class="pa-0 ma-0"
-                          >return to cart</p>
-                        </v-btn>
-                        <v-spacer></v-spacer>
-                        <v-btn
-                          class=""
-                          color="primary"
-                          :to="{name: 'Cart' , params: { id: 'delivery', title: 'Delivery'}}"
-                          @click="placeOrderDeliver()"
-                        >
-                          deliver
-                        </v-btn>
+                        <v-row>
+                          <v-col cols="6" class="mt-2">
+                            <v-btn
+                              plain
+                              color="#1106A0"
+                              :to="{name: 'Cart' , params: { id: 'items', title: 'Items'}}"
+                              @click="returnToCartItems"
+                              small
+                            >
+                              <v-icon>mdi-chevron-left</v-icon>
+                              <p
+                                class="ma-0 "
+                              >return to cart</p>
+                            </v-btn>
+                          </v-col>
+
+                          <v-col cols="6" class="d-flex justify-end ">
+                            <v-btn
+                              dark
+                              class="px-6"
+                              color="#1106A0"
+                              :to="{name: 'Cart' , params: { id: 'delivery', title: 'Delivery'}}"
+                              @click="placeOrderDeliver()"
+                            >
+                              Continue Shipping
+                            </v-btn>
+                          </v-col>
+                        </v-row>
                       </div>
                     </v-col>
                   </v-row>
@@ -174,11 +182,11 @@
     data: () => ({
       deliveryCond: true,
       shipIcon: "white",
-      shipBtn: "blue",
+      shipBtn: "#1106A0",
       shipText: "color: white",
-      pickIcon: "blue",
+      pickIcon: "#1106A0",
       pickBtn: "white",
-      pickText: "color: blue",
+      pickText: "color: #1106A0",
     }),
 
     methods: {
@@ -196,20 +204,20 @@
         this.deliveryCond = true;
         this.$store.commit('thisDeliver');
         this.shipIcon = "white";
-        this.shipBtn = "blue";
+        this.shipBtn = "#1106A0";
         this.shipText = "color: white";
-        this.pickIcon = "blue";
+        this.pickIcon = "#1106A0";
         this.pickBtn = "white";
-        this.pickText = "color: blue";
+        this.pickText = "color: #1106A0";
       },
       pickupMethodCond() {
         this.deliveryCond = false;
         this.$store.commit('thisPickup');
-        this.shipIcon = "blue";
+        this.shipIcon = "#1106A0";
         this.shipBtn = "white";
-        this.shipText = "color: blue";
+        this.shipText = "color: #1106A0";
         this.pickIcon = "white";
-        this.pickBtn = "blue";
+        this.pickBtn = "#1106A0";
         this.pickText = "color: white";
       }
     }
