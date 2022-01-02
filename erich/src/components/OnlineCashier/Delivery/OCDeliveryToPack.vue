@@ -132,8 +132,11 @@
 
 <script>
   import OCOrderDetails from '../OCOrderDetails.vue'
+  import {Mixins} from '../../../Mixins/mixins.js'
 
   export default {
+    mixins: [Mixins],
+
     components: {
       "oc-orderdetails": OCOrderDetails,
     },
@@ -217,7 +220,7 @@
         this.orderUpdate.Total = Total;
         console.log("Order update");
         console.log(this.orderUpdate);
-        axios.put('http://127.0.0.1:8000/api/customerorder/' + id, {
+        axios.put(this.getDomain()+'api/customerorder/' + id, {
             register: this.orderUpdate
           })
           .then(res => {
@@ -244,7 +247,7 @@
         this.orderUpdate.Discount = Discount;
         this.orderUpdate.SubTotal = SubTotal;
         this.orderUpdate.Total = Total;
-        axios.post('http://127.0.0.1:8000/api/customerdeliveritems/store', {
+        axios.post(this.getDomain()+'api/customerdeliveritems/store', {
             register: this.orderUpdate
           })
           .then(res => {
@@ -254,7 +257,7 @@
           .catch(err => console.error(err));
       },
       toDelete(id){
-        axios.delete('http://127.0.0.1:8000/api/customerorder/'+ id)
+        axios.delete(this.getDomain()+'api/customerorder/'+ id)
           .then( res => {
             console.log("Delete")
             console.log(res.data);
@@ -264,7 +267,7 @@
         
       },
       getAllOrder(){
-        axios.get('http://127.0.0.1:8000/api/customerorder')
+        axios.get(this.getDomain()+'api/customerorder')
         .then(res => {
           console.log(res.data);
           this.$store.commit('storeUserAllOrders', res.data);

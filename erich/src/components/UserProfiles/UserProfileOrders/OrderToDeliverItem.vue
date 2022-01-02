@@ -14,6 +14,9 @@
                 <p
                   class="mb-0 mt-6 title"
                 >Status: &nbsp;{{order.Status}}</p>
+                <p
+                  class="my-0 Caption"
+                >Deliver</p>
               </v-col>
             </v-row>
             <v-row>

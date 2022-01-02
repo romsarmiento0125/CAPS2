@@ -75,8 +75,11 @@
 
 <script>
   import OCOrderDetails from '../OCOrderDetails.vue'
+  import {Mixins} from '../../../Mixins/mixins.js'
 
   export default {
+    mixins: [Mixins],
+
     components: {
       "oc-orderdetails": OCOrderDetails,
     },
@@ -127,7 +130,7 @@
         this.orderDeliver.Total = Total;
         this.orderid = id;
         console.log("to Complete");
-        axios.post('http://127.0.0.1:8000/api/customercompleteitems/store', {
+        axios.post(this.getDomain()+'api/customercompleteitems/store', {
             register: this.orderDeliver
           })
           .then(res => {
@@ -137,7 +140,7 @@
           .catch(err => console.error(err));
       },
       toDelete(){
-        axios.delete('http://127.0.0.1:8000/api/customerdeliveritems/'+ this.orderid)
+        axios.delete(this.getDomain()+'api/customerdeliveritems/'+ this.orderid)
           .then( res => {
             console.log("Delete")
             console.log(res.data);
@@ -146,7 +149,7 @@
           .catch(err => console.error(err))
       },
       getAllDeliver(){
-        axios.get('http://127.0.0.1:8000/api/customerdeliveritems')
+        axios.get(this.getDomain()+'api/customerdeliveritems')
         .then(res => {
           console.log(res.data);
           this.$store.commit('storeUserAllDeliver', res.data);

@@ -41,6 +41,9 @@ export default new Vuex.Store({
     userPickupPickup: {},
     userPickupComplete: {},
     searchItem: "",
+    userPickupOrders: "",
+    userPickupToPickup: "",
+    userPickupToComplete: "",
   },
   mutations: {
     //Views Login.vue
@@ -127,6 +130,24 @@ export default new Vuex.Store({
     storeUserToComplete: (state, payload) => {
       state.userProfileToComplete = {};
       state.userProfileToComplete = payload;
+    },
+    //Views UserProfile.vue
+    //Views Home.vue
+    storeUserPickupOrders: (state, payload) => {
+      state.userPickupOrders = {};
+      state.userPickupOrders = payload;
+    },
+    //Views UserProfile.vue
+    //Views Home.vue
+    storeUserPickupToPickup: (state, payload) => {
+      state.userPickupToPickup = {};
+      state.userPickupToPickup = payload;
+    },
+    //Views UserProfile.vue
+    //Views Home.vue
+    storeUserPickupToComplete: (state, payload) => {
+      state.userPickupToComplete = {};
+      state.userPickupToComplete = payload;
     },
     //Views OnlineCashier.vue
     storeUserAllOrders: (state, payload) => {
