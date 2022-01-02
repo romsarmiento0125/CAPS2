@@ -101,8 +101,11 @@
 <script>
   import CheckOutItems from './CheckoutItems.vue'
   import ShopCartPlaceOrderItems from './ShopCartPlaceOrderItems.vue'
+  import {Mixins} from '../../Mixins/mixins.js'
 
   export default {
+    mixins: [Mixins],
+
     components: {
       'checkout-items': CheckOutItems,
       'order-items': ShopCartPlaceOrderItems
@@ -170,7 +173,7 @@
 
         this.cleanCart();
 
-        axios.post('http://127.0.0.1:8000/api/customerorder/store', {
+        axios.post(this.getDomain()+'api/customerorder/store', {
           register: this.customerOrder
         })
         .then(res => {
@@ -183,7 +186,7 @@
         this.showMessage();
       },
       storeCustomerOrderItems() {
-        axios.post('http://127.0.0.1:8000/api/customerorderitems/store', {
+        axios.post(this.getDomain()+'api/customerorderitems/store', {
             register: this.customerOrderItems
           })
           .then(res => {
@@ -193,7 +196,7 @@
       },
       cleanCart(){
         for(var i = 0; i < this.customerOrderItems.length; i++){
-          axios.delete('http://127.0.0.1:8000/api/getcart/'+ this.customerOrderItems[i].id)
+          axios.delete(this.getDomain()+'api/getcart/'+ this.customerOrderItems[i].id)
           .then( res => {
             console.log("Delete")
             console.log(res.data);

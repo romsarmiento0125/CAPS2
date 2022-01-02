@@ -504,8 +504,10 @@
   import nubPBLCN from '../components/Signup/brgyOfNGaray/nbrgyPoblacion.js'
   import nubTGBE from '../components/Signup/brgyOfNGaray/nbrgyTigbe'
   import aubPY from '../components/Signup/brgyOfAngat/abrgyPulogYantok.js'
+  import {Mixins} from '../Mixins/mixins.js'
 
   export default {
+    mixins: [Mixins],
     name: 'Signup',
 
     components: {
@@ -607,7 +609,7 @@
               (/[a-z]/.test(this.customerInfo.Password)) && (/[0-9]/.test(this.customerInfo.Password)) &&
               (/[#?!@$%^&*-]/.test(this.customerInfo.Password) && (this.customerInfo.Password.length >= 8))
               ){
-                axios.post('http://127.0.0.1:8000/api/customers/store', {
+                axios.post(this.getDomain()+'api/customers/store', {
                   register: this.customerInfo
                 })
                 .then(res => this.accCreateSuccess(res.data))
@@ -636,7 +638,7 @@
 
       },
       saveAddress(cinfo){
-        axios.post('http://127.0.0.1:8000/api/customeraddress/store', {
+        axios.post(this.getDomain()+'api/customeraddress/store', {
           register: this.customerInfo
         })
         .then(res => this.addressCreateSuccess(res.data, cinfo))
@@ -661,7 +663,7 @@
         if(creds != null){
           this.usersData.usersEmail = creds.Email;
 
-          axios.post('http://127.0.0.1:8000/api/loginaddress/store',{
+          axios.post(this.getDomain()+'api/loginaddress/store',{
             clientCred: this.usersData
           })
           .then(res => this.$store.commit('storeCustomerAddress', res.data))

@@ -237,7 +237,11 @@
 </template>
 
 <script>
+  import {Mixins} from '../../Mixins/mixins.js'
+
   export default {
+    mixins: [Mixins],
+    
     data: () => ({
       items: [
         // {id: 0, item_name: "Koko Crunch", item_desc: "this is item description", item_price: 156.50, item_image: 'SamplePhoto.png'},
@@ -310,7 +314,7 @@
       getCartItems() {
         this.items = [];
         //console.log("This is customerInfos Email: " + this.customerInfos.Email);
-        axios.get('http://127.0.0.1:8000/api/headercart')
+        axios.get(this.getDomain()+'api/headercart')
         .then(res => {
           this.showCartItems(res.data)
           // console.log(res.data)
@@ -320,7 +324,7 @@
       deleteItems(code) {
         // console.log("Delete this item");
         // console.log(code);
-        axios.delete('http://127.0.0.1:8000/api/getcart/'+ code)
+        axios.delete(this.getDomain()+'api/getcart/'+ code)
         //.then( res => console.log(res))
         //.then( res => this.getCartItems())
         .then( res => {
@@ -335,7 +339,7 @@
         // console.log(this.cartItems[count].id);
         // console.log(idcart);
         // console.log(count);
-        axios.put('http://127.0.0.1:8000/api/getcart/' + idcart, {
+        axios.put(this.getDomain()+'api/getcart/' + idcart, {
           itemupdate: this.cartItems[count]
         })
         .then(res => {
@@ -352,7 +356,7 @@
           this.deleteItems(idcart);
         }
         else{
-          axios.put('http://127.0.0.1:8000/api/headercart/' + idcart, {
+          axios.put(this.getDomain()+'api/headercart/' + idcart, {
             itemupdate: this.cartItems[count]
           })
           .then(res => {

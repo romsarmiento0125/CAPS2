@@ -60,8 +60,11 @@
   import ProfileMyProfile from '../components/UserProfiles/ProfileMyProfile.vue'
   import ProfileMyAdress from '../components/UserProfiles/ProfileMyAddress.vue'
   import profileMyOrders from '../components/UserProfiles/ProfileMyOrders.vue'
+  import {Mixins} from '../Mixins/mixins.js'
 
   export default {
+    mixins: [Mixins],
+
     components: {
       'profile-header': ProfileHeader,
       'profile-myprofile': ProfileMyProfile,
@@ -110,7 +113,7 @@
         }
       },
       getUserOrder() {
-        axios.post('http://127.0.0.1:8000/api/userorder/store', {
+        axios.post(this.getDomain()+'api/userorder/store', {
             register: this.customerInfos.Email
           })
           .then(res => {
@@ -120,7 +123,7 @@
           .catch(err => console.error(err));
       },
       getUserOrderDeliver() {
-        axios.post('http://127.0.0.1:8000/api/userorderdelivery/store', {
+        axios.post(this.getDomain()+'api/userorderdelivery/store', {
             register: this.customerInfos.Email
           })
           .then(res => {
@@ -130,7 +133,7 @@
           .catch(err => console.error(err));
       },
       getUserOrderComplete() {
-        axios.post('http://127.0.0.1:8000/api/userordercomplete/store', {
+        axios.post(this.getDomain()+'api/userordercomplete/store', {
             register: this.customerInfos.Email
           })
           .then(res => {
@@ -140,12 +143,32 @@
           .catch(err => console.error(err));
       },
       getUserPickup() {
-        axios.post('http://127.0.0.1:8000/api/userorderpickup/store', {
+        axios.post(this.getDomain()+'api/userorderpickup/store', {
             register: this.customerInfos.Email
           })
           .then(res => {
             console.log(res.data);
-            //this.$store.commit('storeUserToComplete', res.data);
+            this.$store.commit('storeUserPickupOrders', res.data);
+          })  
+          .catch(err => console.error(err));
+      },
+      getUserPickupPickup() {
+        axios.post(this.getDomain()+'api/userpickuppickup/store', {
+            register: this.customerInfos.Email
+          })
+          .then(res => {
+            console.log(res.data);
+            this.$store.commit('storeUserPickupToPickup', res.data);
+          })  
+          .catch(err => console.error(err));
+      },
+      getUserPickupComplete() {
+        axios.post(this.getDomain()+'api/userpickupcomplete/store', {
+            register: this.customerInfos.Email
+          })
+          .then(res => {
+            console.log(res.data);
+            this.$store.commit('storeUserPickupToComplete', res.data);
           })  
           .catch(err => console.error(err));
       },
@@ -158,6 +181,8 @@
       this.getUserOrderDeliver();
       this.getUserOrderComplete();
       this.getUserPickup();
+      this.getUserPickupPickup();
+      this.getUserPickupComplete();
       if(this.goToAddress){
         this.mProfile = false;
         this.mAddress = true;

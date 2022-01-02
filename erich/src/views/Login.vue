@@ -81,8 +81,10 @@
 
 <script>
   import LoginHeader from '../components/Login/LoginHeader.vue'
+  import {Mixins} from '../Mixins/mixins.js'
 
   export default {
+    mixins: [Mixins],
     name: 'Login',
 
     data: () => ({
@@ -105,7 +107,7 @@
         // .then(res => this.accCreateSuccess(res.data))
         // .catch(err => console.error(err));
 
-        axios.post('http://127.0.0.1:8000/api/customerlogin/store',{
+        axios.post(this.getDomain()+'api/customerlogin/store',{
           clientCred: this.usersData
         })
         .then(res => this.loginSuccess(res.data))
@@ -118,7 +120,7 @@
           alert("Invalid Credentials");
         }
         else{
-          axios.post('http://127.0.0.1:8000/api/loginaddress/store',{
+          axios.post(this.getDomain()+'api/loginaddress/store',{
             clientCred: this.usersData
           })
           .then(res => this.saveInfos(res.data, cinfo))

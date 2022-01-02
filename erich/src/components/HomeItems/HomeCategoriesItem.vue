@@ -223,7 +223,7 @@
           //do axios post request to try to add items in cart
           // console.log("axios Fire");
           // console.log(this.cartItems);
-          axios.post('http://127.0.0.1:8000/api/customercart/store', {
+          axios.post(this.getDomain()+'api/customercart/store', {
             register: this.cartItems
           })
           .then(res => {
@@ -249,7 +249,7 @@
           // console.log("Fire Axios");
           // console.log(data);
           // console.log(data.id);
-          axios.put('http://127.0.0.1:8000/api/customercart/' + data.id, {
+          axios.put(this.getDomain()+'api/customercart/' + data.id, {
             itemupdate: this.cartItems
           })
           .then(res => {

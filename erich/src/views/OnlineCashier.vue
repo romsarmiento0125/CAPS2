@@ -10,9 +10,10 @@
   import OCHeader from '../components/OnlineCashier/OCHeader.vue'
   import OCDeliver from '../components/OnlineCashier/OCDelivery.vue'
   import OCPickup from '../components/OnlineCashier/OCPickup.vue'
-
+  import {Mixins} from '../Mixins/mixins.js'
 
   export default {
+    mixins: [Mixins],
     name: "OnlineCashier",
 
     components: {
@@ -36,35 +37,35 @@
 
     methods: {
       getAllOrder(){
-        axios.get('http://127.0.0.1:8000/api/customerorder')
+        axios.get(this.getDomain()+'api/customerorder')
         .then(res => {
           this.$store.commit('storeUserAllOrders', res.data);
         })
         .catch(err => console.error(err));
       },
       getAllDeliver(){
-        axios.get('http://127.0.0.1:8000/api/customerdeliveritems')
+        axios.get(this.getDomain()+'api/customerdeliveritems')
         .then(res => {
           this.$store.commit('storeUserAllDeliver', res.data);
         })
         .catch(err => console.error(err));
       },
       getAllComplete(){
-        axios.get('http://127.0.0.1:8000/api/customercompleteitems')
+        axios.get(this.getDomain()+'api/customercompleteitems')
         .then(res => {
           this.$store.commit('storeUserAllComplete', res.data);
         })
         .catch(err => console.error(err));
       },
       getPickupOrder(){
-        axios.get('http://127.0.0.1:8000/api/customerpickup')
+        axios.get(this.getDomain()+'api/customerpickup')
           .then(res => {
             this.$store.commit('storeUserPickupOrders', res.data);
           })
           .catch(err => console.error(err));
       },
       getPickupPickup(){
-        axios.get('http://127.0.0.1:8000/api/customerpickuppickup')
+        axios.get(this.getDomain()+'api/customerpickuppickup')
           .then(res => {
             console.log(res.data);
             this.$store.commit('storeUserAllPickup', res.data);
@@ -72,7 +73,7 @@
           .catch(err => console.error(err));
       },
       getPickupComplete(){
-        axios.get('http://127.0.0.1:8000/api/customerpickupcomplete')
+        axios.get(this.getDomain()+'api/customerpickupcomplete')
           .then(res => {
             console.log(res.data);
             this.$store.commit('storeUserPickupComplete', res.data);

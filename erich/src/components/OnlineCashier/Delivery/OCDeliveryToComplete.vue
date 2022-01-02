@@ -62,8 +62,11 @@
 
 <script>
   import OCOrderDetails from '../OCOrderDetails.vue'
+  import {Mixins} from '../../../Mixins/mixins.js'
 
   export default {
+    mixins: [Mixins],
+
     components: {
       "oc-orderdetails": OCOrderDetails,
     },
@@ -97,7 +100,7 @@
 
     methods: {
       getAllComplete(){
-        axios.get('http://127.0.0.1:8000/api/customercompleteitems')
+        axios.get(this.getDomain()+'api/customercompleteitems')
         .then(res => {
           console.log(res.data);
           this.$store.commit('storeUserAllComplete', res.data);

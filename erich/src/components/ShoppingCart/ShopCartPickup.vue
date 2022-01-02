@@ -79,8 +79,11 @@
 <script>
   import CheckOutItems from './CheckoutItems.vue'
   import ShopCartPlaceOrderItems from './ShopCartPlaceOrderItems.vue'
+  import {Mixins} from '../../Mixins/mixins.js'
 
   export default {
+    mixins: [Mixins],
+
     components: {
       'checkout-items': CheckOutItems,
       'order-items': ShopCartPlaceOrderItems
@@ -138,7 +141,7 @@
         this.customerPickup.pickupDate = this.pickupDate;
         this.customerPickup.pickupTime = this.pickupTime;
         
-        axios.post('http://127.0.0.1:8000/api/customerpickup/store', {
+        axios.post(this.getDomain()+'api/customerpickup/store', {
           register: this.customerPickup
         })
         .then(res => {
@@ -151,7 +154,7 @@
         this.showMessage();
       },
       storeCustomerPickupItems(){
-        axios.post('http://127.0.0.1:8000/api/customerpickupitems/store', {
+        axios.post(this.getDomain()+'api/customerpickupitems/store', {
             register: this.customerPickupItems
           })
           .then(res => {
@@ -163,7 +166,7 @@
         // console.log("Clean Cart");
         // console.log(this.customerPickupItems);
         for(var i = 0; i < this.customerPickupItems.length; i++){
-          axios.delete('http://127.0.0.1:8000/api/getcart/'+ this.customerPickupItems[i].id)
+          axios.delete(this.getDomain()+'api/getcart/'+ this.customerPickupItems[i].id)
           .then( res => {
             //console.log("Delete")
             //console.log(res.data);

@@ -146,7 +146,11 @@
 </template>
 
 <script>
+  import {Mixins} from '../../Mixins/mixins.js'
+
   export default {
+    mixins: [Mixins],
+    
     data: () => ({
       selectedItem: 0,
       items: [
@@ -208,7 +212,7 @@
         //console.log("This is Header Cart quantity");
         //console.log(this.customerInfos.Email);
         this.customerEmail = this.customerInfos.Email;
-        axios.post('http://127.0.0.1:8000/api/headercart/store', {
+        axios.post(this.getDomain()+'api/headercart/store', {
           register: this.customerEmail
         })
         .then(res => this.showQuantity(res.data))
