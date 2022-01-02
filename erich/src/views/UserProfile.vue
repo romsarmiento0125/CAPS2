@@ -13,7 +13,7 @@
           <v-sheet
             color="white"
             elevation="1"
-            height="100%"
+            height="200px"
             width="100%"
           >
             <div>
@@ -114,38 +114,50 @@
             register: this.customerInfos.Email
           })
           .then(res => {
+            console.log(res.data);
             this.$store.commit('storeUserProfileOrders', res.data);
-            this.getUserOrderItems(res.data)
           })
-          //.then(res => console.log(res.data))
           .catch(err => console.error(err));
       },
-      getUserOrderItems(data) {
-        //console.log("Get user order items");
-        //console.log(data);
-        //console.log(data.length);
-        var items = [];
-        for(var i = 0; i < data.length; i++){
-          axios.post('http://127.0.0.1:8000/api/userorderitems/store', {
-            register: data[i].InvoiceNumber
+      getUserOrderDeliver() {
+        axios.post('http://127.0.0.1:8000/api/userorderdelivery/store', {
+            register: this.customerInfos.Email
           })
           .then(res => {
-            for(var j = 0; j < res.data.length; j++){
-              items.push(res.data[j]);
-            }
+            console.log(res.data);
+            this.$store.commit('storeUserToDeliver', res.data);
           })
           .catch(err => console.error(err));
-        }
-        //console.log(items);
-        this.$store.commit('storeUserProfileOrderItems', items);
-      }
+      },
+      getUserOrderComplete() {
+        axios.post('http://127.0.0.1:8000/api/userordercomplete/store', {
+            register: this.customerInfos.Email
+          })
+          .then(res => {
+            console.log(res.data);
+            this.$store.commit('storeUserToComplete', res.data);
+          })  
+          .catch(err => console.error(err));
+      },
+      getUserPickup() {
+        axios.post('http://127.0.0.1:8000/api/userorderpickup/store', {
+            register: this.customerInfos.Email
+          })
+          .then(res => {
+            console.log(res.data);
+            //this.$store.commit('storeUserToComplete', res.data);
+          })  
+          .catch(err => console.error(err));
+      },
     },
 
     beforeMount() {
       //console.log("user profile");
       //console.log(this.goToAddress);
       this.getUserOrder();
-     // this.getUserOrderItems();
+      this.getUserOrderDeliver();
+      this.getUserOrderComplete();
+      this.getUserPickup();
       if(this.goToAddress){
         this.mProfile = false;
         this.mAddress = true;

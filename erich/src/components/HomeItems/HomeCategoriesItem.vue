@@ -131,7 +131,11 @@
 </template>
 
 <script>
+  import {Mixins} from '../../Mixins/mixins.js'
+
   export default {
+    mixins: [Mixins],
+
     data: () => ({
       showItems: null,
       searchKey: "",
@@ -262,7 +266,7 @@
       },
       getCategoryItems() {
         //console.log("Get Items");
-        axios.get('http://127.0.0.1:8000/api/categoryitem')
+        axios.get(this.getDomain()+'api/categoryitem')
         .then(res => {
           this.storeCategoryItems(res.data)
           this.showItems = res.data;

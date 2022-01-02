@@ -4,56 +4,131 @@
       <v-row>
         <v-col>
           <div
-            class="my-2"
-            v-for="order in orders"
+            class="my-2 mx-4"
+            v-for="order in userProfileOrders"
             :key="order.id"
           >
             <v-divider></v-divider>
             <v-row>
               <v-col>
-                <p>{{order.Status}}</p>
+                <p
+                  class="mb-0 mt-6 title"
+                >Status: &nbsp;{{order.Status}}</p>
               </v-col>
             </v-row>
             <v-row>
               <v-col>
-                <p>Invoice &nbsp; #: &nbsp; {{order.InvoiceNumber}}</p>
+                <p
+                  class="my-0 subtitle-1"
+                >Invoice &nbsp; #: &nbsp; {{order.InvoiceNumber}}</p>
               </v-col>
             </v-row>
             <v-row>
               <v-col>
-                <div
-                  v-for="item in items"
-                  :key="item.id"
+                <orderdeliveritems :orders="order.orders"></orderdeliveritems>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col
+                class="d-flex"
+              >
+                <v-spacer></v-spacer>
+                <p
+                  class="title mx-5"
                 >
-                  <div
-                    v-if="order.InvoiceNumber == item.InvoiceNumber"
-                    class="d-flex"
-                  >
-                    <div>
-                      <v-img
-                        :src="require('../../../assets/itemPhotos/'+item.ItemImage)"
-                        contain
-                        max-width="100px"
-                        max-height="100px"
-                      ></v-img>
-                    </div>
-                    <div>
-                      <p>{{item.ItemName}}</p>
-                      <p>{{item.ItemDesc}}</p>
-                      <p>{{item.Quantity}}</p>
-                    </div>
-                    <v-spacer></v-spacer>
-                    <div>
-                       <p>{{item.Quantity * item.RetailPrice}}</p>
-                    </div>
-                  </div>
-                  
-                </div>
+                  Total: &nbsp;{{priceRound(order.Total)}}
+                </p>
+                
+              </v-col>
+            </v-row>
+            <v-divider></v-divider>
+          </div>
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col>
+          <div
+            class="my-2 mx-4"
+            v-for="order in userProfileToDeliver"
+            :key="order.id"
+          >
+            <v-divider></v-divider>
+            <v-row>
+              <v-col>
+                <p
+                  class="mb-0 mt-6 title"
+                >Status: &nbsp;{{order.Status}}</p>
               </v-col>
             </v-row>
             <v-row>
               <v-col>
-                {{order.Total}}
+                <p
+                  class="my-0 subtitle-1"
+                >Invoice &nbsp; #: &nbsp; {{order.InvoiceNumber}}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <orderdeliveritems :orders="order.orders"></orderdeliveritems>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col
+                class="d-flex"
+              >
+                <v-spacer></v-spacer>
+                <p
+                  class="title mx-5"
+                >
+                  Total: &nbsp;{{priceRound(order.Total)}}
+                </p>
+                
+              </v-col>
+            </v-row>
+            <v-divider></v-divider>
+          </div>
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col>
+          <div
+            class="my-2 mx-4"
+            v-for="order in userProfileToComplete"
+            :key="order.id"
+          >
+            <v-divider></v-divider>
+            <v-row>
+              <v-col>
+                <p
+                  class="mb-0 mt-6 title"
+                >Status: &nbsp;{{order.Status}}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <p
+                  class="my-0 subtitle-1"
+                >Invoice &nbsp; #: &nbsp; {{order.InvoiceNumber}}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <orderdeliveritems :orders="order.orders"></orderdeliveritems>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col
+                class="d-flex"
+              >
+                <v-spacer></v-spacer>
+                <p
+                  class="title mx-5"
+                >
+                  Total: &nbsp;{{priceRound(order.Total)}}
+                </p>
+                
               </v-col>
             </v-row>
             <v-divider></v-divider>
@@ -65,7 +140,13 @@
 </template>
 
 <script>
+  import ODI from './OrderDeliverItem.vue'
+
   export default {
+    components: {
+      "orderdeliveritems": ODI,
+    },
+
     data: () => ({
        orders: [],
        items: [],
@@ -75,9 +156,12 @@
       userProfileOrders() {
         return this.$store.state.userProfileOrders;
       },
-      userProfileOrderItems() {
-        return this.$store.state.userProfileOrderItems;
-      }
+      userProfileToDeliver() {
+        return this.$store.state.userProfileToDeliver;
+      },
+      userProfileToComplete() {
+        return this.$store.state.userProfileToComplete;
+      },
     },
 
    
@@ -91,11 +175,6 @@
     },
 
     beforeMount(){
-      console.log("All items");
-      console.log(this.userProfileOrders);
-      console.log(this.userProfileOrderItems);
-      this.orders = this.userProfileOrders;
-      this.items = this.userProfileOrderItems;
     }
     
   }

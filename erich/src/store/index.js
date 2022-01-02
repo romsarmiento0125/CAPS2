@@ -19,7 +19,8 @@ export default new Vuex.Store({
     oCashierPickup: false,
     customerItems: {},
     userProfileOrders: {},
-    userProfileOrderItems: {},
+    userProfileToDeliver: {},
+    userProfileToComplete: {},
     userAllOrdersCons: {},
     userAllOrders: {},
     ocDeliverToPack: true,
@@ -117,9 +118,15 @@ export default new Vuex.Store({
     },
     //Views UserProfile.vue
     //Views Home.vue
-    storeUserProfileOrderItems: (state, payload) => {
-      state.userProfileOrderItems = {};
-      state.userProfileOrderItems = payload;
+    storeUserToDeliver: (state, payload) => {
+      state.userProfileToDeliver = {};
+      state.userProfileToDeliver = payload;
+    },
+    //Views UserProfile.vue
+    //Views Home.vue
+    storeUserToComplete: (state, payload) => {
+      state.userProfileToComplete = {};
+      state.userProfileToComplete = payload;
     },
     //Views OnlineCashier.vue
     storeUserAllOrders: (state, payload) => {
