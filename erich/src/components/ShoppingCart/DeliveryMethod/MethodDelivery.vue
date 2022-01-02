@@ -10,37 +10,42 @@
           <div
             class="pl-5 pt-5"
           > 
-            <p
-              class="title ma-0 pa-0"
+            <h3
+              class="ma-0 pa-0 fontTitle font-weight-bold"
             >
               Contact Information
-            </p>
-            <p
-              class="ma-0 pa-0"
-            >
-              {{Name}}&nbsp;{{Surname}}
-            </p>
-            <p
-              class="ma-0 pa-0"
-            >
-              {{Mobilenumber}}
-            </p>
+            </h3>
+
+              <v-row class="nContact mx-0 ma-3">
+                <v-col cols="6">
+                  <p
+                    class="ma-0 pa-0 fontDesc"
+                  >
+                    {{Name}}&nbsp;{{Surname}}
+                  </p>
+                </v-col>
+                
+                <v-col cols="6 " class="d-flex justify-end">
+                  <p
+                  class="ma-0 pa-0 mr-3 fontDesc"
+                  >
+                  {{Mobilenumber}}
+                  </p>
+                </v-col>  
+            </v-row> 
           </div>
           <div
-            class="pl-5 pt-5"
+            class="pl-5 pt-5 "
           >
-            <p
-              class="title ma-0 pa-0 "
+            <h3
+              class="ma-0 pa-0 fontTitle font-weight-bold"
             >
               Delivery Address
-            </p>
+            </h3>
             <div
-              class="d-flex"
+              class="d-flex nDelivery mx-0 ma-3 pa-3 fontDesc"
             >
-              <p>{{Municipality}}&nbsp;</p>
-              <p>{{Barangay}}&nbsp;</p>
-              <p>{{UBarangay}}&nbsp;</p>
-              <p>{{HomeAddress}}&nbsp;</p>
+                <p>{{Municipality}}&nbsp;{{Barangay}}&nbsp;{{UBarangay}}&nbsp;{{HomeAddress}}&nbsp;</p>              
             </div>
             <div
               class="d-flex justify-end"
@@ -48,7 +53,7 @@
               <v-btn
                 class="justify-end"
                 plain
-                color="blue"
+                color="#1106A0"
                 small
                 right
                 @click="changeAddress"
@@ -60,10 +65,10 @@
           <div
             class="pl-5 pt-5"
           >
-            <p
-              class="title ma-0 pa-0 "
-            >Delivery Fee</p>
-            <div class="pa-5">
+            <h3
+              class="ma-0 pa-0 fontTitle font-weight-bold"
+            >Delivery Fee</h3>
+            <div class="py-2">
               <p>{{Shipping}}</p>
             </div>
           </div>
@@ -132,3 +137,24 @@
     }
   }
 </script>
+
+<style scoped>
+  .fontTitle{
+    color:#464646;
+  }
+  .fontDesc{
+    color: #787885;
+  }
+
+  .nContact{
+    border: 1px solid #787885;
+    border-radius: 5px;
+    border-right: 1px solid;
+    line-height: 10px;
+  }
+  .nDelivery{
+    border: 1px solid #787885;
+    border-radius: 5px;
+  }
+
+</style>
