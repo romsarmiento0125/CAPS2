@@ -13,13 +13,15 @@ use App\Http\Controllers\loginaddresscontroller;
 use App\Http\Controllers\customerOrderInfoController;
 use App\Http\Controllers\customerOrderItemsController;
 use App\Http\Controllers\userOrderController;
-use App\Http\Controllers\userOrderItemsController;
+use App\Http\Controllers\userOrderDeliveryController;
 use App\Http\Controllers\userDeliverItemsController;
 use App\Http\Controllers\userCompleteItemsController;
 use App\Http\Controllers\CustomerPickupInfosController;
 use App\Http\Controllers\CustomerPickupItemsController;
 use App\Http\Controllers\CustomerPickupPickupController;
 use App\Http\Controllers\CustomerPickupCompleteController;
+use App\Http\Controllers\userOrderCompleteController;
+use App\Http\Controllers\userOrderPickupController;
 
 
 /*
@@ -114,11 +116,18 @@ Route::prefix('/userorder')->group( function () {
     Route::delete('/{id}', [userOrderController::class, 'destroy']);
 });
 
-Route::get('/userorderitems', [userOrderItemsController::class, 'index']);
-Route::prefix('/userorderitems')->group( function () {
-    Route::post('/store', [userOrderItemsController::class, 'store']);
-    Route::put('/{id}', [userOrderItemsController::class, 'update']);
-    Route::delete('/{id}', [userOrderItemsController::class, 'destroy']);
+Route::get('/userorderdelivery', [userOrderDeliveryController::class, 'index']);
+Route::prefix('/userorderdelivery')->group( function () {
+    Route::post('/store', [userOrderDeliveryController::class, 'store']);
+    Route::put('/{id}', [userOrderDeliveryController::class, 'update']);
+    Route::delete('/{id}', [userOrderDeliveryController::class, 'destroy']);
+});
+
+Route::get('/userordercomplete', [userOrderCompleteController::class, 'index']);
+Route::prefix('/userordercomplete')->group( function () {
+    Route::post('/store', [userOrderCompleteController::class, 'store']);
+    Route::put('/{id}', [userOrderCompleteController::class, 'update']);
+    Route::delete('/{id}', [userOrderCompleteController::class, 'destroy']);
 });
 
 Route::get('/customerdeliveritems', [userDeliverItemsController::class, 'index']);
@@ -161,4 +170,11 @@ Route::prefix('/customerpickupcomplete')->group( function () {
     Route::post('/store', [CustomerPickupCompleteController::class, 'store']);
     Route::put('/{id}', [CustomerPickupCompleteController::class, 'update']);
     Route::delete('/{id}', [CustomerPickupCompleteController::class, 'destroy']);
+});
+
+Route::get('/userorderpickup', [userOrderPickupController::class, 'index']);
+Route::prefix('/userorderpickup')->group( function () {
+    Route::post('/store', [userOrderPickupController::class, 'store']);
+    Route::put('/{id}', [userOrderPickupController::class, 'update']);
+    Route::delete('/{id}', [userOrderPickupController::class, 'destroy']);
 });
