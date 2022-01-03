@@ -96,7 +96,7 @@
       </v-row>
       <v-divider></v-divider>
       <v-row
-        class="mt-3"
+        class="mt-3 mr-2"
       >
         <v-col
           offset="1"
@@ -133,7 +133,7 @@
           cols="10"
         >
           <div
-            class="d-flex"
+            class="d-flex mr-4"
           >
             <p
               class="title fontBlue mt-5"

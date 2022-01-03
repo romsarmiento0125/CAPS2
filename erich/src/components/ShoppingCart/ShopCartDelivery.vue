@@ -15,10 +15,34 @@
             <div
               class="ma-5 pa-10"
             >
-              <p
-                class="title"
-              >Order #{{customerOrder.InvoiceNumber}}</p>
-              <p>Thank you&nbsp;{{customerOrder.Name}}<p>
+              <v-row>
+                <v-col cols="2">
+                  <v-img
+                  contain
+                  src="../../assets/check.svg"
+                  max-height="50px"
+                  max-width="50px"
+                  
+                  
+                ></v-img>
+                </v-col>
+                
+                <v-col cols="8">
+                  <v-row class="">
+                    <v-col cols="12" class="ma-0 pa-0">
+                      <p
+                        class="subtitle-1 font-weight-bold my-0 "
+                        >Order #{{customerOrder.InvoiceNumber}}</p>
+                    </v-col>
+                    </v-row>
+
+                    <v-row class="ma-0 pa-0">
+                      <v-col cols="12" class="subtitle-1 my-0">
+                       <p>Thank you! &nbsp;{{customerOrder.Name}}</p>
+                      </v-col>
+                    </v-row>
+                </v-col>
+              </v-row>
               <div>
                 <div>
                   <p>Your Order is confirmed</p>
