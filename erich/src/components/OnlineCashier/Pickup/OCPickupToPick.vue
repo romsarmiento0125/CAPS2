@@ -69,8 +69,10 @@
 
 <script>
   import OCOrderDetails from '../OCOrderDetails.vue'
+  import {Mixins} from '../../../Mixins/mixins.js'
 
   export default {
+    mixins: [Mixins],
     components: {
       "oc-orderdetails": OCOrderDetails,
     },
@@ -111,7 +113,7 @@
         this.orderPickup.SubTotal = subTotal;
         this.orderPickup.Total = total;
 
-        axios.post('http://127.0.0.1:8000/api/customerpickupcomplete/store', {
+        axios.post(this.getDomain()+'api/customerpickupcomplete/store', {
             register: this.orderPickup
           })
           .then(res => {
@@ -121,7 +123,7 @@
           .catch(err => console.error(err));
       },
       toDelete(id){
-        axios.delete('http://127.0.0.1:8000/api/customerpickuppickup/'+ id)
+        axios.delete(this.getDomain()+'api/customerpickuppickup/'+ id)
           .then( res => {
             console.log("Delete")
             console.log(res.data);
@@ -131,7 +133,7 @@
         
       },
       getPickupPickup(){
-        axios.get('http://127.0.0.1:8000/api/customerpickuppickup')
+        axios.get(this.getDomain()+'api/customerpickuppickup')
           .then(res => {
             console.log(res.data);
             this.$store.commit('storeUserAllPickup', res.data);

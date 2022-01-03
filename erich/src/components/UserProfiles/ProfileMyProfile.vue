@@ -264,21 +264,21 @@
     computed: {
       customerInfos() {
         return this.$store.state.customerInfos;
-      }
+      },
     },
 
     watch: {
       menu(val) {
         val && setTimeout(() => (this.activePicker = 'YEAR'))
       },
+      customerInfos(){
+        this.saveCredentials();
+      }
     },
 
     methods: {
       save(date) {
         this.$refs.menu.save(date)
-      },
-      getCustomerInfo() {
-        console.log(this.customerInfos);
       },
       editUserProfiles() {
         this.dialog = false;
@@ -286,20 +286,27 @@
       },
       editUserEmail(){
         alert("Button Not Yet Working");
+      },
+      saveCredentials(){
+        if(this.customerInfos == null){
+        }
+        else{
+          this.Username = this.customerInfos.First_Name + " " + this.customerInfos.Last_Name;
+          this.Name = this.customerInfos.First_Name;
+          this.Surname = this.customerInfos.Last_Name;
+          this.Email = this.customerInfos.Email;
+          this.Password = this.customerInfos.Password;
+          this.Mobilenumber = this.customerInfos.Mobile_Number;
+          this.Birthday = this.customerInfos.Birthday;
+          this.Gender = this.customerInfos.Gender;
+        }
       }
     },
     
     beforeMount() {
+      this.saveCredentials();
       //this.getCustomerInfo();
       //console.log(this.customerInfos);
-      this.Username = this.customerInfos.First_Name + " " + this.customerInfos.Last_Name;
-      this.Name = this.customerInfos.First_Name;
-      this.Surname = this.customerInfos.Last_Name;
-      this.Email = this.customerInfos.Email;
-      this.Password = this.customerInfos.Password;
-      this.Mobilenumber = this.customerInfos.Mobile_Number;
-      this.Birthday = this.customerInfos.Birthday;
-      this.Gender = this.customerInfos.Gender;
     }
   }
 </script>

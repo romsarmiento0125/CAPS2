@@ -60,8 +60,10 @@
 
 <script>
   import OCOrderDetails from '../OCOrderDetails.vue'
+  import {Mixins} from '../../../Mixins/mixins.js'
 
   export default {
+    mixins: [Mixins],
     components: {
       "oc-orderdetails": OCOrderDetails,
     },
@@ -74,7 +76,7 @@
 
     methods: {
       getPickupComplete(){
-        axios.get('http://127.0.0.1:8000/api/customerpickupcomplete')
+        axios.get(this.getDomain()+'api/customerpickupcomplete')
           .then(res => {
             console.log(res.data);
             this.$store.commit('storeUserPickupComplete', res.data);

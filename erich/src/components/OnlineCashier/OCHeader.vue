@@ -14,14 +14,13 @@
               max-height="100px"
               max-width="100px"
             >
-              <a href="/"></a>
             </v-img>
           </div>
         </v-col>
         <v-col>
           <div>
             <v-btn
-              href="/"
+              @click="logoutUser"
             >
               <p
                 class="title"
@@ -35,3 +34,15 @@
     </v-container>
   </div>
 </template>
+
+<script>
+  export default {
+    methods: {
+      logoutUser(){
+        sessionStorage.removeItem("Email");
+        sessionStorage.removeItem("Pass");
+        window.location.href = "http://localhost:8080/";
+      }
+    }
+  }
+</script>
