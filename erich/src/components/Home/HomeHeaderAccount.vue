@@ -71,13 +71,49 @@
             class="d-flex align-center"
             cols="3"
           >
-              <v-btn
-                dark
-                text
-                medium
-              >
-                <v-icon color="#1106A0">mdi-bell</v-icon>
-              </v-btn>
+            <v-menu
+              offset-y
+              transition="slide-y-transition"
+              bottom
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-badge
+                  overlap
+                  color="red"
+                  :content="notifCounter"
+                >
+                  <v-btn
+                    dark
+                    text
+                    medium
+                    v-bind="attrs"
+                    v-on="on"         
+                  >
+                    <v-icon color="#1106A0">mdi-bell</v-icon>
+                  </v-btn>
+                </v-badge>
+              </template>
+
+              <v-list dense>
+                <v-list-item-group
+                  v-model="selectedNotif"
+                  color="#1106A0"
+                  
+                >
+                  <v-list-item
+                    v-for="(item, n) in notifications"
+                    :key="n"
+                  >
+                    <v-list-item-icon>
+                      <v-icon v-text="item.icon"></v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                      <v-list-item-title v-text="item.text" @click="accountButton(item.to)"></v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list-item-group>
+              </v-list>
+            </v-menu>
             <div
               class="d-flex"
             >
@@ -127,15 +163,15 @@
                     </v-list-item-group>
                   </v-list>
                 </v-menu>
-               <v-avatar
-               class="ml-2"
-               >
-                 
-                <img 
-                  src="https://cdn.vuetifyjs.com/images/john.jpg"
-                  alt="John"
+                <v-avatar
+                class="ml-2"
                 >
-              </v-avatar>
+                  
+                  <img 
+                    src="https://cdn.vuetifyjs.com/images/john.jpg"
+                    alt="John"
+                  >
+                </v-avatar>
               </div>
             </div>
           </v-col>
@@ -153,7 +189,13 @@
     
     data: () => ({
       selectedItem: 0,
-      items: [
+      selectedNotif: 0,
+      notifications: [
+        { title: "Account", text: 'My Account', icon: 'mdi-account', to: "account"  },
+        { title: "Address", text: 'My Address', icon: 'mdi-map-marker', to: "address"  },
+        { title: "Purchase", text: 'My Purchase', icon: 'mdi-cart', to: "orders"  },
+      ],
+       items: [
         { title: "Account", text: 'My Account', icon: 'mdi-account', to: "account"  },
         { title: "Address", text: 'My Address', icon: 'mdi-map-marker', to: "address"  },
         { title: "Purchase", text: 'My Purchase', icon: 'mdi-cart', to: "orders"  },
@@ -161,6 +203,7 @@
       customerEmail: "",
       cartCounter: 0,
       searchKey: "",
+      notifCounter: 0,
     }),
 
     computed: {

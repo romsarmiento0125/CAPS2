@@ -11,6 +11,7 @@ import HomeItems from '../views/HomeItems.vue'
 import Profiles from '../views/UserProfile.vue'
 import OnlineCashier from '../views/OnlineCashier.vue'
 import PhysicalCashier from '../views/PhysicalCashier.vue'
+import MiscFunctions from '../views/MiscFunction.vue'
 
 Vue.use(VueRouter)
 
@@ -69,6 +70,11 @@ const routes = [
     path: '/physicalcashier',
     name: 'PhysicalCashier',
     component: PhysicalCashier
+  },
+  {
+    path: '/erich',
+    name: 'Erich',
+    component: MiscFunctions
   },
   // {
   //   path: '/about',
