@@ -85,7 +85,7 @@
                 >
                   <method-delivery></method-delivery>
                   <v-row
-                    class="ma-5 pa-0 pb-7"
+                    class="ma-10 pa-0 pb-7"
                   >
                     <v-col
                       cols="12"
@@ -135,20 +135,50 @@
             fluid
           >
             <v-row>
-              <v-col>
+              <v-col class="ma-0 pa-0">
                 <v-sheet
                   color="white"
                   height="100%"
                   width="100%"
                 >
                   <method-pickup></method-pickup>
-                  <v-btn
-                    color="primary"
-                    :to="{name: 'Cart' , params: { id: 'pickup', title: 'Pick Up'}}"
-                    @click="placeOrderPickup()"
-                  >
-                    Pickup
-                  </v-btn>
+                  <v-row class="ma-10 pa-0 pb-7">
+                    <v-col 
+                      cols="12"
+                      class="pa-0 ma-0">
+
+                      <div>
+                        <v-row>
+                          <v-col cols="6" class="mt-2">
+                            <v-btn
+                              plain
+                              color="#1106A0"
+                              :to="{name: 'Cart' , params: { id: 'items', title: 'Items'}}"
+                              @click="returnToCartItems"
+                              small
+                            >
+                              <v-icon>mdi-chevron-left</v-icon>
+                              <p
+                                class="ma-0 "
+                              >return to cart</p>
+                            </v-btn>
+                          </v-col>
+
+                          <v-col cols="6" class="d-flex justify-end">
+                            <v-btn
+                              dark
+                              class="px-6"
+                              color="#1106A0"
+                              :to="{name: 'Cart' , params: { id: 'pickup', title: 'Pick Up'}}"
+                              @click="placeOrderPickup()"
+                            >
+                              Continue Shipping
+                            </v-btn>
+                          </v-col>
+                        </v-row>
+                      </div>
+                    </v-col>
+                  </v-row>
                 </v-sheet>
               </v-col>
             </v-row>
