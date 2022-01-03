@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="customerInfos.Tag == 'Ocashier' || this.customerInfos.Tag == 'Admin'">
     <oc-header></oc-header>
     <oc-deliver v-if="oCashierDeliver"></oc-deliver>
     <oc-pickup v-else-if="oCashierPickup"></oc-pickup>
@@ -24,6 +24,10 @@
 
     data: () => ({
       deliverOrPickup: true,
+       usersData: {
+        usersEmail: "",
+        usersPassword: "",
+      }
     }),
 
     computed: {
@@ -32,6 +36,9 @@
       },
       oCashierPickup() {
         return this.$store.state.oCashierPickup;
+      },
+      customerInfos() {
+        return this.$store.state.customerInfos;
       },
     },
 
@@ -80,9 +87,37 @@
           })
           .catch(err => console.error(err));
       },
+      loginChecker(){
+        this.usersData.usersEmail = sessionStorage.getItem('Email');
+        this.usersData.usersPassword = sessionStorage.getItem('Pass');
+        if(this.customerInfos == null){
+          this.loginAgain(this.usersData);
+        }
+        else{
+        }
+      },
+      tagChecker(){
+        if(this.customerInfos.Tag == null){
+          this.$router.push("/");
+        }
+        else if (this.customerInfos.Tag == "Ocashier" || this.customerInfos.Tag == "Admin"){
+          console.log("do nothing");
+        }
+        else{
+          this.$router.push("/");
+        }
+      }
+    },
+
+    watch: {
+      customerInfos() {
+        this.tagChecker();
+      }
     },
 
     beforeMount(){
+      this.loginChecker();
+      this.tagChecker();
       this.getAllOrder();
       this.getAllDeliver();
       this.getAllComplete();

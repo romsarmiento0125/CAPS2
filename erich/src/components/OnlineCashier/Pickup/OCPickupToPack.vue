@@ -97,8 +97,10 @@
 
 <script>
   import OCOrderDetails from '../OCOrderDetails.vue'
+  import {Mixins} from '../../../Mixins/mixins.js'
 
   export default {
+    mixins: [Mixins],
     components: {
       "oc-orderdetails": OCOrderDetails,
     },
@@ -151,7 +153,7 @@
         console.log(id);
         console.log(this.orderPickup);
 
-        axios.put('http://127.0.0.1:8000/api/customerpickup/' + id, {
+        axios.put(this.getDomain()+'api/customerpickup/' + id, {
             register: this.orderPickup
           })
           .then(res => {
@@ -175,7 +177,7 @@
         this.orderPickup.SubTotal = subTotal;
         this.orderPickup.Total = total;
 
-        axios.post('http://127.0.0.1:8000/api/customerpickuppickup/store', {
+        axios.post(this.getDomain()+'api/customerpickuppickup/store', {
             register: this.orderPickup
           })
           .then(res => {
@@ -185,7 +187,7 @@
           .catch(err => console.error(err));
       },
       toDelete(id){
-        axios.delete('http://127.0.0.1:8000/api/customerpickup/'+ id)
+        axios.delete(this.getDomain()+'api/customerpickup/'+ id)
           .then( res => {
             console.log("Delete")
             console.log(res.data);
@@ -195,7 +197,7 @@
         
       },
       getPickupOrder(){
-        axios.get('http://127.0.0.1:8000/api/customerpickup')
+        axios.get(this.getDomain()+'api/customerpickup')
           .then(res => {
             console.log(res.data);
             this.$store.commit('storeUserPickupOrders', res.data);

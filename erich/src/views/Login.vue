@@ -89,6 +89,8 @@
 
     data: () => ({
       usersData: {
+        // usersEmail: "",
+        // usersPassword: ""
         usersEmail: "paul@gmail.com",
         usersPassword: "@Admin123"
       }
@@ -126,6 +128,9 @@
           .then(res => this.saveInfos(res.data, cinfo))
           //.then(res => console.log(res.data))
           .catch(err => console.error(err));
+
+          sessionStorage.setItem("Email", this.usersData.usersEmail);
+          sessionStorage.setItem("Pass", this.usersData.usersPassword);
         }
       },
       saveInfos(data, cinfo) {

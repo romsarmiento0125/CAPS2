@@ -205,7 +205,11 @@
           this.$router.push({path: '/onlinecashier'});
         }
         else if(cond == "logout"){
+          sessionStorage.removeItem("Email");
+          sessionStorage.removeItem("Pass");
           window.location.href = "http://localhost:8080/";
+          //window.location.href = "http://erichgrocery.store/";
+          
         }
       },
       getItemsQuantity() {

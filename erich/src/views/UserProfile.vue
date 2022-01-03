@@ -37,6 +37,7 @@
               </v-btn>
               <v-btn
                 plain
+                @click="profileCond('log')"
               >
                 Logout
               </v-btn>
@@ -87,6 +88,10 @@
       mProfile: true,
       mAddress: false,
       mOrders: false,
+      usersData: {
+        usersEmail: "",
+        usersPassword: "",
+      }
     }),
 
     methods: {
@@ -95,6 +100,7 @@
           this.mProfile = true;
           this.mAddress = false;
           this.mOrders = false;
+
         }
         else if(cond == "mad"){
           this.mProfile = false;
@@ -105,16 +111,19 @@
           this.mProfile = false;
           this.mAddress = false;
           this.mOrders = true;
+          this.callOrders();
         }
         else{
-          this.mProfile = true;
-          this.mAddress = false;
-          this.mOrders = false;
+            sessionStorage.removeItem("Email");
+            sessionStorage.removeItem("Pass");
+            window.location.href = "http://localhost:8080/";
+            //window.location.href = "http://erichgrocery.store/";
         }
+
       },
       getUserOrder() {
         axios.post(this.getDomain()+'api/userorder/store', {
-            register: this.customerInfos.Email
+            register: this.usersData.usersEmail
           })
           .then(res => {
             console.log(res.data);
@@ -124,7 +133,7 @@
       },
       getUserOrderDeliver() {
         axios.post(this.getDomain()+'api/userorderdelivery/store', {
-            register: this.customerInfos.Email
+            register: this.usersData.usersEmail
           })
           .then(res => {
             console.log(res.data);
@@ -134,7 +143,7 @@
       },
       getUserOrderComplete() {
         axios.post(this.getDomain()+'api/userordercomplete/store', {
-            register: this.customerInfos.Email
+            register: this.usersData.usersEmail
           })
           .then(res => {
             console.log(res.data);
@@ -144,7 +153,7 @@
       },
       getUserPickup() {
         axios.post(this.getDomain()+'api/userorderpickup/store', {
-            register: this.customerInfos.Email
+            register: this.usersData.usersEmail
           })
           .then(res => {
             console.log(res.data);
@@ -154,7 +163,7 @@
       },
       getUserPickupPickup() {
         axios.post(this.getDomain()+'api/userpickuppickup/store', {
-            register: this.customerInfos.Email
+            register: this.usersData.usersEmail
           })
           .then(res => {
             console.log(res.data);
@@ -164,7 +173,7 @@
       },
       getUserPickupComplete() {
         axios.post(this.getDomain()+'api/userpickupcomplete/store', {
-            register: this.customerInfos.Email
+            register: this.usersData.usersEmail
           })
           .then(res => {
             console.log(res.data);
@@ -172,17 +181,36 @@
           })  
           .catch(err => console.error(err));
       },
+      callOrders(){
+        this.getUserOrder();
+        this.getUserOrderDeliver();
+        this.getUserOrderComplete();
+        this.getUserPickup();
+        this.getUserPickupPickup();
+        this.getUserPickupComplete();
+      },
+      loginChecker(){
+        this.usersData.usersEmail = sessionStorage.getItem('Email');
+        this.usersData.usersPassword = sessionStorage.getItem('Pass');
+        if(this.customerInfos == null){
+          this.loginAgain(this.usersData);
+        }
+        else{
+        }
+        
+      }
+    },
+    watch: {
+      goToOrder(){
+        this.callOrders();
+      }
     },
 
     beforeMount() {
+      this.loginChecker();
       //console.log("user profile");
       //console.log(this.goToAddress);
-      this.getUserOrder();
-      this.getUserOrderDeliver();
-      this.getUserOrderComplete();
-      this.getUserPickup();
-      this.getUserPickupPickup();
-      this.getUserPickupComplete();
+      
       if(this.goToAddress){
         this.mProfile = false;
         this.mAddress = true;

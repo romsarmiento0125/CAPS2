@@ -148,10 +148,10 @@
 
     beforeMount() {
       //this.getCustomerInfo();
-      console.log("infos");
-      console.log(this.customerInfos);
-      console.log(this.customerAddress);
-      console.log(this.customerAddress.length);
+      // console.log("infos");
+      // console.log(this.customerInfos);
+      // console.log(this.customerAddress);
+      // console.log(this.customerAddress.length);
       //console.log(this.customerAddress[0].id);
       
       this.insertAddress();

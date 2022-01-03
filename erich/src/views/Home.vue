@@ -20,7 +20,10 @@
 
   import HomeCategoriesItem from '../components/HomeItems/HomeCategoriesItem.vue'
 
+  import {Mixins} from '../Mixins/mixins.js'
+
   export default {
+    mixins: [Mixins],
     name: "Home",
 
     components: {
@@ -37,6 +40,10 @@
       promodeals: true,
       categoriesItem: false,
       headerCond: true,
+      usersData: {
+        usersEmail: "",
+        usersPassword: "",
+      }
     }),
 
     computed: {
@@ -46,13 +53,17 @@
       categoryItems() {
         return this.$store.state.categoryItems;
       },
+      customerCredentials() {
+        return this.$store.state.customerCredentials;
+      },
     },
 
     methods: {
       navbarPicker() {
-        // console.log("navbar picker");
-        // console.log(this.customerInfos.Tag);
-        if(this.customerInfos.Tag == "Customer" || this.customerInfos.Tag == "Admin" || this.customerInfos.Tag == "Encoder"){
+        if(this.customerInfos == null){
+          this.headerCond = true;
+        }
+        else if(this.customerInfos.Tag == "Customer" || this.customerInfos.Tag == "Admin" || this.customerInfos.Tag == "Encoder"){
           this.headerCond = false;
           // console.log("headerCond: " + this.headerCond);
         }
@@ -63,42 +74,26 @@
           this.$router.push("/physicalcashier")
         }
       },
-      // getUserOrder() {
-      //   axios.post('http://127.0.0.1:8000/api/userorder/store', {
-      //       register: this.customerInfos.Email
-      //     })
-      //     .then(res => {
-      //       this.$store.commit('storeUserProfileOrders', res.data);
-      //       //this.getUserOrderItems(res.data)
-      //     })
-      //     //.then(res => console.log(res.data))
-      //     .catch(err => console.error(err));
+      loginChecker(){
+        this.usersData.usersEmail = sessionStorage.getItem('Email');
+        this.usersData.usersPassword = sessionStorage.getItem('Pass');
+        if(this.customerInfos == null){
+          this.loginAgain(this.usersData);
+        }
+        else{
+        }
+      }
+    },
 
-      // },
-      // getUserOrderItems(data) {
-      //   //console.log("Get user order items");
-      //   //console.log(data);
-      //   //console.log(data.length);
-      //   var items = [];
-      //   for(var i = 0; i < data.length; i++){
-      //     axios.post('http://127.0.0.1:8000/api/userorderitems/store', {
-      //       register: data[i].InvoiceNumber
-      //     })
-      //     .then(res => {
-      //       for(var j = 0; j < res.data.length; j++){
-      //         items.push(res.data[j]);
-      //       }
-      //     })
-      //     .catch(err => console.error(err));
-      //   }
-      //   //console.log(items);
-      //   this.$store.commit('storeUserProfileOrderItems', items);
-      // }
+    watch: {
+      customerInfos() {
+        this.navbarPicker();
+      }
     },
 
     beforeMount() {
+      this.loginChecker();
       this.navbarPicker();
-      //this.getUserOrder();
     },
   }
 </script>
