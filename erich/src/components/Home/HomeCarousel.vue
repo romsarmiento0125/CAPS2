@@ -2,9 +2,6 @@
   <div
     class="mt-15 pt-15"
   >
-    <v-container fluid class="px-0" v-if="true">
-      <home-tovefiy></home-tovefiy>
-    </v-container>
     <v-container fluid>
       <v-row>
         <v-col
