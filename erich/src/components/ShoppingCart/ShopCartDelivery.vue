@@ -22,60 +22,76 @@
                   src="../../assets/check.svg"
                   max-height="50px"
                   max-width="50px"
+
                   
                   
                 ></v-img>
                 </v-col>
                 
-                <v-col cols="8">
-                  <v-row class="">
+                <v-col cols="8" class="ma-4">
+                  <v-row >
                     <v-col cols="12" class="ma-0 pa-0">
-                      <p
-                        class="subtitle-1 font-weight-bold my-0 "
-                        >Order #{{customerOrder.InvoiceNumber}}</p>
+                      <h5
+                        class="font-weight-bold my-0 fontDesc "
+                        >Order #{{customerOrder.InvoiceNumber}}</h5>
                     </v-col>
                     </v-row>
 
-                    <v-row class="ma-0 pa-0">
-                      <v-col cols="12" class="subtitle-1 my-0">
-                       <p>Thank you! &nbsp;{{customerOrder.Name}}</p>
+                    <v-row>
+                      <v-col cols="12" class="ma-0 pa-0">
+                       <h5
+                        class="my-0 font-weight-black fontTitle" 
+                       >Thank you! &nbsp;{{customerOrder.Name}}</h5>
                       </v-col>
                     </v-row>
                 </v-col>
               </v-row>
+
               <div>
-                <div>
-                  <p>Your Order is confirmed</p>
-                  <p>Please give our driver the exact amount.</p>
+                <div class="mt-5 nOrder elevation-1">
+                  <div class="ma-4 pa-0">
+                    <h4 class="my-0 font-weight-bold fontTitle">Your Order is confirmed</h4>
+                    <h5 class="my-0 font-weight-regular">Please give our driver the exact amount.</h5>
+                  </div>
+                  
                 </div>
-                <div>
-                  <p
-                    class="title"
-                  >Customer Information</p>
+
+                <div class="mt-5 nContact elevation-1">
+                  <div class="ma-4 pa-0">
+                    <h4
+                    class="fontTitle font-weight-bold"
+                  >Customer Information</h4>
                   <div
-                    class="d-flex"
+                    class="d-flex pt-5"
                   >
-                    <div>
-                      <p>Contact Information</p>
-                      <p>{{customerOrder.Mobilenumber}}</p>
+                    <div class="my-1">
+                      <h5>Contact Information</h5>
+                      <h5 class="fontTitle font-weight-regular mt-3">{{customerOrder.Mobilenumber}}</h5>
                     </div>
                   </div>
-                  <div>
-                    <p>Shipping Adress</p>
-                    <p>{{customerOrder.CompleteAddress}}</p>
+
+                  <div class="my-4">
+                    <h5 class="">Shipping Address</h5>
+                    <h5 class="fontTitle font-weight-regular mt-3">{{customerOrder.CompleteAddress}}</h5>
                   </div>
-                  <div>
-                    <p>Shipping Fee</p>
-                    <p>{{customerOrder.Shipping}}</p>
+
+                  <div class="my-4">
+                    <h5>Shipping Fee</h5>
+                    <h5 class="fontTitle font-weight-regular mt-3">{{customerOrder.Shipping}}</h5>
                   </div>
+
+                  </div>
+                  
                 </div>
               </div>
             </div>
             <div
-              class="d-flex justify-end pa-5"
+              class="d-flex justify-end pr-15"
             >
               <v-btn
-                color="primary"
+                dark
+                class="px-6 pt-4"
+                color="#1106A0"
                 @click="checkOut()"
               >
                 <p>Continue Shopping</p>
@@ -312,3 +328,23 @@
     }
   }
 </script>
+
+<style scoped>
+.fontTitle{
+    color:#464646;
+  }
+  .fontDesc{
+    color: #787885;
+  }
+
+  .nContact{
+    border: 1px solid #787885;
+    border-radius: 5px;
+    border-right: 1px solid;
+    line-height: 10px;
+  }
+  .nOrder{
+    border: 1px solid #787885;
+    border-radius: 5px;
+  }
+</style>
