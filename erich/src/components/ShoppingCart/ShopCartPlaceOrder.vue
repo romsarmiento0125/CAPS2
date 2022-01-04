@@ -14,47 +14,53 @@
         <v-col
           offset="1"
           cols="1"
+          class=""
         >
-          <div class="mx-0">
+          <div>
             
             <v-btn
               @click="deliveryMethodCond()"
               :color="shipBtn"
+              class=""
             >
               <v-icon
                 :color="shipIcon"
+                size="20px"
               >
                 mdi-truck-delivery-outline
               </v-icon>
-              <p
-                class="my-0 py-0 px-3"
+              <h5
+                class="my-0 py-0 px-3 font-weight-bold"
                 :style="shipText"
               >
                 Ship
-              </p>
+              </h5>
             </v-btn>
           </div>
           
         </v-col>
         <v-col
           cols="1"
+          class="ma-0 pl-0"
         >
-          <div class="ml-1">
+          <div>
             <v-btn
               @click="pickupMethodCond()"
               :color="pickBtn"
+              
             >
               <v-icon
                 :color="pickIcon"
+                size="20px"
               >
                 mdi-store
               </v-icon>
-              <p
-                class="my-0 py-0"
+              <h5
+                class="my-0 py-0 px-3 font-weight-bold"
                 :style="pickText"
               >
                 Pick Up
-              </p>
+              </h5>
             </v-btn>
           </div>
           
@@ -85,7 +91,7 @@
                 >
                   <method-delivery></method-delivery>
                   <v-row
-                    class="ma-5 pa-0 pb-7"
+                    class="ma-10 pa-0 pb-7"
                   >
                     <v-col
                       cols="12"
@@ -135,20 +141,50 @@
             fluid
           >
             <v-row>
-              <v-col>
+              <v-col class="ma-0 pa-0">
                 <v-sheet
                   color="white"
                   height="100%"
                   width="100%"
                 >
                   <method-pickup></method-pickup>
-                  <v-btn
-                    color="primary"
-                    :to="{name: 'Cart' , params: { id: 'pickup', title: 'Pick Up'}}"
-                    @click="placeOrderPickup()"
-                  >
-                    Pickup
-                  </v-btn>
+                  <v-row class="ma-10 pa-0 pb-7">
+                    <v-col 
+                      cols="12"
+                      class="pa-0 ma-0">
+
+                      <div>
+                        <v-row>
+                          <v-col cols="6" class="mt-2">
+                            <v-btn
+                              plain
+                              color="#1106A0"
+                              :to="{name: 'Cart' , params: { id: 'items', title: 'Items'}}"
+                              @click="returnToCartItems"
+                              small
+                            >
+                              <v-icon>mdi-chevron-left</v-icon>
+                              <p
+                                class="ma-0 "
+                              >return to cart</p>
+                            </v-btn>
+                          </v-col>
+
+                          <v-col cols="6" class="d-flex justify-end">
+                            <v-btn
+                              dark
+                              class="px-6"
+                              color="#1106A0"
+                              :to="{name: 'Cart' , params: { id: 'pickup', title: 'Pick Up'}}"
+                              @click="placeOrderPickup()"
+                            >
+                              Continue Shipping
+                            </v-btn>
+                          </v-col>
+                        </v-row>
+                      </div>
+                    </v-col>
+                  </v-row>
                 </v-sheet>
               </v-col>
             </v-row>

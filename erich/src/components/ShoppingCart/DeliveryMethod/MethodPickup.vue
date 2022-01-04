@@ -5,28 +5,37 @@
     >
       <v-row>
         <v-col
-          class="ma-0 pa-0"
+          class="pa-15"
         >
-          <div
-            class="pl-5 pt-5"
-          > 
-            <p
-              class="title ma-0 pa-0"
-            >Contact Information</p>
-            <p
-              class="ma-0 pa-0"
-            >{{usersFName}}&nbsp;{{usersLName}}</p>
-            <p
-              class="ma-0 pa-0"
-            >{{usersMobileNumber}}</p>
+
+          <div> 
+            <h3
+              class="fontTitle font-weight-bold"
+            >
+            Contact Information</h3>
+
+            <v-row class="nContact mx-0 ma-3">
+              <v-col cols="6">
+                <p
+                class="ma-0 pa-0 fontDesc"
+              >{{usersFName}}&nbsp;{{usersLName}}</p>
+              </v-col>
+
+              <v-col cols="6">
+                <p
+                class="ma-0 pa-0 fontDesc d-flex justify-end"
+              >{{usersMobileNumber}}</p>
+              </v-col>
+            </v-row>
           </div>
+          
           <div
-            class="pl-5 pt-5"
+            class="pt-4"
           >
-            <p
-              class="title ma-0 pa-0 "
-            >Pickup date and time</p>
-            <div>
+            <h3
+              class="fontTitle font-weight-bold"
+            >Pickup date and time</h3>
+            <div class="pt-3">
               <v-menu
                 ref="menu"
                 v-model="menu"
@@ -170,3 +179,24 @@
     }
   }
 </script>
+
+<style scoped>
+  .fontTitle{
+    color:#464646;
+  }
+  .fontDesc{
+    color: #787885;
+  }
+
+  .nContact{
+    border: 1px solid #787885;
+    border-radius: 5px;
+    border-right: 1px solid;
+    line-height: 10px;
+  }
+  .nDelivery{
+    border: 1px solid #787885;
+    border-radius: 5px;
+  }
+
+</style>

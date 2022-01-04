@@ -96,7 +96,7 @@
       </v-row>
       <v-divider></v-divider>
       <v-row
-        class="mt-3"
+        class="mt-3 mr-2"
       >
         <v-col
           offset="1"
@@ -105,24 +105,42 @@
           <div
             class="d-flex"
           >
-             <p
-              class="title"
-            >Subtotal</p>
-            <v-spacer></v-spacer>
-            <p
-              class="mt-1"
-            >{{priceRound(subTotPrice)}}</p>
+            <v-row>
+              <v-col cols="6">
+                 <h4
+                  class="font-weight-bold fontNum"
+                >Subtotal</h4>
+              </v-col>
+
+              <v-col cols="6" class="d-flex justify-end">
+                <div class="d-flex">
+                  <v-icon
+                  size="15px"
+                  class="px-1"
+                  >
+                      mdi-currency-php
+                  </v-icon>
+
+                  <h4
+                      class="font-weight-regular"
+                    >{{priceRound(subTotPrice)}}</h4>
+                </div>
+              </v-col>
+            </v-row>
+            
           </div>
+
           <div
-             class="d-flex"
+             class="d-flex my-2 mb-5"
           >
-            <p
-              class="title"
-            >Shipping</p>
+            <h4
+              class="font-weight-bold fontNum"
+            >Shipping Method</h4>
             <v-spacer></v-spacer>
-             <p
-              class="mt-2 "
-            >{{shipFee}}</p>
+
+             <h4
+              class="font-weight-regular"
+            >{{shipFee}}</h4>
           </div>
         </v-col>
       </v-row>
@@ -133,15 +151,29 @@
           cols="10"
         >
           <div
-            class="d-flex"
+            class="d-flex mr-4 mt-2"
           >
-            <p
-              class="title fontBlue mt-5"
-            >Total</p>
-            <v-spacer></v-spacer>
-            <p
-              class="title fontBlue mt-5"
-            >{{priceRound(totPrice)}}</p>
+          <v-row>
+            <v-col cols="6">
+               <h3
+                  class="title fontBlue"
+                >Total</h3>
+            </v-col>
+            <v-col cols="6" class="d-flex justify-end">
+              <div class="d-flex">
+                <v-icon 
+                class="px-1"
+                size="20px"
+                color="#1106A0"
+                >
+                  mdi-currency-php
+                </v-icon>
+                <h3
+                  class="title fontBlue"
+                >{{priceRound(totPrice)}}</h3>
+              </div>
+            </v-col>
+          </v-row>
           </div>
         </v-col>
       </v-row>

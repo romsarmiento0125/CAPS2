@@ -5,17 +5,13 @@
     >
       <v-row>
         <v-col
-          class="ma-5 pa-0"
+          class="pa-15"
         >
-          <div
-            class="pl-5 pt-5"
-          > 
+          <div> 
             <h3
-              class="ma-0 pa-0 fontTitle font-weight-bold"
+              class="fontTitle font-weight-bold"
             >
-              Contact Information
-            </h3>
-
+              Contact Information</h3>
               <v-row class="nContact mx-0 ma-3">
                 <v-col cols="6">
                   <p
@@ -27,7 +23,7 @@
                 
                 <v-col cols="6 " class="d-flex justify-end">
                   <p
-                  class="ma-0 pa-0 mr-3 fontDesc"
+                  class="ma-0 pa-0 fontDesc"
                   >
                   {{usersMobileNumber}}
                   </p>
@@ -35,10 +31,10 @@
             </v-row> 
           </div>
           <div
-            class="pl-5 pt-5 "
+            class="pt-4"
           >
             <h3
-              class="ma-0 pa-0 fontTitle font-weight-bold"
+              class="fontTitle font-weight-bold"
             >
               Delivery Address
             </h3>
@@ -63,7 +59,7 @@
             </div>
           </div>
           <div
-            class="pl-5 pt-5"
+            class="pt-4"
           >
             <h3
               class="ma-0 pa-0 fontTitle font-weight-bold"

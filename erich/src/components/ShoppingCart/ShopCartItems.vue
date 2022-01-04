@@ -13,25 +13,25 @@
             class="py-2 my-10"
             rounded="lg"
           >
-            <v-row>
-              <v-col>
-                <p
-                  class="mt-3 pl-15 ml-7 title"
-                >Product</p>
+            <v-row class="pa-4">
+              <v-col cols="5">
+                <h4
+                  class="mx-4 px-15 font-weight-bold fontTitle"
+                >Product</h4>
               </v-col>
-              <v-col>
+              <v-col cols="7" class="px-16">
                 <div
-                  class="d-flex mt-3"
+                  class="d-flex justify-end"
                 >
-                  <p
-                    class="mx-10 title fontTitle"
-                  >Quantity</p>
-                  <p
-                    class="mx-10 title fontTitle"
-                  >Total Price</p>
-                  <p
-                    class="mx-10 title fontTitle"
-                  >Action</p>
+                  <h4
+                    class="fontTitle px-11"
+                  >Quantity</h4>
+                  <h4
+                    class="fontTitle px-14"
+                  >Total Price</h4>
+                  <h4
+                    class="fontTitle px-10"
+                  >Action</h4>
                 </div>
               </v-col>
             </v-row>
@@ -68,22 +68,31 @@
                                 contain
                                 :src="require('../../assets/itemPhotos/'+item.item_image)"
                               ></v-img>
+
                               <v-list-item-title>
-                                <p
-                                  class="my-0 py-0 title"
+                                <h3
+                                  class="my-1"
                                 >
                                   {{item.item_name}}
-                                </p>
-                                <p
-                                  class="my-0 py-0 blue--text text--darken-4 subtitle-1"
+                                </h3>
+                                <h4
+                                  class="fontBlue my-1"
                                 >
                                   {{item.item_desc}}
-                                </p>
-                                <p
-                                  class="my-0 py-0 subtitle-2"
-                                >
-                                  {{priceRound(item.item_price - ((item.item_discount / 100) * item.item_price))}}
-                                </p>
+                                </h4>
+                                <div class="d-flex my-1">
+                                  <v-icon size="14px" class="pr-1">
+                                  
+                                    mdi-currency-php
+                                  </v-icon>
+
+                                  <h5
+                                    class="fontDesc"
+                                  >
+                                    {{priceRound(item.item_price - ((item.item_discount / 100) * item.item_price))}}
+                                  </h5>
+                                </div>
+                                
                               </v-list-item-title>
                             </div>
                           </v-col>
@@ -131,23 +140,28 @@
                               </div>
 
                               <div
-                                class="tp my-0 mx-15 d-flex align-center justify-center"
+                                class="my-0 mx-15 d-flex align-center justify-center"
                               >
-                                <v-icon small>
+                                <v-icon 
+                                small
+                                color="#858585" 
+                                class="pr-1"
+                                >
                                   mdi-currency-php
                                 </v-icon>
-                                <p
-                                  class="pa-0 ma-0 subtitle-1 grey--text text--darken-1"
+                                <h4
+                                  class="pa-0 ma-0 fontDesc"
                                 >
                                   {{priceRound((item.item_price - ((item.item_discount / 100) * item.item_price)) * item.item_quantity)}}
-                                </p>
+                                </h4>
                               </div>
 
                               <v-btn
-                                class="act justify-center mx-6 font-weight-bold"
+                                class="act justify-center mx-4 font-weight-bold"
                                 color="#1106A0"
                                 plain
                                 @click="deleteItems(item.id)"
+                                
                               >
                                 Delete
                               </v-btn>
@@ -163,14 +177,15 @@
             </v-row>
           </v-sheet>
         </v-col>
+        
         <v-col
-          cols="4"
+          cols="3"
           class="d-flex justify-center"
         >
           <v-sheet
             color="#FFFFFF"
-            height="220px"
-            width="80%"
+            height="240px"
+            width="100%"
             class="py-2 my-10"
             rounded="lg"
             style="position: relative;"
@@ -208,7 +223,7 @@
                   Taxes and <router-link to="/" class="text-decoration-underline indigo--text text--darken-4">Shipping</router-link> are calculted at checkout
                 </p>
                 <div
-                  class="mx-8 mt-12"
+                  class="mx-8 pt-12"
                 >
                   <v-btn
                     dark
@@ -501,5 +516,10 @@
 .fontTitle{
 color: #464646;
 }
-
+.fontDesc{
+color: #858585;
+}
+.fontBlue{
+  color: #1106a0;
+}
 </style>
