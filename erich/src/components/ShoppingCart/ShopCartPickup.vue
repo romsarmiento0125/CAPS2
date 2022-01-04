@@ -31,7 +31,7 @@
                   <v-col cols="12" class="ma-0 pa-0">
                     <h5
                     class="font-weight-bold my-0 fontDesc"
-                    >Order #:{{customerPickup.invoiceNumber}}</h5>
+                    >Order #:{{customerPickup.InvoiceNumber}}</h5>
                   </v-col>
                 </v-row>
                 <v-row>

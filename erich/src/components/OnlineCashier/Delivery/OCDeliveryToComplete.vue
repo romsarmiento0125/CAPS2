@@ -37,19 +37,19 @@
                   v-for="(info, n) in userAllComplete"
                   :key="n"
                 >
-                  <td>#{{info.InvoiceNumber}} <br> {{info.Name}}</td>
+                  <td>#{{info.invoiceNumber}} <br> {{info.name}}</td>
                   <td><oc-orderdetails
-                    :ivNumber="info.InvoiceNumber"
+                    :ivNumber="info.invoiceNumber"
                     :orders="info.orders"
-                    :odDate="info.AdjustedDate"
-                    :sTotal="info.SubTotal"
-                    :shipMethod="info.ShipFee"
-                    :dDiscount="info.Discount"
-                    :tTax="info.Tax"
-                    :tTotal="info.Total"
+                    :odDate="info.adjustedDate"
+                    :sTotal="info.subTotal"
+                    :shipMethod="info.shipFee"
+                    :dDiscount="info.discount"
+                    :tTax="info.tax"
+                    :tTotal="info.total"
                   ></oc-orderdetails></td>
-                  <td>{{info.CompleteAddress}}</td>
-                  <td>{{info.Status}} <br> Recieve na</td>
+                  <td>{{info.completeAddress}}</td>
+                  <td>{{info.status}} <br> Recieve na</td>
                 </tr>
               </tbody>
             </template>
