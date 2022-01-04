@@ -7,10 +7,12 @@
         background-color:#EDEDF0"
       
     >
-      <v-container
+      <v-container fluid
         class="my-5"
       >
-        <v-card
+      <v-row>
+        <v-col cols="10" offset="1">
+           <v-card
         style="background:#FFFFFF"
         
         class="elevation-0 rounded-card"
@@ -18,6 +20,7 @@
           
             <v-row class=" d-flex justify-center py-5">
               <v-col
+              offset="1"
               cols="4"
               >
                 <div
@@ -151,6 +154,9 @@
           </v-row>
         
         </div>
+        </v-col>
+      </v-row>
+       
           
        
       </v-container>
