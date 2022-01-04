@@ -10,7 +10,8 @@
           <div> 
             <h3
               class="fontTitle font-weight-bold"
-            >Contact Information</h3>
+            >
+            Contact Information</h3>
 
             <v-row class="nContact mx-0 ma-3">
               <v-col cols="6">
