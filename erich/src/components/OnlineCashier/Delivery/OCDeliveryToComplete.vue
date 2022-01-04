@@ -96,11 +96,19 @@
       userAllComplete() {
         return this.$store.state.userAllComplete;
       },
+      usersToken(){
+        return localStorage.getItem('token');
+      },
     },
 
     methods: {
       getAllComplete(){
-        axios.get(this.getDomain()+'api/customercompleteitems')
+        axios.get(this.getDomain()+'api/customercompleteitems',
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
         .then(res => {
           console.log(res.data);
           this.$store.commit('storeUserAllComplete', res.data);

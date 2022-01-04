@@ -35,19 +35,19 @@
                   v-for="(info, n) in userPickupComplete"
                   :key="n"
                 >
-                  <td>{{info.Name}} <br> {{info.MobileNumber}}</td>
+                  <td>{{info.name}} <br> {{info.mobileNumber}}</td>
                   <td><oc-orderdetails
-                    :ivNumber="info.InvoiceNumber"
+                    :ivNumber="info.invoiceNumber"
                     :orders="info.orders"
-                    :odDate="info.PickupDate"
-                    :sTotal="info.SubTotal"
+                    :odDate="info.pickupDate"
+                    :sTotal="info.subTotal"
                     shipMethod="Pickup"
-                    :dDiscount="info.Discount"
-                    :tTax="info.Tax"
-                    :tTotal="info.Total"
+                    :dDiscount="info.discount"
+                    :tTax="info.tax"
+                    :tTotal="info.total"
                   ></oc-orderdetails></td>
-                  <td>{{info.PickupDate}} <br> {{info.PickupTime}}</td>
-                  <td>{{info.Status}}</td>
+                  <td>{{info.pickupDate}} <br> {{info.pickupTime}}</td>
+                  <td>{{info.status}}</td>
                 </tr>
               </tbody>
             </template>
@@ -72,11 +72,19 @@
       userPickupComplete() {
         return this.$store.state.userPickupComplete;
       },
+      usersToken(){
+        return localStorage.getItem('token');
+      },
     },
 
     methods: {
       getPickupComplete(){
-        axios.get(this.getDomain()+'api/customerpickupcomplete')
+        axios.get(this.getDomain()+'api/customerpickupcomplete',
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
           .then(res => {
             console.log(res.data);
             this.$store.commit('storeUserPickupComplete', res.data);

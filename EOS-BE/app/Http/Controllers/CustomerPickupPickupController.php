@@ -37,17 +37,17 @@ class CustomerPickupPickupController extends Controller
     {
         $register = new customerPickupPickup();
 
-        $register->Email = $request->register['Email'];
-        $register->InvoiceNumber = $request->register['InvoiceNumber'];
-        $register->Name = $request->register['Name'];
-        $register->MobileNumber = $request->register['Mobilenumber'];
-        $register->Status = $request->register['OrderStatus'];
-        $register->PickupDate = $request->register['PickupDate'];
-        $register->PickupTime = $request->register['PickupTime'];
-        $register->Discount = $request->register['Discount'];
-        $register->Tax = $request->register['OrderTax'];
-        $register->SubTotal = $request->register['SubTotal'];
-        $register->Total = $request->register['Total'];
+        $register->email = $request->register['Email'];
+        $register->invoiceNumber = $request->register['InvoiceNumber'];
+        $register->name = $request->register['Name'];
+        $register->mobileNumber = $request->register['Mobilenumber'];
+        $register->status = $request->register['OrderStatus'];
+        $register->pickupDate = $request->register['PickupDate'];
+        $register->pickupTime = $request->register['PickupTime'];
+        $register->discount = $request->register['Discount'];
+        $register->tax = $request->register['OrderTax'];
+        $register->subTotal = $request->register['SubTotal'];
+        $register->total = $request->register['Total'];
 
         $register->save();
 

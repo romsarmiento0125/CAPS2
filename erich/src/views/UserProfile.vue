@@ -73,14 +73,17 @@
       'profile-myorders': profileMyOrders
     },
     computed: {
-      customerInfos() {
-        return this.$store.state.customerInfos;
-      },
       goToAddress() {
         return this.$store.state.userAddress;
       },
       goToOrder() {
         return this.$store.state.userOrder;
+      },
+      usersEmail(){
+        return localStorage.getItem('email');
+      },
+      usersToken(){
+        return localStorage.getItem('token');
       },
     },
 
@@ -88,10 +91,6 @@
       mProfile: true,
       mAddress: false,
       mOrders: false,
-      usersData: {
-        usersEmail: "",
-        usersPassword: "",
-      }
     }),
 
     methods: {
@@ -111,11 +110,16 @@
           this.mProfile = false;
           this.mAddress = false;
           this.mOrders = true;
-          this.callOrders();
         }
         else{
-            sessionStorage.removeItem("Email");
-            sessionStorage.removeItem("Pass");
+            localStorage.removeItem("firstName");
+            localStorage.removeItem("lastName");
+            localStorage.removeItem("email");
+            localStorage.removeItem("mobileNumber");
+            localStorage.removeItem("birthday");
+            localStorage.removeItem("gender");
+            localStorage.removeItem("tag");
+            localStorage.removeItem("token");
             window.location.href = "http://localhost:8080/";
             //window.location.href = "http://erichgrocery.store/";
         }
@@ -123,7 +127,12 @@
       },
       getUserOrder() {
         axios.post(this.getDomain()+'api/userorder/store', {
-            register: this.usersData.usersEmail
+            register: this.usersEmail
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
           })
           .then(res => {
             console.log(res.data);
@@ -133,7 +142,12 @@
       },
       getUserOrderDeliver() {
         axios.post(this.getDomain()+'api/userorderdelivery/store', {
-            register: this.usersData.usersEmail
+            register: this.usersEmail
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
           })
           .then(res => {
             console.log(res.data);
@@ -143,7 +157,12 @@
       },
       getUserOrderComplete() {
         axios.post(this.getDomain()+'api/userordercomplete/store', {
-            register: this.usersData.usersEmail
+            register: this.usersEmail
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
           })
           .then(res => {
             console.log(res.data);
@@ -153,7 +172,12 @@
       },
       getUserPickup() {
         axios.post(this.getDomain()+'api/userorderpickup/store', {
-            register: this.usersData.usersEmail
+            register: this.usersEmail
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
           })
           .then(res => {
             console.log(res.data);
@@ -163,7 +187,12 @@
       },
       getUserPickupPickup() {
         axios.post(this.getDomain()+'api/userpickuppickup/store', {
-            register: this.usersData.usersEmail
+            register: this.usersEmail
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
           })
           .then(res => {
             console.log(res.data);
@@ -173,7 +202,12 @@
       },
       getUserPickupComplete() {
         axios.post(this.getDomain()+'api/userpickupcomplete/store', {
-            register: this.usersData.usersEmail
+            register: this.usersEmail
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
           })
           .then(res => {
             console.log(res.data);
@@ -189,25 +223,10 @@
         this.getUserPickupPickup();
         this.getUserPickupComplete();
       },
-      loginChecker(){
-        this.usersData.usersEmail = sessionStorage.getItem('Email');
-        this.usersData.usersPassword = sessionStorage.getItem('Pass');
-        if(this.customerInfos == null){
-          this.loginAgain(this.usersData);
-        }
-        else{
-        }
-        
-      }
-    },
-    watch: {
-      goToOrder(){
-        this.callOrders();
-      }
     },
 
     beforeMount() {
-      this.loginChecker();
+      this.callOrders();
       //console.log("user profile");
       //console.log(this.goToAddress);
       

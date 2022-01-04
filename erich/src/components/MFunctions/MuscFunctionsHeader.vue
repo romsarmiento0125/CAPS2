@@ -12,17 +12,13 @@
             <div
               class="d-flex"
             >
-              <router-link
-                to="/"
-              >
-                <v-img
-                  contain
-                  src="../../assets/ERICH.svg"
-                  max-height="120px"
-                  max-width="120px"
-                  class="mr-1"
-                ></v-img>
-              </router-link>
+              <v-img
+                contain
+                src="../../assets/ERICH.svg"
+                max-height="120px"
+                max-width="120px"
+                class="mr-1"
+              ></v-img>
               <v-divider
                 vertical
               ></v-divider>

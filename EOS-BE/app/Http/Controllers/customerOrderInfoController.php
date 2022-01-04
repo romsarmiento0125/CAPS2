@@ -37,21 +37,21 @@ class customerOrderInfoController extends Controller
     {
         $register = new customerOrderInfo();
 
-        $register->Email = $request->register['Email'];
-        $register->InvoiceNumber = $request->register['InvoiceNumber'];
-        $register->Name = $request->register['Name'];
-        $register->MobileNumber = $request->register['Mobilenumber'];
-        $register->CompleteAddress = $request->register['CompleteAddress'];
-        $register->Status = $request->register['OrderStatus'];
-        $register->OrderYear = $request->register['OrderYear'];
-        $register->OrderMonth = $request->register['OrderMonth'];
-        $register->OrderDay = $request->register['OrderDay'];
-        $register->AdjustedDate = $request->register['AdjustedDate'];
-        $register->ShipFee = $request->register['Shipping'];
-        $register->Discount = $request->register['Discount'];
-        $register->Tax = $request->register['OrderTax'];
-        $register->SubTotal = $request->register['SubTotal'];
-        $register->Total = $request->register['Total'];
+        $register->email = $request->register['Email'];
+        $register->invoiceNumber = $request->register['InvoiceNumber'];
+        $register->name = $request->register['Name'];
+        $register->mobileNumber = $request->register['Mobilenumber'];
+        $register->completeAddress = $request->register['CompleteAddress'];
+        $register->status = $request->register['OrderStatus'];
+        $register->orderYear = $request->register['OrderYear'];
+        $register->orderMonth = $request->register['OrderMonth'];
+        $register->orderDay = $request->register['OrderDay'];
+        $register->adjustedDate = $request->register['AdjustedDate'];
+        $register->shipFee = $request->register['Shipping'];
+        $register->discount = $request->register['Discount'];
+        $register->tax = $request->register['OrderTax'];
+        $register->subTotal = $request->register['SubTotal'];
+        $register->total = $request->register['Total'];
 
         $register->save();
 
@@ -92,21 +92,21 @@ class customerOrderInfoController extends Controller
         $existingItem = customerOrderInfo::find($id);
 
         $existingItem->id = $id;
-        $existingItem->Email = $request->register['Email'];
-        $existingItem->InvoiceNumber = $request->register['InvoiceNumber'];
-        $existingItem->Name = $request->register['Name'];
-        $existingItem->MobileNumber = $request->register['Mobilenumber'];
-        $existingItem->CompleteAddress = $request->register['CompleteAddress'];
-        $existingItem->Status = $request->register['OrderStatus'];
-        $existingItem->OrderYear = $request->register['OrderYear'];
-        $existingItem->OrderMonth = $request->register['OrderMonth'];
-        $existingItem->OrderDay = $request->register['OrderDay'];
-        $existingItem->AdjustedDate = $request->register['AdjustedDate'];
-        $existingItem->ShipFee = $request->register['Shipping'];
-        $existingItem->Discount = $request->register['Discount'];
-        $existingItem->Tax = $request->register['OrderTax'];
-        $existingItem->SubTotal = $request->register['SubTotal'];
-        $existingItem->Total = $request->register['Total'];
+        $existingItem->email = $request->register['Email'];
+        $existingItem->invoiceNumber = $request->register['InvoiceNumber'];
+        $existingItem->name = $request->register['Name'];
+        $existingItem->mobileNumber = $request->register['Mobilenumber'];
+        $existingItem->completeAddress = $request->register['CompleteAddress'];
+        $existingItem->status = $request->register['OrderStatus'];
+        $existingItem->orderYear = $request->register['OrderYear'];
+        $existingItem->orderMonth = $request->register['OrderMonth'];
+        $existingItem->orderDay = $request->register['OrderDay'];
+        $existingItem->adjustedDate = $request->register['AdjustedDate'];
+        $existingItem->shipFee = $request->register['Shipping'];
+        $existingItem->discount = $request->register['Discount'];
+        $existingItem->tax = $request->register['OrderTax'];
+        $existingItem->subTotal = $request->register['SubTotal'];
+        $existingItem->total = $request->register['Total'];
         $existingItem->save();
 
         //return $existingItem;

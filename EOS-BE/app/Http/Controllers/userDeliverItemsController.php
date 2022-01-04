@@ -37,21 +37,21 @@ class userDeliverItemsController extends Controller
     {
         $register = new customerDeliverItems();
 
-        $register->Email = $request->register['Email'];
-        $register->InvoiceNumber = $request->register['InvoiceNumber'];
-        $register->Name = $request->register['Name'];
-        $register->MobileNumber = $request->register['Mobilenumber'];
-        $register->CompleteAddress = $request->register['CompleteAddress'];
-        $register->Status = $request->register['OrderStatus'];
-        $register->OrderYear = $request->register['OrderYear'];
-        $register->OrderMonth = $request->register['OrderMonth'];
-        $register->OrderDay = $request->register['OrderDay'];
-        $register->AdjustedDate = $request->register['AdjustedDate'];
-        $register->ShipFee = $request->register['Shipping'];
-        $register->Discount = $request->register['Discount'];
-        $register->Tax = $request->register['OrderTax'];
-        $register->SubTotal = $request->register['SubTotal'];
-        $register->Total = $request->register['Total'];
+        $register->email = $request->register['Email'];
+        $register->invoiceNumber = $request->register['InvoiceNumber'];
+        $register->name = $request->register['Name'];
+        $register->mobileNumber = $request->register['Mobilenumber'];
+        $register->completeAddress = $request->register['CompleteAddress'];
+        $register->status = $request->register['OrderStatus'];
+        $register->orderYear = $request->register['OrderYear'];
+        $register->orderMonth = $request->register['OrderMonth'];
+        $register->orderDay = $request->register['OrderDay'];
+        $register->adjustedDate = $request->register['AdjustedDate'];
+        $register->shipFee = $request->register['Shipping'];
+        $register->discount = $request->register['Discount'];
+        $register->tax = $request->register['OrderTax'];
+        $register->subTotal = $request->register['SubTotal'];
+        $register->total = $request->register['Total'];
 
         $register->save();
 

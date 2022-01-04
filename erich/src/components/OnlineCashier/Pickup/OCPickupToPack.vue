@@ -60,29 +60,29 @@
                   v-for="(info, n) in userPickupOrders"
                   :key="n"
                 >
-                  <td>{{info.Name}} <br> {{info.MobileNumber}}</td>
+                  <td>{{info.name}} <br> {{info.mobileNumber}}</td>
                   <td><oc-orderdetails
-                    :ivNumber="info.InvoiceNumber"
+                    :ivNumber="info.invoiceNumber"
                     :orders="info.orders"
-                    :odDate="info.PickupDate"
-                    :sTotal="info.SubTotal"
+                    :odDate="info.pickupDate"
+                    :sTotal="info.subTotal"
                     shipMethod="Pickup"
-                    :dDiscount="info.Discount"
-                    :tTax="info.Tax"
-                    :tTotal="info.Total"
+                    :dDiscount="info.discount"
+                    :tTax="info.tax"
+                    :tTotal="info.total"
                   ></oc-orderdetails></td>
-                  <td>{{info.PickupDate}} <br> {{info.PickupTime}}</td>
-                  <td>{{info.Status}}</td>
-                  <td v-if="info.Status == 'Pending'">
+                  <td>{{info.pickupDate}} <br> {{info.pickupTime}}</td>
+                  <td>{{info.status}}</td>
+                  <td v-if="info.status == 'Pending'">
                     <v-btn
-                      @click="toPickupProcess(info.id, info.Email, info.InvoiceNumber, info.Name, info.MobileNumber, info.PickupDate,
-                                info.PickupTime, info.Discount, info.Tax, info.SubTotal, info.Total)"
+                      @click="toPickupProcess(info.id, info.email, info.invoiceNumber, info.name, info.mobileNumber, info.pickupDate,
+                                info.pickupTime, info.discount, info.tax, info.subTotal, info.total)"
                     >Accept</v-btn>
                   </td>
-                  <td v-else-if="info.Status == 'Pickup'">
+                  <td v-else-if="info.status == 'Pickup'">
                     <v-btn
-                      @click="toPickupPickup(info.id, info.Email, info.InvoiceNumber, info.Name, info.MobileNumber, info.PickupDate,
-                                info.PickupTime, info.Discount, info.Tax, info.SubTotal, info.Total)"
+                      @click="toPickupPickup(info.id, info.email, info.invoiceNumber, info.name, info.mobileNumber, info.pickupDate,
+                                info.pickupTime, info.discount, info.tax, info.subTotal, info.total)"
                     >To Claim</v-btn>
                   </td>
                 </tr>
@@ -125,6 +125,9 @@
       userPickupOrders() {
         return this.$store.state.userPickupOrders;
       },
+      usersToken(){
+        return localStorage.getItem('token');
+      },
     },
 
     methods: {
@@ -155,6 +158,11 @@
 
         axios.put(this.getDomain()+'api/customerpickup/' + id, {
             register: this.orderPickup
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
           })
           .then(res => {
             console.log(res.data);
@@ -179,6 +187,11 @@
 
         axios.post(this.getDomain()+'api/customerpickuppickup/store', {
             register: this.orderPickup
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
           })
           .then(res => {
             this.toDelete(id);
@@ -187,7 +200,12 @@
           .catch(err => console.error(err));
       },
       toDelete(id){
-        axios.delete(this.getDomain()+'api/customerpickup/'+ id)
+        axios.delete(this.getDomain()+'api/customerpickup/'+ id,
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
           .then( res => {
             console.log("Delete")
             console.log(res.data);
@@ -197,7 +215,12 @@
         
       },
       getPickupOrder(){
-        axios.get(this.getDomain()+'api/customerpickup')
+        axios.get(this.getDomain()+'api/customerpickup',
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
           .then(res => {
             console.log(res.data);
             this.$store.commit('storeUserPickupOrders', res.data);

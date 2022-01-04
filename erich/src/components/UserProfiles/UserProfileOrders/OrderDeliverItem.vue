@@ -14,7 +14,7 @@
         >
           <div>
             <v-img
-              :src="require('../../../assets/itemPhotos/'+item.ItemImage)"
+              :src="require('../../../assets/itemPhotos/'+item.itemImage)"
               contain
               max-width="100px"
               max-height="80px"
@@ -25,13 +25,13 @@
           <div>
             <p
               class="my-0"
-            >{{item.ItemName}}</p>
+            >{{item.itemName}}</p>
             <p
               class="my-0"
-            >{{item.ItemDesc}}</p>
+            >{{item.itemDesc}}</p>
             <p
               class="my-0"
-            >x{{item.Quantity}}</p>
+            >x{{item.quantity}}</p>
 
           </div>
           <v-spacer></v-spacer>
@@ -45,7 +45,7 @@
             </v-icon>
             <p
               class="title my-0 blue--text"
-            >{{priceRound(item.Quantity * item.RetailPrice)}}</p>
+            >{{priceRound(item.quantity * item.retailPrice)}}</p>
           </div>
         </div>
         
@@ -68,6 +68,6 @@
         return rounded;
       },
     },
-
+  
   }
 </script>

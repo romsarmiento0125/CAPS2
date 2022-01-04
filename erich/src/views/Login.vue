@@ -102,43 +102,55 @@
 
     methods: {
       userLogin() {
-        console.log("login");
+        // console.log("login");
         // axios.post('', {
         //   userLogin: this.usersData
         // })
         // .then(res => this.accCreateSuccess(res.data))
         // .catch(err => console.error(err));
 
-        axios.post(this.getDomain()+'api/customerlogin/store',{
+        axios.post(this.getDomain()+'api/customerlogin',{
           clientCred: this.usersData
         })
-        .then(res => this.loginSuccess(res.data))
+        .then(res => {
+          this.loginSuccess(res.data)
+          // console.log(res.data);
+        })
         .catch(err => console.error(err));
         
       },
       loginSuccess(cinfo) {
-        //console.log(cinfo);
-        if(cinfo == "InvalidCredentials"){
+        // console.log("login Success");
+        if(cinfo.status){
           alert("Invalid Credentials");
         }
         else{
+          // console.log(cinfo);
+          localStorage.setItem("firstName", cinfo.user.first_Name);
+          localStorage.setItem("lastName", cinfo.user.last_Name);
+          localStorage.setItem("email", cinfo.user.email);
+          localStorage.setItem("mobileNumber", cinfo.user.mobile_Number);
+          localStorage.setItem("birthday", cinfo.user.birthday);
+          localStorage.setItem("gender", cinfo.user.gender);
+          localStorage.setItem("tag", cinfo.user.tag);
+          localStorage.setItem("token", cinfo.token);
+
           axios.post(this.getDomain()+'api/loginaddress/store',{
             clientCred: this.usersData
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${cinfo.token}`,
+          }
           })
-          .then(res => this.saveInfos(res.data, cinfo))
-          //.then(res => console.log(res.data))
+          .then(res => {
+            // console.log(res.data);
+            this.$store.commit('storeCustomerAddress', res.data);
+          })
           .catch(err => console.error(err));
-
-          sessionStorage.setItem("Email", this.usersData.usersEmail);
-          sessionStorage.setItem("Pass", this.usersData.usersPassword);
+          this.$router.push("/")
         }
       },
-      saveInfos(data, cinfo) {
-        //console.log(data);
-        this.$store.commit('storeCustomerAddress', data);
-        this.$store.commit('storeCustomerInfo', cinfo);
-        this.$router.push('/');
-      }
     }
   }
 </script>

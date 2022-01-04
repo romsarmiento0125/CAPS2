@@ -7,6 +7,7 @@
         <v-col
           class="pa-15"
         >
+
           <div> 
             <h3
               class="fontTitle font-weight-bold"
@@ -17,13 +18,13 @@
               <v-col cols="6">
                 <p
                 class="ma-0 pa-0 fontDesc"
-              >{{this.customerInfos.First_Name}}&nbsp;{{this.customerInfos.Last_Name}}</p>
+              >{{usersFName}}&nbsp;{{usersLName}}</p>
               </v-col>
 
               <v-col cols="6">
                 <p
                 class="ma-0 pa-0 fontDesc d-flex justify-end"
-              >{{this.customerInfos.Mobile_Number}}</p>
+              >{{usersMobileNumber}}</p>
               </v-col>
             </v-row>
           </div>
@@ -126,8 +127,14 @@
     }),
 
     computed: {
-      customerInfos() {
-        return this.$store.state.customerInfos;
+      usersFName(){
+        return localStorage.getItem('firstName');
+      },
+      usersLName(){
+        return localStorage.getItem('lastName');
+      },
+      usersMobileNumber(){
+        return localStorage.getItem('mobileNumber');
       },
     },
 

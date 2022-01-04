@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\erichcustomer;
 
+use Illuminate\Support\Facades\Hash;
+
 class erichcustomercontroller extends Controller
 {
     /**
@@ -54,15 +56,14 @@ class erichcustomercontroller extends Controller
             return "wrongnumber";
         }
         else{
-            $register->First_Name = $request->register['First_Name'];
-            $register->Last_Name = $request->register['Last_Name'];
-            $register->Mobile_Number = $request->register['Mobile_Number'];
-            $register->Email = $request->register['Email'];
-            $register->Gender = $request->register['Gender'];
-            $register->Birthday = $request->register['Birthday'];
-            $register->Tag = $request->register['Tag'];
-            $register->Password = $request->register['Password'];
-
+            $register->first_Name = $request->register['First_Name'];
+            $register->last_Name = $request->register['Last_Name'];
+            $register->mobile_Number = $request->register['Mobile_Number'];
+            $register->email = $request->register['Email'];
+            $register->gender = $request->register['Gender'];
+            $register->birthday = $request->register['Birthday'];
+            $register->tag = $request->register['Tag'];
+            $register->password = Hash::make($request->register['Password']);
             $register->save();
 
             return $register;

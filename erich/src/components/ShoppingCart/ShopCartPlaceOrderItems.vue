@@ -201,9 +201,6 @@
       cartItems() {
         return this.$store.state.cartItems;
       },
-      customerInfos() {
-        return this.$store.state.customerInfos;
-      },
       customerAddress() {
         return this.$store.state.customerAddress;
       },
@@ -265,14 +262,14 @@
         }
         else{
           for(var i = 0; i < this.customerAddress.length; i++){
-            if(this.customerAddress[i].Default == "True"){
-              if(this.customerAddress[i].ShipFee == "Free"){
+            if(this.customerAddress[i].default == "True"){
+              if(this.customerAddress[i].shipFee == "Free"){
                 this.totPrice = this.subTotPrice;
-                this.shipFee = this.customerAddress[i].ShipFee;
+                this.shipFee = this.customerAddress[i].shipFee;
               }
               else{
-                this.shipFee = this.customerAddress[i].ShipFee;
-                this.totPrice = this.subTotPrice + (this.customerAddress[i].ShipFee * 1);
+                this.shipFee = this.customerAddress[i].shipFee;
+                this.totPrice = this.subTotPrice + (this.customerAddress[i].shipFee * 1);
               }
             }
           }

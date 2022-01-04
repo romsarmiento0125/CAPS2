@@ -37,17 +37,17 @@ class customeraddresscontroller extends Controller
     {
         $register = new customeraddress();
 
-        $register->Email = $request->register['Email'];
-        $register->Municipality = $request->register['Municipality'];
-        $register->Barangay = $request->register['Barangay'];
-        $register->UnderBarangay = $request->register['UnderBarangay'];
-        $register->HomeAddress = $request->register['HomeAddress'];
-        $register->ShipFee = $request->register['ShipFee'];
-        $register->Default = $request->register['Default'];
+        $register->email = $request->register['Email'];
+        $register->municipality = $request->register['Municipality'];
+        $register->barangay = $request->register['Barangay'];
+        $register->underBarangay = $request->register['UnderBarangay'];
+        $register->homeAddress = $request->register['HomeAddress'];
+        $register->shipFee = $request->register['ShipFee'];
+        $register->default = $request->register['Default'];
 
         $register->save();
 
-        return $register;
+        return "login";
     }
 
     /**

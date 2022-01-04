@@ -8,7 +8,7 @@ export default new Vuex.Store({
   state: {
     customerInfos: null,
     customerAddress: {},
-    categoryItems: {},
+    categoryItems: null,
     cartItems: {},
     cartQuantity: 0,
     totalPrice: 0,
@@ -158,7 +158,7 @@ export default new Vuex.Store({
     },
     //Components OnlineCashier OCDeliveryToPack.vue
     filterAllOrdersItems: (state, payload) => {
-      let result = state.userAllOrdersCons.filter(res => res.Status == payload);
+      let result = state.userAllOrdersCons.filter(res => res.status == payload);
       state.userAllOrders = result;
       // console.log(state.userAllOrders);
       // console.log(state.userAllOrdersCons);
@@ -265,7 +265,7 @@ export default new Vuex.Store({
     },
     //Components OnlineCashier OCDeliveryToPack.vue
     filterAllPickupItems: (state, payload) => {
-      let result = state.userPickupOrdersCons.filter(res => res.Status == payload);
+      let result = state.userPickupOrdersCons.filter(res => res.status == payload);
       state.userPickupOrders = result;
       // console.log(state.userAllOrders);
       // console.log(state.userAllOrdersCons);

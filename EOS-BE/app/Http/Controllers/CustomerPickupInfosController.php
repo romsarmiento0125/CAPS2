@@ -37,17 +37,17 @@ class CustomerPickupInfosController extends Controller
     {
         $register = new customerPickupInfos();
 
-        $register->Email = $request->register['Email'];
-        $register->InvoiceNumber = $request->register['InvoiceNumber'];
-        $register->Name = $request->register['Name'];
-        $register->MobileNumber = $request->register['Mobilenumber'];
-        $register->Status = $request->register['Status'];
-        $register->PickupDate = $request->register['pickupDate'];
-        $register->PickupTime = $request->register['pickupTime'];
-        $register->Discount = $request->register['Discount'];
-        $register->Tax = $request->register['OrderTax'];
-        $register->SubTotal = $request->register['SubTotal'];
-        $register->Total = $request->register['Total'];
+        $register->email = $request->register['Email'];
+        $register->invoiceNumber = $request->register['InvoiceNumber'];
+        $register->name = $request->register['Name'];
+        $register->mobileNumber = $request->register['Mobilenumber'];
+        $register->status = $request->register['Status'];
+        $register->pickupDate = $request->register['pickupDate'];
+        $register->pickupTime = $request->register['pickupTime'];
+        $register->discount = $request->register['Discount'];
+        $register->tax = $request->register['OrderTax'];
+        $register->subTotal = $request->register['SubTotal'];
+        $register->total = $request->register['Total'];
 
         $register->save();
 
@@ -88,17 +88,17 @@ class CustomerPickupInfosController extends Controller
         $existingItem = customerPickupInfos::find($id);
 
         $existingItem->id = $id;
-        $existingItem->Email = $request->register['Email'];
-        $existingItem->InvoiceNumber = $request->register['InvoiceNumber'];
-        $existingItem->Name = $request->register['Name'];
-        $existingItem->MobileNumber = $request->register['Mobilenumber'];
-        $existingItem->Status = $request->register['OrderStatus'];
-        $existingItem->PickupDate = $request->register['PickupDate'];
-        $existingItem->PickupTime = $request->register['PickupTime'];
-        $existingItem->Discount = $request->register['Discount'];
-        $existingItem->Tax = $request->register['OrderTax'];
-        $existingItem->SubTotal = $request->register['SubTotal'];
-        $existingItem->Total = $request->register['Total'];
+        $existingItem->email = $request->register['Email'];
+        $existingItem->invoiceNumber = $request->register['InvoiceNumber'];
+        $existingItem->name = $request->register['Name'];
+        $existingItem->mobileNumber = $request->register['Mobilenumber'];
+        $existingItem->status = $request->register['OrderStatus'];
+        $existingItem->pickupDate = $request->register['PickupDate'];
+        $existingItem->pickupTime = $request->register['PickupTime'];
+        $existingItem->discount = $request->register['Discount'];
+        $existingItem->tax = $request->register['OrderTax'];
+        $existingItem->subTotal = $request->register['SubTotal'];
+        $existingItem->total = $request->register['Total'];
         $existingItem->save();
 
         //return $existingItem;

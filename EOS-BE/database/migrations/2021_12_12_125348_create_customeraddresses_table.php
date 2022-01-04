@@ -15,13 +15,13 @@ class CreateCustomeraddressesTable extends Migration
     {
         Schema::create('customeraddresses', function (Blueprint $table) {
             $table->id();
-            $table->string('Email');
-            $table->string('Municipality');
-            $table->string('Barangay');
-            $table->string('UnderBarangay');
-            $table->string('HomeAddress');
-            $table->string('ShipFee');
-            $table->string('Default');
+            $table->string('email');
+            $table->string('municipality');
+            $table->string('barangay');
+            $table->string('underBarangay');
+            $table->string('homeAddress');
+            $table->string('shipFee');
+            $table->string('default');
             $table->timestamps();
         });
     }

@@ -97,6 +97,16 @@
                     class="subtitle-1 my-0"
                   >{{Gender}}</p>
                 </div>
+                 <div
+                  class="d-flex"
+                >
+                  <p
+                    class="subtitle-1 mr-2 my-0"
+                  >Account:</p>
+                  <p
+                    class="subtitle-1 my-0"
+                  >{{Account}}</p>
+                </div>
                 <div
                   class="mt-6"
                 >
@@ -247,10 +257,10 @@
       Name: "",
       Surname: "",
       Email: "",
-      Password: "",
       Mobilenumber: "",
       Birthday: "",
       Gender: "",
+      Account: "",
       rules: [
         value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
       ],
@@ -262,8 +272,26 @@
     }),
 
     computed: {
-      customerInfos() {
-        return this.$store.state.customerInfos;
+      usersEmail(){
+        return localStorage.getItem('email');
+      },
+      usersFName(){
+        return localStorage.getItem('firstName');
+      },
+      usersLName(){
+        return localStorage.getItem('lastName');
+      },
+      usersMobileNumber(){
+        return localStorage.getItem('mobileNumber');
+      },
+      usersBirthday(){
+        return localStorage.getItem('birthday');
+      },
+      usersGender(){
+        return localStorage.getItem('gender');
+      },
+      usersTag(){
+        return localStorage.getItem('tag');
       },
     },
 
@@ -271,9 +299,6 @@
       menu(val) {
         val && setTimeout(() => (this.activePicker = 'YEAR'))
       },
-      customerInfos(){
-        this.saveCredentials();
-      }
     },
 
     methods: {
@@ -288,18 +313,14 @@
         alert("Button Not Yet Working");
       },
       saveCredentials(){
-        if(this.customerInfos == null){
-        }
-        else{
-          this.Username = this.customerInfos.First_Name + " " + this.customerInfos.Last_Name;
-          this.Name = this.customerInfos.First_Name;
-          this.Surname = this.customerInfos.Last_Name;
-          this.Email = this.customerInfos.Email;
-          this.Password = this.customerInfos.Password;
-          this.Mobilenumber = this.customerInfos.Mobile_Number;
-          this.Birthday = this.customerInfos.Birthday;
-          this.Gender = this.customerInfos.Gender;
-        }
+        this.Username = this.usersFName + " " + this.usersLName;
+        this.Name = this.usersFName;
+        this.Surname = this.usersLName;
+        this.Email = this.usersEmail;
+        this.Mobilenumber = this.usersMobileNumber;
+        this.Birthday = this.usersBirthday;
+        this.Gender = this.usersGender;
+        this.Account = this.usersTag;
       }
     },
     

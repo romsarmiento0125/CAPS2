@@ -96,7 +96,11 @@
 </template>
 
 <script>
+  import {Mixins} from '../../Mixins/mixins.js'
+
   export default {
+    mixins: [Mixins],
+
     data: () => ({
       selectedItem: 1,
       items: [
@@ -105,8 +109,14 @@
     }),
 
       computed: {
-      customerInfos() {
-        return this.$store.state.customerInfos;
+      usersFName(){
+        return localStorage.getItem('firstName');
+      },
+      usersLName(){
+        return localStorage.getItem('lastName');
+      },
+      usersEmail(){
+        return localStorage.getItem('email');
       },
       customerAddress() {
         return this.$store.state.customerAddress;
@@ -115,20 +125,22 @@
 
     methods: {
       insertAddress() {
+
+        
         var item;
         for(var i = 0; i < this.customerAddress.length; i++){
           var def = "";
-          if(this.customerAddress[i].Default == "True"){
+          if(this.customerAddress[i].default == "True"){
             def = "Default";
           }
           item = {id: this.customerAddress[i].id,
-                Name: this.customerInfos.First_Name,
-                Surname: this.customerInfos.Last_Name,
-                Email: this.customerAddress[i].Email,
-                Municipality: this.customerAddress[i].Municipality,
-                Barangay: this.customerAddress[i].Barangay,
-                UBarangay: this.customerAddress[i].UnderBarangay,
-                HomeAddress: this.customerAddress[i].HomeAddress,
+                Name: this.usersFName,
+                Surname: this.usersLName,
+                Email: this.customerAddress[i].email,
+                Municipality: this.customerAddress[i].municipality,
+                Barangay: this.customerAddress[i].barangay,
+                UBarangay: this.customerAddress[i].underBarangay,
+                HomeAddress: this.customerAddress[i].homeAddress,
                 Default: def
                 }
           //console.log("loop");
@@ -147,21 +159,7 @@
     },
 
     beforeMount() {
-      //this.getCustomerInfo();
-      // console.log("infos");
-      // console.log(this.customerInfos);
-      // console.log(this.customerAddress);
-      // console.log(this.customerAddress.length);
-      //console.log(this.customerAddress[0].id);
-      
       this.insertAddress();
-      // this.items.Name = this.customerInfos.First_Name;
-      // this.items.Surname = this.customerInfos.Last_Name;
-      // this.items.Email = this.customerInfos.Email;
-      // this.items.Municipality = this.customerAddress.Municipality;
-      // this.items.Barangay = this.customerAddress.Barangay;
-      // this.items.UBarangay = this.customerAddress.UnderBarangay;
-      // this.items.HomeAddress = this.customerAddress.HomeAddress;
     }
   }
 </script>

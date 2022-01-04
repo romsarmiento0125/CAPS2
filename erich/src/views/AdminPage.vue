@@ -153,8 +153,8 @@
     }),
 
     computed: {
-      customerInfos() {
-        return this.$store.state.customerInfos;
+      usersTag(){
+        return localStorage.getItem('tag');
       },
     },
 
@@ -241,7 +241,7 @@
         var l6 = {id: 6, AdminName: 'Supplier List', AdminCondition: 'asl', Admin: 'Admin', AdminId: 'supplierlist', AdminTitle: 'Supplier List'};
         var l7 = {id: 7, AdminName: 'Admin Management', AdminCondition: 'am', Admin: 'Admin', AdminId: 'management', AdminTitle: 'Management'};
 
-        if(this.customerInfos.Tag == "Admin"){
+        if(this.usersTag == "Admin"){
           this.links.push(l1);
           this.links.push(l2);
           this.links.push(l3);
@@ -250,7 +250,7 @@
           this.links.push(l6);
           this.links.push(l7);
         }
-        else if(this.customerInfos.Tag == "Encoder"){
+        else if(this.usersTag == "Encoder"){
           this.links.push(l5);
           this.links.push(l6);
           this.aDashboard = false,

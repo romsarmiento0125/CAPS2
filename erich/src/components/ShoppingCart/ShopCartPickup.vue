@@ -31,18 +31,18 @@
                   <v-col cols="12" class="ma-0 pa-0">
                     <h5
                     class="font-weight-bold my-0 fontDesc"
-                    >Order #:{{customerPickup.InvoiceNumber}}</h5>
+                    >Order #:{{customerPickup.invoiceNumber}}</h5>
                   </v-col>
                 </v-row>
                 <v-row>
                   <v-col cols="12" class="ma-0 pa-0">
                     <h5 class="my-0 font-weight-black fontTitle">
-                    Thank you&nbsp;{{customerInfos.First_Name}}&nbsp;{{customerInfos.Last_Name}}</h5>
+                    Thank you&nbsp;{{usersFName}}&nbsp;{{usersFName}}</h5>
                   </v-col>
                 </v-row>
               </v-col>
             </v-row>
-          
+
               <div>
                 <div class="mt-5 nOrder elevation-1">
                   <div class="ma-4 pa-0">
@@ -139,9 +139,6 @@
     }),
 
     computed: {
-      customerInfos() {
-        return this.$store.state.customerInfos;
-      },
       pickupDate() {
         return this.$store.state.pickupDate;
       },
@@ -151,31 +148,41 @@
       storeCustomerItems() {
         return this.$store.state.customerItems;
       },
+      usersEmail(){
+        return localStorage.getItem('email');
+      },
+      usersFName(){
+        return localStorage.getItem('firstName');
+      },
+      usersLName(){
+        return localStorage.getItem('lastName');
+      },
+      usersMobileNumber(){
+        return localStorage.getItem('mobileNumber');
+      },
+      usersToken(){
+        return localStorage.getItem('token');
+      },
     },
 
     methods: {
       checkOut() {
-        //console.log("Check out");
-        // console.log(this.customerInfos);
-        // console.log(this.customerPickup);
-        // console.log(this.pickupDate);
-        // console.log(this.pickupTime);
-        //this.$router.push({path: '/'});
-
-        
-
-        this.customerPickup.Name = this.customerInfos.First_Name + " " + this.customerInfos.Last_Name;
-        this.customerPickup.Email = this.customerInfos.Email;
-        this.customerPickup.Mobilenumber = this.customerInfos.Mobile_Number;
+        this.customerPickup.Name = this.usersFName + " " + this.usersLName;
+        this.customerPickup.Email = this.usersEmail;
+        this.customerPickup.Mobilenumber = this.usersMobileNumber;
         this.customerPickup.pickupDate = this.pickupDate;
         this.customerPickup.pickupTime = this.pickupTime;
         
         axios.post(this.getDomain()+'api/customerpickup/store', {
           register: this.customerPickup
+        },
+        {
+          headers:{
+            "Authorization": `Bearer ${this.usersToken}`,
+        }
         })
         .then(res => {
           this.storeCustomerPickupItems()
-          //console.log(res.data);  
         })
         .catch(err => console.error(err));
 
@@ -185,6 +192,11 @@
       storeCustomerPickupItems(){
         axios.post(this.getDomain()+'api/customerpickupitems/store', {
             register: this.customerPickupItems
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
           })
           .then(res => {
             //console.log(res.data);  
@@ -195,7 +207,12 @@
         // console.log("Clean Cart");
         // console.log(this.customerPickupItems);
         for(var i = 0; i < this.customerPickupItems.length; i++){
-          axios.delete(this.getDomain()+'api/getcart/'+ this.customerPickupItems[i].id)
+          axios.delete(this.getDomain()+'api/getcart/'+ this.customerPickupItems[i].id,
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
           .then( res => {
             //console.log("Delete")
             //console.log(res.data);
