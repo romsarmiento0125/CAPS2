@@ -15,14 +15,14 @@ class CreateCustomerOrderItemsTable extends Migration
     {
         Schema::create('customer_order_items', function (Blueprint $table) {
             $table->id();
-            $table->string('InvoiceNumber');
-            $table->string('ItemName');
-            $table->string('ItemDesc');
-            $table->Integer('Quantity');
-            $table->Integer('Discount');
-            $table->decimal('RetailPrice', 8, 2);
-            $table->string('ItemCode');
-            $table->string('ItemImage');
+            $table->string('invoiceNumber');
+            $table->string('itemName');
+            $table->string('itemDesc');
+            $table->Integer('quantity');
+            $table->Integer('discount');
+            $table->decimal('retailPrice', 8, 2);
+            $table->string('itemCode');
+            $table->string('itemImage');
             $table->timestamps();
         });
     }

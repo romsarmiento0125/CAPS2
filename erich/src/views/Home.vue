@@ -47,30 +47,26 @@
     }),
 
     computed: {
-      customerInfos() {
-        return this.$store.state.customerInfos;
-      },
       categoryItems() {
         return this.$store.state.categoryItems;
       },
       customerCredentials() {
         return this.$store.state.customerCredentials;
       },
+      usersTag(){
+        return localStorage.getItem('tag');
+      }
     },
 
     methods: {
       navbarPicker() {
-        if(this.customerInfos == null){
-          this.headerCond = true;
-        }
-        else if(this.customerInfos.Tag == "Customer" || this.customerInfos.Tag == "Admin" || this.customerInfos.Tag == "Encoder"){
+        if(this.usersTag == "Customer" || this.usersTag == "Unverified" || this.usersTag == "Admin" || this.usersTag == "Encoder"){
           this.headerCond = false;
-          // console.log("headerCond: " + this.headerCond);
         }
-        else if(this.customerInfos.Tag == "Ocashier"){
+        else if(this.usersTag == "Ocashier"){
           this.$router.push("/onlinecashier")
         }
-        else if(this.customerInfos.Tag == "Pcashier"){
+        else if(this.usersTag == "Pcashier"){
           this.$router.push("/physicalcashier")
         }
       },
@@ -84,15 +80,8 @@
         }
       }
     },
-
-    watch: {
-      customerInfos() {
-        this.navbarPicker();
-      }
-    },
-
     beforeMount() {
-      this.loginChecker();
+      // this.loginChecker();
       this.navbarPicker();
     },
   }

@@ -37,7 +37,7 @@ class erichgetcartitems extends Controller
     {
         $getData = customercart::all();
         $dataGet = $request->register;
-        return $getData->where('Email', $dataGet)->values();
+        return $getData->where('email', $dataGet)->values();
     }
 
     /**
@@ -82,16 +82,16 @@ class erichgetcartitems extends Controller
 
         if(true){
             $existingItem->id = $id;
-            $existingItem->Email = $request->itemupdate["item_email"];
-            $existingItem->Quantity = $add;
-            $existingItem->ItemCode = $request->itemupdate["item_code"];
+            $existingItem->email = $request->itemupdate["item_email"];
+            $existingItem->quantity = $add;
+            $existingItem->itemCode = $request->itemupdate["item_code"];
             $existingItem->save();
 
             //return $existingItem;
-            return $getData->where('Email', $dataGet)->values();
+            return $getData->where('email', $dataGet)->values();
         }
         else{
-            return $getData->where('Email', $dataGet)->values();;
+            return $getData->where('email', $dataGet)->values();;
         }
 
         //return $request->itemupdate;

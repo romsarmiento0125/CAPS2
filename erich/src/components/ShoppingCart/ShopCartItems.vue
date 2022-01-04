@@ -259,12 +259,15 @@
       cartItems() {
         return this.$store.state.cartItems;
       },
-      customerInfos() {
-        return this.$store.state.customerInfos;
-      },
       cartQuantity() {
         return this.$store.state.cartQuantity;
-      }
+      },
+      usersEmail(){
+        return localStorage.getItem('email');
+      },
+      usersToken(){
+        return localStorage.getItem('token');
+      },
     },
     
     methods: {
@@ -272,59 +275,98 @@
         this.$emit('scItemsEmit');
       },
       showCartItems(data) {
-        var qty = 0;
         var item;
         this.totPrice = 0;
         // console.log("cart items");
         // console.log(data.length);
         // console.log(data[0].Email);
         // console.log(this.customerInfos.Email)
-        // console.log(data);
-        // console.log(this.categoryItems);
         // console.log(this.categoryItems[0].Discount)
         
         for(var i = 0; i < data.length; i++){
-          if(data[i].Email == this.customerInfos.Email){
-            for(var j = 0; j < this.categoryItems.length; j++){
-              if(data[i].ItemCode == this.categoryItems[j].ItemCode){
-              item = {id: data[i].id,
-              item_name: this.categoryItems[j].Name,
-              item_desc: this.categoryItems[j].Description,
-              item_code: this.categoryItems[j].ItemCode,
-              item_quantity: data[i].Quantity,
-              item_price: this.categoryItems[j].RetailPrice,
-              item_image: this.categoryItems[j].Image,
-              item_email: this.customerInfos.Email,
-              item_discount: this.categoryItems[j].Discount
-              }
-              this.items.push(item);
-              this.totPrice = (this.totPrice + ((data[i].Quantity * this.categoryItems[j].RetailPrice * 1) - ((data[i].Quantity * this.categoryItems[j].RetailPrice * 1) * (this.categoryItems[j].Discount / 100) )));
-              //console.log(i);
-              }
-              else{
-                //console.log("this is else");
-              }
+          for(var j = 0; j < this.categoryItems.length; j++){
+            if(data[i].itemCode == this.categoryItems[j].itemCode){
+            item = {id: data[i].id,
+            item_name: this.categoryItems[j].name,
+            item_desc: this.categoryItems[j].description,
+            item_code: this.categoryItems[j].itemCode,
+            item_quantity: data[i].quantity,
+            item_price: this.categoryItems[j].retailPrice,
+            item_image: this.categoryItems[j].image,
+            item_email: this.usersEmail,
+            item_discount: this.categoryItems[j].discount
+            }
+            this.items.push(item);
+            this.totPrice = (this.totPrice + ((data[i].quantity * this.categoryItems[j].retailPrice * 1) - ((data[i].quantity * this.categoryItems[j].retailPrice * 1) * (this.categoryItems[j].discount / 100) )));
+            //console.log(i);
+            }
+            else{
+              //console.log("this is else");
             }
           }
         }
+        // console.log(data.length);
+        // for(var i = 0; i < data.length; i++){
+        //   if(data[i].ItemCode == this.categoryItems[i].ItemCode){
+        //     item = {id: data[i].id,
+        //     item_name: this.categoryItems[i].Name,
+        //     item_desc: this.categoryItems[i].Description,
+        //     item_code: this.categoryItems[i].ItemCode,
+        //     item_quantity: data[i].Quantity,
+        //     item_price: this.categoryItems[i].RetailPrice,
+        //     item_image: this.categoryItems[i].Image,
+        //     item_email: this.usersEmail,
+        //     item_discount: this.categoryItems[i].Discount
+        //     }
+        //     this.items.push(item);
+        //     this.totPrice = (this.totPrice + ((data[i].Quantity * this.categoryItems[i].RetailPrice * 1) - ((data[i].Quantity * this.categoryItems[i].RetailPrice * 1) * (this.categoryItems[i].Discount / 100) )));
+        //     //console.log(i);
+        //   }
+        //   else{
+        //     //console.log("this is else");
+        //   }
+        // }
         this.totPrice = (Math.round(this.totPrice * 100) / 100).toFixed(2);
         this.$store.commit('storeCartItems', this.items);
         this.checkoutButtonChecker();
       },
       getCartItems() {
         this.items = [];
-        //console.log("This is customerInfos Email: " + this.customerInfos.Email);
-        axios.get(this.getDomain()+'api/headercart')
+        axios.post(this.getDomain()+'api/getcart/store', {
+          register: this.usersEmail
+        },
+        {
+          headers:{
+            "Authorization": `Bearer ${this.usersToken}`,
+        }
+        })
         .then(res => {
-          this.showCartItems(res.data)
-          // console.log(res.data)
-          })
+          // console.log(res.data);
+          this.showCartItems(res.data);
+        })
         .catch(err => console.error(err));
+        //console.log("eto ata");
+        // axios.get(this.getDomain()+'api/headercart',
+        //   {
+        //     headers:{
+        //       "Authorization": `Bearer ${this.usersToken}`,
+        //     }
+        //   })
+        // .then(res => {
+        //   this.showCartItems(res.data)
+        //   // console.log(res.data)
+        //   })
+        // .catch(err => console.error(err));
       },
       deleteItems(code) {
         // console.log("Delete this item");
         // console.log(code);
-        axios.delete(this.getDomain()+'api/getcart/'+ code)
+        axios.delete(this.getDomain()+'api/getcart/'+ code,
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
         //.then( res => console.log(res))
         //.then( res => this.getCartItems())
         .then( res => {
@@ -341,7 +383,12 @@
         // console.log(count);
         axios.put(this.getDomain()+'api/getcart/' + idcart, {
           itemupdate: this.cartItems[count]
-        })
+        },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
         .then(res => {
           //console.log(res.data)
           this.showQuantity(res.data)
@@ -358,6 +405,11 @@
         else{
           axios.put(this.getDomain()+'api/headercart/' + idcart, {
             itemupdate: this.cartItems[count]
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
           })
           .then(res => {
             //console.log(res.data)

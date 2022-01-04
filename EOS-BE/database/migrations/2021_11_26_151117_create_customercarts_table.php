@@ -15,9 +15,9 @@ class CreateCustomercartsTable extends Migration
     {
         Schema::create('customercarts', function (Blueprint $table) {
             $table->id();
-            $table->string('Email');
-            $table->Integer('Quantity');
-            $table->string('ItemCode');
+            $table->string('email');
+            $table->Integer('quantity');
+            $table->string('itemCode');
             $table->timestamps();
         });
     }

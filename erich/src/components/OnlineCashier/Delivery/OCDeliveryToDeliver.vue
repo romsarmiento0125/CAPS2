@@ -40,24 +40,24 @@
                   v-for="(info, n) in userAllDeliver"
                   :key="n"
                 >
-                  <td>{{info.Name}} <br> {{info.MobileNumber}}</td>
+                  <td>{{info.name}} <br> {{info.mobileNumber}}</td>
                   <td><oc-orderdetails
-                    :ivNumber="info.InvoiceNumber"
+                    :ivNumber="info.invoiceNumber"
                     :orders="info.orders"
-                    :odDate="info.AdjustedDate"
-                    :sTotal="info.SubTotal"
-                    :shipMethod="info.ShipFee"
-                    :dDiscount="info.Discount"
-                    :tTax="info.Tax"
-                    :tTotal="info.Total"
+                    :odDate="info.adjustedDate"
+                    :sTotal="info.subTotal"
+                    :shipMethod="info.shipFee"
+                    :dDiscount="info.discount"
+                    :tTax="info.tax"
+                    :tTotal="info.total"
                   ></oc-orderdetails></td>
-                  <td>{{info.CompleteAddress}}</td>
-                  <td>{{info.Status}} <br> Pa deliver na</td>
+                  <td>{{info.completeAddress}}</td>
+                  <td>{{info.status}} <br> Pa deliver na</td>
                   <td>
                     <v-btn
-                      @click="toComplete(info.id, info.Email, info.InvoiceNumber, info.Name, info.MobileNumber, info.CompleteAddress,
-                        info.OrderYear, info.OrderMonth, info.OrderDay, info.AdjustedDate, info.ShipFee, info.Discount,
-                        info.Tax, info.SubTotal, info.Total
+                      @click="toComplete(info.id, info.email, info.invoiceNumber, info.name, info.mobileNumber, info.completeAddress,
+                        info.orderYear, info.orderMonth, info.orderDay, info.adjustedDate, info.shipFee, info.discount,
+                        info.tax, info.subTotal, info.total
                       )"
                     >
                       <p>Complete</p>
@@ -109,6 +109,9 @@
       userAllDeliver() {
         return this.$store.state.userAllDeliver;
       },
+      usersToken(){
+        return localStorage.getItem('token');
+      },
     },
 
     methods: {
@@ -130,8 +133,14 @@
         this.orderDeliver.Total = Total;
         this.orderid = id;
         console.log("to Complete");
+        console.log(this.orderDeliver);
         axios.post(this.getDomain()+'api/customercompleteitems/store', {
             register: this.orderDeliver
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
           })
           .then(res => {
             this.toDelete();
@@ -140,7 +149,12 @@
           .catch(err => console.error(err));
       },
       toDelete(){
-        axios.delete(this.getDomain()+'api/customerdeliveritems/'+ this.orderid)
+        axios.delete(this.getDomain()+'api/customerdeliveritems/'+ this.orderid,
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
           .then( res => {
             console.log("Delete")
             console.log(res.data);
@@ -149,7 +163,12 @@
           .catch(err => console.error(err))
       },
       getAllDeliver(){
-        axios.get(this.getDomain()+'api/customerdeliveritems')
+        axios.get(this.getDomain()+'api/customerdeliveritems',
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
         .then(res => {
           console.log(res.data);
           this.$store.commit('storeUserAllDeliver', res.data);

@@ -43,14 +43,14 @@
                   <v-list-item-content
                   >
                     <div>
-                      <p>{{item.Name}}</p>
+                      <p>{{item.name}}</p>
                       
                       <div
                         class="d-flex"
                       >
-                        <p>{{item.ItemDesc}}</p>
+                        <p>{{item.itemDesc}}</p>
                         <v-spacer></v-spacer>
-                        <p>{{priceRound(item.RetailPrice * item.Quantity)}}</p>
+                        <p>{{priceRound(item.retailPrice * item.quantity)}}</p>
                       </div>
                     </div>
                   </v-list-item-content>

@@ -6,14 +6,14 @@
           <div
             class="my-2 mx-4"
             v-for="order in userProfileToComplete"
-            :key="order.id"
+            :key="order.invoiceNumber"
           >
             <v-divider></v-divider>
             <v-row>
               <v-col>
                 <p
                   class="mb-0 mt-6 title"
-                >Status: &nbsp;{{order.Status}}</p>
+                >Status: &nbsp;{{order.status}}</p>
                 <p
                   class="my-0 Caption"
                 >Deliver</p>
@@ -23,7 +23,7 @@
               <v-col>
                 <p
                   class="my-0 subtitle-1"
-                >Invoice &nbsp; #: &nbsp; {{order.InvoiceNumber}}</p>
+                >Invoice &nbsp; #: &nbsp; {{order.invoiceNumber}}</p>
               </v-col>
             </v-row>
             <v-row>
@@ -39,7 +39,7 @@
                 <p
                   class="title mx-5"
                 >
-                  Total: &nbsp;{{priceRound(order.Total)}}
+                  Total: &nbsp;{{priceRound(order.total)}}
                 </p>
                 
               </v-col>
@@ -49,15 +49,15 @@
 
           <div
             class="my-2 mx-4"
-            v-for="(order, n) in userPickupToComplete"
-            :key="n"
+            v-for="order in userPickupToComplete"
+            :key="order.invoiceNumber"
           >
             <v-divider></v-divider>
             <v-row>
               <v-col>
                 <p
                   class="mb-0 mt-6 title"
-                >Status: &nbsp;{{order.Status}}</p>
+                >Status: &nbsp;{{order.status}}</p>
                 <p
                   class="my-0 Caption"
                 >Pickup</p>
@@ -67,7 +67,7 @@
               <v-col>
                 <p
                   class="my-0 subtitle-1"
-                >Invoice &nbsp; #: &nbsp; {{order.InvoiceNumber}}</p>
+                >Invoice &nbsp; #: &nbsp; {{order.invoiceNumber}}</p>
               </v-col>
             </v-row>
             <v-row>
@@ -83,7 +83,7 @@
                 <p
                   class="title mx-5"
                 >
-                  Total: &nbsp;{{priceRound(order.Total)}}
+                  Total: &nbsp;{{priceRound(order.total)}}
                 </p>
                 
               </v-col>

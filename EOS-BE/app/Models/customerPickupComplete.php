@@ -10,6 +10,6 @@ class customerPickupComplete extends Model
 {
     use HasFactory;
     public function orders(){
-        return $this->hasMany(customerPickupItems::class,'InvoiceNumber','InvoiceNumber');
+        return $this->hasMany(customerPickupItems::class,'invoiceNumber','invoiceNumber');
     }
 }

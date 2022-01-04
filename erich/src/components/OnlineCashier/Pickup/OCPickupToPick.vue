@@ -38,23 +38,23 @@
                   v-for="(info, n) in userPickupPickup"
                   :key="n"
                 >
-                  <td>{{info.Name}} <br> {{info.MobileNumber}}</td>
+                  <td>{{info.name}} <br> {{info.mobileNumber}}</td>
                   <td><oc-orderdetails
-                    :ivNumber="info.InvoiceNumber"
+                    :ivNumber="info.invoiceNumber"
                     :orders="info.orders"
-                    :odDate="info.PickupDate"
-                    :sTotal="info.SubTotal"
+                    :odDate="info.pickupDate"
+                    :sTotal="info.subTotal"
                     shipMethod="Pickup"
-                    :dDiscount="info.Discount"
-                    :tTax="info.Tax"
-                    :tTotal="info.Total"
+                    :dDiscount="info.discount"
+                    :tTax="info.tax"
+                    :tTotal="info.total"
                   ></oc-orderdetails></td>
-                  <td>{{info.PickupDate}} <br> {{info.PickupTime}}</td>
-                  <td>{{info.Status}}</td>
+                  <td>{{info.pickupDate}} <br> {{info.pickupTime}}</td>
+                  <td>{{info.status}}</td>
                   <td>
                     <v-btn
-                      @click="toPickupPickup(info.id, info.Email, info.InvoiceNumber, info.Name, info.MobileNumber, info.PickupDate,
-                                info.PickupTime, info.Discount, info.Tax, info.SubTotal, info.Total)"
+                      @click="toPickupPickup(info.id, info.email, info.invoiceNumber, info.name, info.mobileNumber, info.pickupDate,
+                                info.pickupTime, info.discount, info.tax, info.subTotal, info.total)"
                     >Complete</v-btn>
                   </td>
                 </tr>
@@ -97,6 +97,9 @@
       userPickupPickup() {
         return this.$store.state.userPickupPickup;
       },
+      usersToken(){
+        return localStorage.getItem('token');
+      },
     },
 
     methods: {
@@ -115,6 +118,11 @@
 
         axios.post(this.getDomain()+'api/customerpickupcomplete/store', {
             register: this.orderPickup
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
           })
           .then(res => {
             this.toDelete(id);
@@ -123,7 +131,12 @@
           .catch(err => console.error(err));
       },
       toDelete(id){
-        axios.delete(this.getDomain()+'api/customerpickuppickup/'+ id)
+        axios.delete(this.getDomain()+'api/customerpickuppickup/'+ id,
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
           .then( res => {
             console.log("Delete")
             console.log(res.data);
@@ -133,7 +146,12 @@
         
       },
       getPickupPickup(){
-        axios.get(this.getDomain()+'api/customerpickuppickup')
+        axios.get(this.getDomain()+'api/customerpickuppickup',
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
           .then(res => {
             console.log(res.data);
             this.$store.commit('storeUserAllPickup', res.data);

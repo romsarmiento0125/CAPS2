@@ -140,16 +140,27 @@
     }),
 
     computed: {
-      customerInfos() {
-        return this.$store.state.customerInfos;
-      },
       customerAddress() {
         return this.$store.state.customerAddress;
       },
       storeCustomerItems() {
         return this.$store.state.customerItems;
       },
- 
+      usersEmail(){
+        return localStorage.getItem('email');
+      },
+      usersFName(){
+        return localStorage.getItem('firstName');
+      },
+      usersLName(){
+        return localStorage.getItem('lastName');
+      },
+      usersMobileNumber(){
+        return localStorage.getItem('mobileNumber');
+      },
+      usersToken(){
+        return localStorage.getItem('token');
+      },
     },
 
     methods: {
@@ -169,13 +180,18 @@
         console.log("SubTotal: " + this.customerOrder.SubTotal);
         console.log("Total: " + this.customerOrder.Total);
         console.log(this.customerOrderItems);
-        this.$router.push({path: '/'});
 
         this.cleanCart();
+        this.showMessage();
 
         axios.post(this.getDomain()+'api/customerorder/store', {
           register: this.customerOrder
-        })
+        },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
         .then(res => {
           this.storeCustomerOrderItems()
           console.log(res);  
@@ -183,11 +199,16 @@
         //.then(res => console.log(res.data))
         .catch(err => console.error(err));
 
-        this.showMessage();
+        
       },
       storeCustomerOrderItems() {
         axios.post(this.getDomain()+'api/customerorderitems/store', {
             register: this.customerOrderItems
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
           })
           .then(res => {
             console.log(res.data);  
@@ -196,7 +217,12 @@
       },
       cleanCart(){
         for(var i = 0; i < this.customerOrderItems.length; i++){
-          axios.delete(this.getDomain()+'api/getcart/'+ this.customerOrderItems[i].id)
+          axios.delete(this.getDomain()+'api/getcart/'+ this.customerOrderItems[i].id,
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
           .then( res => {
             console.log("Delete")
             console.log(res.data);
@@ -233,12 +259,12 @@
         // console.log(this.customerAddress[0].Default);
         // console.log(this.customerAddress.length);
         for(var i = 0; i < this.customerAddress.length; i++){
-          if(this.customerAddress[i].Default == "True"){
-            this.customerOrder.Municipality = this.customerAddress[i].Municipality;
-            this.customerOrder.Barangay = this.customerAddress[i].Barangay;
-            this.customerOrder.UBarangay = this.customerAddress[i].UnderBarangay;
-            this.customerOrder.HomeAddress = this.customerAddress[i].HomeAddress;
-            this.customerOrder.Shipping = this.customerAddress[i].ShipFee;
+          if(this.customerAddress[i].default == "True"){
+            this.customerOrder.Municipality = this.customerAddress[i].municipality;
+            this.customerOrder.Barangay = this.customerAddress[i].barangay;
+            this.customerOrder.UBarangay = this.customerAddress[i].underBarangay;
+            this.customerOrder.HomeAddress = this.customerAddress[i].homeAddress;
+            this.customerOrder.Shipping = this.customerAddress[i].shipFee;
             this.customerOrder.CompleteAddress = this.customerOrder.Municipality + " " + this.customerOrder.Barangay + " " + this.customerOrder.UBarangay + " " + this.customerOrder.HomeAddress;
           }
         }
@@ -274,15 +300,9 @@
     },
 
     beforeMount() {
-      //this.getCustomerInfo();
-      console.log("gg");
-      console.log(this.customerInfos);
-      console.log(this.customerAddress);
-      console.log("Store Customer Items");
-      console.log(this.storeCustomerItems);
-      this.customerOrder.Email = this.customerInfos.Email;
-      this.customerOrder.Name = this.customerInfos.First_Name + " " + this.customerInfos.Last_Name;
-      this.customerOrder.Mobilenumber = this.customerInfos.Mobile_Number;
+      this.customerOrder.Email = this.usersEmail;
+      this.customerOrder.Name = this.usersFName + " " + this.usersLName;
+      this.customerOrder.Mobilenumber = this.usersMobileNumber;
       this.generateInvoiceNum();
       this.insertAddress();
     }

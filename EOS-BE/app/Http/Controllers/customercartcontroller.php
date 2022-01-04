@@ -66,9 +66,9 @@ class customercartcontroller extends Controller
         if(($emailCond == "true") || ($itemCodeCond == "true")){
             $register = new customercart();
 
-            $register->Email = $request->register['Email'];
-            $register->Quantity = $request->register['Quantity'];
-            $register->ItemCode = $request->register['ItemCode'];
+            $register->email = $request->register['Email'];
+            $register->quantity = $request->register['Quantity'];
+            $register->itemCode = $request->register['ItemCode'];
 
             $register->save();
 
@@ -130,13 +130,13 @@ class customercartcontroller extends Controller
 
         if(true){
             $existingItem->id = $id;
-            $existingItem->Email = $request->itemupdate["Email"];
-            $existingItem->Quantity = $add;
-            $existingItem->ItemCode = $request->itemupdate["ItemCode"];
+            $existingItem->email = $request->itemupdate["Email"];
+            $existingItem->quantity = $add;
+            $existingItem->itemCode = $request->itemupdate["ItemCode"];
             $existingItem->save();
 
             //return $existingItem;
-            return $getData->where('Email', $dataGet)->values();
+            return $getData->where('email', $dataGet)->values();
         }
         else{
             return "di success";

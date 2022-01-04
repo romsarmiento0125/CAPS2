@@ -10,6 +10,6 @@ class customerCompleteItems extends Model
 {
     use HasFactory;
     public function orders(){
-        return $this->hasMany(customerOrderItems::class,'InvoiceNumber','InvoiceNumber');
+        return $this->hasMany(customerOrderItems::class,'invoiceNumber','invoiceNumber');
     }
 }

@@ -15,18 +15,18 @@ class CreateCategoryItemsTable extends Migration
     {
         Schema::create('category_items', function (Blueprint $table) {
             $table->id();
-            $table->string('Name');
-            $table->string('Description');
-            $table->decimal('SupplierPrice', 8, 2);
-            $table->decimal('RetailPrice', 8, 2);
-            $table->string('Size');
-            $table->Integer('Quantity');
-            $table->string('ItemCode')->unique();
-            $table->string('Category');
-            $table->string('ExpirationDate');
-            $table->string('Image');
-            $table->integer('Discount');
-            $table->string('UnderCategory');
+            $table->string('name');
+            $table->string('description');
+            $table->decimal('supplierPrice', 8, 2);
+            $table->decimal('retailPrice', 8, 2);
+            $table->string('size');
+            $table->Integer('quantity');
+            $table->string('itemCode')->unique();
+            $table->string('category');
+            $table->string('expirationDate');
+            $table->string('image');
+            $table->integer('discount');
+            $table->string('underCategory');
             $table->timestamps();
         });
     }

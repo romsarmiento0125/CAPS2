@@ -104,16 +104,14 @@
                     v-for="(item, n) in notifications"
                     :key="n"
                   >
-                    <v-list-item-icon>
-                      <v-icon v-text="item.icon"></v-icon>
-                    </v-list-item-icon>
                     <v-list-item-content>
-                      <v-list-item-title v-text="item.text" @click="accountButton(item.to)"></v-list-item-title>
+                      <v-list-item-title @click="goToMiscFunctions(item.to)"><span>{{item.title}}</span><br><span>{{item.desc}}</span></v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
                 </v-list-item-group>
               </v-list>
             </v-menu>
+
             <div
               class="d-flex"
             >
@@ -122,7 +120,7 @@
                   class="my-0 py-0 
                   d-flex 
                   "
-                >{{customerInfos.First_Name}} {{customerInfos.Last_Name}}</p>
+                >{{usersFName}} {{usersLName}}</p>
                 <v-menu
                   offset-y
                   transition="slide-y-transition"
@@ -191,9 +189,7 @@
       selectedItem: 0,
       selectedNotif: 0,
       notifications: [
-        { title: "Account", text: 'My Account', icon: 'mdi-account', to: "account"  },
-        { title: "Address", text: 'My Address', icon: 'mdi-map-marker', to: "address"  },
-        { title: "Purchase", text: 'My Purchase', icon: 'mdi-cart', to: "orders"  },
+        { title: "Verify", desc: 'Verify Your Email', to: "verify"},
       ],
        items: [
         { title: "Account", text: 'My Account', icon: 'mdi-account', to: "account"  },
@@ -203,16 +199,28 @@
       customerEmail: "",
       cartCounter: 0,
       searchKey: "",
-      notifCounter: 0,
+      notifCounter: 1,
     }),
 
     computed: {
-      customerInfos() {
-        return this.$store.state.customerInfos;
+      usersEmail(){
+        return localStorage.getItem('email');
+      },
+      usersFName(){
+        return localStorage.getItem('firstName');
+      },
+      usersLName(){
+        return localStorage.getItem('lastName');
+      },
+      usersTag(){
+        return localStorage.getItem('tag');
       },
       cartQuantity() {
         return this.$store.state.cartQuantity;
-      }
+      },
+      usersToken(){
+        return localStorage.getItem('token');
+      },
     },
 
     // watch: {
@@ -248,19 +256,34 @@
           this.$router.push({path: '/onlinecashier'});
         }
         else if(cond == "logout"){
-          sessionStorage.removeItem("Email");
-          sessionStorage.removeItem("Pass");
+          localStorage.removeItem("firstName");
+          localStorage.removeItem("lastName");
+          localStorage.removeItem("email");
+          localStorage.removeItem("mobileNumber");
+          localStorage.removeItem("birthday");
+          localStorage.removeItem("gender");
+          localStorage.removeItem("tag");
+          localStorage.removeItem("token");
           window.location.href = "http://localhost:8080/";
           //window.location.href = "http://erichgrocery.store/";
-          
+        }
+      },
+      goToMiscFunctions(cond){
+        if(cond == "verify"){
+          this.$router.push("/erich");
         }
       },
       getItemsQuantity() {
         //console.log("This is Header Cart quantity");
         //console.log(this.customerInfos.Email);
-        this.customerEmail = this.customerInfos.Email;
+        this.customerEmail = this.usersEmail;
         axios.post(this.getDomain()+'api/headercart/store', {
           register: this.customerEmail
+        },
+        {
+          headers:{
+            "Authorization": `Bearer ${this.usersToken}`,
+        }
         })
         .then(res => this.showQuantity(res.data))
         //.then(res => console.log(res.data))
@@ -270,7 +293,7 @@
         //console.log(data[0].Quantity);
         //console.log(data.length);
         for(var i = 0; i < data.length; i++){
-          this.cartCounter = this.cartCounter + data[i].Quantity;
+          this.cartCounter = this.cartCounter + data[i].quantity;
         }
         this.$store.commit('storeCartQuantity', this.cartCounter);
       }
@@ -289,12 +312,12 @@
       var ob2 = { title: "Cashier", text: 'Cashier', icon: 'mdi-cash-register', to: "onlinecashier" };
       var ob3 = { title: "Encoder", text: 'Encoder', icon: 'mdi-barcode-scan', to: "admin" };
       var ob4 = { title: "Logout", text: 'Logout', icon: 'mdi-logout', to: "logout"  };
-      if(this.customerInfos.Tag == "Admin"){
+      if(this.usersTag == "Admin"){
         this.items.push(ob1);
         this.items.push(ob2);
         this.items.push(ob4);
       }
-      else if(this.customerInfos.Tag == "Encoder"){
+      else if(this.usersTag == "Encoder"){
         this.items.push(ob3);
         this.items.push(ob4);
       }

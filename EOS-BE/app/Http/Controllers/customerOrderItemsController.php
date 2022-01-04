@@ -39,14 +39,14 @@ class customerOrderItemsController extends Controller
 
         for($i = 0; $i < count($request->register); $i++){
             $register = new customerOrderItems();
-            $register->InvoiceNumber = $request->register[$i]['item_invNumber'];
-            $register->ItemName = $request->register[$i]['item_Name'];
-            $register->ItemDesc = $request->register[$i]['item_Desc'];
-            $register->Discount = $request->register[$i]['item_Discount'];
-            $register->Quantity = $request->register[$i]['item_Quantity'];
-            $register->RetailPrice = $request->register[$i]['item_Price'];
-            $register->ItemCode = $request->register[$i]['item_Code'];
-            $register->ItemImage = $request->register[$i]['item_Image'];
+            $register->invoiceNumber = $request->register[$i]['item_invNumber'];
+            $register->itemName = $request->register[$i]['item_Name'];
+            $register->itemDesc = $request->register[$i]['item_Desc'];
+            $register->discount = $request->register[$i]['item_Discount'];
+            $register->quantity = $request->register[$i]['item_Quantity'];
+            $register->retailPrice = $request->register[$i]['item_Price'];
+            $register->itemCode = $request->register[$i]['item_Code'];
+            $register->itemImage = $request->register[$i]['item_Image'];
             $register->save();
         }
 

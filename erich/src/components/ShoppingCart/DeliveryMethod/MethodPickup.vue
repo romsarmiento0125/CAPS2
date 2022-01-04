@@ -15,10 +15,10 @@
             >Contact Information</p>
             <p
               class="ma-0 pa-0"
-            >{{this.customerInfos.First_Name}}&nbsp;{{this.customerInfos.Last_Name}}</p>
+            >{{usersFName}}&nbsp;{{usersLName}}</p>
             <p
               class="ma-0 pa-0"
-            >{{this.customerInfos.Mobile_Number}}</p>
+            >{{usersMobileNumber}}</p>
           </div>
           <div
             class="pl-5 pt-5"
@@ -118,8 +118,14 @@
     }),
 
     computed: {
-      customerInfos() {
-        return this.$store.state.customerInfos;
+      usersFName(){
+        return localStorage.getItem('firstName');
+      },
+      usersLName(){
+        return localStorage.getItem('lastName');
+      },
+      usersMobileNumber(){
+        return localStorage.getItem('mobileNumber');
       },
     },
 

@@ -13,7 +13,7 @@
               <v-col>
                 <p
                   class="mb-0 mt-6 title"
-                >Status: &nbsp;{{order.Status}}</p>
+                >Status: &nbsp;{{order.status}}</p>
                 <p
                   class="my-0 Caption"
                 >Deliver</p>
@@ -23,7 +23,7 @@
               <v-col>
                 <p
                   class="my-0 subtitle-1"
-                >Invoice &nbsp; #: &nbsp; {{order.InvoiceNumber}}</p>
+                >Invoice &nbsp; #: &nbsp; {{order.invoiceNumber}}</p>
               </v-col>
             </v-row>
             <v-row>
@@ -66,7 +66,7 @@
                 <p
                   class="title mx-5"
                 >
-                  Total: &nbsp;{{priceRound(order.Total)}}
+                  Total: &nbsp;{{priceRound(order.total)}}
                 </p>
                 
               </v-col>

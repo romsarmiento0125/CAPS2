@@ -15,21 +15,21 @@ class CreateCustomerDeliverItemsTable extends Migration
     {
         Schema::create('customer_deliver_items', function (Blueprint $table) {
             $table->id();
-            $table->string('Email');
-            $table->string('InvoiceNumber');
-            $table->string('Name');
-            $table->string('MobileNumber');
-            $table->text('CompleteAddress');
-            $table->string('Status');
-            $table->string('OrderYear');
-            $table->string('OrderMonth');
-            $table->string('OrderDay');
-            $table->string('AdjustedDate');
-            $table->string('ShipFee');
-            $table->string('Discount');
-            $table->string('Tax');
-            $table->string('SubTotal');
-            $table->string('Total');
+            $table->string('email');
+            $table->string('invoiceNumber');
+            $table->string('name');
+            $table->string('mobileNumber');
+            $table->text('completeAddress');
+            $table->string('status');
+            $table->string('orderYear');
+            $table->string('orderMonth');
+            $table->string('orderDay');
+            $table->string('adjustedDate');
+            $table->string('shipFee');
+            $table->string('discount');
+            $table->string('tax');
+            $table->string('subTotal');
+            $table->string('total');
             $table->timestamps();
         });
     }

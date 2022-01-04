@@ -62,20 +62,20 @@
                   v-for="(info, n) in userAllOrders"
                   :key="n"
                 >
-                  <td>{{info.Name}} <br> {{info.MobileNumber}}</td>
+                  <td>{{info.name}} <br> {{info.mobileNumber}}</td>
                   <td><oc-orderdetails
-                    :ivNumber="info.InvoiceNumber"
+                    :ivNumber="info.invoiceNumber"
                     :orders="info.orders"
-                    :odDate="info.AdjustedDate"
-                    :sTotal="info.SubTotal"
-                    :shipMethod="info.ShipFee"
-                    :dDiscount="info.Discount"
-                    :tTax="info.Tax"
-                    :tTotal="info.Total"
+                    :odDate="info.adjustedDate"
+                    :sTotal="info.subTotal"
+                    :shipMethod="info.shipFee"
+                    :dDiscount="info.discount"
+                    :tTax="info.tax"
+                    :tTotal="info.total"
                   ></oc-orderdetails></td>
-                  <td>{{info.CompleteAddress}}</td>
-                  <td>{{info.Status}} <br> To Avoid cancellation please send the <br> products until &nbsp;{{info.AdjustedDate}}</td>
-                  <td v-if="info.Status == 'Pending'">
+                  <td>{{info.completeAddress}}</td>
+                  <td>{{info.status}} <br> To Avoid cancellation please send the <br> products until &nbsp;{{info.adjustedDate}}</td>
+                  <td v-if="info.status == 'Pending'">
                     <div class="text-center">
                       <v-menu offset-y>
                         <template v-slot:activator="{ on, attrs }">
@@ -95,12 +95,12 @@
                           >
                             <v-list-item-title>
                               <v-btn
-                                @click="toProcess(dateToAccept(info.OrderYear, info.OrderMonth, info.OrderDay, counter),
-                                  info.id, info.Email, info.MobileNumber, info.InvoiceNumber, info.Name, info.CompleteAddress,
-                                  info.OrderYear, info.OrderMonth, info.OrderDay, info.ShipFee, info.Discount, info.Tax,
-                                  info.SubTotal, info.Total
+                                @click="toProcess(dateToAccept(info.orderYear, info.orderMonth, info.orderDay, counter),
+                                  info.id, info.email, info.mobileNumber, info.invoiceNumber, info.name, info.completeAddress,
+                                  info.orderYear, info.orderMonth, info.orderDay, info.shipFee, info.discount, info.tax,
+                                  info.subTotal, info.total
                                 )"
-                              >{{dateToAccept(info.OrderYear, info.OrderMonth, info.OrderDay, counter)}}</v-btn>
+                              >{{dateToAccept(info.orderYear, info.orderMonth, info.orderDay, counter)}}</v-btn>
                             </v-list-item-title>
                           </v-list-item>
                         </v-list>
@@ -108,13 +108,13 @@
                     </div>
                   </td>
                   <td
-                    v-else-if="info.Status == 'Process'"
+                    v-else-if="info.status == 'Process'"
                   >
                     <div class="text-center">
                       <v-btn
-                        @click="toDeliver(info.AdjustedDate, info.id, info.Email, info.MobileNumber, info.InvoiceNumber, info.Name, info.CompleteAddress,
-                                  info.OrderYear, info.OrderMonth, info.OrderDay, info.ShipFee, info.Discount, info.Tax,
-                                  info.SubTotal, info.Total)"
+                        @click="toDeliver(info.adjustedDate, info.id, info.email, info.mobileNumber, info.invoiceNumber, info.name, info.completeAddress,
+                                  info.orderYear, info.orderMonth, info.orderDay, info.shipFee, info.discount, info.tax,
+                                  info.subTotal, info.total)"
                       >
                         <p> deliver </p>
                       </v-btn>
@@ -172,6 +172,9 @@
       userAllOrders() {
         return this.$store.state.userAllOrders;
       },
+      usersToken(){
+        return localStorage.getItem('token');
+      },
     },
 
     methods: {
@@ -222,6 +225,11 @@
         console.log(this.orderUpdate);
         axios.put(this.getDomain()+'api/customerorder/' + id, {
             register: this.orderUpdate
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
           })
           .then(res => {
             console.log(res.data);
@@ -249,6 +257,11 @@
         this.orderUpdate.Total = Total;
         axios.post(this.getDomain()+'api/customerdeliveritems/store', {
             register: this.orderUpdate
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
           })
           .then(res => {
             this.toDelete(id);
@@ -257,7 +270,12 @@
           .catch(err => console.error(err));
       },
       toDelete(id){
-        axios.delete(this.getDomain()+'api/customerorder/'+ id)
+        axios.delete(this.getDomain()+'api/customerorder/'+ id,
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
           .then( res => {
             console.log("Delete")
             console.log(res.data);
@@ -267,7 +285,12 @@
         
       },
       getAllOrder(){
-        axios.get(this.getDomain()+'api/customerorder')
+        axios.get(this.getDomain()+'api/customerorder',
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
         .then(res => {
           console.log(res.data);
           this.$store.commit('storeUserAllOrders', res.data);

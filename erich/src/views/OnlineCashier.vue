@@ -1,5 +1,5 @@
 <template>
-  <div v-if="customerInfos.Tag == 'Ocashier' || this.customerInfos.Tag == 'Admin'">
+  <div v-if="usersTag == 'Ocashier' || usersTag == 'Admin'">
     <oc-header></oc-header>
     <oc-deliver v-if="oCashierDeliver"></oc-deliver>
     <oc-pickup v-else-if="oCashierPickup"></oc-pickup>
@@ -37,42 +37,70 @@
       oCashierPickup() {
         return this.$store.state.oCashierPickup;
       },
-      customerInfos() {
-        return this.$store.state.customerInfos;
+      usersTag(){
+        return localStorage.getItem('tag');
+      },
+      usersToken(){
+        return localStorage.getItem('token');
       },
     },
 
     methods: {
       getAllOrder(){
-        axios.get(this.getDomain()+'api/customerorder')
+        axios.get(this.getDomain()+'api/customerorder',
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
         .then(res => {
           this.$store.commit('storeUserAllOrders', res.data);
         })
         .catch(err => console.error(err));
       },
       getAllDeliver(){
-        axios.get(this.getDomain()+'api/customerdeliveritems')
+        axios.get(this.getDomain()+'api/customerdeliveritems',
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
         .then(res => {
           this.$store.commit('storeUserAllDeliver', res.data);
         })
         .catch(err => console.error(err));
       },
       getAllComplete(){
-        axios.get(this.getDomain()+'api/customercompleteitems')
+        axios.get(this.getDomain()+'api/customercompleteitems',
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
         .then(res => {
           this.$store.commit('storeUserAllComplete', res.data);
         })
         .catch(err => console.error(err));
       },
       getPickupOrder(){
-        axios.get(this.getDomain()+'api/customerpickup')
+        axios.get(this.getDomain()+'api/customerpickup',
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
           .then(res => {
             this.$store.commit('storeUserPickupOrders', res.data);
           })
           .catch(err => console.error(err));
       },
       getPickupPickup(){
-        axios.get(this.getDomain()+'api/customerpickuppickup')
+        axios.get(this.getDomain()+'api/customerpickuppickup',
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
           .then(res => {
             console.log(res.data);
             this.$store.commit('storeUserAllPickup', res.data);
@@ -80,44 +108,25 @@
           .catch(err => console.error(err));
       },
       getPickupComplete(){
-        axios.get(this.getDomain()+'api/customerpickupcomplete')
+        axios.get(this.getDomain()+'api/customerpickupcomplete',
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
           .then(res => {
             console.log(res.data);
             this.$store.commit('storeUserPickupComplete', res.data);
           })
           .catch(err => console.error(err));
       },
-      loginChecker(){
-        this.usersData.usersEmail = sessionStorage.getItem('Email');
-        this.usersData.usersPassword = sessionStorage.getItem('Pass');
-        if(this.customerInfos == null){
-          this.loginAgain(this.usersData);
-        }
-        else{
-        }
-      },
-      tagChecker(){
-        if(this.customerInfos.Tag == null){
-          this.$router.push("/");
-        }
-        else if (this.customerInfos.Tag == "Ocashier" || this.customerInfos.Tag == "Admin"){
-          console.log("do nothing");
-        }
-        else{
-          this.$router.push("/");
-        }
-      }
     },
 
     watch: {
-      customerInfos() {
-        this.tagChecker();
-      }
+
     },
 
     beforeMount(){
-      this.loginChecker();
-      this.tagChecker();
       this.getAllOrder();
       this.getAllDeliver();
       this.getAllComplete();

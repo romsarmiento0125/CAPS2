@@ -18,7 +18,7 @@
               <p
                 class="title"
               >Order #:{{customerPickup.InvoiceNumber}}</p>
-              <p>Thank you&nbsp;{{customerInfos.First_Name}}&nbsp;{{customerInfos.Last_Name}}<p>
+              <p>Thank you&nbsp;{{usersFName}}&nbsp;{{usersLName}}<p>
               <div>
                 <div>
                   <p>Your Order is confirmed</p>
@@ -110,9 +110,6 @@
     }),
 
     computed: {
-      customerInfos() {
-        return this.$store.state.customerInfos;
-      },
       pickupDate() {
         return this.$store.state.pickupDate;
       },
@@ -122,31 +119,41 @@
       storeCustomerItems() {
         return this.$store.state.customerItems;
       },
+      usersEmail(){
+        return localStorage.getItem('email');
+      },
+      usersFName(){
+        return localStorage.getItem('firstName');
+      },
+      usersLName(){
+        return localStorage.getItem('lastName');
+      },
+      usersMobileNumber(){
+        return localStorage.getItem('mobileNumber');
+      },
+      usersToken(){
+        return localStorage.getItem('token');
+      },
     },
 
     methods: {
       checkOut() {
-        //console.log("Check out");
-        // console.log(this.customerInfos);
-        // console.log(this.customerPickup);
-        // console.log(this.pickupDate);
-        // console.log(this.pickupTime);
-        //this.$router.push({path: '/'});
-
-        
-
-        this.customerPickup.Name = this.customerInfos.First_Name + " " + this.customerInfos.Last_Name;
-        this.customerPickup.Email = this.customerInfos.Email;
-        this.customerPickup.Mobilenumber = this.customerInfos.Mobile_Number;
+        this.customerPickup.Name = this.usersFName + " " + this.usersLName;
+        this.customerPickup.Email = this.usersEmail;
+        this.customerPickup.Mobilenumber = this.usersMobileNumber;
         this.customerPickup.pickupDate = this.pickupDate;
         this.customerPickup.pickupTime = this.pickupTime;
         
         axios.post(this.getDomain()+'api/customerpickup/store', {
           register: this.customerPickup
+        },
+        {
+          headers:{
+            "Authorization": `Bearer ${this.usersToken}`,
+        }
         })
         .then(res => {
           this.storeCustomerPickupItems()
-          //console.log(res.data);  
         })
         .catch(err => console.error(err));
 
@@ -156,6 +163,11 @@
       storeCustomerPickupItems(){
         axios.post(this.getDomain()+'api/customerpickupitems/store', {
             register: this.customerPickupItems
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
           })
           .then(res => {
             //console.log(res.data);  
@@ -166,7 +178,12 @@
         // console.log("Clean Cart");
         // console.log(this.customerPickupItems);
         for(var i = 0; i < this.customerPickupItems.length; i++){
-          axios.delete(this.getDomain()+'api/getcart/'+ this.customerPickupItems[i].id)
+          axios.delete(this.getDomain()+'api/getcart/'+ this.customerPickupItems[i].id,
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
           .then( res => {
             //console.log("Delete")
             //console.log(res.data);
