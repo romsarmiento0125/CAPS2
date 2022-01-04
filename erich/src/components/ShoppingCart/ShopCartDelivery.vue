@@ -28,7 +28,7 @@
                 ></v-img>
                 </v-col>
                 
-                <v-col cols="8" class="ma-4">
+                <v-col cols="10" class="mt-4 pl-0">
                   <v-row >
                     <v-col cols="12" class="ma-0 pa-0">
                       <h5
@@ -62,21 +62,21 @@
                     class="fontTitle font-weight-bold"
                   >Customer Information</h4>
                   <div
-                    class="d-flex pt-5"
+                    class="d-flex pt-6"
                   >
                     <div class="my-1">
-                      <h5>Contact Information</h5>
+                      <h5 class="fontDesc">Contact Information</h5>
                       <h5 class="fontTitle font-weight-regular mt-3">{{customerOrder.Mobilenumber}}</h5>
                     </div>
                   </div>
 
                   <div class="my-4">
-                    <h5 class="">Shipping Address</h5>
+                    <h5 class="fontDesc">Shipping Address</h5>
                     <h5 class="fontTitle font-weight-regular mt-3">{{customerOrder.CompleteAddress}}</h5>
                   </div>
 
                   <div class="my-4">
-                    <h5>Shipping Fee</h5>
+                    <h5 class="fontDesc">Shipping Fee</h5>
                     <h5 class="fontTitle font-weight-regular mt-3">{{customerOrder.Shipping}}</h5>
                   </div>
 
@@ -86,7 +86,7 @@
               </div>
             </div>
             <div
-              class="d-flex justify-end pr-15"
+              class="d-flex justify-end pa-15"
             >
               <v-btn
                 dark

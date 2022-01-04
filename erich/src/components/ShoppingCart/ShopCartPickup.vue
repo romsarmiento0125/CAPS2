@@ -15,22 +15,51 @@
             <div
               class="ma-5 pa-10"
             >
-              <p
-                class="title"
-              >Order #:{{customerPickup.InvoiceNumber}}</p>
-              <p>Thank you&nbsp;{{customerInfos.First_Name}}&nbsp;{{customerInfos.Last_Name}}<p>
+            <v-row>
+              <v-col cols="2">
+                 <v-img
+                  contain
+                  src="../../assets/check.svg"
+                  max-height="50px"
+                  max-width="50px"
+
+                ></v-img>
+              </v-col>
+
+              <v-col cols="10" class="mt-4 pl-0">
+                <v-row>
+                  <v-col cols="12" class="ma-0 pa-0">
+                    <h5
+                    class="font-weight-bold my-0 fontDesc"
+                    >Order #:{{customerPickup.InvoiceNumber}}</h5>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col cols="12" class="ma-0 pa-0">
+                    <h5 class="my-0 font-weight-black fontTitle">
+                    Thank you&nbsp;{{customerInfos.First_Name}}&nbsp;{{customerInfos.Last_Name}}</h5>
+                  </v-col>
+                </v-row>
+              </v-col>
+            </v-row>
+          
               <div>
-                <div>
-                  <p>Your Order is confirmed</p>
-                  <p>Please give our driver the exact amount.</p>
+                <div class="mt-5 nOrder elevation-1">
+                  <div class="ma-4 pa-0">
+                    <h4 class="my-0 font-weight-bold fontTitle">Your Order is confirmed</h4>
+                    <h5 class="my-0 font-weight-regular">Please procede to the cashier.</h5>
+                  </div>
+                  
                 </div>
               </div>
             </div>
             <div
-              class="d-flex justify-end pa-5"
+              class="d-flex justify-end pa-15"
             >
               <v-btn
-                color="primary"
+                dark
+                class="px-6 pa-2"
+                color="#1106A0"
                 @click="checkOut()"
               >
                 Continue Shopping
@@ -225,3 +254,23 @@
     }
   }
 </script>
+
+<style scoped>
+.fontTitle{
+    color:#464646;
+  }
+  .fontDesc{
+    color: #787885;
+  }
+
+  .nContact{
+    border: 1px solid #787885;
+    border-radius: 5px;
+    border-right: 1px solid;
+    line-height: 10px;
+  }
+  .nOrder{
+    border: 1px solid #787885;
+    border-radius: 5px;
+  }
+</style>

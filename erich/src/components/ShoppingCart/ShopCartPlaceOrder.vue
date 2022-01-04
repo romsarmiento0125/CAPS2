@@ -14,47 +14,53 @@
         <v-col
           offset="1"
           cols="1"
+          class=""
         >
-          <div class="mx-0">
+          <div>
             
             <v-btn
               @click="deliveryMethodCond()"
               :color="shipBtn"
+              class=""
             >
               <v-icon
                 :color="shipIcon"
+                size="20px"
               >
                 mdi-truck-delivery-outline
               </v-icon>
-              <p
-                class="my-0 py-0 px-3"
+              <h5
+                class="my-0 py-0 px-3 font-weight-bold"
                 :style="shipText"
               >
                 Ship
-              </p>
+              </h5>
             </v-btn>
           </div>
           
         </v-col>
         <v-col
           cols="1"
+          class="ma-0 pl-0"
         >
-          <div class="ml-1">
+          <div>
             <v-btn
               @click="pickupMethodCond()"
               :color="pickBtn"
+              
             >
               <v-icon
                 :color="pickIcon"
+                size="20px"
               >
                 mdi-store
               </v-icon>
-              <p
-                class="my-0 py-0"
+              <h5
+                class="my-0 py-0 px-3 font-weight-bold"
                 :style="pickText"
               >
                 Pick Up
-              </p>
+              </h5>
             </v-btn>
           </div>
           
