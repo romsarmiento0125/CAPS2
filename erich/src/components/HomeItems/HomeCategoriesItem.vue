@@ -22,23 +22,23 @@
               xl="2"
             >
               <v-card
-                min-height="460px"
+                min-height="465px"
                 min-width="230px"
-                max-height="460px"
+                max-height="465px"
                 max-width="230px"
-                class=""
+                class="elevation-1"
               >
                 <div>
                   <div
                     class="d-flex pt-1 pl-2"
                   >
-                    <p
-                      class="border ma-0 py-0 px-1 title pink--text"
+                    <h4
+                      class="border ma-0 py-0 mt-1 px-1  pink--text"
                       v-if="item.discount != 0"
                       style="border: 1px solid red; border-radius: 5px"
                     >
-                      -{{item.discount}}%
-                    </p>
+                      - {{item.discount}}%
+                    </h4>
                     <p
                       class="pb-4"
                       v-else
@@ -58,14 +58,21 @@
                   ></v-img>
 
                   <v-card-title
-                    class="blue--text"
+                    class="fontStyle fontBlue"
+                    
                   >
-                    <v-icon
-                      color="blue"
+                    <div class="d-flex">
+                      <v-icon
+                      color="#1106A0"
+                      size="18px"
+                      class="mr-1"
                     >
                       mdi-currency-php
                     </v-icon>
-                    {{priceRound(item.retailPrice - ((item.discount / 100) * item.retailPrice))}}
+                    <h5>{{priceRound(item.retailPrice - ((item.discount / 100) * item.retailPrice))}}</h5>
+                    
+                    </div>
+                    
                   </v-card-title>
 
                   <v-card-subtitle
@@ -110,14 +117,22 @@
                   >
                     <v-spacer></v-spacer>
                     <v-btn
-                      x-large
+                    class="mr-5"
+                      large
                       icon
-                      color="primary"
+                      white
+                      text
+                      color="#1106A0"
                       @click="addToCartItems(item.itemCode)"
                     >
-                      <v-icon>
-                        mdi-cart-outline
-                      </v-icon>
+                      <v-img
+                        contain
+                        src="../../assets/Cart.svg"
+                        max-height="40px"
+                        max-width="40px"
+                        >
+                        
+                      </v-img>
                     </v-btn>
                   </div>
                 </div>
@@ -256,3 +271,18 @@
     },
   }
 </script>
+
+<style scoped>
+.fontBlue{
+  color: #1106A0;
+}
+@font-face {
+  font-family: "RedHatDisplay";
+  src: local("RedHatDisplay"),
+   url(../../assets/Fonts/RedHatDisplay-VariableFont_wght.ttf) format("truetype");
+}
+.fontStyle{
+     font-family: "RedHatDisplay", Helvetica, Arial;
+  }
+
+</style>

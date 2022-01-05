@@ -30,7 +30,7 @@
                 mdi-truck-delivery-outline
               </v-icon>
               <h5
-                class="my-0 py-0 px-3 font-weight-bold"
+                class="my-0 py-0 px-4 font-weight-black"
                 :style="shipText"
               >
                 Ship
@@ -111,15 +111,15 @@
                             >
                               <v-icon>mdi-chevron-left</v-icon>
                               <p
-                                class="ma-0 "
+                                class="ma-0 font-weight-black"
                               >return to cart</p>
                             </v-btn>
                           </v-col>
 
-                          <v-col cols="6" class="d-flex justify-end ">
+                          <v-col cols="6" class="d-flex justify-end">
                             <v-btn
                               dark
-                              class="px-6"
+                              class="px-6 mr-6"
                               color="#1106A0"
                               :to="{name: 'Cart' , params: { id: 'delivery', title: 'Delivery'}}"
                               @click="placeOrderDeliver()"
@@ -165,7 +165,7 @@
                             >
                               <v-icon>mdi-chevron-left</v-icon>
                               <p
-                                class="ma-0 "
+                                class="ma-0 font-weight-bold"
                               >return to cart</p>
                             </v-btn>
                           </v-col>
@@ -173,7 +173,7 @@
                           <v-col cols="6" class="d-flex justify-end">
                             <v-btn
                               dark
-                              class="px-6"
+                              class="px-6 mr-6"
                               color="#1106A0"
                               :to="{name: 'Cart' , params: { id: 'pickup', title: 'Pick Up'}}"
                               @click="placeOrderPickup()"

@@ -8,10 +8,10 @@
           class="pa-15"
         >
           <div> 
-            <h3
+            <h4
               class="fontTitle font-weight-bold"
             >
-              Contact Information</h3>
+              Contact Information</h4>
               <v-row class="nContact mx-0 ma-3">
                 <v-col cols="6">
                   <p
@@ -33,11 +33,11 @@
           <div
             class="pt-4"
           >
-            <h3
+            <h4
               class="fontTitle font-weight-bold"
             >
               Delivery Address
-            </h3>
+            </h4>
             <div
               class="d-flex nDelivery mx-0 ma-3 pa-3 fontDesc"
             >
@@ -54,16 +54,16 @@
                 right
                 @click="changeAddress"
               >
-                Change Adress
+                Change Address
               </v-btn>
             </div>
           </div>
           <div
             class="pt-4"
           >
-            <h3
+            <h4
               class="ma-0 pa-0 fontTitle font-weight-bold"
-            >Delivery Fee</h3>
+            >Delivery Fee</h4>
             <div class="py-2">
               <p>{{Shipping}}</p>
             </div>
