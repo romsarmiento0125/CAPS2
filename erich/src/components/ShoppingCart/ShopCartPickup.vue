@@ -85,7 +85,7 @@
             <v-card-title class="text-h5">
               Tapos kana umorder.
             </v-card-title>
-            <v-card-text>Eto ang iyong receipt number:&nbsp;{{customerPickup.InvoiceNumber}}</v-card-text>
+            <v-card-text>Eto ang iyong receipt number:&nbsp;{{customerPickup.invoiceNumber}}</v-card-text>
             <v-card-text>Yung order mo pending pa antayin mo may mag text sayo</v-card-text>
             <v-card-text></v-card-text>
             <v-card-actions>

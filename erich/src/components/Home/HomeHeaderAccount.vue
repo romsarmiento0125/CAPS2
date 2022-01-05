@@ -189,7 +189,7 @@
       selectedItem: 0,
       selectedNotif: 0,
       notifications: [
-        { title: "Verify", desc: 'Verify Your Email', to: "verify"},
+        // { title: "Verify", desc: 'Verify Your Email', to: "verify"},
       ],
        items: [
         { title: "Account", text: 'My Account', icon: 'mdi-account', to: "account"  },
@@ -199,7 +199,7 @@
       customerEmail: "",
       cartCounter: 0,
       searchKey: "",
-      notifCounter: 1,
+      notifCounter: 0,
     }),
 
     computed: {
@@ -296,16 +296,36 @@
           this.cartCounter = this.cartCounter + data[i].quantity;
         }
         this.$store.commit('storeCartQuantity', this.cartCounter);
-      }
+      },
+      getNotif(){
+        this.customerEmail = this.usersEmail;
+        axios.post(this.getDomain()+'api/customernotif/getnotif', {
+          customeremail: this.customerEmail
+        },
+        {
+          headers:{
+            "Authorization": `Bearer ${this.usersToken}`,
+        }
+        })
+        .then(res => {
+          var notif;
+          console.log("Customer Notif");
+          console.log(res.data);
+          for(var i = 0; i < res.data.length; i++){
+            notif = {
+              id: res.data[i].id,
+              title: res.data[i].title,
+              desc: res.data[i].description,
+              to: res.data[i].link,
+            }
+            this.notifications.push(notif);
+            this.notifCounter++;
+          }
+          this.$store.commit('userNotif', this.notifications);
+        })
+        .catch(err => console.error(err));
+      },
     },
-
-    
-
-    // mounted(){
-    //   setTimeout(() => {
-    //     this.$store.state.cartItems = {cart: 0};
-    //   }, 3000);
-    // },
 
     beforeMount(){
       var ob1 = { title: "Admin", text: 'Admin', icon: 'mdi-cog-outline', to: "admin" };
@@ -325,6 +345,7 @@
         this.items.push(ob4);
       }
       this.getItemsQuantity();
+      this.getNotif();
     },
   }
 </script>

@@ -70,18 +70,8 @@
           this.$router.push("/physicalcashier")
         }
       },
-      loginChecker(){
-        this.usersData.usersEmail = sessionStorage.getItem('Email');
-        this.usersData.usersPassword = sessionStorage.getItem('Pass');
-        if(this.customerInfos == null){
-          this.loginAgain(this.usersData);
-        }
-        else{
-        }
-      }
     },
     beforeMount() {
-      // this.loginChecker();
       this.navbarPicker();
     },
   }

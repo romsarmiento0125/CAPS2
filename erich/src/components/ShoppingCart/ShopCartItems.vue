@@ -280,6 +280,9 @@
       usersEmail(){
         return localStorage.getItem('email');
       },
+      usersTag(){
+        return localStorage.getItem('tag');
+      },
       usersToken(){
         return localStorage.getItem('token');
       },
@@ -442,7 +445,7 @@
       checkoutButtonChecker(){
         // console.log("cartQutantity cheker");
         // console.log(this.cartQuantity);
-        if(this.totPrice == 0){
+        if((this.totPrice == 0) || (this.usersTag == "Unverified")){
           // console.log("items is null");
           this.checkoutButton = true;
         }
