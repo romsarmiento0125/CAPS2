@@ -9,10 +9,10 @@
         >
 
           <div> 
-            <h3
+            <h4
               class="fontTitle font-weight-bold"
             >
-            Contact Information</h3>
+            Contact Information</h4>
 
             <v-row class="nContact mx-0 ma-3">
               <v-col cols="6">
@@ -32,9 +32,9 @@
           <div
             class="pt-4"
           >
-            <h3
+            <h4
               class="fontTitle font-weight-bold"
-            >Pickup date and time</h3>
+            >Pickup date and time</h4>
             <div class="pt-3">
               <v-menu
                 ref="menu"

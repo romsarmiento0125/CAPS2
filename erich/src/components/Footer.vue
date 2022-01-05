@@ -1,26 +1,26 @@
 <template>
-  <div>
+  <div class="mt-15">
     <v-footer
       color=""
       height="auto"
+      width="auto"
       style="
-        background:white"
-      
+        background-color:#FFFFFF"
+      class=""
     >
-      <v-container
-        class="my-5"
-      >
-        <v-card
-        style="background:#F9F9FF"
-        
-        class="elevation-0 rounded-card"
+    <v-container fluid>
+    
+    <v-row>
+      <v-col cols="10" offset="1" class="d-flex justify-center px-1">
+        <v-sheet
+          color="#F9F9FF"
+          width="100%"
+          class="py-5"
+          rounded="xl"
         >
-          
-            <v-row class=" d-flex justify-center py-5">
-              <v-col
-              cols="4"
-              >
-                <div
+        <v-row >
+          <v-col cols="4" offset="1" class="">
+            <div
                 class="d-flex flex-column mt-5"
                 >
                 <h3
@@ -32,106 +32,110 @@
                 >
                 Hello from ERICH Grocery!
                 </h3>
-                  <p class="d-flex text-justify   mt-3 px-5 grey--text text--darken-2">
+                <p class="d-flex text-justify   mt-3 px-5 grey--text text--darken-2">
                     Erich Grocery Store is a local website grocery delivery service In Sta. Maria Bulacan. Its goal is to ensure that basic daily necessities are delivered quickly, conveniently, and safely like beverages, breads, dairy, home essentials, hygiene, chips, candy, noodles, biscuit, Frozen goods, canned goods.
-                  </p>
-                </div>
-              </v-col>
-              <v-col
-                cols="3"
+                </p>
+            </div>
+          </v-col>
+
+          <v-col cols="3">
+            <div
+                class="d-flex flex-column mt-5 "
               >
-                <div
-                  class="d-flex flex-column mt-5 "
+                <h3
+                  class="d-flex 
+                  justify-center 
+                  fontTitle 
+                  qfont"
                 >
-                  <h3
-                    class="d-flex 
-                    justify-center 
-                    fontTitle 
-                    qfont"
-                  >
-                    Policies
-                  </h3>
-                  <v-btn
-                    plain
-                    text
-                    class=" btn no-uppercase font-weight-bold"
-                    
-                  >
-                    Refund Policy
-                  </v-btn>
+                  Policies
+                </h3>
+                <v-btn
+                  plain
+                  text
+                  class=" btn no-uppercase font-weight-bold"
                   
-                  <v-btn
-                    plain
-                    class=" font-weight-bold no-uppercase"
-                  >
-                    Shipping Policy
-                  </v-btn>
-
-                  <v-btn
-                    plain
-                    class=" font-weight-bold no-uppercase"
-                  >
-                    Privacy Policy
-                  </v-btn>
-
-                   <v-btn
-                    plain
-                    class=" font-weight-bold no-uppercase"
-                  >
-                    Terms of Service
-                  </v-btn>
-                </div>
-              </v-col>
-
-              <v-col
-                cols="3"
-              >
-                <div
-                  class="d-flex flex-column justify-center mt-5"
                 >
-                  <h3
-                    class="d-flex 
-                    justify-center 
-                    qfont
-                    fontTitle
-                    "
-                  >
-                    Quick Links
-                  </h3>
-                  <v-btn
-                    plain
-                    class=" font-weight-bold  no-uppercase"
-                  >
-                    About Us
-                  </v-btn>
+                  Refund Policy
+                </v-btn>
+                
+                <v-btn
+                  plain
+                  class=" font-weight-bold no-uppercase"
+                >
+                  Shipping Policy
+                </v-btn>
+
+                <v-btn
+                  plain
+                  class=" font-weight-bold no-uppercase"
+                >
+                  Privacy Policy
+                </v-btn>
 
                   <v-btn
-                    plain
-                    class=" font-weight-bold no-uppercase"
-                  >
-                    Contact us
-                  </v-btn>
-                </div>
-              </v-col>
-            </v-row>
-        </v-card>
+                  plain
+                  class=" font-weight-bold no-uppercase"
+                >
+                  Terms of Service
+                </v-btn>
+              </div>
+          </v-col>
+
+          <v-col cols="3">
+            <div
+                class="d-flex flex-column justify-center mt-5"
+              >
+                <h3
+                  class="d-flex 
+                  justify-center 
+                  qfont
+                  fontTitle
+                  "
+                >
+                  Quick Links
+                </h3>
+                <v-btn
+                  plain
+                  class=" font-weight-bold  no-uppercase"
+                >
+                  About Us
+                </v-btn>
+
+                <v-btn
+                  plain
+                  class=" font-weight-bold no-uppercase"
+                >
+                  Contact us
+                </v-btn>
+              </div>
+          </v-col>
+
+        </v-row>
+
+
         
-        <div>
+        </v-sheet>
+      </v-col>
+      
+    </v-row>
+   
           <v-row>
             <v-col
-            cols="10"
+            cols="8"
+            offset="1"
             >
-              <div class="mt-5 mx-5">
+              <div class="mx-5">
               <v-icon color="#1106A0"> mdi-alpha-c-circle-outline</v-icon>
               <span class="qfont fontTitle ml-1"> Erich Grocery. All Rights Reserve</span>
             </div>
             </v-col>
 
             <v-col
-            cols="2"
+            cols="2" class="d-flex justify-end"
             >
             <div
-            class=" mt-5 pl-10 "
+            class="pr-2"
             >
               <v-btn dark text>
                 <v-icon color="#1106A0">mdi-facebook</v-icon>
@@ -150,10 +154,12 @@
             </v-col>
           </v-row>
         
-        </div>
-          
-       
-      </v-container>
+        
+
+    </v-container>
+
+
+
     </v-footer>
   </div>
 </template>

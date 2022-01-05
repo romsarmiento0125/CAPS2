@@ -79,26 +79,51 @@
         <v-dialog
           v-model="dialog"
           persistent
-          max-width="290"
+          max-width="22%"
         >
-          <v-card>
-            <v-card-title class="text-h5">
-              Tapos kana umorder.
-            </v-card-title>
-            <v-card-text>Eto ang iyong receipt number:&nbsp;{{customerPickup.invoiceNumber}}</v-card-text>
-            <v-card-text>Yung order mo pending pa antayin mo may mag text sayo</v-card-text>
-            <v-card-text></v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn
-                color="green darken-1"
-                text
-                @click="closeDialog"
-              >
-                Agree
-              </v-btn>
-            </v-card-actions>
-          </v-card>
+           <v-sheet>
+            <v-row>
+              <v-col cols="12" class="d-flex justify-center mt-5">
+                 <v-img
+                  contain
+                  src="../../assets/checkG.svg"
+                  max-height="40px"
+                  max-width="40px"
+                  class=" ma-2" 
+                ></v-img>
+                  <h1 class="mt-1 fontTitle">Order Complete.</h1>
+                </v-col>
+            </v-row>
+              <div class="d-flex justify-center mt-2">
+                <h4 class="fontDesc">Receipt number:&nbsp;{{customerPickup.InvoiceNumber}}</h4>
+              </div>
+
+              <div class="ma-10">
+                <div class="d-flex justify-center mt-10 fontBlue">
+                 <h2 class="mt-5">Thankyou!.</h2>
+                </div>   
+
+                <div class="d-flex justify-center fontDesc">
+                  <h3 class="">Your order is pending.</h3>
+                </div>    
+                          
+                <div class="d-flex justify-center fontDesc">
+                 <h4 class="">Kindly wait for the confirmation text.</h4>
+                </div>
+              </div>
+              <div class="mx-10 d-flex justify-end">
+                <v-btn
+                  block
+                  class="pa-5 "
+                  color="#1106A0"
+                  outlined
+                  @click="closeDialog"
+                >
+                  ok
+                </v-btn>
+                <p></p>
+              </div>
+          </v-sheet>
         </v-dialog>
       </v-row>
     </v-container>
@@ -279,6 +304,9 @@
   .fontDesc{
     color: #787885;
   }
+.fontBlue{
+  color:#1106A0;
+}
 
   .nContact{
     border: 1px solid #787885;
