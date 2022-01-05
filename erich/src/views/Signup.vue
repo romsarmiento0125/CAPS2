@@ -688,6 +688,15 @@
             console.log(res);
           })
           .catch(err => console.error(err));
+
+          axios.post(this.getDomain()+'api/customernotif/store',{
+            clientCred: this.usersData
+          })
+          .then(res => {
+            console.log("This is notifications");
+            console.log(res.data);
+          })
+          .catch(err => console.error(err));
         }
       },
       userLogin() {
@@ -708,6 +717,7 @@
           alert("Invalid Credentials");
         }
         else{
+          localStorage.setItem("id", cinfo.user.id);
           localStorage.setItem("firstName", cinfo.user.first_Name);
           localStorage.setItem("lastName", cinfo.user.last_Name);
           localStorage.setItem("email", cinfo.user.email);
@@ -717,7 +727,7 @@
           localStorage.setItem("tag", cinfo.user.tag);
           localStorage.setItem("token", cinfo.token);
 
-           axios.post(this.getDomain()+'api/loginaddress/store',{
+          axios.post(this.getDomain()+'api/loginaddress/store',{
             clientCred: this.usersData
           },
           {

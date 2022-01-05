@@ -126,6 +126,7 @@
         }
         else{
           // console.log(cinfo);
+          localStorage.setItem("id", cinfo.user.id);
           localStorage.setItem("firstName", cinfo.user.first_Name);
           localStorage.setItem("lastName", cinfo.user.last_Name);
           localStorage.setItem("email", cinfo.user.email);

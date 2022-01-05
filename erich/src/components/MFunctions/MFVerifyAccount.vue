@@ -24,6 +24,7 @@
               class="pa-0 mt-5"
             >
               <v-text-field
+                v-model="code"
                 outlined
                 dense
                 class="mt-1"
@@ -57,24 +58,156 @@
         </v-col>
       </v-row>
     </v-container>
+    <div class="text-center">
+      <v-dialog
+        v-model="dialog"
+        width="15%"
+      >
+        <v-card
+          class="pt-5"
+        >
+          <v-card-text class="pb-0">
+            <p class="text-h5 text--primary d-inline-block text-truncate">
+              Hi {{usersFName}} &nbsp; {{usersLName}}
+            </p>
+            <p>Verification code sent</p>
+            <div class="text--primary">
+              Kindly check your email <br>
+              for the verification code.
+            </div>
+             <p class="text-h6 text--primary mt-2 mb-0 py-0">
+              Thankyou.
+            </p>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              text
+              color="blue accent-4"
+              @click="dialog = false"
+            >
+              Ok
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </div>
   </div>
 </template>
 
 <script>
+  import {Mixins} from '../../Mixins/mixins.js'
+
   export default {
+    mixins: [Mixins],
     data: () => ({
+      verify: {
+        email: "",
+        name: "",
+        code: "",
+
+      },
+      code: "",
+      dialog: true,
     }),
 
     components: {
     },
 
+    computed: {
+      userId(){
+        return localStorage.getItem('id');
+      },
+      usersEmail(){
+        return localStorage.getItem('email');
+      },
+      usersFName(){
+        return localStorage.getItem('firstName');
+      },
+      usersLName(){
+        return localStorage.getItem('lastName');
+      },
+      usersToken(){
+        return localStorage.getItem('token');
+      },
+      userNotif(){
+        return this.$store.state.userNotif;
+      }
+    },
+
     methods: {
       sendCode(){
-        console.log("code sent");
+        var r1 = Math.floor(Math.random() * 9) + 1;
+        var r2 = Math.floor(Math.random() * 9) + 1;
+        var r3 = Math.floor(Math.random() * 9) + 1;
+        var r4 = Math.floor(Math.random() * 9) + 1;
+
+        this.verify.email = this.usersEmail;
+        this.verify.name = this.usersFName + " " +this.usersLName;
+        this.verify.code = ""+r1+r2+r3+r4;
+
+        axios.post(this.getDomain()+'api/emailverification', {
+            email: this.verify
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
+          .then(res => {
+            console.log(res.data);
+          })
+          .catch(err => console.error(err));
       },
       verifyEmail(){
-        console.log("email verify");
-      }
+        if(this.verify.code == this.code){
+          axios.put(this.getDomain()+'api/verifyemail/' + this.userId, {
+            usertag: "Customer"
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
+          .then(res => {
+            console.log(res.data)
+            if(res.data == "Success"){
+              localStorage.setItem("tag", "Customer");
+              for(var i = 0; i < this.userNotif.length; i++){
+                if(this.userNotif[i].title == "Verify"){
+                  axios.put(this.getDomain()+'api/customernotifstatus/' + this.userNotif[i].id, {
+                    userstatus: "done"
+                  },
+                  {
+                    headers:{
+                      "Authorization": `Bearer ${this.usersToken}`,
+                  }
+                  })
+                  .then(res => {
+                    console.log(res.data);
+                  })
+                  .catch(err => console.error(err));
+                } 
+                else{
+                }
+              }
+             
+
+              this.$router.push("/");
+            }
+            else{
+              console.log("Unsuccessful")
+            }
+          })
+          .catch(err => console.error(err));
+        }
+        else{
+          alert("Wrong Code");
+        }
+      },
+    },
+    beforeMount(){
+      this.sendCode();
     }
   }
 </script>

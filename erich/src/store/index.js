@@ -44,6 +44,7 @@ export default new Vuex.Store({
     userPickupOrders: "",
     userPickupToPickup: "",
     userPickupToComplete: "",
+    userNotif: "",
   },
   mutations: {
     //Views Login.vue
@@ -285,9 +286,14 @@ export default new Vuex.Store({
       state.userPickupComplete = {},
       state.userPickupComplete = payload;
     },
+    //Components HomeItems HomeCategoriesItem.vue && CategoriesItem.vue
     searchItem: (state, payload) => {
       state.searchItem = {},
       state.searchItem = payload;
+    },
+    userNotif: (state, payload) => {
+      state.userNotif = {},
+      state.userNotif = payload;
     },
   },
   actions: {

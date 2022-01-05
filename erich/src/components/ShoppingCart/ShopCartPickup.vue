@@ -81,7 +81,7 @@
           persistent
           max-width="22%"
         >
-                    <v-sheet>
+           <v-sheet>
             <v-row>
               <v-col cols="12" class="d-flex justify-center mt-5">
                  <v-img
