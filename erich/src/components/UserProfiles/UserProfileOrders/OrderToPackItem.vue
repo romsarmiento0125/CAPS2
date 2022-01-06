@@ -6,7 +6,7 @@
           <div
             class="my-2 mx-4"
             v-for="order in userProfileOrders"
-            :key="order.id"
+            :key="order.invoiceNumber"
           >
             <v-divider></v-divider>
             <v-row>
@@ -73,6 +73,50 @@
             </v-row>
             <v-divider></v-divider>
           </div>
+
+          <div
+            class="my-2 mx-4"
+            v-for="order in userPickupOrders"
+            :key="order.invoiceNumber"
+          >
+            <v-divider></v-divider>
+            <v-row>
+              <v-col>
+                <p
+                  class="mb-0 mt-6 title"
+                >Status: &nbsp;{{order.status}}</p>
+                <p
+                  class="my-0 Caption"
+                >Pickup</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <p
+                  class="my-0 subtitle-1"
+                >Invoice &nbsp; #: &nbsp; {{order.invoiceNumber}}</p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <orderdeliveritems :orders="order.orders"></orderdeliveritems>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col
+                class="d-flex"
+              >
+                <v-spacer></v-spacer>
+                <p
+                  class="title mx-5"
+                >
+                  Total: &nbsp;{{priceRound(order.total)}}
+                </p>
+                
+              </v-col>
+            </v-row>
+            <v-divider></v-divider>
+          </div>
         </v-col>
       </v-row>
     </v-container>
@@ -95,6 +139,9 @@
     computed: {
       userProfileOrders() {
         return this.$store.state.userProfileOrders;
+      },
+      userPickupOrders() {
+        return this.$store.state.userPickupOrders;
       },
       // userProfileOrderItems() {
       //   return this.$store.state.userProfileOrderItems;

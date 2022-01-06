@@ -3,7 +3,7 @@
     <v-container fluid>
       <v-row>
         <v-col>
-          <div
+          <!-- <div
             class="my-2 mx-4"
             v-for="order in userPickupOrders"
             :key="order.id"
@@ -45,7 +45,7 @@
               </v-col>
             </v-row>
             <v-divider></v-divider>
-          </div>
+          </div> -->
 
           <div
             class="my-2 mx-4"
@@ -111,9 +111,9 @@
     }),
 
     computed: {
-      userPickupOrders() {
-        return this.$store.state.userPickupOrders;
-      },
+      // userPickupOrders() {
+      //   return this.$store.state.userPickupOrders;
+      // },
       userPickupToPickup() {
         return this.$store.state.userPickupToPickup;
       },

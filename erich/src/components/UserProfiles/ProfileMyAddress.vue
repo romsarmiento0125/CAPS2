@@ -56,10 +56,10 @@
                         <div
                           class="d-flex"
                         >
-                          <p>{{item.HomeAddress}}&nbsp;</p>
-                          <p>{{item.UBarangay}}&nbsp;</p>
-                          <p>{{item.Barangay}}&nbsp;</p>
                           <p>{{item.Municipality}}</p>
+                          <p>{{item.Barangay}}&nbsp;</p>
+                          <p>{{item.UBarangay}}&nbsp;</p>
+                          <p>{{item.HomeAddress}}&nbsp;</p>
                         </div>
                       </div>
                       <v-spacer></v-spacer>

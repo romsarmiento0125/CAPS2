@@ -6,8 +6,11 @@
     <v-container fluid>
       <v-row>
         <v-col
-          offset="1"
-          cols="10"
+          offset-xl="1"
+          xl="10"
+          lg="12"
+          md="12"
+          cols="12"
         >
           <v-carousel
             v-model="model"

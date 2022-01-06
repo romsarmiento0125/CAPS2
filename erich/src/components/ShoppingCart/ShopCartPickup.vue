@@ -5,8 +5,10 @@
     >
       <v-row>
         <v-col
-          offset="1"
-          cols="4"
+          offset-xl="1"
+          xl="4"
+          lg="6"
+          md="6"
         >
           <v-sheet
             width="100%"
@@ -60,7 +62,7 @@
                 dark
                 class="px-6 pa-2"
                 color="#1106A0"
-                @click="checkOut()"
+                @click="checkOut"
               >
                 Continue Shopping
               </v-btn>
@@ -68,39 +70,41 @@
           </v-sheet>
         </v-col>
         <v-col
-          offset="1"
-          cols="5"
+          offset-xl="1"
+          xl="5"
+          lg="6"
+          md="6"
         >
           <!-- <checkout-items></checkout-items> -->
           <order-items></order-items>
         </v-col>
       </v-row>
-      <v-row>
+      <div>
         <v-dialog
           v-model="dialog"
-          persistent
-          max-width="22%"
+          width="22%"
         >
-           <v-sheet>
-            <v-row>
-              <v-col cols="12" class="d-flex justify-center mt-5">
-                 <v-img
-                  contain
-                  src="../../assets/checkG.svg"
-                  max-height="40px"
-                  max-width="40px"
-                  class=" ma-2" 
-                ></v-img>
-                  <h1 class="mt-1 fontTitle">Order Complete.</h1>
-                </v-col>
-            </v-row>
+          <div class="white pa-5">
+            <div class="d-flex justify-center">
+              <v-img
+                contain
+                src="../../assets/checkG.svg"
+                max-height="40px"
+                max-width="40px"
+                min-height="40px"
+                min-width="40px"
+                class=" ma-2" 
+              ></v-img>
+              <h1 class="mt- 1 fontTitle">Order Complete.</h1>
+            </div>
+            <div class="ma-0 pa-0">
               <div class="d-flex justify-center mt-2">
                 <h4 class="fontDesc">Receipt number:&nbsp;{{customerPickup.InvoiceNumber}}</h4>
               </div>
 
               <div class="ma-10">
                 <div class="d-flex justify-center mt-10 fontBlue">
-                 <h2 class="mt-5">Thankyou!.</h2>
+                <h2 class="mt-5">Thankyou!.</h2>
                 </div>   
 
                 <div class="d-flex justify-center fontDesc">
@@ -108,24 +112,24 @@
                 </div>    
                           
                 <div class="d-flex justify-center fontDesc">
-                 <h4 class="">Kindly wait for the confirmation text.</h4>
+                <h4 class="">Kindly wait for the confirmation text.</h4>
                 </div>
               </div>
-              <div class="mx-10 d-flex justify-end">
+              <div class="d-flex justify-end">
                 <v-btn
                   block
-                  class="pa-5 "
+                  class="pa-5"
                   color="#1106A0"
                   outlined
                   @click="closeDialog"
                 >
                   ok
-                </v-btn>
-                <p></p>
+                </v-btn>         
               </div>
-          </v-sheet>
+            </div>
+          </div>     
         </v-dialog>
-      </v-row>
+      </div>
     </v-container>
   </div>
 </template>

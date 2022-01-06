@@ -5,8 +5,10 @@
     >
       <v-row>
         <v-col
-          offset="1"
-          cols="4"
+          offset-xl="1"
+          xl="4"
+          lg="6"
+          md="6"
         >
           <v-sheet
             width="100%"
@@ -22,9 +24,6 @@
                   src="../../assets/check.svg"
                   max-height="50px"
                   max-width="50px"
-
-                  
-                  
                 ></v-img>
                 </v-col>
                 
@@ -92,7 +91,7 @@
                 dark
                 class="px-6 pt-4"
                 color="#1106A0"
-                @click="checkOut()"
+                @click="checkOut"
               >
                 <p>Continue Shopping</p>
               </v-btn>
@@ -100,41 +99,41 @@
           </v-sheet>
         </v-col>
         <v-col
-          offset="1"
-          cols="5"
+          offset-xl="1"
+          xl="5"
+          lg="6"
+          md="6"
         >
           <!-- <checkout-items></checkout-items> -->
           <order-items></order-items>
         </v-col>
       </v-row>
-      <v-row>
+      <div>
         <v-dialog
           v-model="dialog"
-          persistent
-          max-width="22%"
-          class=""
-          
+          width="22%"
         >
-          <v-sheet>
-            <v-row>
-              <v-col cols="12" class="d-flex justify-center mt-5">
-                 <v-img
-                  contain
-                  src="../../assets/checkG.svg"
-                  max-height="40px"
-                  max-width="40px"
-                  class=" ma-2" 
-                ></v-img>
-                  <h1 class="mt-1 fontTitle">Order Complete.</h1>
-                </v-col>
-            </v-row>
+          <div class="white pa-5">
+            <div class="d-flex justify-center">
+              <v-img
+                contain
+                src="../../assets/checkG.svg"
+                max-height="40px"
+                max-width="40px"
+                min-height="40px"
+                min-width="40px"
+                class=" ma-2" 
+              ></v-img>
+              <h1 class="mt- 1 fontTitle">Order Complete.</h1>
+            </div>
+            <div class="ma-0 pa-0">
               <div class="d-flex justify-center mt-2">
                 <h4 class="fontDesc">Receipt number:&nbsp;{{customerOrder.InvoiceNumber}}</h4>
               </div>
 
               <div class="ma-10">
                 <div class="d-flex justify-center mt-10 fontBlue">
-                 <h2 class="mt-5">Thankyou!.</h2>
+                <h2 class="mt-5">Thankyou!.</h2>
                 </div>   
 
                 <div class="d-flex justify-center fontDesc">
@@ -142,29 +141,25 @@
                 </div>    
                           
                 <div class="d-flex justify-center fontDesc">
-                 <h4 class="">Kindly wait for the confirmation text.</h4>
+                <h4 class="">Kindly wait for the confirmation text.</h4>
                 </div>
               </div>
-              <div class="mx-10 d-flex justify-end">
+              <div class="d-flex justify-end">
                 <v-btn
                   block
-                  class="pa-5 "
+                  class="pa-5"
                   color="#1106A0"
                   outlined
                   @click="closeDialog"
                 >
                   ok
-                </v-btn>
-                <p></p>
-                
+                </v-btn>         
               </div>
-              
-           
-          </v-sheet>
+            </div>
+          </div>     
         </v-dialog>
-      </v-row>
+      </div>
     </v-container>
-    
   </div>
 </template>
 
@@ -237,19 +232,19 @@
       checkOut() {
         //alert('delivery checout');
         this.insertCustomerItems();
-        console.log("Email: " + this.customerOrder.Email);
-        console.log("Name: " + this.customerOrder.Name);
-        console.log("Mobile Number:  " + this.customerOrder.Mobilenumber);
-        console.log("Complete Address: " + this.customerOrder.CompleteAddress);
-        console.log("Shipping: " + this.customerOrder.Shipping);
-        console.log("Invoice Number: " + this.customerOrder.InvoiceNumber);
-        console.log("Adjusted Date: " + this.customerOrder.AdjustedDate);
-        console.log("Order Status: " + this.customerOrder.OrderStatus);
-        console.log("Order Tax: " + this.customerOrder.OrderTax);
-        console.log("Discount: " + this.customerOrder.Discount);
-        console.log("SubTotal: " + this.customerOrder.SubTotal);
-        console.log("Total: " + this.customerOrder.Total);
-        console.log(this.customerOrderItems);
+        // console.log("Email: " + this.customerOrder.Email);
+        // console.log("Name: " + this.customerOrder.Name);
+        // console.log("Mobile Number:  " + this.customerOrder.Mobilenumber);
+        // console.log("Complete Address: " + this.customerOrder.CompleteAddress);
+        // console.log("Shipping: " + this.customerOrder.Shipping);
+        // console.log("Invoice Number: " + this.customerOrder.InvoiceNumber);
+        // console.log("Adjusted Date: " + this.customerOrder.AdjustedDate);
+        // console.log("Order Status: " + this.customerOrder.OrderStatus);
+        // console.log("Order Tax: " + this.customerOrder.OrderTax);
+        // console.log("Discount: " + this.customerOrder.Discount);
+        // console.log("SubTotal: " + this.customerOrder.SubTotal);
+        // console.log("Total: " + this.customerOrder.Total);
+        // console.log(this.customerOrderItems);
 
         this.cleanCart();
         this.showMessage();
@@ -264,7 +259,7 @@
           })
         .then(res => {
           this.storeCustomerOrderItems()
-          console.log(res);  
+          // console.log(res);  
         })
         //.then(res => console.log(res.data))
         .catch(err => console.error(err));
@@ -281,7 +276,7 @@
           }
           })
           .then(res => {
-            console.log(res.data);  
+            // console.log(res.data);  
           })
           .catch(err => console.error(err));
       },
@@ -294,8 +289,8 @@
           }
           })
           .then( res => {
-            console.log("Delete")
-            console.log(res.data);
+            // console.log("Delete")
+            // console.log(res.data);
           })
           .catch(err => console.error(err))
         }
@@ -343,9 +338,9 @@
         this.customerOrderItems = [];
         var item;
         var subtotal = 0;
-        console.log("Insert Customer Items");
-        console.log(this.storeCustomerItems);
-        console.log(this.storeCustomerItems.length);
+        // console.log("Insert Customer Items");
+        // console.log(this.storeCustomerItems);
+        // console.log(this.storeCustomerItems.length);
         for(var i = 0; i < this.storeCustomerItems.length; i++){
           item = {id: this.storeCustomerItems[i].id,
             item_invNumber: this.customerOrder.InvoiceNumber,

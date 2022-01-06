@@ -232,7 +232,7 @@
                     contain
                   ></v-img>
                 </div>
-                <div>
+                <!-- <div>
                   <v-file-input
                     :rules="rules"
                     accept="image/png, image/jpeg, image/bmp"
@@ -240,7 +240,7 @@
                     prepend-icon="mdi-camera"
                     label="Avatar"
                   ></v-file-input>
-                </div>
+                </div> -->
               </v-col>
             </v-row>
           </v-sheet>

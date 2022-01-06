@@ -7,8 +7,13 @@
       >
         <v-row>
           <v-col
-            offset="4"
-            cols="4"
+            offset-xl="4"
+            offset-lg="4"
+            offset-md="3"
+            xl="4"
+            lg="4"
+            md="6"
+            cols="12"
           >
             <v-card
               class="rounded-xl pa-12"
@@ -89,10 +94,10 @@
 
     data: () => ({
       usersData: {
-        // usersEmail: "",
-        // usersPassword: ""
-        usersEmail: "paul@gmail.com",
-        usersPassword: "@Admin123"
+        usersEmail: "",
+        usersPassword: ""
+        // usersEmail: "paul@gmail.com",
+        // usersPassword: "@Admin123"
       }
     }),
 

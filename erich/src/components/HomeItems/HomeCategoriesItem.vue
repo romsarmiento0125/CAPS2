@@ -3,23 +3,19 @@
     <v-container>
       <v-row>
         <v-col
-          offset-lg="1"
           offset-xl="1"
-          cols="12"
-          sm="12"
-          md="12"
-          lg="10"
           xl="10"
+          lg="12"
+          md="12"
+          cols="12"
         >
           <v-row>
             <v-col
               v-for="item in showItems"
               :key="item.id"
-              cols="6"
-              sm="4"
-              md="3"
-              lg="3"
               xl="2"
+              lg="3"
+              md="4"
             >
               <v-card
                 min-height="465px"
@@ -95,15 +91,16 @@
                       style="max-width: 200px;" 
                     >{{item.name}}</span>
                     <br>
-                    <span>
-                      {{item.size}}
-                    </span>
-                    <br>
                     <span
                       class="d-inline-block text-truncate"
                       style="max-width: 200px;" 
                     >{{item.description}}</span>
                     <br>
+                    <span>
+                      {{item.size}}
+                    </span>
+                    <br>
+                    
                     
                     <span>{{item.quantity}} &nbsp; Pcs Available</span>
                   </v-card-subtitle>

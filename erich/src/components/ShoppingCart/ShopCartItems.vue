@@ -3,8 +3,10 @@
     <v-container fluid>
       <v-row>
         <v-col
-          offset="1"
-          cols="7"
+          offset-xl="1"
+          xl="7"
+          lg="9"
+          md="9"
           class="d-flex justify-center"
         >
           <v-sheet
@@ -14,23 +16,31 @@
             rounded="lg"
           >
             <v-row class="pa-4">
-              <v-col cols="5">
+              <v-col
+                xl="5"
+                lg="5"
+                md="4"
+              >
                 <h4
-                  class="mx-4 px-15 font-weight-bold fontTitle"
+                  class="mx-4 px-lg-15 font-weight-bold fontTitle"
                 >Product</h4>
               </v-col>
-              <v-col cols="7" class="px-16">
+              <v-col
+                xl="7" 
+                lg="7"
+                class="pr-xl-16"
+              >
                 <div
                   class="d-flex justify-end"
                 >
                   <h4
-                    class="fontTitle px-11"
+                    class="fontTitle px-lg-11 px-10"
                   >Quantity</h4>
                   <h4
-                    class="fontTitle px-14"
+                    class="fontTitle px-lg-14 px-5"
                   >Total Price</h4>
                   <h4
-                    class="fontTitle px-10"
+                    class="fontTitle px-lg-10 px-5"
                   >Action</h4>
                 </div>
               </v-col>
@@ -39,7 +49,9 @@
             <v-divider></v-divider>
 
             <v-row>
-              <v-col>
+              <v-col
+                cols="12"
+              >
                 <v-list
                   class="my-0 py-0"
                 >
@@ -56,7 +68,9 @@
                         <v-row
                         >
                           <v-col
-                            cols="6"
+                            xl="5"
+                            lg="5"
+                            md="5"
                             class="my-0 py-0"
                           >
                             <div
@@ -64,23 +78,23 @@
                             >
                               <v-img
                                 max-height="150px"
-                                max-width="210px"
+                                max-width="150px"
                                 contain
                                 :src="require('../../assets/itemPhotos/'+item.item_image)"
                               ></v-img>
 
                               <v-list-item-title>
                                 <h3
-                                  class="my-1"
+                                  class="my-lg-1"
                                 >
                                   {{item.item_name}}
                                 </h3>
                                 <h4
-                                  class="fontBlue my-1"
+                                  class="fontBlue my-lg-1"
                                 >
                                   {{item.item_desc}}
                                 </h4>
-                                <div class="d-flex my-1">
+                                <div class="d-flex my-lg-1">
                                   <v-icon size="14px" class="pr-1">
                                   
                                     mdi-currency-php
@@ -97,14 +111,16 @@
                             </div>
                           </v-col>
                           <v-col
-                            cols="6"
-                            class="d-flex align-center"
+                            xl="7"
+                            lg="7"
+                            md="7"
+                            class="d-flex align-center justify-end pr-xl-16"
                           >
                             <div
                               class="d-flex align-center"
                             >
                               <div
-                                class="qtt d-flex align-center justify-center"
+                                class="qtt d-flex align-center justify-center mr-2 "
                                 style="border-style: solid; border-width: 1px 1px; border-color: #BDBDBD"
                               >
                                 <v-btn
@@ -112,7 +128,7 @@
                                   color="transparent"
                                   class=""
                                   @click="decreaseQuantity(item.id, i, item.item_quantity)"
-                                  
+                                  small
                                 >
                                   <v-icon
                                     color="#757575"
@@ -129,7 +145,7 @@
                                   depressed
                                   color="transparent"
                                   @click="addQuantity(item.id, i)"
-                                  
+                                  small
                                 >
                                   <v-icon
                                     color="#757575"
@@ -140,7 +156,7 @@
                               </div>
 
                               <div
-                                class="my-0 mx-15 d-flex align-center justify-center"
+                                class="my-0 mx-lg-15 mx-4 d-flex align-center justify-center"
                               >
                                 <v-icon 
                                 small
@@ -157,7 +173,7 @@
                               </div>
 
                               <v-btn
-                                class="act justify-center mx-4 font-weight-bold"
+                                class="act justify-center mx-lg-4 font-weight-bold"
                                 color="#1106A0"
                                 plain
                                 @click="deleteItems(item.id)"
@@ -179,12 +195,14 @@
         </v-col>
         
         <v-col
-          cols="3"
+          xl="3"
+          lg="3"
+          md="3"
           class="d-flex justify-center"
         >
           <v-sheet
             color="#FFFFFF"
-            height="240px"
+            height="250px"
             width="100%"
             class="py-2 my-10"
             rounded="lg"
@@ -192,6 +210,9 @@
           >
             <v-row>
               <v-col
+                xl="6"
+                lg="4"
+                md="3"
               >
                 <h3
                   class="my-4 mx-10 title fontTitle"
@@ -199,7 +220,11 @@
                   Total
                 </h3>
               </v-col>
-              <v-col>
+              <v-col
+                xl="6"
+                lg="8"
+                md="9"
+              >
                 <div
                   class="d-flex justify-end"
                 >
@@ -216,14 +241,16 @@
             <v-divider></v-divider>
 
             <v-row>
-              <v-col>
+              <v-col
+                cols="12"
+              >
                 <p
-                  class="my-3 mx-10"
+                  class="my-3 mx-lg-10 mx-md-2 text-md-center text-lg-left"
                 >
                   Taxes and <router-link to="/" class="text-decoration-underline indigo--text text--darken-4">Shipping</router-link> are calculted at checkout
                 </p>
                 <div
-                  class="mx-8 pt-12"
+                  class="mx-8 pt-xl-12 pt-lg-6 pt-md-4"
                 >
                   <v-btn
                     dark
@@ -241,7 +268,6 @@
                     </p>
                   </v-btn>
                 </div>
-                
               </v-col>
             </v-row>
           </v-sheet>

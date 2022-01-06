@@ -5,16 +5,19 @@
     >
       <v-row>
         <v-col
-          offset="1"
+          offset-xl="1"
+          xl="11"
+          cols="12"
         >
           <h3 class="mt-4">Delivery Method</h3>
         </v-col>
       </v-row>
       <v-row>
         <v-col
-          offset="1"
-          cols="1"
-          class=""
+          offset-xl="1"
+          xl="1"
+          lg="2"
+          md="2"
         >
           <div>
             
@@ -40,7 +43,9 @@
           
         </v-col>
         <v-col
-          cols="1"
+          xl="1"
+          lg="2"
+          md="2"
           class="ma-0 pl-0"
         >
           <div>
@@ -63,7 +68,6 @@
               </h5>
             </v-btn>
           </div>
-          
         </v-col>
       </v-row>
     </v-container>
@@ -73,8 +77,10 @@
     >
       <v-row>
         <v-col
-          offset="1"
-          cols="4"
+          offset-xl="1"
+          xl="4"
+          lg="6"
+          md="6"
         >
           <v-container
             v-if="deliveryCond"
@@ -191,8 +197,10 @@
           </v-container>
         </v-col>
         <v-col
-          offset="1"
-          cols="5"
+          offset-xl="1"
+          xl="5"
+          lg="6"
+          md="6"
         >
           <order-items></order-items>
         </v-col>

@@ -140,12 +140,12 @@
 
     methods: {
       ydm (date) {
-        console.log(date);
+        // console.log(date);
         this.menu = false;
         this.$store.commit('pickupDate', date);
       },
       saveTime(data) {
-        console.log(data)
+        // console.log(data)
         this.oras = data;
         this.modal2 = false
         this.$store.commit('pickupTime', data);

@@ -10,7 +10,10 @@
           <!-- Store Logo -->
           <v-col
             class="d-flex align-center"
-            offset="1"
+            offset-xl="1"
+            xl="2"
+            lg="2"
+            md="2"
             cols="2"
           >
             <router-link
@@ -30,7 +33,10 @@
           <!-- Header Search Bar -->
           <v-col
             class="d-flex align-center"
-            cols="5"
+            xl="6"
+            lg="7"
+            md="6"
+            cols="6"
           >
             <v-text-field
               class="py-2"
@@ -68,58 +74,65 @@
 
           <!-- Header Buttons -->
           <v-col
-            class="d-flex align-center"
-            cols="3"
+            class="d-flex align-center justify-end"
+            xl="2"
+            lg="3"
+            md="4"
+            cols="4"
           >
-            <v-menu
-              offset-y
-              transition="slide-y-transition"
-              bottom
+            <div
+              class="mx-5 ml-md-0 mr-md-3"
             >
-              <template v-slot:activator="{ on, attrs }">
-                <v-badge
-                  overlap
-                  color="red"
-                  :content="notifCounter"
-                >
-                  <v-btn
-                    dark
-                    text
-                    medium
-                    v-bind="attrs"
-                    v-on="on"         
+              <v-menu
+                offset-y
+                transition="slide-y-transition"
+                bottom
+                :disabled="notifCounter == 0"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-badge
+                    overlap
+                    color="red"
+                    :content="notifCounter"
                   >
-                    <v-icon color="#1106A0">mdi-bell</v-icon>
-                  </v-btn>
-                </v-badge>
-              </template>
+                    <v-btn
+                      dark
+                      text
+                      medium
+                      v-bind="attrs"
+                      v-on="on"         
+                    >
+                      <v-icon color="#1106A0">mdi-bell</v-icon>
+                    </v-btn>
+                  </v-badge>
+                </template>
 
-              <v-list dense>
-                <v-list-item-group
-                  v-model="selectedNotif"
-                  color="#1106A0"
-                  
-                >
-                  <v-list-item
-                    v-for="(item, n) in notifications"
-                    :key="n"
+                <v-list dense>
+                  <v-list-item-group
+                    v-model="selectedNotif"
+                    color="#1106A0"
+                    
                   >
-                    <v-list-item-content>
-                      <v-list-item-title @click="goToMiscFunctions(item.to)"><span>{{item.title}}</span><br><span>{{item.desc}}</span></v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list-item-group>
-              </v-list>
-            </v-menu>
+                    <v-list-item
+                      v-for="(item, n) in notifications"
+                      :key="n"
+                    >
+                      <v-list-item-content>
+                        <v-list-item-title @click="goToMiscFunctions(item.to)"><span>{{item.title}}</span><br><span>{{item.desc}}</span></v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </v-list-item-group>
+                </v-list>
+              </v-menu>
+            </div>
+            
 
             <div
               class="d-flex"
             >
               <div class="text-center">
                 <p
-                  class="my-0 py-0 
-                  d-flex 
-                  "
+                  class="my-0 py-0 mx-2 d-flex"
                 >{{usersFName}} {{usersLName}}</p>
                 <v-menu
                   offset-y
@@ -162,13 +175,12 @@
                   </v-list>
                 </v-menu>
                 <v-avatar
-                class="ml-2"
+                  color="blue"
+                  class="mx-2"               
                 >
-                  
-                  <img 
-                    src="https://cdn.vuetifyjs.com/images/john.jpg"
-                    alt="John"
-                  >
+                  <v-icon dark>
+                    mdi-account-circle
+                  </v-icon>
                 </v-avatar>
               </div>
             </div>
@@ -265,7 +277,7 @@
           localStorage.removeItem("tag");
           localStorage.removeItem("token");
           window.location.href = "http://localhost:8080/";
-          //window.location.href = "http://erichgrocery.store/";
+          // window.location.href = "http://erichgrocery.store/";
         }
       },
       goToMiscFunctions(cond){
@@ -309,8 +321,8 @@
         })
         .then(res => {
           var notif;
-          console.log("Customer Notif");
-          console.log(res.data);
+          // console.log("Customer Notif");
+          // console.log(res.data);
           for(var i = 0; i < res.data.length; i++){
             notif = {
               id: res.data[i].id,
