@@ -1,32 +1,36 @@
 <template>
   <div
-    style="background-color: blue"
+    style="background-color: #1106A0"
   >
     <v-container
       fluid
     >
       <v-row>
-        <v-col>
+        <v-col cols="6" class="my-1 px-10">
           <div>
             <v-img
               contain
-              src="../../assets/ERICH.svg"
-              max-height="100px"
-              max-width="100px"
+              src="../../assets/ERICHWHITE.svg"
+              max-height="120px"
+              max-width="120px"
             >
             </v-img>
           </div>
         </v-col>
-        <v-col>
-          <div>
+
+        <v-col cols="6">
+          <div class="d-flex justify-end my-1 px-10">
             <v-btn
+              plain
+              text
+              dark
               @click="logoutUser"
             >
-              <p
-                class="title"
+              <h3
+                
               >
                 Logout
-              </p>
+              </h3>
             </v-btn>
           </div>
         </v-col>

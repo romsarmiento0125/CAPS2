@@ -3,21 +3,28 @@
     <v-container fluid>
       <v-row>
         <v-col>
-          <div>
+          <div class="mt-15 ml-4">
             <v-btn
+              color="#858585"
+              outlined
               @click="showAllToPack()"
             >
-              <p>All</p>
+              <h5>All</h5>
             </v-btn>
             <v-btn
+              class="mx-1"
+              color="#858585"
+              outlined
               @click="showToProcessToPack()"
             >
-              <p>To Process</p>
+              <h5>To Process</h5>
             </v-btn>
             <v-btn
+              color="#858585"
+              outlined
               @click="showProcessedToPack()"
             >
-              <p>Processed</p>
+              <h5>Processed</h5>
             </v-btn>
           </div>
         </v-col>
@@ -26,8 +33,9 @@
       <v-row>
         <v-col>
           <div
+          class="my-10 ml-4"
           >
-            <p>Order</p>
+            <h2>Order</h2>
           </div>
         </v-col>
       </v-row>
@@ -75,9 +83,12 @@
                   <td>{{info.status}}</td>
                   <td v-if="info.status == 'Pending'">
                     <v-btn
+                      color="#1106A0"
+                      dark
+                      outlined
                       @click="toPickupProcess(info.id, info.email, info.invoiceNumber, info.name, info.mobileNumber, info.pickupDate,
                                 info.pickupTime, info.discount, info.tax, info.subTotal, info.total)"
-                    >Accept</v-btn>
+                    ><h6> Accept </h6></v-btn>
                   </td>
                   <td v-else-if="info.status == 'Pickup'">
                     <v-btn

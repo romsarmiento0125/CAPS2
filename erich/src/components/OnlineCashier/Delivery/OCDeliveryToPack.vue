@@ -5,21 +5,28 @@
     >
       <v-row>
         <v-col>
-          <div>
+          <div class="mt-15 ml-4">
             <v-btn
+              color="#858585"
+              outlined
               @click="showAllToPack()"
             >
-              <p>All</p>
+              <h5>All</h5>
             </v-btn>
             <v-btn
+              class="mx-1"
+              outlined
+              color="#858585"
               @click="showToProcessToPack()"
             >
-              <p>To Process</p>
+              <h5>To Process</h5>
             </v-btn>
             <v-btn
+              color="#858585"
+              outlined
               @click="showProcessedToPack()"
             >
-              <p>Processed</p>
+              <h5>Processed</h5>
             </v-btn>
           </div>
         </v-col>
@@ -28,15 +35,16 @@
       <v-row>
         <v-col>
           <div
+          class="my-10 ml-4"
           >
-            <p>Order</p>
+            <h2>Order</h2>
           </div>
         </v-col>
       </v-row>
 
       <v-row>
         <v-col>
-          <v-simple-table height="650px">
+          <v-simple-table light height="650px">
             <template v-slot:default>
               <thead>
                 <tr>
@@ -80,12 +88,13 @@
                       <v-menu offset-y>
                         <template v-slot:activator="{ on, attrs }">
                           <v-btn
-                            color="primary"
+                            color="#1106A0"
                             dark
+                            outlined
                             v-bind="attrs"
                             v-on="on"
                           >
-                            Arrange Delivery
+                            <h6> Arrange Delivery </h6>
                           </v-btn>
                         </template>
                         <v-list>

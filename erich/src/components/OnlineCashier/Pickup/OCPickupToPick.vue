@@ -3,7 +3,7 @@
     <v-container fluid>
       <v-row>
         <v-col>
-          <div
+          <div class="my-10 ml-4"
           >
             <p>Order</p>
           </div>
