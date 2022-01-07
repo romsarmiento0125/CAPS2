@@ -17,44 +17,72 @@
             <div
               class="ma-5 pa-10"
             >
-            <v-row>
-              <v-col cols="2">
-                 <v-img
-                  contain
-                  src="../../assets/check.svg"
-                  max-height="50px"
-                  max-width="50px"
+              <v-row>
+                <v-col cols="2">
+                  <v-img
+                    contain
+                    src="../../assets/check.svg"
+                    max-height="50px"
+                    max-width="50px"
 
-                ></v-img>
-              </v-col>
+                  ></v-img>
+                </v-col>
 
-              <v-col cols="10" class="mt-4 pl-0">
-                <v-row>
-                  <v-col cols="12" class="ma-0 pa-0">
-                    <h5
-                    class="font-weight-bold my-0 fontDesc"
-                    >Order #:{{customerPickup.InvoiceNumber}}</h5>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col cols="12" class="ma-0 pa-0">
-                    <h5 class="my-0 font-weight-black fontTitle">
-                    Thank you&nbsp;{{usersFName}}&nbsp;{{usersFName}}</h5>
-                  </v-col>
-                </v-row>
-              </v-col>
-            </v-row>
+                <v-col cols="10" class="mt-4 pl-0">
+                  <v-row>
+                    <v-col cols="12" class="ma-0 pa-0">
+                      <h5
+                      class="font-weight-bold my-0 fontDesc"
+                      >Order #:{{customerPickup.InvoiceNumber}}</h5>
+                    </v-col>
+                  </v-row>
+                  <v-row>
+                    <v-col cols="12" class="ma-0 pa-0">
+                      <h5 class="my-0 font-weight-black fontTitle">
+                      Thank you!&nbsp;{{usersFName}}&nbsp;{{usersFName}}</h5>
+                    </v-col>
+                  </v-row>
+                </v-col>
+              </v-row>
 
               <div>
                 <div class="mt-5 nOrder elevation-1">
                   <div class="ma-4 pa-0">
                     <h4 class="my-0 font-weight-bold fontTitle">Your Order is confirmed</h4>
-                    <h5 class="my-0 font-weight-regular">Please procede to the cashier.</h5>
+                    <h5 class="my-0 font-weight-regular">Please bring the exact amount.</h5>
                   </div>
                   
                 </div>
+
+                <div class="mt-5 nContact elevation-1">
+                  <div class="ma-4 pa-0">
+                    <h4
+                    class="fontTitle font-weight-bold"
+                  >Store Information</h4>
+                  <div
+                    class="d-flex pt-6"
+                  >
+                    <div class="my-1">
+                      <h5 class="fontDesc">Contact Information</h5>
+                      <h5 class="fontTitle font-weight-regular mt-3">09012345678</h5>
+                    </div>
+                  </div>
+
+                  <div class="my-4">
+                    <h5 class="fontDesc">Store Address</h5>
+                    <h5 class="fontTitle font-weight-regular mt-3">Sta. Maria Pulong Buhangin KM 38</h5>
+                    <h6 class="fontTitle font-weight-regular mt-1">(Inside Pulong Buhangin Market)</h6>
+                  </div>
+
+                  <div class="my-4">
+                    <h5 class="fontDesc">Method</h5>
+                    <h5 class="fontTitle font-weight-regular mt-3">Pickup</h5>
+                  </div>
+                  </div>
+                </div>
               </div>
             </div>
+
             <div
               class="d-flex justify-end pa-15"
             >
@@ -82,7 +110,7 @@
       <div>
         <v-dialog
           v-model="dialog"
-          width="22%"
+          width="30%"
         >
           <div class="white pa-5">
             <div class="d-flex justify-center">

@@ -53,8 +53,8 @@
             </v-text-field>
             <v-badge
               overlap
-              color="#FFA600"
-              :content="cartQuantity"
+              :color="cartColor"
+              :content="cartCounter"
             >
               <v-btn
                 height="auto"
@@ -92,7 +92,7 @@
                 <template v-slot:activator="{ on, attrs }">
                   <v-badge
                     overlap
-                    color="red"
+                    :color="notifColor"
                     :content="notifCounter"
                   >
                     <v-btn
@@ -176,7 +176,8 @@
                 </v-menu>
                 <v-avatar
                   color="blue"
-                  class="mx-2"               
+                  class="mx-2"            
+                  @click="accountButton('account')"   
                 >
                   <v-icon dark>
                     mdi-account-circle
@@ -233,13 +234,29 @@
       usersToken(){
         return localStorage.getItem('token');
       },
+      cartColor(){
+        if(this.cartCounter != 0){
+          return "#FFA600"
+        }
+        else{
+          return "#FFFFF"
+        }
+      },
+      notifColor(){
+        if(this.notifCounter != 0){
+          return "#ff0000"
+        }
+        else{
+          return "#FFFFF"
+        }
+      }
     },
 
-    // watch: {
-    //   cartItems: function(data){
-    //     console.log("watch",data);
-    //   }
-    // },  
+    watch: {
+      cartQuantity(){
+        this.cartCounter++;
+      }
+    },  
 
     methods: {
       toSearch(data){
@@ -282,7 +299,14 @@
       },
       goToMiscFunctions(cond){
         if(cond == "verify"){
+          this.$store.commit('notifCond', 'verify');
           this.$router.push("/erich");
+        }
+        else if(cond == "profile"){
+          this.$router.push("/profile");
+        }
+        else{
+          this.$router.push("/");
         }
       },
       getItemsQuantity() {
@@ -297,17 +321,11 @@
             "Authorization": `Bearer ${this.usersToken}`,
         }
         })
-        .then(res => this.showQuantity(res.data))
-        //.then(res => console.log(res.data))
+        .then(res => {
+          // console.log(res.data);
+          this.cartCounter = res.data;
+        })
         .catch(err => console.error(err));
-      },
-      showQuantity(data){
-        //console.log(data[0].Quantity);
-        //console.log(data.length);
-        for(var i = 0; i < data.length; i++){
-          this.cartCounter = this.cartCounter + data[i].quantity;
-        }
-        this.$store.commit('storeCartQuantity', this.cartCounter);
       },
       getNotif(){
         this.customerEmail = this.usersEmail;

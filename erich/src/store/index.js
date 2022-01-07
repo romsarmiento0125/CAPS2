@@ -45,6 +45,7 @@ export default new Vuex.Store({
     userPickupToPickup: "",
     userPickupToComplete: "",
     userNotif: "",
+    notifCond: "",
   },
   mutations: {
     //Views Login.vue
@@ -68,8 +69,8 @@ export default new Vuex.Store({
     },
     //Components HomeItems CategoriesItem.vue
     //Components HomeItems HomeCategoriesItem.vue
-    storeCartQuantity: (state, payload) => {
-      state.cartQuantity = payload
+    storeCartQuantity: (state) => {
+      state.cartQuantity++;
     },
     //Components ShoppingCart DeliveryMethod MethodDelivery.vue
     //Components Home HomeHeaderAccount.vue
@@ -291,9 +292,15 @@ export default new Vuex.Store({
       state.searchItem = {},
       state.searchItem = payload;
     },
+    //Components Home HomeHeaderAccount.vue
     userNotif: (state, payload) => {
       state.userNotif = {},
       state.userNotif = payload;
+    },
+    //Components Home HomeHeaderAccount.vue
+    notifCond: (state, payload) => {
+      state.notifCond = {},
+      state.notifCond = payload;
     },
   },
   actions: {

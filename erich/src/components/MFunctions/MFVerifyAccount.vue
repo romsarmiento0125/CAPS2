@@ -74,21 +74,21 @@
     <div class="text-center">
       <v-dialog
         v-model="dialog"
-        width="15%"
+        width="30%"
       >
         <v-card
           class="pt-5"
         >
           <v-card-text class="pb-0">
-            <p class="text-h5 text--primary d-inline-block text-truncate">
+            <p class="text-h5 text--primary d-inline-block text-truncate d-flex justify-center">
               Hi {{usersFName}} &nbsp; {{usersLName}}
             </p>
-            <p>Verification code sent</p>
-            <div class="text--primary">
+            <p class="d-flex justify-center">Verification code sent</p>
+            <div class="text--primary d-flex justify-center">
               Kindly check your email <br>
               for the verification code.
             </div>
-             <p class="text-h6 text--primary mt-2 mb-0 py-0">
+             <p class="text-h6 text--primary mt-2 mb-0 py-0 d-flex justify-center">
               Thankyou.
             </p>
           </v-card-text>
@@ -161,7 +161,8 @@
         this.verify.name = this.usersFName + " " +this.usersLName;
         this.verify.code = ""+r1+r2+r3+r4;
 
-        axios.post(this.getDomain()+'api/emailverification', {
+        if(this.usersEmail != null){
+          axios.post(this.getDomain()+'api/emailverification', {
             email: this.verify
           },
           {
@@ -173,6 +174,11 @@
             // console.log(res.data);
           })
           .catch(err => console.error(err));
+        }
+        else{
+          console.log("email not available");
+        }
+        
         this.Timer();
       },
       verifyEmail(){
@@ -207,8 +213,6 @@
                 else{
                 }
               }
-             
-
               this.$router.push("/");
             }
             else{
@@ -237,7 +241,7 @@
     },
     beforeMount(){
       this.sendCode();
-      this.Timer();
+      //this.Timer();
     }
   }
 </script>

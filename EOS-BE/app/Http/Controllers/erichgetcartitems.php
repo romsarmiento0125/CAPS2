@@ -35,9 +35,8 @@ class erichgetcartitems extends Controller
      */
     public function store(Request $request)
     {
-        $getData = customercart::all();
         $dataGet = $request->register;
-        return $getData->where('email', $dataGet)->values();
+        return customercart::where('email', $dataGet)->get();
     }
 
     /**
@@ -71,28 +70,48 @@ class erichgetcartitems extends Controller
      */
     public function update(Request $request, $id)
     {
-        $getData = customercart::all();
-        $dataGet = $request->itemupdate["item_email"];
         $existingItem = customercart::find($id);
-        $existingQty = customercart::where('id', $id)->pluck('Quantity');
-        foreach($existingQty as $value){
-            $qty = $value;
-        }
-        $add = $request->itemupdate["item_quantity"]+1;
+        $cond = $request->updateCond;
+        $dataGet = $request->customerEmail;
 
-        if(true){
-            $existingItem->id = $id;
-            $existingItem->email = $request->itemupdate["item_email"];
-            $existingItem->quantity = $add;
-            $existingItem->itemCode = $request->itemupdate["item_code"];
+        if($cond == "increase"){
+            $existingItem->quantity = $existingItem->quantity + 1;
+            $existingItem->save();
+            
+            return customercart::where('email', $dataGet)->get();
+        }
+        else if($cond == "decrease"){
+            $existingItem->quantity = $existingItem->quantity - 1;
             $existingItem->save();
 
-            //return $existingItem;
-            return $getData->where('email', $dataGet)->values();
+            return customercart::where('email', $dataGet)->get();
         }
         else{
-            return $getData->where('email', $dataGet)->values();;
+            return "something wrong";
         }
+        
+        // $getData = customercart::all();
+        // $dataGet = $request->itemupdate["item_email"];
+        // $existingItem = customercart::find($id);
+        // $existingQty = customercart::where('id', $id)->pluck('Quantity');
+        // foreach($existingQty as $value){
+        //     $qty = $value;
+        // }
+        // $add = $request->itemupdate["item_quantity"]+1;
+
+        // if(true){
+        //     $existingItem->id = $id;
+        //     $existingItem->email = $request->itemupdate["item_email"];
+        //     $existingItem->quantity = $add;
+        //     $existingItem->itemCode = $request->itemupdate["item_code"];
+        //     $existingItem->save();
+
+        //     //return $existingItem;
+        //     return $getData->where('email', $dataGet)->values();
+        // }
+        // else{
+        //     return $getData->where('email', $dataGet)->values();;
+        // }
 
         //return $request->itemupdate;
     }

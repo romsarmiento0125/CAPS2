@@ -123,7 +123,6 @@
     }),
     methods: {
       toCategoriseItem(cond) {
-        alert(cond);
         this.$router.push('/item');
       }
     }

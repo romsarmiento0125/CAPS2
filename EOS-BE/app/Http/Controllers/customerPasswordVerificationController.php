@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\changePass;
 use Illuminate\Http\Request;
-use App\Models\customercart;
 
-class erichheadercartcontroller extends Controller
+use App\Models\erichcustomer;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+
+class customerPasswordVerificationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +19,7 @@ class erichheadercartcontroller extends Controller
      */
     public function index()
     {
-        return customercart::all();
+        //
     }
 
     /**
@@ -27,6 +32,23 @@ class erichheadercartcontroller extends Controller
         //
     }
 
+    public function findemail(Request $request)
+    {
+        $email = $request->find['email'];
+
+        $findEmail = erichcustomer::where('email', $email)->get('email');
+        $findId = erichcustomer::where('email', $email)->get('id')->first();
+        
+        if($findEmail->first()){
+            $details = [
+                'code' => $request->find['code'],
+            ];
+    
+            Mail::to($request->find['email'])->send(new changePass($details));
+            return $findId->id;
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -35,16 +57,7 @@ class erichheadercartcontroller extends Controller
      */
     public function store(Request $request)
     {
-        $showQuantity = 0;
-        $userEmail = $request->register;
-
-        $getQuantity = customercart::where('email', $userEmail)->get('quantity');
-
-        foreach($getQuantity as $value){
-            $showQuantity += $value->quantity;
-        }
-
-        return $showQuantity;
+        //
     }
 
     /**
@@ -78,7 +91,14 @@ class erichheadercartcontroller extends Controller
      */
     public function update(Request $request, $id)
     {
+        $existingItem = erichcustomer::find($id);
+
+        $newPass = Hash::make($request->pass);
         
+        $existingItem->password = $newPass;
+        $existingItem->save();
+
+        return $existingItem;
     }
 
     /**

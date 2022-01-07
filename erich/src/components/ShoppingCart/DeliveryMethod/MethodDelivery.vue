@@ -43,7 +43,7 @@
             >
                 <p>{{Municipality}}&nbsp;{{Barangay}}&nbsp;{{UBarangay}}&nbsp;{{HomeAddress}}&nbsp;</p>              
             </div>
-            <div
+            <!-- <div
               class="d-flex justify-end"
             >
               <v-btn
@@ -56,7 +56,7 @@
               >
                 Change Address
               </v-btn>
-            </div>
+            </div> -->
           </div>
           <div
             class="pt-4"

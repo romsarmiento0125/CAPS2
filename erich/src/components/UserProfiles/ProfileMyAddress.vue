@@ -20,14 +20,14 @@
                     class="title"
                   >My Address</p>
                   <v-spacer></v-spacer>
-                  <v-btn
+                  <!-- <v-btn
                     color="orange"
                     @click="addNewAddress"
                   >
                     <p
                       class="my-0 white--text"
                     >Add New Address</p>
-                  </v-btn>
+                  </v-btn> -->
                 </div>
               </v-col>
             </v-row>
@@ -63,7 +63,7 @@
                         </div>
                       </div>
                       <v-spacer></v-spacer>
-                      <div>
+                      <!-- <div>
                         <v-btn
                           plain
                           @click="editAddress"
@@ -81,7 +81,7 @@
                             class="my-0"
                           >Delete</p>
                         </v-btn>
-                      </div>
+                      </div> -->
                     </v-list-item>
                   </v-list-item-group>
                 </v-list>

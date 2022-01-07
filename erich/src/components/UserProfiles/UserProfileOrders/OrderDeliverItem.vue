@@ -45,7 +45,7 @@
             </v-icon>
             <p
               class="title my-0 blue--text"
-            >{{priceRound(item.quantity * item.retailPrice)}}</p>
+            >{{priceRound(((item.quantity * item.retailPrice) - (item.quantity * item.retailPrice)*(item.discount / 100)))}}</p>
           </div>
         </div>
         

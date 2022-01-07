@@ -56,7 +56,7 @@
                   class="my-0 py-0"
                 >
                   <v-list-item-group
-                    v-for="(item, i) in items"
+                    v-for="(item, i) in cartItems"
                       :key="i"
                   >
                     <v-list-item
@@ -127,7 +127,7 @@
                                   depressed
                                   color="transparent"
                                   class=""
-                                  @click="decreaseQuantity(item.id, i, item.item_quantity)"
+                                  @click="updateQuantity(item.id, item.item_quantity, 'decrease')"
                                   small
                                 >
                                   <v-icon
@@ -136,15 +136,24 @@
                                     mdi-minus
                                   </v-icon>
                                 </v-btn>
-                                <p
+                                <v-btn
+                                  plain
+                                >
+                                  <p
+                                    class="my-0 px-2 subtitle-1 grey--text text--darken-2 font-weight-bold" 
+                                  >
+                                    {{item.item_quantity}}
+                                  </p>
+                                </v-btn>
+                                <!-- <p
                                   class="my-0 px-2 subtitle-1 grey--text text--darken-2 font-weight-bold" 
                                 >
                                   {{item.item_quantity}}
-                                </p>
+                                </p> -->
                                 <v-btn
                                   depressed
                                   color="transparent"
-                                  @click="addQuantity(item.id, i)"
+                                  @click="updateQuantity(item.id, item.item_quantity, 'increase')"
                                   small
                                 >
                                   <v-icon
@@ -252,6 +261,12 @@
                 <div
                   class="mx-8 pt-xl-12 pt-lg-6 pt-md-4"
                 >
+                  <p
+                    v-if="(usersTag == 'Unverified')"
+                    class="py-0 my-0 text-center subtitle-1"
+                  >
+                    Please Verify Your Account First.
+                  </p>
                   <v-btn
                     dark
                     color="#1106A0"
@@ -284,11 +299,7 @@
     mixins: [Mixins],
     
     data: () => ({
-      items: [
-        // {id: 0, item_name: "Koko Crunch", item_desc: "this is item description", item_price: 156.50, item_image: 'SamplePhoto.png'},
-        // {id: 1, item_name: "Pancake Plus", item_desc: "this is item description", item_price: 79.95, item_image: 'SamplePhoto.png'},
-        // {id: 2, item_name: "Gardenia", item_desc: "this is item description", item_price: 67.50, item_image: 'SamplePhoto.png'},
-      ],
+      items: [],
       totPrice: 0,
       checkoutButton: true,
     }),
@@ -298,7 +309,7 @@
         return this.$store.state.categoryItems;
       },
       cartItems() {
-        return this.$store.state.cartItems;
+        return this.items;
       },
       cartQuantity() {
         return this.$store.state.cartQuantity;
@@ -317,8 +328,10 @@
     methods: {
       showPlaceOrder() {
         this.$emit('scItemsEmit');
+        this.getCartItems();
       },
       showCartItems(data) {
+        this.items = [];
         var item;
         this.totPrice = 0;
         // console.log("cart items");
@@ -330,46 +343,25 @@
         for(var i = 0; i < data.length; i++){
           for(var j = 0; j < this.categoryItems.length; j++){
             if(data[i].itemCode == this.categoryItems[j].itemCode){
-            item = {id: data[i].id,
-            item_name: this.categoryItems[j].name,
-            item_desc: this.categoryItems[j].description,
-            item_code: this.categoryItems[j].itemCode,
-            item_quantity: data[i].quantity,
-            item_price: this.categoryItems[j].retailPrice,
-            item_image: this.categoryItems[j].image,
-            item_email: this.usersEmail,
-            item_discount: this.categoryItems[j].discount
-            }
-            this.items.push(item);
-            this.totPrice = (this.totPrice + ((data[i].quantity * this.categoryItems[j].retailPrice * 1) - ((data[i].quantity * this.categoryItems[j].retailPrice * 1) * (this.categoryItems[j].discount / 100) )));
-            //console.log(i);
+              item = {id: data[i].id,
+              item_name: this.categoryItems[j].name,
+              item_desc: this.categoryItems[j].description,
+              item_code: this.categoryItems[j].itemCode,
+              item_quantity: data[i].quantity,
+              item_price: this.categoryItems[j].retailPrice,
+              item_image: this.categoryItems[j].image,
+              item_email: this.usersEmail,
+              item_discount: this.categoryItems[j].discount
+              }
+              this.items.push(item);
+              this.totPrice = (this.totPrice + ((data[i].quantity * this.categoryItems[j].retailPrice * 1) - ((data[i].quantity * this.categoryItems[j].retailPrice * 1) * (this.categoryItems[j].discount / 100) )));
+              //console.log(i);
             }
             else{
               //console.log("this is else");
             }
           }
         }
-        // console.log(data.length);
-        // for(var i = 0; i < data.length; i++){
-        //   if(data[i].ItemCode == this.categoryItems[i].ItemCode){
-        //     item = {id: data[i].id,
-        //     item_name: this.categoryItems[i].Name,
-        //     item_desc: this.categoryItems[i].Description,
-        //     item_code: this.categoryItems[i].ItemCode,
-        //     item_quantity: data[i].Quantity,
-        //     item_price: this.categoryItems[i].RetailPrice,
-        //     item_image: this.categoryItems[i].Image,
-        //     item_email: this.usersEmail,
-        //     item_discount: this.categoryItems[i].Discount
-        //     }
-        //     this.items.push(item);
-        //     this.totPrice = (this.totPrice + ((data[i].Quantity * this.categoryItems[i].RetailPrice * 1) - ((data[i].Quantity * this.categoryItems[i].RetailPrice * 1) * (this.categoryItems[i].Discount / 100) )));
-        //     //console.log(i);
-        //   }
-        //   else{
-        //     //console.log("this is else");
-        //   }
-        // }
         this.totPrice = (Math.round(this.totPrice * 100) / 100).toFixed(2);
         this.$store.commit('storeCartItems', this.items);
         this.checkoutButtonChecker();
@@ -389,18 +381,6 @@
           this.showCartItems(res.data);
         })
         .catch(err => console.error(err));
-        //console.log("eto ata");
-        // axios.get(this.getDomain()+'api/headercart',
-        //   {
-        //     headers:{
-        //       "Authorization": `Bearer ${this.usersToken}`,
-        //     }
-        //   })
-        // .then(res => {
-        //   this.showCartItems(res.data)
-        //   // console.log(res.data)
-        //   })
-        // .catch(err => console.error(err));
       },
       deleteItems(code) {
         // console.log("Delete this item");
@@ -419,36 +399,11 @@
         })
         .catch(err => console.error(err))
       },
-      addQuantity(idcart, count) {
-        // console.log("Quantity add");
-        // console.log(this.cartItems);
-        // console.log(this.cartItems[count].id);
-        // console.log(idcart);
-        // console.log(count);
-        axios.put(this.getDomain()+'api/getcart/' + idcart, {
-          itemupdate: this.cartItems[count]
-        },
-          {
-            headers:{
-              "Authorization": `Bearer ${this.usersToken}`,
-          }
-          })
-        .then(res => {
-          //console.log(res.data)
-          this.showQuantity(res.data)
-        })
-        .catch(err => console.error(err));
-      },
-      decreaseQuantity(idcart, count, quantity) {
-        // console.log("Quantity decrease",);
-        // console.log(quantity);
-        if(quantity < 2){
-          alert("Remove the item");
-          this.deleteItems(idcart);
-        }
-        else{
-          axios.put(this.getDomain()+'api/headercart/' + idcart, {
-            itemupdate: this.cartItems[count]
+      updateQuantity(idcart, quantity, cond) {
+        if(cond == "increase"){
+          axios.put(this.getDomain()+'api/getcart/' + idcart, {
+            updateCond: cond,
+            customerEmail: this.usersEmail
           },
           {
             headers:{
@@ -456,27 +411,42 @@
           }
           })
           .then(res => {
-            //console.log(res.data)
-            this.showQuantity(res.data)
+            // console.log(res.data)
+            this.showCartItems(res.data);
           })
           .catch(err => console.error(err));
         }
-      },
-      showQuantity(data) {
-        // console.log("show quantity");
-        //console.log(data);
-        this.$store.commit('storeCartItems', data);
-        this.getCartItems();
+        else if(cond == "decrease"){
+          if(quantity <= 1){
+            this.deleteItems(idcart);
+          }
+          else{
+            axios.put(this.getDomain()+'api/getcart/' + idcart, {
+              updateCond: cond,
+              customerEmail: this.usersEmail
+            },
+            {
+              headers:{
+                "Authorization": `Bearer ${this.usersToken}`,
+            }
+            })
+            .then(res => {
+              // console.log(res.data)
+              this.showCartItems(res.data);
+            })
+            .catch(err => console.error(err));
+          }
+        }
+        else{
+          console.log("something wrong");
+        }
+        
       },
       checkoutButtonChecker(){
-        // console.log("cartQutantity cheker");
-        // console.log(this.cartQuantity);
         if((this.totPrice == 0) || (this.usersTag == "Unverified")){
-          // console.log("items is null");
           this.checkoutButton = true;
         }
         else{
-          // console.log("else");
           this.checkoutButton = false;
       }
       },
@@ -488,58 +458,9 @@
 
     beforeMount() {
       this.getCartItems();
-      //this.showCartItems();
       //console.log("before mount");
     }
-  }//export default closing bracket
-
-  //showCartItems methods with comments
-  // showCartItems(data) {
-  //   var item;
-    
-  //   // console.log("cart items");
-  //   // console.log(data);
-  //   // console.log(data[0]);
-  //   // console.log(data[1].ItemCode);
-  //   // console.log(data[0].Quantity);
-  //   // console.log(data[0].id);
-  //   // console.log(data.length);
-
-  //   // console.log("category items");
-  //   // console.log(this.categoryItems);
-  //   // console.log(this.categoryItems[0]);
-  //   // console.log(this.categoryItems[2].ItemCode);
-  //   // console.log(this.categoryItems.length)
-  //   for(var i = 0; i < data.length; i++){
-  //     for(var j = 0; j < this.categoryItems.length; j++){
-  //       if(data[i].ItemCode == this.categoryItems[j].ItemCode){
-  //       // alert("This is item Name " + this.categoryItems[j].Name + " " + this.categoryItems[j].Description
-  //       // + " This is item Code " + this.categoryItems[j].ItemCode + " This is item Quantity " + 
-  //       // data[i].Quantity + " This is item Retail Price " + this.categoryItems[j].RetailPrice + " This is item id " + i
-  //       // )
-  //       // console.log(i);
-  //       // console.log(this.categoryItems[j].Name,);
-  //       // console.log(this.categoryItems[j].ItemCode);
-  //       // console.log(data[i].ItemCode)
-  //       item = {id: i,
-  //       item_name: this.categoryItems[j].Name,
-  //       item_desc: this.categoryItems[j].Description,
-  //       item_code: this.categoryItems[j].ItemCode,
-  //       item_quantity: data[i].Quantity,
-  //       item_price: this.categoryItems[j].RetailPrice,
-  //       item_image: 'SamplePhoto.png'}
-  //       this.items.push(item);
-  //       this.totPrice = this.totPrice + (data[i].Quantity * this.categoryItems[j].RetailPrice * 1);
-  //       console.log(i);
-  //       }
-  //       else{
-  //         console.log("this is else");
-  //       }
-  //     }
-  //   }
-  //   this.totPrice = (Math.round(this.totPrice * 100) / 100).toFixed(2);
-  //   this.$store.commit('storeCartItems', this.items);
-  // },
+  }
 </script>
 <style scoped>
 .fontTitle{

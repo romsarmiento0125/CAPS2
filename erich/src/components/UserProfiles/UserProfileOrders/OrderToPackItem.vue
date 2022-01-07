@@ -28,33 +28,6 @@
             </v-row>
             <v-row>
               <v-col>
-                <!-- <div
-                  v-for="(item, n) in userProfileOrders"
-                  :key="n"
-                >
-                  <div
-                    class="d-flex"
-                  >
-                    <div>
-                      <v-img
-                        :src="require('../../../assets/itemPhotos/'+item.ItemImage)"
-                        contain
-                        max-width="100px"
-                        max-height="100px"
-                      ></v-img>
-                    </div>
-                    <div>
-                      <p>{{item.ItemName}}</p>
-                      <p>{{item.ItemDesc}}</p>
-                      <p>{{item.Quantity}}</p>
-                    </div>
-                    <v-spacer></v-spacer>
-                    <div>
-                       <p>{{item.Quantity * item.RetailPrice}}</p>
-                    </div>
-                  </div>
-                  
-                </div> -->
                 <orderdeliveritems :orders="order.orders"></orderdeliveritems>
               </v-col>
             </v-row>
@@ -151,11 +124,14 @@
    
 
     methods: {
-      
       priceRound(price){
         var rounded = (Math.round(price * 100) / 100).toFixed(2);
         return rounded;
       },
+    },
+
+    mounted(){
+      // console.log(this.userProfileOrders);
     },
 
     beforeMount(){

@@ -56,7 +56,7 @@
                   <p
                     class="subtitle-1 my-0"
                   >{{Email}}</p>
-                  <v-btn
+                  <!-- <v-btn
                     plain
                     x-small
                     color="primary"
@@ -65,7 +65,7 @@
                     <p
                       class="my-0"
                     >change</p>
-                  </v-btn>
+                  </v-btn> -->
                 </div>
                 <div
                   class="d-flex"
@@ -107,7 +107,7 @@
                     class="subtitle-1 my-0"
                   >{{Account}}</p>
                 </div>
-                <div
+                <!-- <div
                   class="mt-6"
                 >
                   <v-dialog
@@ -217,11 +217,8 @@
                       </v-card-actions>
                     </v-card>
                   </v-dialog>
-                </div>
+                </div> -->
               </v-col>
-              <v-divider
-                vertical
-              ></v-divider>
               <v-col
                 cols="4"
               >

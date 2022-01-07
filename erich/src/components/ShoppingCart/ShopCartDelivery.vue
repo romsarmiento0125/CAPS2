@@ -78,9 +78,7 @@
                     <h5 class="fontDesc">Shipping Fee</h5>
                     <h5 class="fontTitle font-weight-regular mt-3">{{customerOrder.Shipping}}</h5>
                   </div>
-
                   </div>
-                  
                 </div>
               </div>
             </div>
@@ -111,7 +109,7 @@
       <div>
         <v-dialog
           v-model="dialog"
-          width="22%"
+          width="30%"
         >
           <div class="white pa-5">
             <div class="d-flex justify-center">

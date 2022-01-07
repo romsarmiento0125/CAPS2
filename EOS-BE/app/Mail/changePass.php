@@ -7,11 +7,12 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class Testing extends Mailable
+class changePass extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $details;
+
     /**
      * Create a new message instance.
      *
@@ -29,6 +30,6 @@ class Testing extends Mailable
      */
     public function build()
     {
-        return $this->subject("Erich Grocery Store Email Verification")->view('emails.verification');
+        return $this->subject("Erich Grocery Change Password")->view('emails.changepass');
     }
 }

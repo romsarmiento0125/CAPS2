@@ -91,15 +91,16 @@
                       style="max-width: 200px;" 
                     >{{item.name}}</span>
                     <br>
-                    <span>
-                      {{item.size}}
-                    </span>
-                    <br>
                     <span
                       class="d-inline-block text-truncate"
                       style="max-width: 200px;" 
                     >{{item.description}}</span>
                     <br>
+                    <span>
+                      {{item.size}}
+                    </span>
+                    <br>
+                    
                     
                     <span>{{item.quantity}} &nbsp; Pcs Available</span>
                   </v-card-subtitle>
@@ -119,7 +120,7 @@
                       white
                       text
                       color="#1106A0"
-                      @click="addToCartItems(item.itemCode)"
+                      @click="addToCartItems(item.itemCode, item.id)"
                     >
                       <v-img
                         contain
@@ -205,8 +206,8 @@
         this.showItems = this.computedShowItems;
       },
       
-      addToCartItems(code) {
-        console.log("add to cart");
+      addToCartItems(code, id) {
+        // console.log("add to cart");
         this.cartItems.Email = this.usersEmail;
         this.cartItems.ItemCode = code;
 
@@ -223,33 +224,11 @@
           }
           })
           .then(res => {
-            this.updateCartCounter(res.data)
+            // console.log(res.data);
+            this.$store.commit('storeCartQuantity');
           })
           .catch(err => console.error(err));
         }
-      },
-      updateCartCounter(data){
-        if(data === "addSuccess"){
-          this.$store.commit('storeCartQuantity', this.$store.state.cartQuantity + 1);
-        }
-        else{
-          axios.put(this.getDomain()+'api/customercart/' + data.id, {
-            itemupdate: this.cartItems
-          },
-          {
-            headers:{
-              "Authorization": `Bearer ${this.usersToken}`,
-          }
-          })
-          .then(res => {
-            this.showQuantity(res.data)
-          })
-          .catch(err => console.error(err));
-        }
-      },
-      showQuantity(data){
-        this.$store.commit('storeCartItems', data);
-        this.$store.commit('storeCartQuantity', this.$store.state.cartQuantity + 1);
       },
       getCategoryItems() {
         if(!(this.categoryItems == null)){

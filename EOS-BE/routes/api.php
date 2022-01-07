@@ -5,8 +5,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\erichgetcartitems;
+use App\Http\Controllers\testemailcontroller;
 use App\Http\Controllers\userOrderController;
 use App\Http\Controllers\erichlogincontroller;
+use App\Http\Controllers\verifyemailcontroller;
 use App\Http\Controllers\customercartcontroller;
 use App\Http\Controllers\loginaddresscontroller;
 use App\Http\Controllers\erichcustomercontroller;
@@ -21,16 +23,16 @@ use App\Http\Controllers\userOrderDeliveryController;
 use App\Http\Controllers\userOrderToPickupController;
 use App\Http\Controllers\customerOrderItemsController;
 use App\Http\Controllers\erichcategoryitemscontroller;
+use App\Http\Controllers\erichnotificationscontroller;
 use App\Http\Controllers\CustomerPickupInfosController;
+
 use App\Http\Controllers\CustomerPickupItemsController;
 use App\Http\Controllers\CustomerPickupPickupController;
-use App\Http\Controllers\erichnotificationscontroller;
 
 use App\Http\Controllers\CustomerPickupCompleteController;
 use App\Http\Controllers\userOrderToPickupCompleteController;
 
-use App\Http\Controllers\verifyemailcontroller;
-use App\Http\Controllers\testemailcontroller;
+use App\Http\Controllers\customerPasswordVerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,7 +71,6 @@ Route::middleware('auth:sanctum')->group( function (){
 
     Route::get('/headercart', [erichheadercartcontroller::class, 'index']);
     Route::post('/headercart/store', [erichheadercartcontroller::class, 'store']);
-    Route::put('/headercart/{id}', [erichheadercartcontroller::class, 'update']);
     Route::get('/getcart', [erichgetcartitems::class, 'index']);
     Route::post('/getcart/store', [erichgetcartitems::class, 'store']);
     Route::put('/getcart/{id}', [erichgetcartitems::class, 'update']);
@@ -117,6 +118,9 @@ Route::get('/customeraddress', [customeraddresscontroller::class, 'index']);
 Route::post('/customeraddress/store', [customeraddresscontroller::class, 'store']);
 
 Route::post('/customernotif/store', [erichnotificationscontroller::class, 'store']);
+
+Route::post('/sendcode', [customerPasswordVerificationController::class, 'findemail']);
+Route::put('/changepass/{id}', [customerPasswordVerificationController::class, 'update']);
 
 // // Route::get('/customerlogin', [erichlogincontroller::class, 'index']);
 // // Route::prefix('/customerlogin')->group( function () {

@@ -124,6 +124,7 @@
                     dense
                     class="mt-1"
                     :rules="passRules"
+                    hint="Use 8 or more letters with a mix of letters, numbers & symbols"
                     required
                     label="New password"
                   ></v-text-field>
@@ -634,22 +635,22 @@
               }
               else{
                 this.snackbar = true;
-                this.prompt = "yung pass"; 
+                this.prompt = "Incorrect password combination"; 
               }
             }
             else{
               this.snackbar = true;
-              this.prompt = "Number po"; 
+              this.prompt = "Invalid mobile number"; 
             }
           }
           else{
             this.snackbar = true;
-            this.prompt = "Yung email";
+            this.prompt = "Incorrect email combination";
           }
         }
         else{
           this.snackbar = true;
-          this.prompt = "Paki kumpleto mga input field";
+          this.prompt = "Incomplete input fields";
         }
 
       },
