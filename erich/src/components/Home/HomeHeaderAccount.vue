@@ -293,8 +293,8 @@
           localStorage.removeItem("gender");
           localStorage.removeItem("tag");
           localStorage.removeItem("token");
-          window.location.href = "http://localhost:8080/";
-          // window.location.href = "http://erichgrocery.store/";
+          // window.location.href = "http://localhost:8080/";
+          window.location.href = "http://erichgrocery.store/";
         }
       },
       goToMiscFunctions(cond){
