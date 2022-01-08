@@ -18,30 +18,31 @@
             height="200px"
             width="100%"
           >
-            <div>
+            <div class="py-7">
               <v-btn
+                
                 @click="profileCond('mp')"
                 plain
               >
-                My Profile
+                <h3 class="no-uppercase"> My Profile </h3>
               </v-btn>
               <v-btn
                 @click="profileCond('mad')"
                 plain
               >
-                My Address
+                <h3 class="no-uppercase"> My Address </h3>
               </v-btn>
               <v-btn
                 @click="profileCond('mo')"
                 plain
               >
-                My Orders
+                <h3 class="no-uppercase"> My Orders </h3>
               </v-btn>
               <v-btn
                 plain
                 @click="profileCond('log')"
               >
-                Logout
+                <h3 class="no-uppercase"> Logout </h3>
               </v-btn>
             </div>
           </v-sheet>
@@ -248,3 +249,13 @@
     }
   }
 </script>
+
+<style scoped>
+.fontBlue{
+  color:#1106A0;
+}
+.no-uppercase{
+ text-transform: none;
+}
+
+</style>

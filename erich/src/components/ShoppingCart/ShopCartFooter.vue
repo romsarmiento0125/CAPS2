@@ -68,7 +68,7 @@
                       plain
                       text
                       class=" btn no-uppercase font-weight-bold"
-                      
+                      @click="poliQl('rfp')"
                     >
                       Refund Policy
                     </v-btn>
@@ -76,6 +76,7 @@
                     <v-btn
                       plain
                       class=" font-weight-bold no-uppercase"
+                      @click="poliQl('spp')"
                     >
                       Shipping Policy
                     </v-btn>
@@ -83,6 +84,7 @@
                     <v-btn
                       plain
                       class=" font-weight-bold no-uppercase"
+                      @click="poliQl('pvp')"
                     >
                       Privacy Policy
                     </v-btn>
@@ -90,6 +92,7 @@
                       <v-btn
                       plain
                       class=" font-weight-bold no-uppercase"
+                      @click="poliQl('tsp')"
                     >
                       Terms of Service
                     </v-btn>
@@ -115,6 +118,7 @@
                     <v-btn
                       plain
                       class=" font-weight-bold  no-uppercase"
+                      @click="poliQl('auq')"
                     >
                       About Us
                     </v-btn>
@@ -122,8 +126,17 @@
                     <v-btn
                       plain
                       class=" font-weight-bold no-uppercase"
+                      @click="poliQl('cuq')"
                     >
                       Contact us
+                    </v-btn>
+
+                    <v-btn
+                      plain
+                      class=" font-weight-bold no-uppercase"
+                      @click="poliQl('fqq')"
+                    >
+                      FAQ
                     </v-btn>
                   </div>
               </v-col>
@@ -165,7 +178,6 @@
             </v-btn>
             
           </div>
-          
         </v-col>
       </v-row>
     </v-container>
@@ -175,7 +187,38 @@
 
 <script>
   export default {
-    
+    methods: {
+      poliQl(cond){
+        if(cond == 'rfp'){
+          this.$store.commit('aboutCond', 'ref');
+          this.$router.push("/about");
+        }
+        else if(cond == 'spp'){
+          this.$store.commit('aboutCond', 'ship');
+          this.$router.push("/about");
+        }
+        else if(cond == 'pvp'){
+          this.$store.commit('aboutCond', 'priv');
+          this.$router.push("/about");
+        }
+        else if(cond == 'tsp'){
+          this.$store.commit('aboutCond', 'term');
+          this.$router.push("/about");
+        }
+        else if(cond == 'auq'){
+          this.$store.commit('aboutCond', 'aucu');
+          this.$router.push("/about");
+        }
+        else if(cond == 'cuq'){
+          this.$store.commit('aboutCond', 'aucu');
+          this.$router.push("/about");
+        }
+        else if(cond == 'fqq'){
+          this.$store.commit('aboutCond', 'faq');
+          this.$router.push("/about");
+        }
+      }
+    }
   }
 </script>
 

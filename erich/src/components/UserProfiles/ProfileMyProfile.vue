@@ -12,13 +12,12 @@
           >
             <v-row>
               <v-col>
-                <div>
-                  <p
-                    class="subtitle-1 my-0"
-                  >Welcome</p>
-                  <p
-                    class="headline my-0"
-                  >{{Username}}</p>
+                <div class="pa-5">
+                  <h3
+                    class="fontTitle"
+                  >My Profile</h3>
+                  <h5 class="fontDesc font-weight-regular"
+                  >Manage and protect your account.</h5>
                 </div>
               </v-col>
             </v-row>
@@ -27,35 +26,48 @@
               <v-col
                 cols="8"
               >
-                <div
-                  class="d-flex"
+              <div
+                  class="d-flex mt-5 ml-5"
                 >
-                  <p
-                    class="subtitle-1 mr-2 my-0"
-                  >Name:</p>
-                  <p
-                    class="subtitle-1 my-0"
-                  >{{Name}}</p>
+                  <h4
+                    class="mr-2 my-0 mt-1 fontTitle"
+                  >Username:</h4>
+                  <h5
+                    class="my-0 py-1 px-15 nBorder elevation-1 fontTitle font-weight-regular"
+                  >{{Username}}</h5>
                 </div>
+
                 <div
-                  class="d-flex"
+                  class="d-flex mt-5 ml-5"
                 >
-                  <p
-                    class="subtitle-1 mr-2 my-0"
-                  >Surname:</p>
-                  <p
-                    class="subtitle-1 my-0"
-                  >{{Surname}}</p>
+                  <h4
+                    class="mr-8 my-0 mt-1 fontTitle"
+                  >Name:</h4>
+                  <h5
+                    class="my-0 py-1 px-16 nBorder elevation-1 fontTitle font-weight-regular"
+                  >{{Name}}</h5>
                 </div>
+
                 <div
-                  class="d-flex align-center"
+                  class="d-flex mt-5 ml-5"
                 >
-                  <p
-                    class="subtitle-1 mr-2 my-0"
-                  >Email:</p>
-                  <p
-                    class="subtitle-1 my-0"
-                  >{{Email}}</p>
+                  <h4
+                    class="mr-4 my-0 mt-1 fontTitle"
+                  >Surname:</h4>
+                  <h5
+                    class="my-0 py-1 px-16 nBorder elevation-1 fontTitle font-weight-regular"
+                  >{{Surname}}</h5>
+                </div>
+
+                <div
+                  class="d-flex align-center mt-5 ml-5"
+                >
+                  <h4
+                    class="mr-2 my-0 fontTitle"
+                  >Email:</h4>
+                  <h5
+                    class="my-0 py-1 ml-8 px-16 nBorder elevation-1 fontTitle font-weight-regular"
+                  >{{Email}}</h5>
                   <!-- <v-btn
                     plain
                     x-small
@@ -68,44 +80,47 @@
                   </v-btn> -->
                 </div>
                 <div
-                  class="d-flex"
+                  class="d-flex mt-5 ml-5"
                 >
-                  <p
-                    class="subtitle-1 mr-2 my-0"
-                  >Phone number:</p>
-                  <p
-                    class="subtitle-1 my-0"
-                  >{{Mobilenumber}}</p>
+                  <h4
+                    class="mr-2 my-0 fontTitle"
+                  >Phone number:</h4>
+                  <h5
+                    class="my-0 py-1 ml-8 px-16 nBorder elevation-1 fontTitle font-weight-regular"
+                  >{{Mobilenumber}}</h5>
+                </div>
+
+                <div
+                  class="d-flex mt-5 ml-5"
+                >
+                  <h4
+                    class="mr-2 my-0"
+                  >Date of birth:</h4>
+                  <h5
+                    class="my-0 py-1 ml-8 px-16 nBorder elevation-1 fontTitle font-weight-regular"
+                  >{{Birthday}}</h5>
                 </div>
                 <div
-                  class="d-flex"
+                  class="d-flex mt-5 ml-5"
                 >
-                  <p
-                    class="subtitle-1 mr-2 my-0"
-                  >Date of birth:</p>
-                  <p
-                    class="subtitle-1 my-0"
-                  >{{Birthday}}</p>
+                  <h4
+                    class="mr-2 my-0 fontTitle"
+                  >Gender:</h4>
+                  <h5
+                    class="my-0 py-1 ml-8 px-16 nBorder elevation-1 fontTitle font-weight-regular"
+                  >{{Gender}}</h5>
                 </div>
-                <div
-                  class="d-flex"
-                >
-                  <p
-                    class="subtitle-1 mr-2 my-0"
-                  >Gender:</p>
-                  <p
-                    class="subtitle-1 my-0"
-                  >{{Gender}}</p>
-                </div>
+
                  <div
-                  class="d-flex"
+                  class="d-flex mt-5 ml-5 mb-5"
                 >
-                  <p
-                    class="subtitle-1 mr-2 my-0"
-                  >Account:</p>
-                  <p
-                    class="subtitle-1 my-0"
-                  >{{Account}}</p>
+                  <h4
+                    class="mr-2 my-0 fontTitle"
+                  >Account:</h4>
+                  
+                  <h5
+                    class="my-0 py-1 ml-8 px-16 nBorder elevation-1 fontTitle font-weight-regular"
+                  >{{Account}}</h5>
                 </div>
                 <!-- <div
                   class="mt-6"
@@ -222,13 +237,13 @@
               <v-col
                 cols="4"
               >
-                <div>
+                <!-- <div>
                   <v-img
                     src="../../assets/ERICH.svg"
                     aspect-ratio="2"
                     contain
                   ></v-img>
-                </div>
+                </div> -->
                 <!-- <div>
                   <v-file-input
                     :rules="rules"
@@ -328,3 +343,21 @@
     }
   }
 </script>
+
+<style scoped>
+.fontBlue{
+  color: #1106a0;
+}
+.fontDesc{
+  color: #858585;
+}
+.fontTitle{
+  color: #464646;
+}
+.nBorder{
+    border: 1px solid #787885;
+    border-radius: 5px;
+    border-right-width: 50px;
+    border-spacing: 50px 5px;
+  }
+</style>

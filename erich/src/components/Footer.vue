@@ -5,7 +5,7 @@
       height="auto"
       width="auto"
       style="
-        background-color:#EDEDF0"
+        background-color:#FFFFFF"
       class=""
     >
     <v-container fluid>
