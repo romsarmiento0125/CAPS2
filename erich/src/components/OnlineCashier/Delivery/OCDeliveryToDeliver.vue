@@ -62,6 +62,14 @@
                     >
                       <p>Complete</p>
                     </v-btn>
+                    <v-btn
+                      @click="toCancel(info.id, info.email, info.invoiceNumber, info.name, info.mobileNumber, info.completeAddress,
+                        info.orderYear, info.orderMonth, info.orderDay, info.adjustedDate, info.shipFee, info.discount,
+                        info.tax, info.subTotal, info.total
+                      )"
+                    >
+                      <p>Cancel</p>
+                    </v-btn>
                   </td>
                 </tr>
               </tbody>
@@ -103,6 +111,23 @@
         SubTotal: 0,
         Total: 0,
       },
+      orderCancel: {
+        Email: "",
+        Name: "",
+        Mobilenumber: "",
+        CompleteAddress: "",
+        Shipping: "",
+        InvoiceNumber: "",
+        OrderYear: "",
+        OrderMonth: "",
+        OrderDay: "",
+        AdjustedDate: "",
+        OrderStatus: "Cancel",
+        OrderTax: 0,
+        Discount: 0,
+        SubTotal: 0,
+        Total: 0,
+      },
     }),
 
     computed: {
@@ -135,7 +160,8 @@
         console.log("to Complete");
         console.log(this.orderDeliver);
         axios.post(this.getDomain()+'api/customercompleteitems/store', {
-            register: this.orderDeliver
+            register: this.orderDeliver,
+            userid: this.orderid
           },
           {
             headers:{
@@ -143,25 +169,59 @@
           }
           })
           .then(res => {
-            this.toDelete();
-            console.log(res.data);  
+            // console.log(res.data);
+            this.getAllDeliver();
           })
           .catch(err => console.error(err));
       },
-      toDelete(){
-        axios.delete(this.getDomain()+'api/customerdeliveritems/'+ this.orderid,
-          {
-            headers:{
-              "Authorization": `Bearer ${this.usersToken}`,
-          }
-          })
-          .then( res => {
-            console.log("Delete")
-            console.log(res.data);
-            this.getAllDeliver();
-          })
-          .catch(err => console.error(err))
+      toCancel(id, Email, InvoiceNumber, Name, MobileNumber, CompleteAddress, OrderYear, OrderMonth, 
+        OrderDay, AdjustedDate, ShipFee, Discount, Tax, SubTotal, Total) {
+        this.orderCancel.Email = Email;
+        this.orderCancel.Name = Name;
+        this.orderCancel.Mobilenumber = MobileNumber;
+        this.orderCancel.CompleteAddress = CompleteAddress;
+        this.orderCancel.Shipping = ShipFee;
+        this.orderCancel.InvoiceNumber = InvoiceNumber;
+        this.orderCancel.OrderYear = OrderYear;
+        this.orderCancel.OrderMonth = OrderMonth;
+        this.orderCancel.OrderDay = OrderDay;
+        this.orderCancel.AdjustedDate = AdjustedDate;
+        this.orderCancel.OrderTax = Tax;
+        this.orderCancel.Discount = Discount;
+        this.orderCancel.SubTotal = SubTotal;
+        this.orderCancel.Total = Total;
+        this.orderid = id;
+        // console.log("to Cancel");
+        // console.log(this.orderDeliver);
+        axios.post(this.getDomain()+'api/customerordercancel/store', {
+          register: this.orderCancel,
+          userid: this.orderid
+        },
+        {
+          headers:{
+            "Authorization": `Bearer ${this.usersToken}`,
+        }
+        })
+        .then(res => {
+          // console.log(res.data);
+          this.getAllDeliver();
+        })
+        .catch(err => console.error(err));
       },
+      // toDelete(){
+      //   axios.delete(this.getDomain()+'api/customerdeliveritems/'+ this.orderid,
+      //     {
+      //       headers:{
+      //         "Authorization": `Bearer ${this.usersToken}`,
+      //     }
+      //     })
+      //     .then( res => {
+      //       console.log("Delete")
+      //       console.log(res.data);
+      //       this.getAllDeliver();
+      //     })
+      //     .catch(err => console.error(err))
+      // },
       getAllDeliver(){
         axios.get(this.getDomain()+'api/customerdeliveritems',
           {
@@ -175,6 +235,7 @@
         })
         .catch(err => console.error(err));
       },
+      
     },
 
     beforeMount(){

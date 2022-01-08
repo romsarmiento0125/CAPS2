@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\customerOrderInfo;
 use App\Models\customerDeliverItems;
+use App\Models\customerCancelItems;
 
-class userDeliverItemsController extends Controller
+class userOrderCancel extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class userDeliverItemsController extends Controller
      */
     public function index()
     {
-        return customerDeliverItems::with('orders')->get();
+        return customerCancelItems::with('orders')->get();
     }
 
     /**
@@ -36,7 +36,7 @@ class userDeliverItemsController extends Controller
      */
     public function store(Request $request)
     {
-        $register = new customerDeliverItems();
+        $register = new customerCancelItems();
 
         $register->email = $request->register['Email'];
         $register->invoiceNumber = $request->register['InvoiceNumber'];
@@ -58,14 +58,15 @@ class userDeliverItemsController extends Controller
 
         $id = $request->userid;
 
-        $existingItem = customerOrderInfo::find($id);
+        $existingItem = customerDeliverItems::find($id);
 
         if( $existingItem){
             $existingItem->delete();
             return "Item succesfully deleted.";
         }
-
-        return "Item not Found";
+        else{
+            return "Item not Found";
+        }
     }
 
     /**
@@ -110,13 +111,6 @@ class userDeliverItemsController extends Controller
      */
     public function destroy($id)
     {
-        $existingItem = customerDeliverItems::find($id);
-
-        if( $existingItem){
-            $existingItem->delete();
-            return "Item succesfully deleted.";
-        }
-
-        return "Item not Found";
+        //
     }
 }
