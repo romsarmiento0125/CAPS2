@@ -6,31 +6,35 @@
     >
       <template v-slot:activator="{ on, attrs }">
         <v-btn
-          color="primary"
+          dark
+          outlined
+          color="#1106A0"
           v-bind="attrs"
           v-on="on"
-        >View Order Details</v-btn>
+        >
+        <h6> View Order Details </h6>
+        </v-btn>
       </template>
       <template v-slot:default="dialog">
         <v-card>
           <v-toolbar
-            color="primary"
-            dark
-          >Order Details</v-toolbar>
-          <div
-            class="d-flex"
+            class="d-flex justify-center fontStyle fontTitle elevation-0 pa-2"
+            color="white"
+            
           >
-            <p
-              class="title"
-            >
-              Invoice#{{ivNumber}}
-            </p>
+          <h3> Order Details </h3>
+
+          </v-toolbar>
+          <div
+            class="d-flex mx-10"
+          >
+            <h4 class="fontDesc">
+              Invoice: #{{ivNumber}}
+            </h4>
             <v-spacer></v-spacer>
-            <p
-              class="title"
-            >
+            <h4 class="fontDesc">
               {{odDate}}
-            </p>
+            </h4>
           </div>
           <v-card-text>
             <v-list>
@@ -42,15 +46,15 @@
                 >
                   <v-list-item-content
                   >
-                    <div>
-                      <p>{{item.name}}</p>
+                    <div class="mt-10">
+                      <h3>{{item.name}}</h3>
                       
                       <div
                         class="d-flex"
                       >
-                        <p>{{item.itemDesc}}</p>
+                        <h3>{{item.itemDesc}}</h3>
                         <v-spacer></v-spacer>
-                        <p>{{priceRound(item.retailPrice * item.quantity)}}</p>
+                        <h3>{{priceRound(item.retailPrice * item.quantity)}}</h3>
                       </div>
                     </div>
                   </v-list-item-content>
@@ -59,32 +63,45 @@
             </v-list>
           </v-card-text>
           <div
-            class=""
+            class="ma-10 fontDesc"
           >
-            <div>
-              <p>SubTotal</p>
-              <p>{{sTotal}}</p>
+            <div class="d-flex">
+              <h4>SubTotal</h4>
+               <v-spacer></v-spacer>
+              <h4>{{sTotal}}</h4>
             </div>
-            <div>
-              <p>Shipping Method</p>
-              <p>{{shipMethod}}</p>
+
+            <div class="d-flex">
+              <h4>Shipping Method</h4>
+                <v-spacer></v-spacer>
+              <h4>{{shipMethod}}</h4>
             </div>
-            <div>
-              <p>Discount</p>
-              <p>{{dDiscount}}</p>
+
+            <div class="d-flex">
+              <h4>Discount</h4>
+                <v-spacer></v-spacer>
+              <h4>{{dDiscount}}</h4>
             </div>
-            <div>
-              <p>Tax</p>
-              <p>{{tTax}}</p>
+
+            <div class="d-flex">
+              <h4>Tax</h4>
+                <v-spacer></v-spacer>
+              <h4>{{tTax}}</h4>
             </div>
-            <div>
-              <p>Total</p>
-              <p>{{tTotal}}</p>
+
+            <v-divider class="my-5"></v-divider>
+
+            <div class="d-flex fontTitle">
+              <h3>Total</h3>
+                <v-spacer></v-spacer>
+              <h3>{{tTotal}}</h3>
             </div>
+
           </div>
-          <v-card-actions class="justify-end">
+          <v-card-actions class="justify-end mx-3">
             <v-btn
               text
+              color="#1106A0"
               @click="dialog.value = false"
             >Close</v-btn>
           </v-card-actions>
@@ -125,3 +142,22 @@
     }
   }
 </script>
+
+
+
+<style scoped>
+  @font-face {
+    font-family: "RedHatDisplay";
+    src: local("RedHatDisplay"),
+    url(../../assets/Fonts/RedHatDisplay-VariableFont_wght.ttf) format("truetype");
+  }
+  .fontStyle{
+      font-family: "RedHatDisplay", Helvetica, Arial;
+    }
+  .fontTitle{
+    color: #464646;
+  }
+  .fontDesc{
+    color: #858585;
+  }
+</style>
