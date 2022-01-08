@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="aboutBg">
     <about-header></about-header>
     <about-refund v-if="aboutCond == 'ref'"></about-refund>
     <about-shipping v-if="aboutCond == 'ship'"></about-shipping>
@@ -7,10 +7,14 @@
     <about-terms v-if="aboutCond == 'term'"></about-terms>
     <about-frequent v-if="aboutCond == 'faq'"></about-frequent>
     <about-aucu v-if="aboutCond == 'aucu'"></about-aucu>
+    <about-footer></about-footer>
+    
+    
   </div>
 </template>
 
 <script>
+  import Footer from '../components/Footer.vue'
   import RefundPolicy from '../components/About/RefundPolicy.vue'
   import ShippingPolicy from '../components/About/ShipPolicy.vue'
   import PrivacyPolicy from '../components/About/PrivacyPolicy.vue'
@@ -30,6 +34,7 @@
       "about-frequent": FrequentlyQuestion,
       "about-aucu": AbouUsContactUs,
       "about-header": HeaderAbout,
+      "about-footer": Footer,
     },
 
     computed: {
@@ -39,3 +44,9 @@
     },
   }
 </script>
+
+<style scoped>
+.aboutBg{
+  background-color: #fff;
+}
+</style>

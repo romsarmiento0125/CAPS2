@@ -10,10 +10,10 @@
           cols="10"
         >
           <div>
-            <p class="text-center display-1 mt-5">Frequently Ask Questions</p>
-            <p class="title">Places that are availble for delivery</p>
+            <h2 class="text-center fontBlue my-10">Frequently Ask Questions</h2>
+            <h3 class="fontDesc">Places that are availble for delivery</h3>
             <div>
-              <p class="font-weight-bold  mt-5 mb-0">Sta. Maria</p>
+              <h4 class="font-weight-bold fontDesc2 mt-5 mb-0">Sta. Maria</h4>
               <div
                 class="d-flex"
               >
@@ -57,7 +57,7 @@
             </div>
 
             <div>
-              <p class="font-weight-bold mt-5 mb-0">Garay</p>
+              <h4 class="font-weight-bold fontDesc2 mt-5 mb-0">Garay</h4>
               <ul>
                 <li>Poblacion</li>
                 <li>Babaguin</li>
@@ -67,17 +67,17 @@
             </div>
 
             <div>
-              <p class="font-weight-bold mt-5 mb-0">What kind of items do you sell?</p>
+              <h4 class="font-weight-bold fontDesc mt-5 mb-0">What kind of items do you sell?</h4>
               <p>Our item category includes poultry, rice, dairy & eggs, frozen foods, desserts, and beverages.</p>
             </div>
 
             <div>
-              <p class="font-weight-bold mt-5 mb-0">What are your modes of payment?</p>
+              <h4 class="font-weight-bold fontDesc mt-5 mb-0">What are your modes of payment?</h4>
               <p>Cash On Delivery</p>
             </div>
 
             <div>
-              <p class="font-weight-bold mt-5 mb-0">How long will it take to receive my order?</p>
+              <h4 class="font-weight-bold fontDesc mt-5 mb-0">How long will it take to receive my order?</h4>
               <p>We can deliver in the same day that you order or the day after you order.</p>
             </div>
           </div>
@@ -86,3 +86,15 @@
     </v-container>
   </div>
 </template>
+
+<style scoped>
+.fontBlue{
+  color: #1106A0;
+}
+.fontDesc{
+  color: #464646;
+}
+.fontDesc2{
+  color: #858585;
+}
+</style>
