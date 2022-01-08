@@ -30,6 +30,7 @@ export default new Vuex.Store({
     ocDeliverToCancel: false,
     userAllDeliver: {},
     userAllComplete: {},
+    userAllCancel: {},
     pickupDate: "",
     pickupTime: "",
     ocPickupToPack: true,
@@ -220,6 +221,11 @@ export default new Vuex.Store({
     storeUserAllComplete: (state, payload) => {
       state.userAllComplete = {},
       state.userAllComplete = payload;
+    },
+    //Components OnlineCashier Delivery OCDeliveryToCancel.vue
+    storeUserAllCancel: (state, payload) => {
+      state.userAllCancel = {},
+      state.userAllCancel = payload;
     },
     //Components ShoppingCart DeliveryMethod MethodPickup.vue
     pickupDate: (state, payload) => {

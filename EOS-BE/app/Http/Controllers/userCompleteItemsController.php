@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\customerDeliverItems;
 use App\Models\customerCompleteItems;
 
 class userCompleteItemsController extends Controller
@@ -55,7 +56,17 @@ class userCompleteItemsController extends Controller
 
         $register->save();
 
-        return $register;
+        $id = $request->userid;
+
+        $existingItem = customerDeliverItems::find($id);
+
+        if( $existingItem){
+            $existingItem->delete();
+            return "Item succesfully deleted.";
+        }
+        else{
+            return "Item not Found";
+        }
     }
 
     /**

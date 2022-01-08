@@ -4,6 +4,7 @@ use App\Mail\WelcomeMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\userOrderCancel;
 use App\Http\Controllers\erichgetcartitems;
 use App\Http\Controllers\testemailcontroller;
 use App\Http\Controllers\userOrderController;
@@ -24,14 +25,14 @@ use App\Http\Controllers\userOrderToPickupController;
 use App\Http\Controllers\customerOrderItemsController;
 use App\Http\Controllers\erichcategoryitemscontroller;
 use App\Http\Controllers\erichnotificationscontroller;
+
 use App\Http\Controllers\CustomerPickupInfosController;
-
 use App\Http\Controllers\CustomerPickupItemsController;
+
 use App\Http\Controllers\CustomerPickupPickupController;
-
 use App\Http\Controllers\CustomerPickupCompleteController;
-use App\Http\Controllers\userOrderToPickupCompleteController;
 
+use App\Http\Controllers\userOrderToPickupCompleteController;
 use App\Http\Controllers\customerPasswordVerificationController;
 
 /*
@@ -99,6 +100,8 @@ Route::middleware('auth:sanctum')->group( function (){
     Route::delete('/customerpickuppickup/{id}', [CustomerPickupPickupController::class, 'destroy']);
     Route::get('/customerpickupcomplete', [CustomerPickupCompleteController::class, 'index']);
     Route::post('/customerpickupcomplete/store', [CustomerPickupCompleteController::class, 'store']);
+    Route::post('/customerordercancel/store', [userOrderCancel::class, 'store']);
+    Route::get('/customerordercancel', [userOrderCancel::class, 'index']);
 
     Route::post('/emailverification', [testemailcontroller::class, 'email']);
     Route::put('/verifyemail/{id}', [verifyemailcontroller::class, 'verify']);

@@ -50,13 +50,6 @@
             <v-btn
               plain
               class="mx-1"
-              @click="deliverToPicker('return')"
-            >
-              <h3 class="my-5">Return/Replace</h3>
-            </v-btn>
-            <v-btn
-              plain
-              class="mx-1"
               @click="deliverToPicker('cancel')"
             >
               <h3 class="my-5" >Cancelled</h3>
@@ -71,7 +64,6 @@
         <oc-deliverytopack v-if="ocDeliverToPack"></oc-deliverytopack>
         <oc-deliverytodelivery v-if="ocDeliverToDeliver"></oc-deliverytodelivery>
         <oc-deliverytocomplete v-if="ocDeliverToComplete"></oc-deliverytocomplete>
-        <oc-deliverytoreturn v-if="ocDeliverToReturn"></oc-deliverytoreturn>
         <oc-deliverytocancel v-if="ocDeliverToCancel"></oc-deliverytocancel>
       </div>
      
@@ -83,7 +75,6 @@
   import OCDeliveryToPack from './Delivery/OCDeliveryToPack.vue'
   import OCDeliveryToDelivery from './Delivery/OCDeliveryToDeliver.vue'
   import OCDeliveryToComplete from './Delivery/OCDeliveryToComplete.vue'
-  import OCDeliveryToReturn from './Delivery/OCDeliveryToReturn.vue'
   import OCDeliveryToCancel from './Delivery/OCDeliveryToCancel.vue'
 
   export default {
@@ -91,7 +82,6 @@
       "oc-deliverytopack": OCDeliveryToPack,
       "oc-deliverytodelivery": OCDeliveryToDelivery,
       "oc-deliverytocomplete": OCDeliveryToComplete,
-      "oc-deliverytoreturn": OCDeliveryToReturn,
       "oc-deliverytocancel": OCDeliveryToCancel,
     },
 

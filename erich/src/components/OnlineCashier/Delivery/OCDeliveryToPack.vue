@@ -265,7 +265,8 @@
         this.orderUpdate.SubTotal = SubTotal;
         this.orderUpdate.Total = Total;
         axios.post(this.getDomain()+'api/customerdeliveritems/store', {
-            register: this.orderUpdate
+            register: this.orderUpdate,
+            userid: id
           },
           {
             headers:{
@@ -273,26 +274,25 @@
           }
           })
           .then(res => {
-            this.toDelete(id);
-            console.log(res.data);  
-          })
-          .catch(err => console.error(err));
-      },
-      toDelete(id){
-        axios.delete(this.getDomain()+'api/customerorder/'+ id,
-          {
-            headers:{
-              "Authorization": `Bearer ${this.usersToken}`,
-          }
-          })
-          .then( res => {
-            console.log("Delete")
             console.log(res.data);
             this.getAllOrder();
           })
-          .catch(err => console.error(err))
-        
+          .catch(err => console.error(err));
       },
+      // toDelete(id){
+      //   axios.delete(this.getDomain()+'api/customerorder/'+ id,
+      //     {
+      //       headers:{
+      //         "Authorization": `Bearer ${this.usersToken}`,
+      //     }
+      //     })
+      //     .then( res => {
+      //       console.log("Delete")
+      //       console.log(res.data);
+      //       this.getAllOrder();
+      //     })
+      //     .catch(err => console.error(err))
+      // },
       getAllOrder(){
         axios.get(this.getDomain()+'api/customerorder',
           {
