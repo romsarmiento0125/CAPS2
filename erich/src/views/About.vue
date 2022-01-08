@@ -1,5 +1,41 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
+  <div>
+    <about-header></about-header>
+    <about-refund v-if="aboutCond == 'ref'"></about-refund>
+    <about-shipping v-if="aboutCond == 'ship'"></about-shipping>
+    <about-privacy v-if="aboutCond == 'priv'"></about-privacy>
+    <about-terms v-if="aboutCond == 'term'"></about-terms>
+    <about-frequent v-if="aboutCond == 'faq'"></about-frequent>
+    <about-aucu v-if="aboutCond == 'aucu'"></about-aucu>
   </div>
 </template>
+
+<script>
+  import RefundPolicy from '../components/About/RefundPolicy.vue'
+  import ShippingPolicy from '../components/About/ShipPolicy.vue'
+  import PrivacyPolicy from '../components/About/PrivacyPolicy.vue'
+  import TermOfService from '../components/About/TOS.vue'
+  import FrequentlyQuestion from '../components/About/FAQ.vue'
+  import AbouUsContactUs from '../components/About/AboutUsContancUs.vue'
+  import HeaderAbout from '../components/About/HeaderAbout.vue'
+
+  export default {
+    name: "About",
+
+    components: {
+      "about-refund": RefundPolicy,
+      "about-shipping": ShippingPolicy,
+      "about-privacy": PrivacyPolicy,
+      "about-terms": TermOfService,
+      "about-frequent": FrequentlyQuestion,
+      "about-aucu": AbouUsContactUs,
+      "about-header": HeaderAbout,
+    },
+
+    computed: {
+      aboutCond(){
+        return this.$store.state.aboutCond;
+      }
+    },
+  }
+</script>

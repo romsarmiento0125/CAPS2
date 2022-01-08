@@ -5,15 +5,15 @@
         <v-col>
           <div
             class="my-2 mx-4"
-            v-for="order in orders"
-            :key="order.invoiceNumber"
+            v-for="(order, n) in orders"
+            :key="n"
           >
             <v-divider></v-divider>
             <v-row>
               <v-col>
                 <p
                   class="mb-0 mt-6 title"
-                >Status: &nbsp;{{order.status}}</p>
+                >Status: &nbsp;</p>
                 <p
                   class="my-0 Caption"
                 >Deliver</p>
@@ -23,12 +23,12 @@
               <v-col>
                 <p
                   class="my-0 subtitle-1"
-                >Invoice &nbsp; #: &nbsp; {{order.invoiceNumber}}</p>
+                >Invoice &nbsp; #: &nbsp; </p>
               </v-col>
             </v-row>
             <v-row>
               <v-col>
-                <orderdeliveritems :orders="order.orders"></orderdeliveritems>
+                <orderdeliveritems></orderdeliveritems>
               </v-col>
             </v-row>
             <v-row>
@@ -39,51 +39,7 @@
                 <p
                   class="title mx-5"
                 >
-                  Total: &nbsp;{{priceRound(order.total)}}
-                </p>
-                
-              </v-col>
-            </v-row>
-            <v-divider></v-divider>
-          </div>
-
-          <div
-            class="my-2 mx-4"
-            v-for="order in userPickupToComplete"
-            :key="order.invoiceNumber"
-          >
-            <v-divider></v-divider>
-            <v-row>
-              <v-col>
-                <p
-                  class="mb-0 mt-6 title"
-                >Status: &nbsp;{{order.status}}</p>
-                <p
-                  class="my-0 Caption"
-                >Pickup</p>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col>
-                <p
-                  class="my-0 subtitle-1"
-                >Invoice &nbsp; #: &nbsp; {{order.invoiceNumber}}</p>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col>
-                <orderdeliveritems :orders="order.orders"></orderdeliveritems>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col
-                class="d-flex"
-              >
-                <v-spacer></v-spacer>
-                <p
-                  class="title mx-5"
-                >
-                  Total: &nbsp;{{priceRound(order.total)}}
+                  Total: &nbsp;
                 </p>
                 
               </v-col>

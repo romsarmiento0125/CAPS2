@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Test from '../views/TestViews.vue'
 import Login from '../views/Login.vue'
 import Signup from '../views/Signup.vue'
 import AdminPage from '../views/AdminPage.vue'
@@ -12,15 +11,11 @@ import Profiles from '../views/UserProfile.vue'
 import OnlineCashier from '../views/OnlineCashier.vue'
 import PhysicalCashier from '../views/PhysicalCashier.vue'
 import MiscFunctions from '../views/MiscFunction.vue'
+import About from '../views/About.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/test',
-    name: 'test',
-    component: Test
-  },
   {
     path: '/',
     name: 'Home',
@@ -76,6 +71,11 @@ const routes = [
     name: 'Erich',
     component: MiscFunctions
   },
+  {
+    path: '/about',
+    name: 'About',
+    component: About
+  }
   // {
   //   path: '/about',
   //   name: 'About',
@@ -87,8 +87,6 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
   routes
 })
 
