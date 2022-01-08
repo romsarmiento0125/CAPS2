@@ -10,9 +10,11 @@
         class="mb-5"
       >
         <v-row
-          class="mx-5"
+          class="mx-lg-5 "
         >
-          <v-col>
+          <v-col
+            lg="2"
+          >
             <v-btn
               plain
               @click="navigateOrders('all')"
@@ -22,7 +24,9 @@
               >All</p>
             </v-btn>
           </v-col>
-          <v-col>
+          <v-col
+            lg="2"
+          >
             <v-btn
               plain
               @click="navigateOrders('tp')"
@@ -32,7 +36,9 @@
               >To Pack</p>
             </v-btn>
           </v-col>
-          <v-col>
+          <v-col
+            lg="2"
+          >
             <v-btn
               plain
               @click="navigateOrders('dl')"
@@ -42,7 +48,9 @@
               >To Receive</p>
             </v-btn>
           </v-col>
-          <v-col>
+          <v-col
+            lg="2"
+          >
             <v-btn
               plain
               @click="navigateOrders('pu')"
@@ -52,7 +60,9 @@
               >To Pickup</p>
             </v-btn>
           </v-col>
-          <v-col>
+          <v-col
+            lg="2"
+          >
             <v-btn
               plain
               @click="navigateOrders('com')"
@@ -62,7 +72,9 @@
               >Complete</p>
             </v-btn>
           </v-col>
-          <v-col>
+          <v-col
+            lg="2"
+          >
             <v-btn
               plain
               @click="navigateOrders('can')"
@@ -184,10 +196,10 @@
     },
 
     beforeMount() {
-      console.log("Profile my orders");
+      // console.log("Profile my orders");
       
-      console.log(this.userProfileOrders);
-      console.log(this.userProfileOrderItems);
+      // console.log(this.userProfileOrders);
+      // console.log(this.userProfileOrderItems);
     }
   }
 </script>

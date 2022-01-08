@@ -7,8 +7,13 @@
       >
         <v-row>
           <v-col
-            offset="4"
-            cols="4"
+            offset-xl="4"
+            offset-lg="4"
+            offset-md="3"
+            xl="4"
+            lg="4"
+            md="6"
+            cols="12"
           >
             <v-card
               class="rounded-xl pa-12"
@@ -54,13 +59,18 @@
               <v-card-text
                 class="d-flex justify-end py-0 mt-n3"
               >
-                <a
-                  href=""
-                  class="pb-1 indigo--text text--darken-4"
-                  
+                <v-btn
+                  plain
+                  x-small
+                  @click="forgotPassword"
                 >
-                  Forgot Your Password?
-                </a>
+                  <p
+                    class="pb-1 indigo--text text--darken-4 my-0"
+                    
+                  >
+                    Forgot Your Password?
+                  </p>
+                </v-btn>
               </v-card-text>
 
               <v-btn
@@ -89,10 +99,17 @@
 
     data: () => ({
       usersData: {
+<<<<<<< HEAD
         // usersEmail: "",
         // usersPassword: ""
         usersEmail: "sarmientopaulo01@gmail.com",
         usersPassword: "@Admin123"
+=======
+        usersEmail: "",
+        usersPassword: ""
+        // usersEmail: "paul@gmail.com",
+        // usersPassword: "@Admin123"
+>>>>>>> 83e7acae159f5df168b8f9bcd81e26693225fa9f
       }
     }),
 
@@ -101,14 +118,11 @@
     },
 
     methods: {
+      forgotPassword(){
+        this.$store.commit('notifCond', 'forgotPass');
+        this.$router.push("/erich");
+      },
       userLogin() {
-        // console.log("login");
-        // axios.post('', {
-        //   userLogin: this.usersData
-        // })
-        // .then(res => this.accCreateSuccess(res.data))
-        // .catch(err => console.error(err));
-
         axios.post(this.getDomain()+'api/customerlogin',{
           clientCred: this.usersData
         })
@@ -149,7 +163,7 @@
             this.$store.commit('storeCustomerAddress', res.data);
           })
           .catch(err => console.error(err));
-          this.$router.push("/")
+          this.$router.push("/");
         }
       },
     }

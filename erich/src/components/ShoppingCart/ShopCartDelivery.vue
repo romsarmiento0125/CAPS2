@@ -5,8 +5,10 @@
     >
       <v-row>
         <v-col
-          offset="1"
-          cols="4"
+          offset-xl="1"
+          xl="4"
+          lg="6"
+          md="6"
         >
           <v-sheet
             width="100%"
@@ -22,9 +24,6 @@
                   src="../../assets/check.svg"
                   max-height="50px"
                   max-width="50px"
-
-                  
-                  
                 ></v-img>
                 </v-col>
                 
@@ -79,9 +78,7 @@
                     <h5 class="fontDesc">Shipping Fee</h5>
                     <h5 class="fontTitle font-weight-regular mt-3">{{customerOrder.Shipping}}</h5>
                   </div>
-
                   </div>
-                  
                 </div>
               </div>
             </div>
@@ -92,7 +89,7 @@
                 dark
                 class="px-6 pt-4"
                 color="#1106A0"
-                @click="checkOut()"
+                @click="checkOut"
               >
                 <p>Continue Shopping</p>
               </v-btn>
@@ -100,41 +97,67 @@
           </v-sheet>
         </v-col>
         <v-col
-          offset="1"
-          cols="5"
+          offset-xl="1"
+          xl="5"
+          lg="6"
+          md="6"
         >
           <!-- <checkout-items></checkout-items> -->
           <order-items></order-items>
         </v-col>
       </v-row>
-      <v-row>
+      <div>
         <v-dialog
           v-model="dialog"
-          persistent
-          max-width="290"
+          width="30%"
         >
-          <v-card>
-            <v-card-title class="text-h5">
-              Tapos kana umorder.
-            </v-card-title>
-            <v-card-text>Eto ang iyong receipt number:&nbsp;{{customerOrder.InvoiceNumber}}</v-card-text>
-            <v-card-text>Yung order mo pending pa antayin mo may mag text sayo</v-card-text>
-            <v-card-text></v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn
-                color="green darken-1"
-                text
-                @click="closeDialog"
-              >
-                Agree
-              </v-btn>
-            </v-card-actions>
-          </v-card>
+          <div class="white pa-5">
+            <div class="d-flex justify-center">
+              <v-img
+                contain
+                src="../../assets/checkG.svg"
+                max-height="40px"
+                max-width="40px"
+                min-height="40px"
+                min-width="40px"
+                class=" ma-2" 
+              ></v-img>
+              <h1 class="mt- 1 fontTitle">Order Complete.</h1>
+            </div>
+            <div class="ma-0 pa-0">
+              <div class="d-flex justify-center mt-2">
+                <h4 class="fontDesc">Receipt number:&nbsp;{{customerOrder.InvoiceNumber}}</h4>
+              </div>
+
+              <div class="ma-10">
+                <div class="d-flex justify-center mt-10 fontBlue">
+                <h2 class="mt-5">Thankyou!.</h2>
+                </div>   
+
+                <div class="d-flex justify-center fontDesc">
+                  <h3 class="">Your order is pending.</h3>
+                </div>    
+                          
+                <div class="d-flex justify-center fontDesc">
+                <h4 class="">Kindly wait for the confirmation text.</h4>
+                </div>
+              </div>
+              <div class="d-flex justify-end">
+                <v-btn
+                  block
+                  class="pa-5"
+                  color="#1106A0"
+                  outlined
+                  @click="closeDialog"
+                >
+                  ok
+                </v-btn>         
+              </div>
+            </div>
+          </div>     
         </v-dialog>
-      </v-row>
+      </div>
     </v-container>
-    
   </div>
 </template>
 
@@ -207,19 +230,19 @@
       checkOut() {
         //alert('delivery checout');
         this.insertCustomerItems();
-        console.log("Email: " + this.customerOrder.Email);
-        console.log("Name: " + this.customerOrder.Name);
-        console.log("Mobile Number:  " + this.customerOrder.Mobilenumber);
-        console.log("Complete Address: " + this.customerOrder.CompleteAddress);
-        console.log("Shipping: " + this.customerOrder.Shipping);
-        console.log("Invoice Number: " + this.customerOrder.InvoiceNumber);
-        console.log("Adjusted Date: " + this.customerOrder.AdjustedDate);
-        console.log("Order Status: " + this.customerOrder.OrderStatus);
-        console.log("Order Tax: " + this.customerOrder.OrderTax);
-        console.log("Discount: " + this.customerOrder.Discount);
-        console.log("SubTotal: " + this.customerOrder.SubTotal);
-        console.log("Total: " + this.customerOrder.Total);
-        console.log(this.customerOrderItems);
+        // console.log("Email: " + this.customerOrder.Email);
+        // console.log("Name: " + this.customerOrder.Name);
+        // console.log("Mobile Number:  " + this.customerOrder.Mobilenumber);
+        // console.log("Complete Address: " + this.customerOrder.CompleteAddress);
+        // console.log("Shipping: " + this.customerOrder.Shipping);
+        // console.log("Invoice Number: " + this.customerOrder.InvoiceNumber);
+        // console.log("Adjusted Date: " + this.customerOrder.AdjustedDate);
+        // console.log("Order Status: " + this.customerOrder.OrderStatus);
+        // console.log("Order Tax: " + this.customerOrder.OrderTax);
+        // console.log("Discount: " + this.customerOrder.Discount);
+        // console.log("SubTotal: " + this.customerOrder.SubTotal);
+        // console.log("Total: " + this.customerOrder.Total);
+        // console.log(this.customerOrderItems);
 
         this.cleanCart();
         this.showMessage();
@@ -234,7 +257,7 @@
           })
         .then(res => {
           this.storeCustomerOrderItems()
-          console.log(res);  
+          // console.log(res);  
         })
         //.then(res => console.log(res.data))
         .catch(err => console.error(err));
@@ -251,7 +274,7 @@
           }
           })
           .then(res => {
-            console.log(res.data);  
+            // console.log(res.data);  
           })
           .catch(err => console.error(err));
       },
@@ -264,8 +287,8 @@
           }
           })
           .then( res => {
-            console.log("Delete")
-            console.log(res.data);
+            // console.log("Delete")
+            // console.log(res.data);
           })
           .catch(err => console.error(err))
         }
@@ -313,9 +336,9 @@
         this.customerOrderItems = [];
         var item;
         var subtotal = 0;
-        console.log("Insert Customer Items");
-        console.log(this.storeCustomerItems);
-        console.log(this.storeCustomerItems.length);
+        // console.log("Insert Customer Items");
+        // console.log(this.storeCustomerItems);
+        // console.log(this.storeCustomerItems.length);
         for(var i = 0; i < this.storeCustomerItems.length; i++){
           item = {id: this.storeCustomerItems[i].id,
             item_invNumber: this.customerOrder.InvoiceNumber,
@@ -356,6 +379,9 @@
   .fontDesc{
     color: #787885;
   }
+.fontBlue{
+  color: #1106A0;
+}
 
   .nContact{
     border: 1px solid #787885;

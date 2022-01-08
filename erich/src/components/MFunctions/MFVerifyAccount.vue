@@ -6,8 +6,13 @@
     >
       <v-row>
         <v-col
-          offset="4"
-          cols="4"
+          offset-xl="4"
+          offset-lg="4"
+          offset-md="3"
+          xl="4"
+          lg="4"
+          md="6"
+          cols="12"
         >
           <v-card
             class="rounded-xl pa-12"
@@ -39,10 +44,18 @@
                   plain
                   class="pb-1 indigo--text text--darken-4"
                   @click="sendCode"
+                  :disabled="timerCount > 0"
                 >
+                  
                   <p
                     class="my-0 text-decoration-underline"
                   >Send Code Again</p>
+                  <p
+                    class="my-0 text-decoration-underline"
+                    v-if="timerCount != 0"
+                  >
+                    &nbsp;In:&nbsp;{{timerCount}}
+                  </p>
                 </v-btn>
               </v-card-text>
 
@@ -61,21 +74,21 @@
     <div class="text-center">
       <v-dialog
         v-model="dialog"
-        width="15%"
+        width="30%"
       >
         <v-card
           class="pt-5"
         >
           <v-card-text class="pb-0">
-            <p class="text-h5 text--primary d-inline-block text-truncate">
+            <p class="text-h5 text--primary d-inline-block text-truncate d-flex justify-center">
               Hi {{usersFName}} &nbsp; {{usersLName}}
             </p>
-            <p>Verification code sent</p>
-            <div class="text--primary">
+            <p class="d-flex justify-center">Verification code sent</p>
+            <div class="text--primary d-flex justify-center">
               Kindly check your email <br>
               for the verification code.
             </div>
-             <p class="text-h6 text--primary mt-2 mb-0 py-0">
+             <p class="text-h6 text--primary mt-2 mb-0 py-0 d-flex justify-center">
               Thankyou.
             </p>
           </v-card-text>
@@ -109,6 +122,8 @@
       },
       code: "",
       dialog: true,
+      timerCount: 0,
+      myInterval: null,
     }),
 
     components: {
@@ -146,7 +161,8 @@
         this.verify.name = this.usersFName + " " +this.usersLName;
         this.verify.code = ""+r1+r2+r3+r4;
 
-        axios.post(this.getDomain()+'api/emailverification', {
+        if(this.usersEmail != null){
+          axios.post(this.getDomain()+'api/emailverification', {
             email: this.verify
           },
           {
@@ -155,9 +171,15 @@
           }
           })
           .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
           })
           .catch(err => console.error(err));
+        }
+        else{
+          console.log("email not available");
+        }
+        
+        this.Timer();
       },
       verifyEmail(){
         if(this.verify.code == this.code){
@@ -170,7 +192,7 @@
           }
           })
           .then(res => {
-            console.log(res.data)
+            // console.log(res.data)
             if(res.data == "Success"){
               localStorage.setItem("tag", "Customer");
               for(var i = 0; i < this.userNotif.length; i++){
@@ -184,19 +206,17 @@
                   }
                   })
                   .then(res => {
-                    console.log(res.data);
+                    // console.log(res.data);
                   })
                   .catch(err => console.error(err));
                 } 
                 else{
                 }
               }
-             
-
               this.$router.push("/");
             }
             else{
-              console.log("Unsuccessful")
+              // console.log("Unsuccessful")
             }
           })
           .catch(err => console.error(err));
@@ -205,9 +225,23 @@
           alert("Wrong Code");
         }
       },
+      Timer(){
+        this.timerCount = 30;
+        this.myInterval = setInterval(this.myTimer, 1000);
+      },
+      myTimer() {
+        this.timerCount--;
+        if(this.timerCount <= 0){
+          this.myStopFunction();
+        }
+      },
+      myStopFunction() {
+        clearInterval(this.myInterval);
+      }
     },
     beforeMount(){
       this.sendCode();
+      //this.Timer();
     }
   }
 </script>

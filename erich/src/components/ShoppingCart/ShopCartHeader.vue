@@ -7,8 +7,7 @@
       <v-container fluid>
         <v-row>
           <v-col
-            offset="1"
-            cols="5"
+            cols="12"
           >
             <div
               class="d-flex"

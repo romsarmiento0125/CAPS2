@@ -5,8 +5,10 @@
     >
       <v-row>
         <v-col
-          offset="1"
-          cols="4"
+          offset-xl="1"
+          xl="4"
+          lg="6"
+          md="6"
         >
           <v-sheet
             width="100%"
@@ -15,44 +17,72 @@
             <div
               class="ma-5 pa-10"
             >
-            <v-row>
-              <v-col cols="2">
-                 <v-img
-                  contain
-                  src="../../assets/check.svg"
-                  max-height="50px"
-                  max-width="50px"
+              <v-row>
+                <v-col cols="2">
+                  <v-img
+                    contain
+                    src="../../assets/check.svg"
+                    max-height="50px"
+                    max-width="50px"
 
-                ></v-img>
-              </v-col>
+                  ></v-img>
+                </v-col>
 
-              <v-col cols="10" class="mt-4 pl-0">
-                <v-row>
-                  <v-col cols="12" class="ma-0 pa-0">
-                    <h5
-                    class="font-weight-bold my-0 fontDesc"
-                    >Order #:{{customerPickup.InvoiceNumber}}</h5>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col cols="12" class="ma-0 pa-0">
-                    <h5 class="my-0 font-weight-black fontTitle">
-                    Thank you&nbsp;{{usersFName}}&nbsp;{{usersFName}}</h5>
-                  </v-col>
-                </v-row>
-              </v-col>
-            </v-row>
+                <v-col cols="10" class="mt-4 pl-0">
+                  <v-row>
+                    <v-col cols="12" class="ma-0 pa-0">
+                      <h5
+                      class="font-weight-bold my-0 fontDesc"
+                      >Order #:{{customerPickup.InvoiceNumber}}</h5>
+                    </v-col>
+                  </v-row>
+                  <v-row>
+                    <v-col cols="12" class="ma-0 pa-0">
+                      <h5 class="my-0 font-weight-black fontTitle">
+                      Thank you!&nbsp;{{usersFName}}&nbsp;{{usersFName}}</h5>
+                    </v-col>
+                  </v-row>
+                </v-col>
+              </v-row>
 
               <div>
                 <div class="mt-5 nOrder elevation-1">
                   <div class="ma-4 pa-0">
                     <h4 class="my-0 font-weight-bold fontTitle">Your Order is confirmed</h4>
-                    <h5 class="my-0 font-weight-regular">Please procede to the cashier.</h5>
+                    <h5 class="my-0 font-weight-regular">Please bring the exact amount.</h5>
                   </div>
                   
                 </div>
+
+                <div class="mt-5 nContact elevation-1">
+                  <div class="ma-4 pa-0">
+                    <h4
+                    class="fontTitle font-weight-bold"
+                  >Store Information</h4>
+                  <div
+                    class="d-flex pt-6"
+                  >
+                    <div class="my-1">
+                      <h5 class="fontDesc">Contact Information</h5>
+                      <h5 class="fontTitle font-weight-regular mt-3">09012345678</h5>
+                    </div>
+                  </div>
+
+                  <div class="my-4">
+                    <h5 class="fontDesc">Store Address</h5>
+                    <h5 class="fontTitle font-weight-regular mt-3">Sta. Maria Pulong Buhangin KM 38</h5>
+                    <h6 class="fontTitle font-weight-regular mt-1">(Inside Pulong Buhangin Market)</h6>
+                  </div>
+
+                  <div class="my-4">
+                    <h5 class="fontDesc">Method</h5>
+                    <h5 class="fontTitle font-weight-regular mt-3">Pickup</h5>
+                  </div>
+                  </div>
+                </div>
               </div>
             </div>
+
             <div
               class="d-flex justify-end pa-15"
             >
@@ -60,7 +90,7 @@
                 dark
                 class="px-6 pa-2"
                 color="#1106A0"
-                @click="checkOut()"
+                @click="checkOut"
               >
                 Continue Shopping
               </v-btn>
@@ -68,39 +98,66 @@
           </v-sheet>
         </v-col>
         <v-col
-          offset="1"
-          cols="5"
+          offset-xl="1"
+          xl="5"
+          lg="6"
+          md="6"
         >
           <!-- <checkout-items></checkout-items> -->
           <order-items></order-items>
         </v-col>
       </v-row>
-      <v-row>
+      <div>
         <v-dialog
           v-model="dialog"
-          persistent
-          max-width="290"
+          width="30%"
         >
-          <v-card>
-            <v-card-title class="text-h5">
-              Tapos kana umorder.
-            </v-card-title>
-            <v-card-text>Eto ang iyong receipt number:&nbsp;{{customerPickup.invoiceNumber}}</v-card-text>
-            <v-card-text>Yung order mo pending pa antayin mo may mag text sayo</v-card-text>
-            <v-card-text></v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn
-                color="green darken-1"
-                text
-                @click="closeDialog"
-              >
-                Agree
-              </v-btn>
-            </v-card-actions>
-          </v-card>
+          <div class="white pa-5">
+            <div class="d-flex justify-center">
+              <v-img
+                contain
+                src="../../assets/checkG.svg"
+                max-height="40px"
+                max-width="40px"
+                min-height="40px"
+                min-width="40px"
+                class=" ma-2" 
+              ></v-img>
+              <h1 class="mt- 1 fontTitle">Order Complete.</h1>
+            </div>
+            <div class="ma-0 pa-0">
+              <div class="d-flex justify-center mt-2">
+                <h4 class="fontDesc">Receipt number:&nbsp;{{customerPickup.InvoiceNumber}}</h4>
+              </div>
+
+              <div class="ma-10">
+                <div class="d-flex justify-center mt-10 fontBlue">
+                <h2 class="mt-5">Thankyou!.</h2>
+                </div>   
+
+                <div class="d-flex justify-center fontDesc">
+                  <h3 class="">Your order is pending.</h3>
+                </div>    
+                          
+                <div class="d-flex justify-center fontDesc">
+                <h4 class="">Kindly wait for the confirmation text.</h4>
+                </div>
+              </div>
+              <div class="d-flex justify-end">
+                <v-btn
+                  block
+                  class="pa-5"
+                  color="#1106A0"
+                  outlined
+                  @click="closeDialog"
+                >
+                  ok
+                </v-btn>         
+              </div>
+            </div>
+          </div>     
         </v-dialog>
-      </v-row>
+      </div>
     </v-container>
   </div>
 </template>
@@ -279,6 +336,9 @@
   .fontDesc{
     color: #787885;
   }
+.fontBlue{
+  color:#1106A0;
+}
 
   .nContact{
     border: 1px solid #787885;

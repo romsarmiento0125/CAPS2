@@ -1,5 +1,7 @@
 <template>
-  <div v-if="usersTag == 'Ocashier' || usersTag == 'Admin'">
+  <div v-if="usersTag == 'Ocashier' || usersTag == 'Admin'"
+  style="background-color: #FFFFFF"  
+  >
     <oc-header></oc-header>
     <oc-deliver v-if="oCashierDeliver"></oc-deliver>
     <oc-pickup v-else-if="oCashierPickup"></oc-pickup>

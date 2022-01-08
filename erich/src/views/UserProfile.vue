@@ -7,8 +7,10 @@
     >
       <v-row>
         <v-col
-          offset="2"
-          cols="1"
+          offset-xl="2"
+          xl="1"
+          lg="2"
+          md="2"
         >
           <v-sheet
             color="white"
@@ -45,7 +47,9 @@
           </v-sheet>
         </v-col>
         <v-col
-          cols="7"
+          xl="7"
+          lg="10"
+          md="10"
         >
           <profile-myprofile v-if="mProfile"></profile-myprofile>
           <profile-myaddress v-else-if="mAddress"></profile-myaddress>
@@ -120,8 +124,8 @@
             localStorage.removeItem("gender");
             localStorage.removeItem("tag");
             localStorage.removeItem("token");
-            window.location.href = "http://localhost:8080/";
-            //window.location.href = "http://erichgrocery.store/";
+            // window.location.href = "http://localhost:8080/";
+            window.location.href = "http://erichgrocery.store/";
         }
 
       },
@@ -135,7 +139,7 @@
           }
           })
           .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             this.$store.commit('storeUserProfileOrders', res.data);
           })
           .catch(err => console.error(err));
@@ -150,7 +154,7 @@
           }
           })
           .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             this.$store.commit('storeUserToDeliver', res.data);
           })
           .catch(err => console.error(err));
@@ -165,7 +169,7 @@
           }
           })
           .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             this.$store.commit('storeUserToComplete', res.data);
           })  
           .catch(err => console.error(err));
@@ -180,7 +184,7 @@
           }
           })
           .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             this.$store.commit('storeUserPickupOrders', res.data);
           })  
           .catch(err => console.error(err));
@@ -195,7 +199,7 @@
           }
           })
           .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             this.$store.commit('storeUserPickupToPickup', res.data);
           })  
           .catch(err => console.error(err));
@@ -210,7 +214,7 @@
           }
           })
           .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             this.$store.commit('storeUserPickupToComplete', res.data);
           })  
           .catch(err => console.error(err));

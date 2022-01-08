@@ -3,7 +3,6 @@
     <home-header v-if="headerCond"></home-header>
     <home-header-acc v-else></home-header-acc>
     <home-carousel></home-carousel>
-    <home-categories></home-categories>
     <home-categories-item></home-categories-item>
     <!-- <home-promodeals></home-promodeals> -->
     <home-footer></home-footer>
@@ -13,7 +12,6 @@
 <script>
   import HomeHeader from "../components/Home/HomeHeaderVisitor.vue";
   import HomeCarousel from "../components/Home/HomeCarousel.vue";
-  import HomeCategories from "../components/Home/HomeCategories.vue";
   import HomePromoDeals from "../components/Home/HomePromoDeals.vue";
   import Footer from "../components/Footer.vue";
   import HomeHeaderAcc from "../components/Home/HomeHeaderAccount.vue";
@@ -29,7 +27,6 @@
     components: {
       "home-header": HomeHeader,
       "home-carousel": HomeCarousel,
-      "home-categories": HomeCategories,
       "home-promodeals": HomePromoDeals,
       "home-footer": Footer,
       "home-header-acc": HomeHeaderAcc,
@@ -60,6 +57,7 @@
 
     methods: {
       navbarPicker() {
+        alert("Sorry for the inconvenince. As of now categories are not working but you can use search bar to search for the items thankyou.");
         if(this.usersTag == "Customer" || this.usersTag == "Unverified" || this.usersTag == "Admin" || this.usersTag == "Encoder"){
           this.headerCond = false;
         }

@@ -35,15 +35,16 @@ class erichheadercartcontroller extends Controller
      */
     public function store(Request $request)
     {
-        $dataGet = $request->register;
-        //$getData = customercart::where('Email', $dataGet);
-        $getData = customercart::all();
-        //$getData = customercart::find($dataGet);
+        $showQuantity = 0;
+        $userEmail = $request->register;
 
-        //return "this is return";
-        //return $request->register;
-        return $getData->where('email', $dataGet)->values();
-        //return $getData;
+        $getQuantity = customercart::where('email', $userEmail)->get('quantity');
+
+        foreach($getQuantity as $value){
+            $showQuantity += $value->quantity;
+        }
+
+        return $showQuantity;
     }
 
     /**
@@ -77,28 +78,7 @@ class erichheadercartcontroller extends Controller
      */
     public function update(Request $request, $id)
     {
-        $getData = customercart::all();
-        $dataGet = $request->itemupdate["item_email"];
-        $existingItem = customercart::find($id);
-        $existingQty = customercart::where('id', $id)->pluck('Quantity');
-        foreach($existingQty as $value){
-            $qty = $value;
-        }
-        $add = $request->itemupdate["item_quantity"]-1;
-
-        if(true){
-            $existingItem->id = $id;
-            $existingItem->email = $request->itemupdate["item_email"];
-            $existingItem->quantity = $add;
-            $existingItem->itemCode = $request->itemupdate["item_code"];
-            $existingItem->save();
-
-            //return $existingItem;
-            return $getData->where('email', $dataGet)->values();
-        }
-        else{
-            return $getData->where('email', $dataGet)->values();;
-        }
+        
     }
 
     /**

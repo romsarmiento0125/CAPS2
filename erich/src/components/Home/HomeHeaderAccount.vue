@@ -10,7 +10,10 @@
           <!-- Store Logo -->
           <v-col
             class="d-flex align-center"
-            offset="1"
+            offset-xl="1"
+            xl="2"
+            lg="2"
+            md="2"
             cols="2"
           >
             <router-link
@@ -30,7 +33,10 @@
           <!-- Header Search Bar -->
           <v-col
             class="d-flex align-center"
-            cols="5"
+            xl="6"
+            lg="7"
+            md="6"
+            cols="6"
           >
             <v-text-field
               class="py-2"
@@ -47,8 +53,8 @@
             </v-text-field>
             <v-badge
               overlap
-              color="#FFA600"
-              :content="cartQuantity"
+              :color="cartColor"
+              :content="cartCounter"
             >
               <v-btn
                 height="auto"
@@ -68,58 +74,65 @@
 
           <!-- Header Buttons -->
           <v-col
-            class="d-flex align-center"
-            cols="3"
+            class="d-flex align-center justify-end"
+            xl="2"
+            lg="3"
+            md="4"
+            cols="4"
           >
-            <v-menu
-              offset-y
-              transition="slide-y-transition"
-              bottom
+            <div
+              class="mx-5 ml-md-0 mr-md-3"
             >
-              <template v-slot:activator="{ on, attrs }">
-                <v-badge
-                  overlap
-                  color="red"
-                  :content="notifCounter"
-                >
-                  <v-btn
-                    dark
-                    text
-                    medium
-                    v-bind="attrs"
-                    v-on="on"         
+              <v-menu
+                offset-y
+                transition="slide-y-transition"
+                bottom
+                :disabled="notifCounter == 0"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-badge
+                    overlap
+                    :color="notifColor"
+                    :content="notifCounter"
                   >
-                    <v-icon color="#1106A0">mdi-bell</v-icon>
-                  </v-btn>
-                </v-badge>
-              </template>
+                    <v-btn
+                      dark
+                      text
+                      medium
+                      v-bind="attrs"
+                      v-on="on"         
+                    >
+                      <v-icon color="#1106A0">mdi-bell</v-icon>
+                    </v-btn>
+                  </v-badge>
+                </template>
 
-              <v-list dense>
-                <v-list-item-group
-                  v-model="selectedNotif"
-                  color="#1106A0"
-                  
-                >
-                  <v-list-item
-                    v-for="(item, n) in notifications"
-                    :key="n"
+                <v-list dense>
+                  <v-list-item-group
+                    v-model="selectedNotif"
+                    color="#1106A0"
+                    
                   >
-                    <v-list-item-content>
-                      <v-list-item-title @click="goToMiscFunctions(item.to)"><span>{{item.title}}</span><br><span>{{item.desc}}</span></v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list-item-group>
-              </v-list>
-            </v-menu>
+                    <v-list-item
+                      v-for="(item, n) in notifications"
+                      :key="n"
+                    >
+                      <v-list-item-content>
+                        <v-list-item-title @click="goToMiscFunctions(item.to)"><span>{{item.title}}</span><br><span>{{item.desc}}</span></v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </v-list-item-group>
+                </v-list>
+              </v-menu>
+            </div>
+            
 
             <div
               class="d-flex"
             >
               <div class="text-center">
                 <p
-                  class="my-0 py-0 
-                  d-flex 
-                  "
+                  class="my-0 py-0 mx-2 d-flex"
                 >{{usersFName}} {{usersLName}}</p>
                 <v-menu
                   offset-y
@@ -162,13 +175,13 @@
                   </v-list>
                 </v-menu>
                 <v-avatar
-                class="ml-2"
+                  color="blue"
+                  class="mx-2"            
+                  @click="accountButton('account')"   
                 >
-                  
-                  <img 
-                    src="https://cdn.vuetifyjs.com/images/john.jpg"
-                    alt="John"
-                  >
+                  <v-icon dark>
+                    mdi-account-circle
+                  </v-icon>
                 </v-avatar>
               </div>
             </div>
@@ -221,13 +234,29 @@
       usersToken(){
         return localStorage.getItem('token');
       },
+      cartColor(){
+        if(this.cartCounter != 0){
+          return "#FFA600"
+        }
+        else{
+          return "#FFFFF"
+        }
+      },
+      notifColor(){
+        if(this.notifCounter != 0){
+          return "#ff0000"
+        }
+        else{
+          return "#FFFFF"
+        }
+      }
     },
 
-    // watch: {
-    //   cartItems: function(data){
-    //     console.log("watch",data);
-    //   }
-    // },  
+    watch: {
+      cartQuantity(){
+        this.cartCounter++;
+      }
+    },  
 
     methods: {
       toSearch(data){
@@ -264,13 +293,20 @@
           localStorage.removeItem("gender");
           localStorage.removeItem("tag");
           localStorage.removeItem("token");
-          window.location.href = "http://localhost:8080/";
-          //window.location.href = "http://erichgrocery.store/";
+          // window.location.href = "http://localhost:8080/";
+          window.location.href = "http://erichgrocery.store/";
         }
       },
       goToMiscFunctions(cond){
         if(cond == "verify"){
+          this.$store.commit('notifCond', 'verify');
           this.$router.push("/erich");
+        }
+        else if(cond == "profile"){
+          this.$router.push("/profile");
+        }
+        else{
+          this.$router.push("/");
         }
       },
       getItemsQuantity() {
@@ -285,17 +321,11 @@
             "Authorization": `Bearer ${this.usersToken}`,
         }
         })
-        .then(res => this.showQuantity(res.data))
-        //.then(res => console.log(res.data))
+        .then(res => {
+          // console.log(res.data);
+          this.cartCounter = res.data;
+        })
         .catch(err => console.error(err));
-      },
-      showQuantity(data){
-        //console.log(data[0].Quantity);
-        //console.log(data.length);
-        for(var i = 0; i < data.length; i++){
-          this.cartCounter = this.cartCounter + data[i].quantity;
-        }
-        this.$store.commit('storeCartQuantity', this.cartCounter);
       },
       getNotif(){
         this.customerEmail = this.usersEmail;
@@ -309,8 +339,8 @@
         })
         .then(res => {
           var notif;
-          console.log("Customer Notif");
-          console.log(res.data);
+          // console.log("Customer Notif");
+          // console.log(res.data);
           for(var i = 0; i < res.data.length; i++){
             notif = {
               id: res.data[i].id,

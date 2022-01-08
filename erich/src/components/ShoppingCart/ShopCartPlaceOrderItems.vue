@@ -72,7 +72,7 @@
                           class="d-flex justify-end"
                         >
                           <div
-                            class="d-flex align-center mr-5"
+                            class="d-flex align-center mr-6"
                           >
                             <div
                               class=""

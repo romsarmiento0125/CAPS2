@@ -8,13 +8,12 @@
         <v-row>
           <v-col
             offset-xl="4"
-            offset-lg="4"
-            offset-md="3"
-            offset-sm="2"
+            offset-lg="3"
+            offset-md="2"
             xl="4"
-            lg="4"
-            md="6"
-            sm="8"
+            lg="6"
+            md="8"
+            cols="12"
           >
             <v-card
               class="rounded-xl pa-12"
@@ -125,6 +124,7 @@
                     dense
                     class="mt-1"
                     :rules="passRules"
+                    hint="Use 8 or more letters with a mix of letters, numbers & symbols"
                     required
                     label="New password"
                   ></v-text-field>
@@ -537,36 +537,36 @@
 
       // customerInfo data varaiables
       customerInfo: {
-        // First_Name: "",
-        // Last_Name: "",
-        // Mobile_Number: "",
-        // Email: "",
-        // Gender: "Other",
-        // Municipality: "Sta.Maria",
-        // Barangay: "Pulong Buhangin",
-        // UnderBarangay: "Gulod",
-        // HomeAddress: "",
-        // Birthday: "",
-        // Tag: "Customer",
-        // Password: "",
-        // id: "",
-        // ShipFee: "Free",
-        // Default: "True",
-        First_Name: "Rom Paulo",
-        Last_Name: "Sarmiento",
-        Mobile_Number: "09755254700",
-        Email: "rom@gmail.com",
+        First_Name: "",
+        Last_Name: "",
+        Mobile_Number: "",
+        Email: "",
         Gender: "Other",
         Municipality: "Sta.Maria",
         Barangay: "Pulong Buhangin",
         UnderBarangay: "Gulod",
-        HomeAddress: "Block 4 Lot 0",
-        Birthday: "2000-01-25",
+        HomeAddress: "",
+        Birthday: "",
         Tag: "Unverified",
-        Password: "@Admin123",
+        Password: "",
         id: "",
         ShipFee: "Free",
         Default: "True",
+        // First_Name: "Rom Paulo",
+        // Last_Name: "Sarmiento",
+        // Mobile_Number: "09755254700",
+        // Email: "rom@gmail.com",
+        // Gender: "Other",
+        // Municipality: "Sta.Maria",
+        // Barangay: "Pulong Buhangin",
+        // UnderBarangay: "Gulod",
+        // HomeAddress: "Block 4 Lot 0",
+        // Birthday: "2000-01-25",
+        // Tag: "Unverified",
+        // Password: "@Admin123",
+        // id: "",
+        // ShipFee: "Free",
+        // Default: "True",
       },
 
       usersData: {
@@ -629,28 +629,28 @@
                 })
                 .then(res => {
                   this.accCreateSuccess(res.data);
-                  console.log(res.data);
+                  // console.log(res.data);
                 })
                 .catch(err => console.error(err));
               }
               else{
                 this.snackbar = true;
-                this.prompt = "yung pass"; 
+                this.prompt = "Incorrect password combination"; 
               }
             }
             else{
               this.snackbar = true;
-              this.prompt = "Number po"; 
+              this.prompt = "Invalid mobile number"; 
             }
           }
           else{
             this.snackbar = true;
-            this.prompt = "Yung email";
+            this.prompt = "Incorrect email combination";
           }
         }
         else{
           this.snackbar = true;
-          this.prompt = "Paki kumpleto mga input field";
+          this.prompt = "Incomplete input fields";
         }
 
       },
@@ -662,7 +662,7 @@
         .catch(err => console.error(err));
       },
       accCreateSuccess(data) {
-        console.log(data);
+        // console.log(data);
         if(data == "wrongemail"){
           alert("Your email is already taken. Try another email.")
         }
@@ -675,8 +675,8 @@
       },
       addressCreateSuccess(creds) {
         //alert("Account Created Succesfully");
-        console.log("Account Created Succesfully");
-        console.log(creds);
+        // console.log("Account Created Succesfully");
+        // console.log(creds);
         this.usersData.usersEmail = this.customerInfo.Email;
         this.usersData.usersPassword = this.customerInfo.Password;
         if(creds == "login"){
@@ -685,7 +685,7 @@
           })
           .then(res => {
             this.userLogin();
-            console.log(res);
+            // console.log(res);
           })
           .catch(err => console.error(err));
 
@@ -693,14 +693,14 @@
             clientCred: this.usersData
           })
           .then(res => {
-            console.log("This is notifications");
-            console.log(res.data);
+            // console.log("This is notifications");
+            // console.log(res.data);
           })
           .catch(err => console.error(err));
         }
       },
       userLogin() {
-        console.log("login");
+        // console.log("login");
         axios.post(this.getDomain()+'api/customerlogin',{
           clientCred: this.usersData
         })
@@ -712,7 +712,7 @@
         
       },
       loginSuccess(cinfo) {
-        console.log("login Success");
+        // console.log("login Success");
         if(cinfo.status){
           alert("Invalid Credentials");
         }
@@ -736,7 +736,7 @@
           }
           })
           .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             this.$store.commit('storeCustomerAddress', res.data);
           })
           .catch(err => console.error(err));

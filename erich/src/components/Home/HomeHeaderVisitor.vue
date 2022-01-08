@@ -10,7 +10,10 @@
           <!-- Store Logo -->
           <v-col
             class="d-flex align-center"
-            offset="1"
+            offset-xl="1"
+            xl="2"
+            lg="2"
+            md="2"
             cols="2"
           >
             <router-link
@@ -31,7 +34,10 @@
           <!-- Header Search Bar -->
           <v-col
             class="d-flex align-center"
-            cols="6"
+            xl="6"
+            lg="7"
+            md="7"
+            cols="7"
           >
   
             <v-text-field
@@ -84,8 +90,11 @@
 
           <!-- Header Buttons -->
           <v-col
-            class="d-flex align-center"
-            cols="2"
+            class="d-flex align-center justify-end"
+            xl="2"
+            lg="3"
+            md="3"
+            cols="3"
           >
             <div
               class="d-flex 

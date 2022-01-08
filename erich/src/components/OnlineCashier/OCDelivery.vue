@@ -3,47 +3,63 @@
     <v-container
       fluid
     >
-      <v-row>
-        <v-col>
-          <div>
+      <v-row class="mb-1">
+        <v-col cols="1">
+          <div class="d-flex">
             <v-btn
+              dark
+              color="#00A6CC"
+              class="mx-3 elevation-0"
               @click="deliverPickupPicker('deliver')"
             >
-              <p>Delivery</p>
+              <h4 class="my-5">Delivery</h4>
             </v-btn>
             <v-btn
+              dark
+              color="#FFA600"
+              class="elevation-0 px-5"
               @click="deliverPickupPicker('pickup')"
             >
-              <p>Pickup</p>
+              <h4 class="my-5">Pickup</h4>
             </v-btn>
           </div>
         </v-col>
-        <v-col>
+        <v-col cols="11" class="d-flex justify-center">
           <div>
             <v-btn
+              plain
+              class="mx-1"
               @click="deliverToPicker('pack')"
             >
-              <p>To Pack</p>
+              <h3 class="my-5">To Pack</h3>
             </v-btn>
             <v-btn
+              plain
+              class="mx-1"
               @click="deliverToPicker('deliver')"
             >
-              <p>On Delivery</p>
+              <h3 class="my-5">On Delivery</h3>
             </v-btn>
             <v-btn
+              plain
+              class="mx-1"
               @click="deliverToPicker('complete')"
             >
-              <p>Complete</p>
+              <h3 class="my-5">Complete</h3>
             </v-btn>
             <v-btn
+              plain
+              class="mx-1"
               @click="deliverToPicker('return')"
             >
-              <p>Return/Replace</p>
+              <h3 class="my-5">Return/Replace</h3>
             </v-btn>
             <v-btn
+              plain
+              class="mx-1"
               @click="deliverToPicker('cancel')"
             >
-              <p>Cancelled</p>
+              <h3 class="my-5" >Cancelled</h3>
             </v-btn>
           </div>
         </v-col>

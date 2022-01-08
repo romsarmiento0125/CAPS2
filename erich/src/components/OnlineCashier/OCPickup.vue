@@ -1,42 +1,56 @@
 <template>
   <div>
     <v-container fluid> 
-      <v-row>
-        <v-col>
-          <div>
+      <v-row class="mb-1">
+        <v-col cols="1">
+          <div class="d-flex">
             <v-btn
+              dark
+              color="#00A6CC"
+              class="mx-3 elevation-0"
               @click="deliverPickupPicker('deliver')"
             >
-              <p>Delivery</p>
+              <h4 class="my-5">Delivery</h4>
             </v-btn>
             <v-btn
+              dark
+              color="#FFA600"
+              class="elevation-0 px-5"
               @click="deliverPickupPicker('pickup')"
             >
-              <p>Pickup</p>
+              <h4 class="my-5">Pickup</h4>
             </v-btn>
           </div>
         </v-col>
-        <v-col>
-          <div>
+        <v-col cols="11">
+          <div class="d-flex justify-center">
             <v-btn
+              plain
+              class="mx-1"
               @click="pickupToPicker('pack')"
             >
-              <p>To Pack</p>
+              <h3 class="my-5">To Pack</h3>
             </v-btn>
             <v-btn
+              plain
+              class="mx-1"
               @click="pickupToPicker('deliver')"
             >
-              <p>To Pickup</p>
+              <h3 class="my-5">To Pickup</h3>
             </v-btn>
             <v-btn
+              plain
+              class="mx-1"
               @click="pickupToPicker('complete')"
             >
-              <p>Complete</p>
+              <h3 class="my-5">Complete</h3>
             </v-btn>
             <v-btn
+              plain
+              class="mx-1"
               @click="pickupToPicker('cancel')"
             >
-              <p>Cancelled</p>
+              <h3 class="my-5">Cancelled</h3>
             </v-btn>
           </div>
         </v-col>

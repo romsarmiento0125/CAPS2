@@ -5,17 +5,23 @@
     <v-container fluid>
       <v-row>
         <v-col
-          offset="1"
-          cols="2"
+          offset-xl="1"
+          xl="10"
+          lg="12"
+          md="12"
+          cols="12"
         >
           <h2>Browse by Category</h2>
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="1"></v-col>
         <v-col
           class="d-flex"
-          cols="10"
+          offset-xl="1"
+          xl="10"
+          lg="12"
+          md="12"
+          cols="12"
         >
           <!-- <div
             v-for="categorie in categories"
@@ -117,7 +123,6 @@
     }),
     methods: {
       toCategoriseItem(cond) {
-        alert(cond);
         this.$router.push('/item');
       }
     }

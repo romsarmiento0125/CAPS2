@@ -29,6 +29,6 @@ class Testing extends Mailable
      */
     public function build()
     {
-        return $this->subject("ERICH GROCERY STORE EMAIL VERIFICATION")->view('emails.verification');
+        return $this->subject("Erich Grocery Store Email Verification")->view('emails.verification');
     }
 }

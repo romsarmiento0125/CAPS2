@@ -3,42 +3,38 @@
     <v-container>
       <v-row>
         <v-col
-          offset-lg="1"
           offset-xl="1"
-          cols="12"
-          sm="12"
-          md="12"
-          lg="10"
           xl="10"
+          lg="12"
+          md="12"
+          cols="12"
         >
           <v-row>
             <v-col
               v-for="item in showItems"
               :key="item.id"
-              cols="6"
-              sm="4"
-              md="3"
-              lg="3"
               xl="2"
+              lg="3"
+              md="4"
             >
               <v-card
-                min-height="460px"
+                min-height="465px"
                 min-width="230px"
-                max-height="460px"
+                max-height="465px"
                 max-width="230px"
-                class=""
+                class="elevation-1"
               >
                 <div>
                   <div
                     class="d-flex pt-1 pl-2"
                   >
-                    <p
-                      class="border ma-0 py-0 px-1 title pink--text"
+                    <h4
+                      class="border ma-0 py-0 mt-1 px-1  pink--text"
                       v-if="item.discount != 0"
                       style="border: 1px solid red; border-radius: 5px"
                     >
-                      -{{item.discount}}%
-                    </p>
+                      - {{item.discount}}%
+                    </h4>
                     <p
                       class="pb-4"
                       v-else
@@ -58,14 +54,21 @@
                   ></v-img>
 
                   <v-card-title
-                    class="blue--text"
+                    class="fontStyle fontBlue"
+                    
                   >
-                    <v-icon
-                      color="blue"
+                    <div class="d-flex">
+                      <v-icon
+                      color="#1106A0"
+                      size="18px"
+                      class="mr-1"
                     >
                       mdi-currency-php
                     </v-icon>
-                    {{priceRound(item.retailPrice - ((item.discount / 100) * item.retailPrice))}}
+                    <h5>{{priceRound(item.retailPrice - ((item.discount / 100) * item.retailPrice))}}</h5>
+                    
+                    </div>
+                    
                   </v-card-title>
 
                   <v-card-subtitle
@@ -88,15 +91,16 @@
                       style="max-width: 200px;" 
                     >{{item.name}}</span>
                     <br>
-                    <span>
-                      {{item.size}}
-                    </span>
-                    <br>
                     <span
                       class="d-inline-block text-truncate"
                       style="max-width: 200px;" 
                     >{{item.description}}</span>
                     <br>
+                    <span>
+                      {{item.size}}
+                    </span>
+                    <br>
+                    
                     
                     <span>{{item.quantity}} &nbsp; Pcs Available</span>
                   </v-card-subtitle>
@@ -110,14 +114,22 @@
                   >
                     <v-spacer></v-spacer>
                     <v-btn
-                      x-large
+                    class="mr-5"
+                      large
                       icon
-                      color="primary"
-                      @click="addToCartItems(item.itemCode)"
+                      white
+                      text
+                      color="#1106A0"
+                      @click="addToCartItems(item.itemCode, item.id)"
                     >
-                      <v-icon>
-                        mdi-cart-outline
-                      </v-icon>
+                      <v-img
+                        contain
+                        src="../../assets/Cart.svg"
+                        max-height="40px"
+                        max-width="40px"
+                        >
+                        
+                      </v-img>
                     </v-btn>
                   </div>
                 </div>
@@ -194,8 +206,8 @@
         this.showItems = this.computedShowItems;
       },
       
-      addToCartItems(code) {
-        console.log("add to cart");
+      addToCartItems(code, id) {
+        // console.log("add to cart");
         this.cartItems.Email = this.usersEmail;
         this.cartItems.ItemCode = code;
 
@@ -212,33 +224,11 @@
           }
           })
           .then(res => {
-            this.updateCartCounter(res.data)
+            // console.log(res.data);
+            this.$store.commit('storeCartQuantity');
           })
           .catch(err => console.error(err));
         }
-      },
-      updateCartCounter(data){
-        if(data === "addSuccess"){
-          this.$store.commit('storeCartQuantity', this.$store.state.cartQuantity + 1);
-        }
-        else{
-          axios.put(this.getDomain()+'api/customercart/' + data.id, {
-            itemupdate: this.cartItems
-          },
-          {
-            headers:{
-              "Authorization": `Bearer ${this.usersToken}`,
-          }
-          })
-          .then(res => {
-            this.showQuantity(res.data)
-          })
-          .catch(err => console.error(err));
-        }
-      },
-      showQuantity(data){
-        this.$store.commit('storeCartItems', data);
-        this.$store.commit('storeCartQuantity', this.$store.state.cartQuantity + 1);
       },
       getCategoryItems() {
         if(!(this.categoryItems == null)){
@@ -256,3 +246,18 @@
     },
   }
 </script>
+
+<style scoped>
+.fontBlue{
+  color: #1106A0;
+}
+@font-face {
+  font-family: "RedHatDisplay";
+  src: local("RedHatDisplay"),
+   url(../../assets/Fonts/RedHatDisplay-VariableFont_wght.ttf) format("truetype");
+}
+.fontStyle{
+     font-family: "RedHatDisplay", Helvetica, Arial;
+  }
+
+</style>

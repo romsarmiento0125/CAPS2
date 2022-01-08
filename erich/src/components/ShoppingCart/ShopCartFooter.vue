@@ -3,163 +3,172 @@
     <v-footer
       color=""
       height="auto"
+      width="auto"
       style="
         background-color:#EDEDF0"
-      
+      class=""
     >
-      <v-container fluid
-        class="my-5"
-      >
+    <v-container fluid>
+    
       <v-row>
-        <v-col cols="10" offset="1">
-           <v-card
-        style="background:#FFFFFF"
-        
-        class="elevation-0 rounded-card"
+        <v-col
+          class="d-flex justify-center px-1"
+          offset-xl="1"
+          xl="10"
+          lg="12"
+          md="12"
+          cols="12"
         >
-          
-            <v-row class=" d-flex justify-center py-5">
+          <v-sheet
+            color="#FFFFFF"
+            width="100%"
+            class="py-5"
+            rounded="xl"
+          >
+            <v-row >
               <v-col
-              offset="1"
-              cols="4"
+                offset-lg="1"
+                lg="4"
+                md="6"
               >
                 <div
-                class="d-flex flex-column mt-5"
-                >
-                <h3
-                class="d-flex 
-                justify-center
-                fontTitle
-                qfont
-                "
-                >
-                Hello from ERICH Grocery!
-                </h3>
-                  <p class="d-flex text-justify   mt-3 px-5 grey--text text--darken-2">
-                    Erich Grocery Store is a local website grocery delivery service In Sta. Maria Bulacan. Its goal is to ensure that basic daily necessities are delivered quickly, conveniently, and safely like beverages, breads, dairy, home essentials, hygiene, chips, candy, noodles, biscuit, Frozen goods, canned goods.
-                  </p>
-                </div>
-              </v-col>
-              <v-col
-                cols="3"
-              >
-                <div
-                  class="d-flex flex-column mt-5 "
-                >
-                  <h3
+                    class="d-flex flex-column mt-5"
+                    >
+                    <h3
                     class="d-flex 
-                    justify-center 
-                    fontTitle 
-                    qfont"
-                  >
-                    Policies
-                  </h3>
-                  <v-btn
-                    plain
-                    text
-                    class=" btn no-uppercase font-weight-bold"
-                    
-                  >
-                    Refund Policy
-                  </v-btn>
-                  
-                  <v-btn
-                    plain
-                    class=" font-weight-bold no-uppercase"
-                  >
-                    Shipping Policy
-                  </v-btn>
-
-                  <v-btn
-                    plain
-                    class=" font-weight-bold no-uppercase"
-                  >
-                    Privacy Policy
-                  </v-btn>
-
-                   <v-btn
-                    plain
-                    class=" font-weight-bold no-uppercase"
-                  >
-                    Terms of Service
-                  </v-btn>
-                </div>
-              </v-col>
-
-              <v-col
-                cols="3"
-              >
-                <div
-                  class="d-flex flex-column justify-center mt-5"
-                >
-                  <h3
-                    class="d-flex 
-                    justify-center 
-                    qfont
+                    justify-center
                     fontTitle
+                    qfont
                     "
-                  >
-                    Quick Links
-                  </h3>
-                  <v-btn
-                    plain
-                    class=" font-weight-bold  no-uppercase"
-                  >
-                    About Us
-                  </v-btn>
-
-                  <v-btn
-                    plain
-                    class=" font-weight-bold no-uppercase"
-                  >
-                    Contact us
-                  </v-btn>
+                    >
+                    Hello from ERICH Grocery!
+                    </h3>
+                    <p class="d-flex text-justify   mt-3 px-5 grey--text text--darken-2">
+                        Erich Grocery Store is a local website grocery delivery service In Sta. Maria Bulacan. Its goal is to ensure that basic daily necessities are delivered quickly, conveniently, and safely like beverages, breads, dairy, home essentials, hygiene, chips, candy, noodles, biscuit, Frozen goods, canned goods.
+                    </p>
                 </div>
+              </v-col>
+
+              <v-col
+                lg="3"
+                md="3"
+              >
+                <div
+                    class="d-flex flex-column mt-5 "
+                  >
+                    <h3
+                      class="d-flex 
+                      justify-center 
+                      fontTitle 
+                      qfont"
+                    >
+                      Policies
+                    </h3>
+                    <v-btn
+                      plain
+                      text
+                      class=" btn no-uppercase font-weight-bold"
+                      
+                    >
+                      Refund Policy
+                    </v-btn>
+                    
+                    <v-btn
+                      plain
+                      class=" font-weight-bold no-uppercase"
+                    >
+                      Shipping Policy
+                    </v-btn>
+
+                    <v-btn
+                      plain
+                      class=" font-weight-bold no-uppercase"
+                    >
+                      Privacy Policy
+                    </v-btn>
+
+                      <v-btn
+                      plain
+                      class=" font-weight-bold no-uppercase"
+                    >
+                      Terms of Service
+                    </v-btn>
+                  </div>
+              </v-col>
+
+              <v-col 
+                lg="3"
+                md="3"
+              >
+                <div
+                    class="d-flex flex-column justify-center mt-5"
+                  >
+                    <h3
+                      class="d-flex 
+                      justify-center 
+                      qfont
+                      fontTitle
+                      "
+                    >
+                      Quick Links
+                    </h3>
+                    <v-btn
+                      plain
+                      class=" font-weight-bold  no-uppercase"
+                    >
+                      About Us
+                    </v-btn>
+
+                    <v-btn
+                      plain
+                      class=" font-weight-bold no-uppercase"
+                    >
+                      Contact us
+                    </v-btn>
+                  </div>
               </v-col>
             </v-row>
-        </v-card>
-        
-        <div>
-          <v-row>
-            <v-col
-            cols="10"
-            >
-              <div class="mt-5 mx-5">
-              <v-icon color="#1106A0"> mdi-alpha-c-circle-outline</v-icon>
-              <span class="qfont fontTitle ml-1"> Erich Grocery. All Rights Reserve</span>
-            </div>
-            </v-col>
-
-            <v-col
-            cols="2"
-            >
-            <div
-            class=" mt-5 pl-10 "
-            >
-              <v-btn dark text>
-                <v-icon color="#1106A0">mdi-facebook</v-icon>
-              </v-btn>
-
-              <v-btn dark text class="">
-                  <v-icon color="#1106A0">mdi-twitter</v-icon>
-              </v-btn>
-
-              <v-btn dark text>
-                <v-icon color="#1106A0">mdi-instagram</v-icon>
-              </v-btn>
-              
-            </div>
-              
-            </v-col>
-          </v-row>
-        
-        </div>
+          </v-sheet>
         </v-col>
       </v-row>
-       
+   
+      <v-row>
+        <v-col
+          offset-lg="1"
+          lg="8"
+          md="8"
+        >
+          <div class="mx-5">
+          <v-icon color="#1106A0"> mdi-alpha-c-circle-outline</v-icon>
+          <span class="qfont fontTitle ml-1"> Erich Grocery. All Rights Reserve</span>
+        </div>
+        </v-col>
+
+        <v-col
+          lg="2"
+          md="4"
+          class="d-flex justify-end"
+        >
+          <div
+            class="pr-2"
+          >
+            <v-btn dark text>
+              <v-icon color="#1106A0">mdi-facebook</v-icon>
+            </v-btn>
+
+            <v-btn dark text class="">
+                <v-icon color="#1106A0">mdi-twitter</v-icon>
+            </v-btn>
+
+            <v-btn dark text>
+              <v-icon color="#1106A0">mdi-instagram</v-icon>
+            </v-btn>
+            
+          </div>
           
-       
-      </v-container>
+        </v-col>
+      </v-row>
+    </v-container>
     </v-footer>
   </div>
 </template>
