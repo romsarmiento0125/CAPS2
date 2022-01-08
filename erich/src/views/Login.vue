@@ -99,17 +99,10 @@
 
     data: () => ({
       usersData: {
-<<<<<<< HEAD
         // usersEmail: "",
         // usersPassword: ""
         usersEmail: "sarmientopaulo01@gmail.com",
         usersPassword: "@Admin123"
-=======
-        usersEmail: "",
-        usersPassword: ""
-        // usersEmail: "paul@gmail.com",
-        // usersPassword: "@Admin123"
->>>>>>> 83e7acae159f5df168b8f9bcd81e26693225fa9f
       }
     }),
 
