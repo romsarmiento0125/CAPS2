@@ -46,6 +46,7 @@ export default new Vuex.Store({
     userPickupToComplete: "",
     userNotif: "",
     notifCond: "",
+    aboutCond: "",
   },
   mutations: {
     //Views Login.vue
@@ -301,6 +302,11 @@ export default new Vuex.Store({
     notifCond: (state, payload) => {
       state.notifCond = {},
       state.notifCond = payload;
+    },
+    //Components Footer.vue
+    aboutCond: (state, payload) => {
+      state.aboutCond = {},
+      state.aboutCond = payload;
     },
   },
   actions: {
