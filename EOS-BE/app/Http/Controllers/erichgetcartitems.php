@@ -70,25 +70,38 @@ class erichgetcartitems extends Controller
      */
     public function update(Request $request, $id)
     {
-        $existingItem = customercart::find($id);
-        $cond = $request->updateCond;
-        $dataGet = $request->customerEmail;
+        if(isset($request)){
+            $existingItem = customercart::find($id);
 
-        if($cond == "increase"){
-            $existingItem->quantity = $existingItem->quantity + 1;
-            $existingItem->save();
-            
-            return customercart::where('email', $dataGet)->get();
-        }
-        else if($cond == "decrease"){
-            $existingItem->quantity = $existingItem->quantity - 1;
-            $existingItem->save();
+            if($existingItem->quantity < 1){
+                $existingItem->delete();
+                return "Item succesfully deleted.";
+            }
+            else{
+                $cond = $request->updateCond;
+                $dataGet = $request->customerEmail;
 
-            return customercart::where('email', $dataGet)->get();
+                if($cond == "increase"){
+                    $existingItem->quantity = $existingItem->quantity + 1;
+                    $existingItem->save();
+                    
+                    return customercart::where('email', $dataGet)->get();
+                }
+                else if($cond == "decrease"){
+                    $existingItem->quantity = $existingItem->quantity - 1;
+                    $existingItem->save();
+
+                    return customercart::where('email', $dataGet)->get();
+                }
+                else{
+                    return "something wrong";
+                }
+            }
         }
         else{
-            return "something wrong";
+            return "false";
         }
+        
         
         // $getData = customercart::all();
         // $dataGet = $request->itemupdate["item_email"];

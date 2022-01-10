@@ -416,9 +416,8 @@
                 <div>
                   <p
                     class="text-center caption"
-                  >By clicking Sign Up, you agree to our <router-link to="/" class="indigo--text text--darken-4">Terms</router-link>, Learn how we collect, 
-                  use and share your data in our <router-link to="/" class="indigo--text text--darken-4">Data Policy</router-link>
-                    and how we use cookies and similar technology in our <router-link to="/" class="indigo--text text--darken-4">Cookie Policy</router-link>, 
+                  >By clicking Sign Up, you agree to our <router-link to="/about" class="indigo--text text--darken-4">Terms</router-link>, Learn how we collect, 
+                  use and share your data in our <router-link to="/about" class="indigo--text text--darken-4">Privacy Policy</router-link>
                     you may receive Email message from us to verify 
                     your account.
                   </p>

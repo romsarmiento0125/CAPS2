@@ -35,20 +35,26 @@ class CustomerPickupItemsController extends Controller
      */
     public function store(Request $request)
     {
-        for($i = 0; $i < count($request->register); $i++){
-            $register = new customerPickupItems();
-            $register->invoiceNumber = $request->register[$i]['item_invNumber'];
-            $register->itemName = $request->register[$i]['item_Name'];
-            $register->itemDesc = $request->register[$i]['item_Desc'];
-            $register->discount = $request->register[$i]['item_Discount'];
-            $register->quantity = $request->register[$i]['item_Quantity'];
-            $register->retailPrice = $request->register[$i]['item_Price'];
-            $register->itemCode = $request->register[$i]['item_Code'];
-            $register->itemImage = $request->register[$i]['item_Image'];
-            $register->save();
+        if(isset($request)){
+            for($i = 0; $i < count($request->register); $i++){
+                $register = new customerPickupItems();
+                $register->invoiceNumber = $request->register[$i]['item_invNumber'];
+                $register->itemName = $request->register[$i]['item_Name'];
+                $register->itemDesc = $request->register[$i]['item_Desc'];
+                $register->discount = $request->register[$i]['item_Discount'];
+                $register->quantity = $request->register[$i]['item_Quantity'];
+                $register->retailPrice = $request->register[$i]['item_Price'];
+                $register->itemCode = $request->register[$i]['item_Code'];
+                $register->itemImage = $request->register[$i]['item_Image'];
+                $register->save();
+            }
+    
+            return "Success";
         }
-
-        return "Success";
+        else{
+            return 'false';
+        }
+        
     }
 
     /**

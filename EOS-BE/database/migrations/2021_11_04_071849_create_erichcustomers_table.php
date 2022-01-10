@@ -17,7 +17,7 @@ class CreateErichcustomersTable extends Migration
             $table->id();
             $table->string('first_Name');
             $table->string('last_Name');
-            $table->string('mobile_Number')->unique();;
+            $table->string('mobile_Number');
             $table->string('email')->unique();
             $table->string('gender');
             $table->string('birthday');

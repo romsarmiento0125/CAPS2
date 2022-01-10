@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\customerOrderInfo;
+use App\Models\customerCancelItems;
 
 class customerOrderInfoController extends Controller
 {
@@ -35,7 +36,38 @@ class customerOrderInfoController extends Controller
      */
     public function store(Request $request)
     {
-        $register = new customerOrderInfo();
+        if(isset($request)){
+            $register = new customerOrderInfo();
+
+            $register->email = $request->register['Email'];
+            $register->invoiceNumber = $request->register['InvoiceNumber'];
+            $register->name = $request->register['Name'];
+            $register->mobileNumber = $request->register['Mobilenumber'];
+            $register->completeAddress = $request->register['CompleteAddress'];
+            $register->status = $request->register['OrderStatus'];
+            $register->orderYear = $request->register['OrderYear'];
+            $register->orderMonth = $request->register['OrderMonth'];
+            $register->orderDay = $request->register['OrderDay'];
+            $register->adjustedDate = $request->register['AdjustedDate'];
+            $register->shipFee = $request->register['Shipping'];
+            $register->discount = $request->register['Discount'];
+            $register->tax = $request->register['OrderTax'];
+            $register->subTotal = $request->register['SubTotal'];
+            $register->total = $request->register['Total'];
+
+            $register->save();
+
+            return $register;
+        }
+        else{
+            return 'false';
+        }
+        
+    }
+
+    public function cancel(Request $request)
+    {
+        $register = new customerCancelItems();
 
         $register->email = $request->register['Email'];
         $register->invoiceNumber = $request->register['InvoiceNumber'];
@@ -55,7 +87,17 @@ class customerOrderInfoController extends Controller
 
         $register->save();
 
-        return $register;
+        $id = $request->userid;
+
+        $existingItem = customerOrderInfo::find($id);
+
+        if( $existingItem){
+            $existingItem->delete();
+            return "Item succesfully deleted.";
+        }
+        else{
+            return "Item not Found";
+        }
     }
 
     /**
@@ -121,13 +163,6 @@ class customerOrderInfoController extends Controller
      */
     public function destroy($id)
     {
-        $existingItem = customerOrderInfo::find($id);
-
-        if( $existingItem){
-            $existingItem->delete();
-            return "Item succesfully deleted.";
-        }
-
-        return "Item not Found";
+        
     }
 }

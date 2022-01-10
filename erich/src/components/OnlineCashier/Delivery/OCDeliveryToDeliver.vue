@@ -5,15 +5,6 @@
     >
       <v-row>
         <v-col>
-          <div
-          >
-            <p>Order</p>
-          </div>
-        </v-col>
-      </v-row>
-
-      <v-row>
-        <v-col>
           <v-simple-table height="650px">
             <template v-slot:default>
               <thead>
@@ -169,7 +160,6 @@
           }
           })
           .then(res => {
-            // console.log(res.data);
             this.getAllDeliver();
           })
           .catch(err => console.error(err));
@@ -191,8 +181,6 @@
         this.orderCancel.SubTotal = SubTotal;
         this.orderCancel.Total = Total;
         this.orderid = id;
-        // console.log("to Cancel");
-        // console.log(this.orderDeliver);
         axios.post(this.getDomain()+'api/customerordercancel/store', {
           register: this.orderCancel,
           userid: this.orderid
@@ -203,25 +191,10 @@
         }
         })
         .then(res => {
-          // console.log(res.data);
           this.getAllDeliver();
         })
         .catch(err => console.error(err));
       },
-      // toDelete(){
-      //   axios.delete(this.getDomain()+'api/customerdeliveritems/'+ this.orderid,
-      //     {
-      //       headers:{
-      //         "Authorization": `Bearer ${this.usersToken}`,
-      //     }
-      //     })
-      //     .then( res => {
-      //       console.log("Delete")
-      //       console.log(res.data);
-      //       this.getAllDeliver();
-      //     })
-      //     .catch(err => console.error(err))
-      // },
       getAllDeliver(){
         axios.get(this.getDomain()+'api/customerdeliveritems',
           {
@@ -240,9 +213,6 @@
 
     beforeMount(){
       this.getAllDeliver();
-      // console.log(this.userProfileOrders);
-      // console.log(this.userProfileOrderItems);
-      //this.infos = this.userAllOrders;
     }
   }
 </script>

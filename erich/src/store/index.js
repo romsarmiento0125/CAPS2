@@ -41,13 +41,16 @@ export default new Vuex.Store({
     userPickupOrdersCons: {},
     userPickupPickup: {},
     userPickupComplete: {},
+    userPickupCancel: {},
     searchItem: "",
     userPickupOrders: "",
     userPickupToPickup: "",
     userPickupToComplete: "",
     userNotif: "",
     notifCond: "",
-    aboutCond: "",
+    aboutCond: "term",
+    adminDataDeliver: null,
+    adminDataPickup: null,
   },
   mutations: {
     //Views Login.vue
@@ -294,6 +297,11 @@ export default new Vuex.Store({
       state.userPickupComplete = {},
       state.userPickupComplete = payload;
     },
+    //Components OnlineCashier Pickup OCPickupToCancel.vue
+    storeUserPickupCancel: (state, payload) => {
+      state.userPickupCancel = {},
+      state.userPickupCancel = payload;
+    },
     //Components HomeItems HomeCategoriesItem.vue && CategoriesItem.vue
     searchItem: (state, payload) => {
       state.searchItem = {},
@@ -313,6 +321,14 @@ export default new Vuex.Store({
     aboutCond: (state, payload) => {
       state.aboutCond = {},
       state.aboutCond = payload;
+    },
+    adminDataDeliver: (state, payload) => {
+      state.adminDataDeliver = {},
+      state.adminDataDeliver = payload;
+    },
+    adminDataPickup: (state, payload) => {
+      state.adminDataPickup = {},
+      state.adminDataPickup = payload;
     },
   },
   actions: {

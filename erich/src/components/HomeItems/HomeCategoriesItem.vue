@@ -224,8 +224,12 @@
           }
           })
           .then(res => {
-            // console.log(res.data);
-            this.$store.commit('storeCartQuantity');
+            if(res.data == "false"){
+              console.log("Too many request");
+            }
+            else{
+              this.$store.commit('storeCartQuantity');
+            }
           })
           .catch(err => console.error(err));
         }

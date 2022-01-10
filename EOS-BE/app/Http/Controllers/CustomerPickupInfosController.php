@@ -35,23 +35,29 @@ class CustomerPickupInfosController extends Controller
      */
     public function store(Request $request)
     {
-        $register = new customerPickupInfos();
+        if(isset($request)){
+            $register = new customerPickupInfos();
 
-        $register->email = $request->register['Email'];
-        $register->invoiceNumber = $request->register['InvoiceNumber'];
-        $register->name = $request->register['Name'];
-        $register->mobileNumber = $request->register['Mobilenumber'];
-        $register->status = $request->register['Status'];
-        $register->pickupDate = $request->register['pickupDate'];
-        $register->pickupTime = $request->register['pickupTime'];
-        $register->discount = $request->register['Discount'];
-        $register->tax = $request->register['OrderTax'];
-        $register->subTotal = $request->register['SubTotal'];
-        $register->total = $request->register['Total'];
+            $register->email = $request->register['Email'];
+            $register->invoiceNumber = $request->register['InvoiceNumber'];
+            $register->name = $request->register['Name'];
+            $register->mobileNumber = $request->register['Mobilenumber'];
+            $register->status = $request->register['Status'];
+            $register->pickupDate = $request->register['pickupDate'];
+            $register->pickupTime = $request->register['pickupTime'];
+            $register->discount = $request->register['Discount'];
+            $register->tax = $request->register['OrderTax'];
+            $register->subTotal = $request->register['SubTotal'];
+            $register->total = $request->register['Total'];
 
-        $register->save();
+            $register->save();
 
-        return $register;
+            return $register;
+        }
+        else{
+            return 'false';
+        }
+        
     }
 
     /**
@@ -113,13 +119,6 @@ class CustomerPickupInfosController extends Controller
      */
     public function destroy($id)
     {
-        $existingItem = customerPickupInfos::find($id);
 
-        if( $existingItem){
-            $existingItem->delete();
-            return "Item succesfully deleted.";
-        }
-
-        return "Item not Found";
     }
 }

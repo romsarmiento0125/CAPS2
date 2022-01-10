@@ -52,7 +52,7 @@ class erichcustomercontroller extends Controller
         if($vemail == 1){
             return "wrongemail";
         }
-        else if($vnum == 1){
+        else if(false){
             return "wrongnumber";
         }
         else{

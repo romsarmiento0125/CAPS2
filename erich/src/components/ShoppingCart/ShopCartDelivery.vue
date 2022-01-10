@@ -243,8 +243,7 @@
         // console.log("SubTotal: " + this.customerOrder.SubTotal);
         // console.log("Total: " + this.customerOrder.Total);
         // console.log(this.customerOrderItems);
-
-        this.cleanCart();
+        
         this.showMessage();
 
         axios.post(this.getDomain()+'api/customerorder/store', {
@@ -256,8 +255,12 @@
           }
           })
         .then(res => {
-          this.storeCustomerOrderItems()
-          // console.log(res);  
+          if(res.data == 'false'){
+              console.log(res.data);
+            }
+            else{
+              this.storeCustomerOrderItems();
+            } 
         })
         //.then(res => console.log(res.data))
         .catch(err => console.error(err));
@@ -274,7 +277,12 @@
           }
           })
           .then(res => {
-            // console.log(res.data);  
+            if(res.data == 'false'){
+              console.log(res.data);
+            }
+            else{
+              this.cleanCart();
+            }
           })
           .catch(err => console.error(err));
       },

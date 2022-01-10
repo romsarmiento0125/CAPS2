@@ -37,6 +37,7 @@ class userCompleteItemsController extends Controller
     public function store(Request $request)
     {
         $register = new customerCompleteItems();
+        $datecomplete = date("Y-m-d");
 
         $register->email = $request->register['Email'];
         $register->invoiceNumber = $request->register['InvoiceNumber'];
@@ -47,7 +48,7 @@ class userCompleteItemsController extends Controller
         $register->orderYear = $request->register['OrderYear'];
         $register->orderMonth = $request->register['OrderMonth'];
         $register->orderDay = $request->register['OrderDay'];
-        $register->adjustedDate = $request->register['AdjustedDate'];
+        $register->adjustedDate = $datecomplete;
         $register->shipFee = $request->register['Shipping'];
         $register->discount = $request->register['Discount'];
         $register->tax = $request->register['OrderTax'];
