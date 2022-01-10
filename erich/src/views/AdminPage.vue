@@ -73,40 +73,6 @@
           </v-container>
         </v-main>
       </v-app>
-
-      <!-- <h1>This is admin page container</h1>
-      <v-btn
-        color="primary"
-        :to="{name: 'Admin' , params: { id: 'dashboard', title: 'DashBoard'}}"
-        @click="adminSidebar('as')"
-      >
-        Dashboard
-      </v-btn>
-      <v-btn
-        color="primary"
-        :to="{name: 'Admin' , params: { id: 'transactions', title: 'Transactions'}}"
-        @click="adminSidebar('at')"
-      >
-        Transactions
-      </v-btn>
-      <v-btn
-        color="primary"
-        :to="{name: 'Admin' , params: { id: 'inventory', title: 'Inventory'}}"
-        @click="adminSidebar('ai')"
-      >
-        Inventory
-      </v-btn>
-      <v-btn
-        color="primary"
-        :to="{name: 'Admin' , params: { id: 'management', title: 'Management'}}"
-        @click="adminSidebar('am')"
-      >
-        Admin Management
-      </v-btn>
-      <admin-transactions v-if="aTransactions"></admin-transactions>
-      <admin-inventory v-else-if="aInventory"></admin-inventory>
-      <admin-management v-else-if="aManagement"></admin-management>
-      <admin-dashboard v-else></admin-dashboard> -->
     </div>
   </div>
 </template>
@@ -119,9 +85,11 @@
   import AdminInventoryItems from '../components/Admin/AdminInventoryItems.vue'
   import AdminSupplierList from '../components/Admin/AdminSupplierList.vue'
   import AdminManagement from '../components/Admin/AdminManagement.vue'
+  import {Mixins} from '../Mixins/mixins.js'
 
   export default{
     name: 'Admin',
+    mixins: [Mixins],
 
     components: {
       'admin-dashboard': AdminDashboard,
@@ -141,20 +109,15 @@
       aInventory: false,
       aManagement: false,
       aSupplierList: false,
-      links: [
-        // {id: 1, AdminName: 'Dashboard', AdminCondition: 'as', Admin: 'Admin', AdminId: 'dashboard', AdminTitle: 'Dashboard'},
-        // {id: 2, AdminName: 'Online Sales', AdminCondition: 'aon', Admin: 'Admin', AdminId: 'onlinesales', AdminTitle: 'Online Sales'},
-        // {id: 3, AdminName: 'Offline Sales', AdminCondition: 'aof', Admin: 'Admin', AdminId: 'offlinesales', AdminTitle: 'Offline Sales'},
-        // {id: 4, AdminName: 'Transactions', AdminCondition: 'at', Admin: 'Admin', AdminId: 'transaction', AdminTitle: 'Transaction'},
-        // {id: 5, AdminName: 'Inventory', AdminCondition: 'ai', Admin: 'Admin', AdminId: 'inventory', AdminTitle: 'Inventory'},
-        // {id: 6, AdminName: 'Supplier List', AdminCondition: 'asl', Admin: 'Admin', AdminId: 'supplierlist', AdminTitle: 'Supplier List'},
-        // {id: 7, AdminName: 'Admin Management', AdminCondition: 'am', Admin: 'Admin', AdminId: 'management', AdminTitle: 'Management'},
-      ],
+      links: [],
     }),
 
     computed: {
       usersTag(){
         return localStorage.getItem('tag');
+      },
+      usersToken(){
+        return localStorage.getItem('token');
       },
     },
 
@@ -265,6 +228,29 @@
     },
     beforeMount(){
       this.sideBarPicker();
-    }
+      axios.get(this.getDomain()+'api/customercompleteitems',
+      {
+        headers:{
+          "Authorization": `Bearer ${this.usersToken}`,
+      }
+      })
+      .then(res => {
+        // console.log(res.data);
+        this.$store.commit('adminDataDeliver', res.data);
+      })
+      .catch(err => console.error(err));
+
+      axios.get(this.getDomain()+'api/customerpickupcomplete',
+      {
+        headers:{
+          "Authorization": `Bearer ${this.usersToken}`,
+      }
+      })
+      .then(res => {
+        // console.log(res.data);
+        this.$store.commit('adminDataPickup', res.data);
+      })
+      .catch(err => console.error(err));
+    },
   }
 </script>

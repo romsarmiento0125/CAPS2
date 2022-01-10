@@ -5,15 +5,6 @@
     >
       <v-row>
         <v-col>
-          <div
-          >
-            <p>Order</p>
-          </div>
-        </v-col>
-      </v-row>
-
-      <v-row>
-        <v-col>
           <v-simple-table height="650px">
             <template v-slot:default>
               <thead>
@@ -119,9 +110,6 @@
 
     beforeMount(){
       this.getAllComplete();
-      // console.log(this.userProfileOrders);
-      // console.log(this.userProfileOrderItems);
-      //this.infos = this.userAllOrders;
     }
   }
 </script>

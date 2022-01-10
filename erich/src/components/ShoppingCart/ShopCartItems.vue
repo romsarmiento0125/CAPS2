@@ -391,8 +391,6 @@
               "Authorization": `Bearer ${this.usersToken}`,
           }
           })
-        //.then( res => console.log(res))
-        //.then( res => this.getCartItems())
         .then( res => {
           this.getCartItems()
           // console.log(res.data)
@@ -411,8 +409,13 @@
           }
           })
           .then(res => {
-            // console.log(res.data)
-            this.showCartItems(res.data);
+            if(res.data == "false"){
+              console.log("Too many request");
+            }
+            else{
+              this.showCartItems(res.data);
+            }
+            
           })
           .catch(err => console.error(err));
         }
@@ -431,8 +434,13 @@
             }
             })
             .then(res => {
-              // console.log(res.data)
-              this.showCartItems(res.data);
+              // console.log(res.data);
+              if(res.data == "false"){
+                console.log("Too many request");
+              }
+              else{
+                this.showCartItems(res.data);
+              }
             })
             .catch(err => console.error(err));
           }

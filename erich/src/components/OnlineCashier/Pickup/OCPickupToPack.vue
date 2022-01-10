@@ -35,7 +35,15 @@
           <div
           class="my-10 ml-4"
           >
-            <h2>Order</h2>
+            <v-btn
+              @click="getPickupOrder"
+            >
+              <p
+                class="my-0"
+              >
+                Refresh
+              </p>
+            </v-btn>
           </div>
         </v-col>
       </v-row>
@@ -197,7 +205,8 @@
         this.orderPickup.Total = total;
 
         axios.post(this.getDomain()+'api/customerpickuppickup/store', {
-            register: this.orderPickup
+            register: this.orderPickup,
+            userid: id
           },
           {
             headers:{
@@ -205,25 +214,10 @@
           }
           })
           .then(res => {
-            this.toDelete(id);
-            console.log(res.data);  
-          })
-          .catch(err => console.error(err));
-      },
-      toDelete(id){
-        axios.delete(this.getDomain()+'api/customerpickup/'+ id,
-          {
-            headers:{
-              "Authorization": `Bearer ${this.usersToken}`,
-          }
-          })
-          .then( res => {
-            console.log("Delete")
             console.log(res.data);
             this.getPickupOrder();
           })
-          .catch(err => console.error(err))
-        
+          .catch(err => console.error(err));
       },
       getPickupOrder(){
         axios.get(this.getDomain()+'api/customerpickup',

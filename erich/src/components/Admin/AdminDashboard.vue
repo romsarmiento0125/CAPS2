@@ -22,18 +22,14 @@
             >
               <div>
                 <v-menu
-                  ref="menu"
-                  v-model="menu"
-                  :close-on-content-click="false"
-                  :return-value.sync="date"
+                  v-model="startmenu"
                   transition="scale-transition"
                   offset-y
                   min-width="auto"
                 >
                   <template v-slot:activator="{ on, attrs }">
                     <v-text-field
-                      v-model="date"
-                      label="Picker in menu"
+                      v-model="startDate"
                       prepend-icon="mdi-calendar"
                       readonly
                       v-bind="attrs"
@@ -41,9 +37,9 @@
                     ></v-text-field>
                   </template>
                   <v-date-picker
-                    v-model="date"
-                    no-title
+                    v-model="startDate"
                     scrollable
+                    show-current="false"
                   >
                     <v-spacer></v-spacer>
                     <v-btn
@@ -56,7 +52,7 @@
                     <v-btn
                       text
                       color="primary"
-                      @click="$refs.menu.save(date)"
+                      @click="menu = false"
                     >
                       OK
                     </v-btn>
@@ -66,18 +62,14 @@
 
               <div>
                 <v-menu
-                  ref="menu"
-                  v-model="menu"
-                  :close-on-content-click="false"
-                  :return-value.sync="date"
+                  v-model="endmenu"
                   transition="scale-transition"
                   offset-y
                   min-width="auto"
                 >
                   <template v-slot:activator="{ on, attrs }">
                     <v-text-field
-                      v-model="date"
-                      label="Picker in menu"
+                      v-model="endDate"
                       prepend-icon="mdi-calendar"
                       readonly
                       v-bind="attrs"
@@ -85,22 +77,22 @@
                     ></v-text-field>
                   </template>
                   <v-date-picker
-                    v-model="date"
-                    no-title
+                    v-model="endDate"
                     scrollable
+                    show-current="false"
                   >
                     <v-spacer></v-spacer>
                     <v-btn
                       text
                       color="primary"
-                      @click="menu = false"
+                      @click="endmenu = false"
                     >
                       Cancel
                     </v-btn>
                     <v-btn
                       text
                       color="primary"
-                      @click="$refs.menu.save(date)"
+                      @click="endmenu = false"
                     >
                       OK
                     </v-btn>
@@ -119,7 +111,7 @@
             <div
               class="d-flex justify-end"
             >
-              <h1>9999999</h1>
+              <h1>{{totalSales}}</h1>
             </div>
             <div
               class="d-flex justify-end yellow darken-2"
@@ -129,10 +121,6 @@
               >Total Sales</p>
             </div>
           </v-sheet>
-        </v-col>
-        <!-- Pie graph column -->
-        <v-col>
-          <h1>Pie Graph</h1>
         </v-col>
       </v-row>
 
@@ -290,64 +278,86 @@
   export default {
     data: () => ({
       value: [
+        0,
         423,
-        446,
-        675,
-        510,
-        590,
-        610,
-        760,
+        0,
       ],
-      hDemand: [
-        { text: 'Real-Time', icon: 'mdi-clock' },
-        { text: 'Audience', icon: 'mdi-account' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-      ],
-      lDemand: [
-        { text: 'Real-Time', icon: 'mdi-clock' },
-        { text: 'Audience', icon: 'mdi-account' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-      ],
-      lStock: [
-        { text: 'Real-Time', icon: 'mdi-clock' },
-        { text: 'Audience', icon: 'mdi-account' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-      ],
-      tExpired: [
-        { text: 'Real-Time', icon: 'mdi-clock' },
-        { text: 'Audience', icon: 'mdi-account' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-      ],
+      hDemand: [],
+      lDemand: [],
+      lStock: [],
+      tExpired: [],
       date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-      menu: false,
+      endmenu: false,
+      startmenu: false,
+      startDate: "2022-01-08",
+      endDate: new Date().toISOString().slice(0, 10),
     }),
+
+    computed: {
+      adminDataDeliver(){
+        return this.$store.state.adminDataDeliver;
+      },
+      adminDataPickup(){
+        return this.$store.state.adminDataPickup;
+      },
+      totalSales(){
+        return this.showTotalSales();
+      }
+    },
+
+    watch: {
+      adminDataDeliver(){
+        this.showTotalSales;
+      }
+    },
+
+    methods: {
+      showTotalSales(){
+        if((this.adminDataDeliver == null) || (this.adminDataPickup == null)){
+          return "0"
+        }
+        else{
+          // console.log(this.adminDataDeliver);
+          // console.log(this.adminDataPickup);
+          var deliverdata = this.adminDataDeliver;
+          var pickupdata = this.adminDataPickup;
+          var delivertotal = 0;
+          var pickuptotal = 0;
+          var total = 0;
+
+          var dayCount = 0;
+          for(var i = 0; i < deliverdata.length; i++){
+            delivertotal = delivertotal + (deliverdata[i].total * 1);
+          }
+          for(var j = 0; j < pickupdata.length; j++){
+            pickuptotal = pickuptotal + (pickupdata[j].total * 1);
+          }
+
+          dayCount = this.datediff(this.parseDate(this.startDate), this.parseDate(this.endDate));
+
+          for(var k = 0; k < dayCount; k++){
+            
+          }
+          console.log(dayCount);
+
+          total = delivertotal + pickuptotal;
+          return total;
+        }
+      },
+      datediff(first, second) {
+      // Take the difference between the dates and divide by milliseconds per day.
+      // Round to nearest whole number to deal with DST.
+      return Math.round((second-first)/(1000*60*60*24));
+      },
+      parseDate(str) {
+        var mdy = str.split('-');
+        return new Date(mdy[0], mdy[1], mdy[2]); 
+      }
+    },
+
+    mounted() {
+
+    },
+
   }
 </script>

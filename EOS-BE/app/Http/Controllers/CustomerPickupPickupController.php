@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\customerPickupInfos;
 use App\Models\customerPickupPickup;
 
 class CustomerPickupPickupController extends Controller
@@ -51,7 +52,17 @@ class CustomerPickupPickupController extends Controller
 
         $register->save();
 
-        return $register;
+        $id = $request->userid;
+
+        $existingItem = customerPickupInfos::find($id);
+
+        if( $existingItem){
+            $existingItem->delete();
+            return "Item succesfully deleted.";
+        }
+        else{
+            return "Item not Found";
+        }
     }
 
     /**
@@ -96,13 +107,6 @@ class CustomerPickupPickupController extends Controller
      */
     public function destroy($id)
     {
-        $existingItem = customerPickupPickup::find($id);
 
-        if( $existingItem){
-            $existingItem->delete();
-            return "Item succesfully deleted.";
-        }
-
-        return "Item not Found";
     }
 }

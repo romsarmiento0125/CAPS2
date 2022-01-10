@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userOrderCancel;
+use App\Http\Controllers\userPickupCancel;
 use App\Http\Controllers\erichgetcartitems;
 use App\Http\Controllers\testemailcontroller;
 use App\Http\Controllers\userOrderController;
@@ -24,14 +25,14 @@ use App\Http\Controllers\userOrderDeliveryController;
 use App\Http\Controllers\userOrderToPickupController;
 use App\Http\Controllers\customerOrderItemsController;
 use App\Http\Controllers\erichcategoryitemscontroller;
+
 use App\Http\Controllers\erichnotificationscontroller;
-
 use App\Http\Controllers\CustomerPickupInfosController;
+
 use App\Http\Controllers\CustomerPickupItemsController;
-
 use App\Http\Controllers\CustomerPickupPickupController;
-use App\Http\Controllers\CustomerPickupCompleteController;
 
+use App\Http\Controllers\CustomerPickupCompleteController;
 use App\Http\Controllers\userOrderToPickupCompleteController;
 use App\Http\Controllers\customerPasswordVerificationController;
 
@@ -77,31 +78,36 @@ Route::middleware('auth:sanctum')->group( function (){
     Route::put('/getcart/{id}', [erichgetcartitems::class, 'update']);
     Route::delete('/getcart/{id}', [erichgetcartitems::class, 'destroy']);
 
+    // online cashier Pickup
     Route::get('/customerpickup', [CustomerPickupInfosController::class, 'index']);
     Route::post('/customerpickup/store', [CustomerPickupInfosController::class, 'store']);
     Route::put('/customerpickup/{id}', [CustomerPickupInfosController::class, 'update']);
-    Route::delete('/customerpickup/{id}', [CustomerPickupInfosController::class, 'destroy']);
     Route::post('/customerpickupitems/store', [CustomerPickupItemsController::class, 'store']);
+    Route::get('/customerpickuppickup', [CustomerPickupPickupController::class, 'index']);
+    Route::post('/customerpickuppickup/store', [CustomerPickupPickupController::class, 'store']);
+    Route::get('/customerpickupcomplete', [CustomerPickupCompleteController::class, 'index']);
+    Route::post('/customerpickupcomplete/store', [CustomerPickupCompleteController::class, 'store']);
+    Route::post('/customerpickupcancel/store', [userPickupCancel::class, 'store']);
+    Route::get('/customerpickupcancel', [userPickupCancel::class, 'index']);
 
+    
+    //online cashier delivery
     Route::get('/customerorder', [customerOrderInfoController::class, 'index']);
     Route::post('/customerorder/store', [customerOrderInfoController::class, 'store']);
     Route::put('/customerorder/{id}', [customerOrderInfoController::class, 'update']);
-    Route::delete('/customerorder/{id}', [customerOrderInfoController::class, 'destroy']);
-    Route::get('/customerorderitems', [customerOrderItemsController::class, 'index']);
-    Route::post('/customerorderitems/store', [customerOrderItemsController::class, 'store']);
-
     Route::get('/customerdeliveritems', [userDeliverItemsController::class, 'index']);
     Route::post('/customerdeliveritems/store', [userDeliverItemsController::class, 'store']);
-    Route::delete('/customerdeliveritems/{id}', [userDeliverItemsController::class, 'destroy']);
-    Route::get('/customercompleteitems', [userCompleteItemsController::class, 'index']);
-    Route::post('/customercompleteitems/store', [userCompleteItemsController::class, 'store']);
-    Route::get('/customerpickuppickup', [CustomerPickupPickupController::class, 'index']);
-    Route::post('/customerpickuppickup/store', [CustomerPickupPickupController::class, 'store']);
-    Route::delete('/customerpickuppickup/{id}', [CustomerPickupPickupController::class, 'destroy']);
-    Route::get('/customerpickupcomplete', [CustomerPickupCompleteController::class, 'index']);
-    Route::post('/customerpickupcomplete/store', [CustomerPickupCompleteController::class, 'store']);
     Route::post('/customerordercancel/store', [userOrderCancel::class, 'store']);
     Route::get('/customerordercancel', [userOrderCancel::class, 'index']);
+    Route::get('/customercompleteitems', [userCompleteItemsController::class, 'index']);
+    Route::post('/customercompleteitems/store', [userCompleteItemsController::class, 'store']);
+    Route::post('/customercancel', [customerOrderInfoController::class, 'cancel']);
+    
+
+
+    Route::get('/customerorderitems', [customerOrderItemsController::class, 'index']);
+    Route::post('/customerorderitems/store', [customerOrderItemsController::class, 'store']);
+    
 
     Route::post('/emailverification', [testemailcontroller::class, 'email']);
     Route::put('/verifyemail/{id}', [verifyemailcontroller::class, 'verify']);

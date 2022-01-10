@@ -64,8 +64,9 @@ class userDeliverItemsController extends Controller
             $existingItem->delete();
             return "Item succesfully deleted.";
         }
-
-        return "Item not Found";
+        else{
+            return "Item not Found";
+        }
     }
 
     /**
@@ -110,13 +111,6 @@ class userDeliverItemsController extends Controller
      */
     public function destroy($id)
     {
-        $existingItem = customerDeliverItems::find($id);
-
-        if( $existingItem){
-            $existingItem->delete();
-            return "Item succesfully deleted.";
-        }
-
-        return "Item not Found";
+        
     }
 }

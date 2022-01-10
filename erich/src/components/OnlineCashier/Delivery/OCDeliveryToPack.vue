@@ -37,7 +37,15 @@
           <div
           class="my-10 ml-4"
           >
-            <h2>Order</h2>
+            <v-btn
+              @click="getAllOrder"
+            >
+              <p
+                class="my-0"
+              >
+                Refresh
+              </p>
+            </v-btn>
           </div>
         </v-col>
       </v-row>
@@ -154,8 +162,6 @@
       infos: [
         // { IvNumber: '001', Name: "Rom Paulo Sarmiento", Address: "Norzagaray Poblacion Antonia Heights Subd. Block 0 Lot 0", Status: "Prepairing",
         //   DueDate: "Dec 19 2021", SubTotal: "900", ShipFee: "50", Discount: "0", Tax: "50", Total: "1000"},
-        // { IvNumber: '002', Name: "Reyster Del Rosario", Address: "Sta.Maria Pulong Buhangin Gulod Lot 0 Block 0", Status: "Prepariring",
-        //   DueDate: "Dec 19 2021", SubTotal: "800", ShipFee: "50", Discount: "0", Tax: "50", Total: "900"},
       ],
       counters: 3,
       orderUpdate: {
@@ -214,7 +220,6 @@
       },
       toProcess(data, id, Email, MobileNumber, InvoiceNumber, Name, CompleteAddress, OrderYear, OrderMonth,
         OrderDay, ShipFee, Discount, Tax, SubTotal, Total){
-        console.log("To Process" + data);
         this.orderUpdate.Email = Email;
         this.orderUpdate.Name = Name;
         this.orderUpdate.Mobilenumber = MobileNumber;
@@ -225,14 +230,31 @@
         this.orderUpdate.OrderMonth = OrderMonth;
         this.orderUpdate.OrderDay = OrderDay;
         this.orderUpdate.AdjustedDate = data;
-        this.orderUpdate.OrderStatus = "Process";
+        this.orderUpdate.OrderStatus = "";
         this.orderUpdate.OrderTax = Tax;
         this.orderUpdate.Discount = Discount;
         this.orderUpdate.SubTotal = SubTotal;
         this.orderUpdate.Total = Total;
-        console.log("Order update");
-        console.log(this.orderUpdate);
-        axios.put(this.getDomain()+'api/customerorder/' + id, {
+        if(data == "Cancel"){
+          this.orderUpdate.OrderStatus = "Cancel";
+          axios.post(this.getDomain()+'api/customercancel', {
+            register: this.orderUpdate,
+            userid: id
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
+          .then(res => {
+            this.getAllOrder();
+          })
+          .catch(err => console.error(err));
+        }
+        else{
+          console.log("process items");
+          this.orderUpdate.OrderStatus = "Process";
+          axios.put(this.getDomain()+'api/customerorder/' + id, {
             register: this.orderUpdate
           },
           {
@@ -241,14 +263,13 @@
           }
           })
           .then(res => {
-            console.log(res.data);
             this.getAllOrder();
           })
           .catch(err => console.error(err));
+        }
       },
       toDeliver(date, id, Email, MobileNumber, InvoiceNumber, Name, CompleteAddress, OrderYear, OrderMonth,
         OrderDay, ShipFee, Discount, Tax, SubTotal, Total){
-        console.log("To Deliver");
         this.orderUpdate.Email = Email;
         this.orderUpdate.Name = Name;
         this.orderUpdate.Mobilenumber = MobileNumber;
@@ -274,25 +295,10 @@
           }
           })
           .then(res => {
-            console.log(res.data);
             this.getAllOrder();
           })
           .catch(err => console.error(err));
       },
-      // toDelete(id){
-      //   axios.delete(this.getDomain()+'api/customerorder/'+ id,
-      //     {
-      //       headers:{
-      //         "Authorization": `Bearer ${this.usersToken}`,
-      //     }
-      //     })
-      //     .then( res => {
-      //       console.log("Delete")
-      //       console.log(res.data);
-      //       this.getAllOrder();
-      //     })
-      //     .catch(err => console.error(err))
-      // },
       getAllOrder(){
         axios.get(this.getDomain()+'api/customerorder',
           {
@@ -310,9 +316,6 @@
 
     beforeMount(){
       this.getAllOrder();
-      // console.log(this.userProfileOrders);
-      // console.log(this.userProfileOrderItems);
-      //this.infos = this.userAllOrders;
     }
   }
 </script>

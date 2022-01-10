@@ -37,28 +37,34 @@ class customercartcontroller extends Controller
     public function store(Request $request)
     {
         // $existingEmail = customercart::find($request->register['Email']);
-        $existingId = customercart::where('email', $request->register['Email'])
+        if(isset($request)){
+            $existingId = customercart::where('email', $request->register['Email'])
             ->where('itemCode', $request->register['ItemCode'])->get('id')->first();
 
-        if(!$existingId){
-            $register = new customercart();
-            $register->email = $request->register['Email'];
-            $register->quantity = $request->register['Quantity'];
-            $register->itemCode = $request->register['ItemCode'];
+            if(!$existingId){
+                $register = new customercart();
+                $register->email = $request->register['Email'];
+                $register->quantity = $request->register['Quantity'];
+                $register->itemCode = $request->register['ItemCode'];
 
-            $register->save();
+                $register->save();
 
-            return $register;
+                return $register;
+            }
+            else{
+                $existingItem = customercart::find($existingId->id);
+                
+                $existingItem->quantity =  $existingItem->quantity + 1;
+
+                $existingItem->save();
+
+                return $existingItem;
+            }
         }
         else{
-            $existingItem = customercart::find($existingId->id);
-            
-            $existingItem->quantity =  $existingItem->quantity + 1;
-
-            $existingItem->save();
-
-            return $existingItem;
+            return "false";
         }
+        
 
         
         

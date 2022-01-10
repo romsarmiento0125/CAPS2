@@ -48,80 +48,7 @@
     },
 
     methods: {
-      getAllOrder(){
-        axios.get(this.getDomain()+'api/customerorder',
-          {
-            headers:{
-              "Authorization": `Bearer ${this.usersToken}`,
-          }
-          })
-        .then(res => {
-          this.$store.commit('storeUserAllOrders', res.data);
-        })
-        .catch(err => console.error(err));
-      },
-      getAllDeliver(){
-        axios.get(this.getDomain()+'api/customerdeliveritems',
-          {
-            headers:{
-              "Authorization": `Bearer ${this.usersToken}`,
-          }
-          })
-        .then(res => {
-          this.$store.commit('storeUserAllDeliver', res.data);
-        })
-        .catch(err => console.error(err));
-      },
-      getAllComplete(){
-        axios.get(this.getDomain()+'api/customercompleteitems',
-          {
-            headers:{
-              "Authorization": `Bearer ${this.usersToken}`,
-          }
-          })
-        .then(res => {
-          this.$store.commit('storeUserAllComplete', res.data);
-        })
-        .catch(err => console.error(err));
-      },
-      getPickupOrder(){
-        axios.get(this.getDomain()+'api/customerpickup',
-          {
-            headers:{
-              "Authorization": `Bearer ${this.usersToken}`,
-          }
-          })
-          .then(res => {
-            this.$store.commit('storeUserPickupOrders', res.data);
-          })
-          .catch(err => console.error(err));
-      },
-      getPickupPickup(){
-        axios.get(this.getDomain()+'api/customerpickuppickup',
-          {
-            headers:{
-              "Authorization": `Bearer ${this.usersToken}`,
-          }
-          })
-          .then(res => {
-            console.log(res.data);
-            this.$store.commit('storeUserAllPickup', res.data);
-          })
-          .catch(err => console.error(err));
-      },
-      getPickupComplete(){
-        axios.get(this.getDomain()+'api/customerpickupcomplete',
-          {
-            headers:{
-              "Authorization": `Bearer ${this.usersToken}`,
-          }
-          })
-          .then(res => {
-            console.log(res.data);
-            this.$store.commit('storeUserPickupComplete', res.data);
-          })
-          .catch(err => console.error(err));
-      },
+
     },
 
     watch: {
@@ -129,12 +56,7 @@
     },
 
     beforeMount(){
-      this.getAllOrder();
-      this.getAllDeliver();
-      this.getAllComplete();
-      this.getPickupOrder();
-      this.getPickupPickup();
-      this.getPickupComplete();
+
     }
   }
 </script>

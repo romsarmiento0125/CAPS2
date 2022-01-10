@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\customerPickupCancel;
 use App\Models\customerPickupPickup;
-use App\Models\customerPickupComplete;
 
-class CustomerPickupCompleteController extends Controller
+class userPickupCancel extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class CustomerPickupCompleteController extends Controller
      */
     public function index()
     {
-        return customerPickupComplete::with('orders')->get();
+        return customerPickupCancel::with('orders')->get();
     }
 
     /**
@@ -36,7 +36,7 @@ class CustomerPickupCompleteController extends Controller
      */
     public function store(Request $request)
     {
-        $register = new customerPickupComplete();
+        $register = new customerPickupCancel();
 
         $register->email = $request->register['Email'];
         $register->invoiceNumber = $request->register['InvoiceNumber'];

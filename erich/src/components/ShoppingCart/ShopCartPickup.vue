@@ -239,11 +239,16 @@
         }
         })
         .then(res => {
-          this.storeCustomerPickupItems()
+          if(res.data == 'false'){
+            console.log(res.data);
+          }
+          else{
+            this.storeCustomerPickupItems();
+          }   
         })
         .catch(err => console.error(err));
 
-        this.cleanCart();
+        
         this.showMessage();
       },
       storeCustomerPickupItems(){
@@ -256,7 +261,12 @@
           }
           })
           .then(res => {
-            //console.log(res.data);  
+            if(res.data == 'false'){
+            console.log(res.data);
+            }
+            else{
+              this.cleanCart();
+            }
           })
           .catch(err => console.error(err));
       },

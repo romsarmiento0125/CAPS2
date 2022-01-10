@@ -35,6 +35,7 @@ class customeraddresscontroller extends Controller
      */
     public function store(Request $request)
     {
+
         $register = new customeraddress();
 
         $register->email = $request->register['Email'];

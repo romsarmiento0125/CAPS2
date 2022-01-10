@@ -5,15 +5,6 @@
     >
       <v-row>
         <v-col>
-          <div
-          >
-            <p>Order</p>
-          </div>
-        </v-col>
-      </v-row>
-
-      <v-row>
-        <v-col>
           <v-simple-table height="650px">
             <template v-slot:default>
               <thead>
