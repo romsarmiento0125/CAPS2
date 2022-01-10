@@ -33,7 +33,7 @@
                     class="mr-2 my-0 mt-1 fontTitle"
                   >Username:</h4>
                   <h5
-                    class="my-0 py-1 px-15 nBorder elevation-1 fontTitle font-weight-regular"
+                    class="my-0 py-1 px-14  fontTitle font-weight-regular"
                   >{{Username}}</h5>
                 </div>
 
@@ -44,7 +44,7 @@
                     class="mr-8 my-0 mt-1 fontTitle"
                   >Name:</h4>
                   <h5
-                    class="my-0 py-1 px-16 nBorder elevation-1 fontTitle font-weight-regular"
+                    class="my-0 py-1 px-16  fontTitle font-weight-regular"
                   >{{Name}}</h5>
                 </div>
 
@@ -55,7 +55,7 @@
                     class="mr-4 my-0 mt-1 fontTitle"
                   >Surname:</h4>
                   <h5
-                    class="my-0 py-1 px-16 nBorder elevation-1 fontTitle font-weight-regular"
+                    class="my-0 py-1 px-14 fontTitle font-weight-regular"
                   >{{Surname}}</h5>
                 </div>
 
@@ -66,7 +66,7 @@
                     class="mr-2 my-0 fontTitle"
                   >Email:</h4>
                   <h5
-                    class="my-0 py-1 ml-8 px-16 nBorder elevation-1 fontTitle font-weight-regular"
+                    class="my-0 py-1 px-16 ml-6  fontTitle font-weight-regular"
                   >{{Email}}</h5>
                   <!-- <v-btn
                     plain
@@ -86,7 +86,7 @@
                     class="mr-2 my-0 fontTitle"
                   >Phone number:</h4>
                   <h5
-                    class="my-0 py-1 ml-8 px-16 nBorder elevation-1 fontTitle font-weight-regular"
+                    class="my-0 py-1 px-5 fontTitle font-weight-regular"
                   >{{Mobilenumber}}</h5>
                 </div>
 
@@ -97,7 +97,7 @@
                     class="mr-2 my-0"
                   >Date of birth:</h4>
                   <h5
-                    class="my-0 py-1 ml-8 px-16 nBorder elevation-1 fontTitle font-weight-regular"
+                    class="my-0 py-1  px-9  fontTitle font-weight-regular"
                   >{{Birthday}}</h5>
                 </div>
                 <div
@@ -107,7 +107,7 @@
                     class="mr-2 my-0 fontTitle"
                   >Gender:</h4>
                   <h5
-                    class="my-0 py-1 ml-8 px-16 nBorder elevation-1 fontTitle font-weight-regular"
+                    class="my-0 py-1 ml-1 px-16  fontTitle font-weight-regular"
                   >{{Gender}}</h5>
                 </div>
 
@@ -119,7 +119,7 @@
                   >Account:</h4>
                   
                   <h5
-                    class="my-0 py-1 ml-8 px-16 nBorder elevation-1 fontTitle font-weight-regular"
+                    class="my-0 py-1  px-15  fontTitle font-weight-regular"
                   >{{Account}}</h5>
                 </div>
                 <!-- <div
@@ -354,10 +354,12 @@
 .fontTitle{
   color: #464646;
 }
-.nBorder{
+/* .nBorder{
     border: 1px solid #787885;
     border-radius: 5px;
     border-right-width: 50px;
+    border-right: 1px solid #;
     border-spacing: 50px 5px;
-  }
+    
+  } */
 </style>
