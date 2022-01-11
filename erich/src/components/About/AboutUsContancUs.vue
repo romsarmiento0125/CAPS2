@@ -14,15 +14,17 @@
 
             <h3 class="font-weight-bold mb-2 fontDesc">About us</h3>
 
-            <p>We all work together to eliminate the inconvenient aspects of grocery shopping. We're a group of bright, young people who have come together to form a synergy that creates new and successful solutions. To reach the company's aims and objectives, we collaborate, get creative, and draw on our own experiences.</p>
+            <p>Erich Grocery Online store is a web-based online grocery that has pick-up and delivery service. We strive to provide you with a quick, convenient, safe, and secure delivery directly to your door. We can deliver the greatest quality goods at fair and reasonable pricing. We provide great deals and discount to our valued customers. We are a customer-focused business, and your experience with us is extremely important.</p>
 
-            <p>We are a Sta Maria Bulacan based online grocery delivery service. We strive to provide you with a quick, convenient, safe, and secure delivery directly to your door. We can deliver the greatest quality goods at fair and reasonable pricing.</p>
+            <p>Erich Grocery store is only one of the businesses owned by Mrs. Jhona Pontejo. It is located in Public Market at Km 38, Pulong Buhangin, Santa Maria, 3022 Bulacan. And decided to publish it online aiming to reach a broader and larger customer. </p>
 
-            <p>We value your time and energy just as much as you do. We are a customer-focused business, and your experience with us is extremely important to us. Allow us to do the grocery shopping so you can spend more time doing what you enjoy. Allow us to push the kart for you to make supermarket shopping less painful.</p>
+            <p>Allow us to help you pack all the items that is in your cart and wait for our delivery to rang the bell so you can spend more time doing things which are important or take a rest while waiting your order to be delivered. </p>
 
             <p class="font-weight-bold mb-2 fontDesc">Contact us</p>
 
-            <p>For concerns and other suggestions our customer success representative will assist you as soon as they can. You just need to send an email to erichgrocerystore@gmail.com or contact us at 09202292199.</p>
+            <p>For any inquiries, you can contact us @ erichgrocerystore@gmail.com or call in our number +639202292199.</p>
+
+            <h3>Happy Shopping! </h3>
       
           </div>
         </v-col>

@@ -354,7 +354,7 @@
                     <v-date-picker
                       v-model="customerInfo.Birthday"
                       :active-picker.sync="activePicker"
-                      :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
+                      :max="maxDate"
                       min="1950-01-01"
                       @change="save"
                     ></v-date-picker>
@@ -522,6 +522,7 @@
       activePicker: null,
       date: null,
       menu: false,
+      maxDate: null,
 
       // Address Drop down Data
       municipalities: [
@@ -946,6 +947,15 @@
       handleInputOnChange() {
         this.customerInfo.Email = this.customerInfo.Email.toLowerCase()
       }
+    },
+
+    beforeMount(){
+      var today = new Date();
+      var day = String(today.getDate()).padStart(2, '0');
+      var month = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+      var year = today.getFullYear();
+
+      this.maxDate = (year - 13) + "-" + month + "-" + day;
     },
 
     watch: {
