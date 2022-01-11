@@ -279,7 +279,6 @@
     data: () => ({
       value: [
         0,
-        423,
         0,
       ],
       hDemand: [],
@@ -324,29 +323,111 @@
           var delivertotal = 0;
           var pickuptotal = 0;
           var total = 0;
-
           var dayCount = 0;
+
+          var val = [];
+          var dpval = [];
+          var tempDate = deliverdata[0].adjustedDate;
+          var tempTotal = 0;
+          var roundedTotal = 0;
+
           for(var i = 0; i < deliverdata.length; i++){
-            delivertotal = delivertotal + (deliverdata[i].total * 1);
+            if((deliverdata[i].adjustedDate >= this.startDate) && (deliverdata[i].adjustedDate <= this.endDate)){
+    
+              if(deliverdata[i].adjustedDate == tempDate){
+                tempTotal = tempTotal + (deliverdata[i].total * 1);
+              }
+              else{
+                if(tempTotal == 0){
+                  tempTotal = tempTotal + (deliverdata[i].total * 1);
+                  tempDate = deliverdata[i].adjustedDate;
+                }
+                else{
+                  roundedTotal = parseFloat(this.priceRound(tempTotal));
+                  val.push(
+                    {date: tempDate, total: roundedTotal}
+                  );
+                  tempTotal = (deliverdata[i].total * 1);
+                  tempDate = deliverdata[i].adjustedDate;
+                }
+              }
+            }
           }
-          for(var j = 0; j < pickupdata.length; j++){
-            pickuptotal = pickuptotal + (pickupdata[j].total * 1);
+          roundedTotal = parseFloat(this.priceRound(tempTotal));
+          val.push(
+            {date: tempDate, total: roundedTotal}
+          );
+
+          var tempDate = pickupdata[0].pickupDate;
+          var tempTotal = 0;
+          var roundedTotal = 0;
+
+          for(var i = 0; i < pickupdata.length; i++){
+            if((pickupdata[i].pickupDate >= this.startDate) && (pickupdata[i].pickupDate <= this.endDate)){
+
+              if(pickupdata[i].pickupDate == tempDate){
+                tempTotal = tempTotal + (pickupdata[i].total * 1);
+              }
+              else{
+                if(tempTotal == 0){
+                  tempTotal = tempTotal + (pickupdata[i].total * 1);
+                  tempDate = pickupdata[i].pickupDate;
+
+                }
+                else{
+                  roundedTotal = parseFloat(this.priceRound(tempTotal));
+                  val.push(
+                    {date: tempDate, total: roundedTotal}
+                  );
+                  tempTotal = (pickupdata[i].total * 1);
+                  tempDate = pickupdata[i].pickupDate;
+                }
+              }
+            }
           }
+          roundedTotal = parseFloat(this.priceRound(tempTotal));
+          val.push(
+            {date: tempDate, total: roundedTotal}
+          );
 
-          dayCount = this.datediff(this.parseDate(this.startDate), this.parseDate(this.endDate));
+          val.sort((a,b) => (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0))
 
-          for(var k = 0; k < dayCount; k++){
-            
+          var tempDate = val[0].date;
+          var tempTotal = 0;
+          var roundedTotal = 0;
+          
+          for(var i = 0; i < val.length; i++){
+            if((val[i].date >= this.startDate) && (val[i].date <= this.endDate)){
+              delivertotal = delivertotal + (val[i].total * 1);
+              if(val[i].date == tempDate){
+                tempTotal = tempTotal + (val[i].total * 1);
+              }
+              else{
+                if(tempTotal == 0){
+                  tempTotal = tempTotal + (val[i].total * 1);
+                  tempDate = val[i].date;
+                }
+                else{
+                  roundedTotal = parseFloat(this.priceRound(tempTotal));
+                  dpval.push(roundedTotal);
+                  tempTotal = (val[i].total * 1);
+                  tempDate = val[i].date;
+                }
+              }
+            }
           }
-          console.log(dayCount);
-
-          total = delivertotal + pickuptotal;
-          return total;
+          roundedTotal = parseFloat(this.priceRound(tempTotal));
+          dpval.push(roundedTotal);
+          this.value = dpval;
+          total = this.priceRound(delivertotal + pickuptotal);
+          return total;          
         }
       },
+      priceRound(price){
+        var rounded = (Math.round(price * 100) / 100).toFixed(2);
+        return rounded;
+      },
       datediff(first, second) {
-      // Take the difference between the dates and divide by milliseconds per day.
-      // Round to nearest whole number to deal with DST.
       return Math.round((second-first)/(1000*60*60*24));
       },
       parseDate(str) {

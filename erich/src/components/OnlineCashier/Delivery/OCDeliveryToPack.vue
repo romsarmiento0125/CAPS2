@@ -215,7 +215,12 @@
           return "Cancel";
         }
         else{
-          return yr + "-" + mn + "-" + (dy * 1 + (i-1));
+          // return yr + "-" + mn + "-" + (dy * 1 + (i-1));
+          var adjDate = new Date(today.setDate(today.getDate() + i));
+          var adjDay = String(adjDate.getDate()).padStart(2, '0');
+          var adjMonth = String(adjDate.getMonth() + 1).padStart(2, '0'); //January is 0!
+          var adjYear = adjDate.getFullYear(); 
+          return adjYear + "-" + adjMonth + "-" + adjDay;
         }
       },
       toProcess(data, id, Email, MobileNumber, InvoiceNumber, Name, CompleteAddress, OrderYear, OrderMonth,
