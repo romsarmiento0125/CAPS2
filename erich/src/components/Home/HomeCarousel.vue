@@ -44,14 +44,14 @@
       model: 0,
       items: [
         {
-          src: 'carousel1.jpg',
+          src: 'carouselFinal1.jpg',
         },
-        // {
-        //   src: 'carousel1.jpg',
-        // },
-        // {
-        //   src: 'carousel1.jpg',
-        // },
+        {
+          src: 'carouselFinal2.jpg',
+        },
+        {
+          src: 'carouselFinal3.png',
+        },
       ],
     }) 
   }

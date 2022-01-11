@@ -123,7 +123,7 @@
                 min-width="40px"
                 class=" ma-2" 
               ></v-img>
-              <h1 class="mt- 1 fontTitle">Order Complete.</h1>
+              <h1 class="mt-1 fontTitle">Order Complete.</h1>
             </div>
             <div class="ma-0 pa-0">
               <div class="d-flex justify-center mt-2">

@@ -8,17 +8,17 @@
           <v-sheet
             width="100%"
             height="100%"
+            class="pa-5"
           >
             <v-row>
               <v-col
-                class="mx-10"
               >
                 <div
-                  class="d-flex"
+                  class="d-flex pa-5"
                 >
-                  <p
-                    class="title"
-                  >My Address</p>
+                  <h3
+                    class="fontTitle"
+                  >My Address</h3>
                   <v-spacer></v-spacer>
                   <!-- <v-btn
                     color="orange"
@@ -44,12 +44,12 @@
                       :key="i"
                     >
                       <div
-                        class="ml-5 my-2"
+                        class="my-2"
                       >
                         <v-subheader
                           v-if="item.Default == 'Default'"
-                          class="blue--text"
-                        >Default Address</v-subheader>
+                          class="fontBlue"
+                        ><h3 class="ma-n2"> Default Address </h3></v-subheader>
                         <p
                           class="my-0"
                         >{{item.Name}}&nbsp;{{item.Surname}}</p>
@@ -163,3 +163,23 @@
     }
   }
 </script>
+
+<style scoped>
+.fontBlue{
+  color: #1106a0;
+}
+.fontDesc{
+  color: #858585;
+}
+.fontTitle{
+  color: #464646;
+}
+/* .nBorder{
+    border: 1px solid #787885;
+    border-radius: 5px;
+    border-right-width: 50px;
+    border-right: 1px solid #;
+    border-spacing: 50px 5px;
+    
+  } */
+</style>

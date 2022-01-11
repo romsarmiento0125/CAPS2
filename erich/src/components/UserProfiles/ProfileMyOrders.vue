@@ -19,9 +19,9 @@
               plain
               @click="navigateOrders('all')"
             >
-              <p
-                class="my-0 black--text subtitle-1"
-              >All</p>
+              <h3
+                class="my-0 black--text fontTitle"
+              >All</h3>
             </v-btn>
           </v-col>
           <v-col
@@ -31,9 +31,9 @@
               plain
               @click="navigateOrders('tp')"
             >
-              <p
-                class="my-0 black--text subtitle-1"
-              >To Pack</p>
+              <h3
+                class="my-0 black--text fontTitle"
+              >To Pack</h3>
             </v-btn>
           </v-col>
           <v-col
@@ -43,9 +43,9 @@
               plain
               @click="navigateOrders('dl')"
             >
-              <p
-                class="my-0 black--text subtitle-1"
-              >To Receive</p>
+              <h3
+                class="my-0 black--text fontTitle"
+              >To Receive</h3>
             </v-btn>
           </v-col>
           <v-col
@@ -55,9 +55,9 @@
               plain
               @click="navigateOrders('pu')"
             >
-              <p
-                class="my-0 black--text subtitle-1"
-              >To Pickup</p>
+              <h3
+                class="my-0 black--text fontTitle"
+              >To Pickup</h3>
             </v-btn>
           </v-col>
           <v-col
@@ -67,9 +67,9 @@
               plain
               @click="navigateOrders('com')"
             >
-              <p
-                class="my-0 black--text subtitle-1"
-              >Complete</p>
+              <h3
+                class="my-0 black--text fontTitle"
+              >Complete</h3>
             </v-btn>
           </v-col>
           <v-col
@@ -79,9 +79,9 @@
               plain
               @click="navigateOrders('can')"
             >
-              <p
-                class="my-0 black--text subtitle-1"
-              >Cancelled</p>
+              <h3
+                class="my-0 black--text fontTitle"
+              >Cancelled</h3>
             </v-btn>
           </v-col>
         </v-row>
@@ -203,3 +203,23 @@
     }
   }
 </script>
+
+<style scoped>
+.fontBlue{
+  color: #1106a0;
+}
+.fontDesc{
+  color: #858585;
+}
+.fontTitle{
+  color: #464646;
+}
+/* .nBorder{
+    border: 1px solid #787885;
+    border-radius: 5px;
+    border-right-width: 50px;
+    border-right: 1px solid #;
+    border-spacing: 50px 5px;
+    
+  } */
+</style>
