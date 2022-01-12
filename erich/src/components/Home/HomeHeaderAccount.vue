@@ -284,6 +284,10 @@
           //console.log("Admin");
           this.$router.push({path: '/onlinecashier'});
         }
+        else if(cond == "physicalcashier"){
+          //console.log("Admin");
+          this.$router.push({path: '/physicalcashier'});
+        }
         else if(cond == "logout"){
           localStorage.removeItem("firstName");
           localStorage.removeItem("lastName");
@@ -362,9 +366,11 @@
       var ob2 = { title: "Cashier", text: 'Cashier', icon: 'mdi-cash-register', to: "onlinecashier" };
       var ob3 = { title: "Encoder", text: 'Encoder', icon: 'mdi-barcode-scan', to: "admin" };
       var ob4 = { title: "Logout", text: 'Logout', icon: 'mdi-logout', to: "logout"  };
+      var ob5 = { title: "POS", text: 'POS', icon: 'mdi-cash-register', to: "physicalcashier"  };
       if(this.usersTag == "Admin"){
         this.items.push(ob1);
         this.items.push(ob2);
+        this.items.push(ob5);
         this.items.push(ob4);
       }
       else if(this.usersTag == "Encoder"){

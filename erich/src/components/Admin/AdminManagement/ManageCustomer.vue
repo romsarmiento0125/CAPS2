@@ -5,9 +5,6 @@
     >
       <v-row>
         <v-col>
-          <v-btn>Add new</v-btn>
-        </v-col>
-        <v-col>
           <v-btn>Sort</v-btn>
         </v-col>
         <v-col>

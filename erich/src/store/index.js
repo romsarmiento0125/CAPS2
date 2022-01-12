@@ -51,6 +51,7 @@ export default new Vuex.Store({
     aboutCond: "term",
     adminDataDeliver: null,
     adminDataPickup: null,
+    adminStaff: null,
   },
   mutations: {
     //Views Login.vue
@@ -330,6 +331,11 @@ export default new Vuex.Store({
       state.adminDataPickup = {},
       state.adminDataPickup = payload;
     },
+    adminStaff: (state, payload) => {
+      state.adminStaff = {},
+      state.adminStaff = payload;
+    },
+    
   },
   actions: {
   },

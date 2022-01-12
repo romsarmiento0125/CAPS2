@@ -22,6 +22,7 @@ class CreateErichcustomersTable extends Migration
             $table->string('gender');
             $table->string('birthday');
             $table->string('tag');
+            $table->string('status');
             $table->string('password');
             $table->timestamps();
         });

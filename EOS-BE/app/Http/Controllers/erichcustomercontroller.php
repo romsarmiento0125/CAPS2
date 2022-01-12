@@ -63,6 +63,7 @@ class erichcustomercontroller extends Controller
             $register->gender = $request->register['Gender'];
             $register->birthday = $request->register['Birthday'];
             $register->tag = $request->register['Tag'];
+            $register->status = 'Active';
             $register->password = Hash::make($request->register['Password']);
             $register->save();
 

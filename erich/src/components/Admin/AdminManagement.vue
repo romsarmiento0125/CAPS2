@@ -20,7 +20,7 @@
         </v-col>
       </v-row>
     </v-container>
-    <manage-staff v-if="manageStaff"></manage-staff>
+    <manage-staff v-if="manageStaff" :staff="staffPerson"></manage-staff>
     <manage-customer v-else-if="manageCustomer"></manage-customer>
   </div>
 </template>
@@ -33,7 +33,14 @@
     data: () => ({
       manageStaff: true,
       manageCustomer: false,
+      staffPerson: null,
     }),
+
+    computed: {
+      adminStaff() {
+        return this.$store.state.adminStaff;
+      },
+    },
 
     methods: {
       gtStaffCustomer(cond) {
@@ -45,12 +52,20 @@
           this.manageStaff = false;
           this.manageCustomer = true;
         }
+      },
+      sortPeople(){
+        console.log(this.adminStaff);
+        this.staffPerson = this.adminStaff;
       }
     },
 
     components: {
       'manage-staff': AdminManagementStaff,
       'manage-customer': AdminManagementCustomer,
+    },
+
+    beforeMount() {
+      this.sortPeople();
     }
   }
 </script>

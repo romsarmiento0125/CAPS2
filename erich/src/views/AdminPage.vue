@@ -212,6 +212,41 @@
           this.links.push(l5);
           this.links.push(l6);
           this.links.push(l7);
+          axios.get(this.getDomain()+'api/customercompleteitems',
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
+          .then(res => {
+            // console.log(res.data);
+            this.$store.commit('adminDataDeliver', res.data);
+          })
+          .catch(err => console.error(err));
+
+          axios.get(this.getDomain()+'api/customerpickupcomplete',
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
+          .then(res => {
+            // console.log(res.data);
+            this.$store.commit('adminDataPickup', res.data);
+          })
+          .catch(err => console.error(err));
+
+          axios.get(this.getDomain()+'api/addstaff',
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
+          .then(res => {
+            // console.log(res.data);
+            this.$store.commit('adminStaff', res.data);
+          })
+          .catch(err => console.error(err));
         }
         else if(this.usersTag == "Encoder"){
           this.links.push(l5);
@@ -228,29 +263,7 @@
     },
     beforeMount(){
       this.sideBarPicker();
-      axios.get(this.getDomain()+'api/customercompleteitems',
-      {
-        headers:{
-          "Authorization": `Bearer ${this.usersToken}`,
-      }
-      })
-      .then(res => {
-        // console.log(res.data);
-        this.$store.commit('adminDataDeliver', res.data);
-      })
-      .catch(err => console.error(err));
-
-      axios.get(this.getDomain()+'api/customerpickupcomplete',
-      {
-        headers:{
-          "Authorization": `Bearer ${this.usersToken}`,
-      }
-      })
-      .then(res => {
-        // console.log(res.data);
-        this.$store.commit('adminDataPickup', res.data);
-      })
-      .catch(err => console.error(err));
+      
     },
   }
 </script>
