@@ -20,6 +20,7 @@
               <v-stepper-step
                 :complete="e1 > 1"
                 step="1"
+                class="fontTitle"
               >
                 Send Email
               </v-stepper-step>
@@ -68,11 +69,11 @@
                   </v-card-text>
 
                   <div
-                    class=""
+                    class="d-flex justify-end"
                   >
                     <v-btn
                       dark
-                      class="rounded-lg px-10 mr-2"
+                      class="rounded-lg px-8 mr-2"
                       color="#1106A0"
                       @click="sendCode"
                     >
@@ -164,11 +165,11 @@
                   </v-card-text>
 
                   <div
-                    class=""
+                    class="d-flex justify-end"
                   >
                     <v-btn
                       dark
-                      class="rounded-lg px-10 mr-2"
+                      class="rounded-lg px-8 mr-2"
                       color="#1106A0"
                       @click="changePass"
                     >
@@ -303,3 +304,29 @@
     }
   }
 </script>
+
+<style scoped>
+.rounded-card{
+  border-radius: 15px;
+}
+.fontBlue{
+  color: #1106A0;
+}
+.fontTitle{
+  color: #464646;
+}
+.fontDesc{
+  color: #858585;
+}
+.qfont{
+     font-family: "Quicksand", Helvetica, Arial;
+  }
+.btn{
+  color:"#fff"
+}
+
+.no-uppercase{
+ text-transform: none;
+}
+
+</style>

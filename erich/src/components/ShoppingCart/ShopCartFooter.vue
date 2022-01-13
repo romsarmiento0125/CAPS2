@@ -165,15 +165,15 @@
           <div
             class="pr-2"
           >
-            <v-btn dark text>
+            <v-btn dark text href="https://www.facebook.com/Erichgrocery" target="_blank" rel="noopener noreferrer">
               <v-icon color="#1106A0">mdi-facebook</v-icon>
             </v-btn>
 
-            <v-btn dark text class="">
+            <v-btn dark text  href="https://twitter.com/GroceryErich" target="_blank" rel="noopener noreferrer" >
                 <v-icon color="#1106A0">mdi-twitter</v-icon>
             </v-btn>
 
-            <v-btn dark text>
+            <v-btn dark text href="https://www.instagram.com/erich_grocery/" target="_blank" rel="noopener noreferrer" >
               <v-icon color="#1106A0">mdi-instagram</v-icon>
             </v-btn>
             
