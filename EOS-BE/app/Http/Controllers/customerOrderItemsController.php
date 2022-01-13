@@ -41,6 +41,7 @@ class customerOrderItemsController extends Controller
                 $register->invoiceNumber = $request->register[$i]['item_invNumber'];
                 $register->itemName = $request->register[$i]['item_Name'];
                 $register->itemDesc = $request->register[$i]['item_Desc'];
+                $register->itemSize = $request->register[$i]['item_Size'];
                 $register->discount = $request->register[$i]['item_Discount'];
                 $register->quantity = $request->register[$i]['item_Quantity'];
                 $register->retailPrice = $request->register[$i]['item_Price'];

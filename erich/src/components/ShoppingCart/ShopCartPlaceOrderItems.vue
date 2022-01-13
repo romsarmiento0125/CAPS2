@@ -240,6 +240,7 @@
           item = {id: this.cartItems[i].id,
             item_name: this.cartItems[i].item_name,
             item_desc: this.cartItems[i].item_desc,
+            item_size: this.cartItems[i].item_size,
             item_code: this.cartItems[i].item_code,
             item_quantity: this.cartItems[i].item_quantity,
             item_price: this.cartItems[i].item_price,

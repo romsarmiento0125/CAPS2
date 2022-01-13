@@ -18,6 +18,7 @@ class CreateCustomerPickupItemsTable extends Migration
             $table->string('invoiceNumber');
             $table->string('itemName');
             $table->string('itemDesc');
+            $table->string('itemSize');
             $table->Integer('quantity');
             $table->Integer('discount');
             $table->decimal('retailPrice', 8, 2);

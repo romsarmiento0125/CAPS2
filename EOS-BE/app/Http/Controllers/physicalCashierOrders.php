@@ -55,6 +55,7 @@ class physicalCashierOrders extends Controller
                 $register->invoiceNumber = $request->orderinfo['InvoiceNumber'];
                 $register->itemName = $request->register[$i]['itemName'];
                 $register->itemDesc = $request->register[$i]['itemDesc'];
+                $register->itemSize = $request->register[$i]['itemSize'];
                 $register->discount = $request->register[$i]['itemDiscount'];
                 $register->quantity = $request->register[$i]['itemQty'];
                 $register->retailPrice = $request->register[$i]['itemPrice'];

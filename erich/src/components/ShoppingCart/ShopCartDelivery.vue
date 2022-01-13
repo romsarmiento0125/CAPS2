@@ -256,13 +256,13 @@
           })
         .then(res => {
           if(res.data == 'false'){
-              console.log(res.data);
-            }
-            else{
-              this.storeCustomerOrderItems();
-            } 
+            console.log(res.data);
+          }
+          else{
+            // console.log(res.data)
+            this.storeCustomerOrderItems();
+          } 
         })
-        //.then(res => console.log(res.data))
         .catch(err => console.error(err));
 
         
@@ -352,6 +352,7 @@
             item_invNumber: this.customerOrder.InvoiceNumber,
             item_Name: this.storeCustomerItems[i].item_name,
             item_Desc: this.storeCustomerItems[i].item_desc,
+            item_Size: this.storeCustomerItems[i].item_size,
             item_Image: this.storeCustomerItems[i].item_image,
             item_Discount: this.storeCustomerItems[i].item_discount,
             item_Quantity: this.storeCustomerItems[i].item_quantity,

@@ -346,6 +346,7 @@
               item = {id: data[i].id,
               item_name: this.categoryItems[j].name,
               item_desc: this.categoryItems[j].description,
+              item_size: this.categoryItems[j].size,
               item_code: this.categoryItems[j].itemCode,
               item_quantity: data[i].quantity,
               item_price: this.categoryItems[j].retailPrice,

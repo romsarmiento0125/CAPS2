@@ -319,6 +319,7 @@
             item_invNumber: this.customerPickup.InvoiceNumber,
             item_Name: this.storeCustomerItems[i].item_name,
             item_Desc: this.storeCustomerItems[i].item_desc,
+            item_Size: this.storeCustomerItems[i].item_size,
             item_Image: this.storeCustomerItems[i].item_image,
             item_Discount: this.storeCustomerItems[i].item_discount,
             item_Quantity: this.storeCustomerItems[i].item_quantity,

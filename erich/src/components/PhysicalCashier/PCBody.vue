@@ -86,10 +86,14 @@
                         <td>{{order.itemPrice}}</td>
                         <td>{{priceRound(order.itemQty * order.itemPrice)}}</td>
                         <td>
-                          <v-btn>
+                          <v-btn
+                            @click="openDialog(n)"
+                          >
                             <p>Update</p>
                           </v-btn>
-                          <v-btn>
+                          <v-btn
+                            @click="deleteItem(n)"
+                          >
                             <p>Delete</p>
                           </v-btn>
                         </td>
@@ -141,7 +145,7 @@
             <v-col>
               <div>
                 <v-btn
-                  @click="openDialog"
+                  @click="dialog = true"
                 >
                   <p>Confirm</p>
                 </v-btn>
@@ -186,6 +190,7 @@
                 </v-list-item>
               </v-list-item-group>
             </v-list>
+            <p>{{priceRound(totalPrice)}}</p>
           </v-container>
         </v-card-text>
         <v-card-actions>
@@ -201,6 +206,41 @@
             color="blue darken-1"
             text
             @click="finishOrder"
+          >
+            Save
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog
+      v-model="updateDialog"
+      persistent
+      max-width="600px"
+    >
+      <v-card>
+        <v-card-title>
+          <span class="text-h5"></span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-text-field
+              v-model="initialQty"
+            ></v-text-field>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="updateDialog = false"
+          >
+            Close
+          </v-btn>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="updateItem"
           >
             Save
           </v-btn>
@@ -225,6 +265,9 @@
       itemDesc: "",
       itemSize: "",
       dialog: false,
+      updateDialog: false,
+      initialQty: 0,
+      initialId: 0,
       orderInfo: {
         InvoiceNumber: "",
         CompleteDate: "",
@@ -252,8 +295,10 @@
     },
 
     methods: {
-      openDialog(){
-        this.dialog = true;
+      openDialog(i){
+        this.updateDialog = true;
+        this.initialQty = this.orders[i].itemQty;
+        this.initialId = i;
       },
       finishOrder(){
         this.dialog = false;
@@ -267,11 +312,11 @@
         var r4 = Math.floor(Math.random() * 9) + 1;
         var r5 = Math.floor(Math.random() * 9) + 1;
         this.orderInfo.InvoiceNumber = "3" + year + month + day + r1 + r2 + r3 + r4 + r5;
-        this.orderInfo.CompleteDate = year + " " + month + " " + day;
+        this.orderInfo.CompleteDate = year + "-" + month + "-" + day;
         this.orderInfo.SubTotal = this.totalPrice;
         this.orderInfo.Total = this.totalPrice;
 
-        console.log(this.orders);
+        // console.log(this.orders);
         // console.log(this.orderInfo);
 
         axios.post(this.getDomain()+'api/physicalorder/store', {
@@ -325,6 +370,16 @@
             }
           }
         }
+      },
+      deleteItem(id){
+        // console.log(this.orders);
+        // console.log(id);
+        this.orders.splice(id,1);
+      },
+      updateItem(){
+        console.log("update");
+        this.orders[this.initialId].itemQty = this.initialQty;
+        this.updateDialog = false;
       },
       handleBarcode(scanned_barcode) {
           this.barcodeBuy = scanned_barcode;
