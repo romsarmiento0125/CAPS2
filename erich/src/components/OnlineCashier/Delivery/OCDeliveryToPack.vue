@@ -38,6 +38,8 @@
           class="my-10 ml-4"
           >
             <v-btn
+              dark
+              color="#1106A0"
               @click="getAllOrder"
             >
               <p
@@ -92,7 +94,7 @@
                   <td>{{info.completeAddress}}</td>
                   <td>{{info.status}} <br> To Avoid cancellation please send the <br> products until &nbsp;{{info.adjustedDate}}</td>
                   <td v-if="info.status == 'Pending'">
-                    <div class="text-center">
+                    <div>
                       <v-menu offset-y>
                         <template v-slot:activator="{ on, attrs }">
                           <v-btn
@@ -127,13 +129,15 @@
                   <td
                     v-else-if="info.status == 'Process'"
                   >
-                    <div class="text-center">
+                    <div>
                       <v-btn
+                        dark
+                        color="#1106A0"
                         @click="toDeliver(info.adjustedDate, info.id, info.email, info.mobileNumber, info.invoiceNumber, info.name, info.completeAddress,
                                   info.orderYear, info.orderMonth, info.orderDay, info.shipFee, info.discount, info.tax,
                                   info.subTotal, info.total)"
                       >
-                        <p> deliver </p>
+                        <h6> To Deliver </h6>
                       </v-btn>
                     </div>
                   </td>
