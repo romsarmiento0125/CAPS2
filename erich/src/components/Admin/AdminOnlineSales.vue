@@ -171,14 +171,14 @@
                 color="primary"
               >
                 <v-list-item
-                  v-for="(item, i) in hDemand"
+                  v-for="(item, i) in highDemand"
                   :key="i"
                 >
                   <v-list-item-icon>
                     <v-icon v-text="i + 1"></v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title v-text="item.text"></v-list-item-title>
+                    <v-list-item-title>{{item.name}}&nbsp;{{item.size}}&nbsp;{{item.qty}}</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
               </v-list-item-group>
@@ -199,7 +199,7 @@
                 color="primary"
               >
                 <v-list-item
-                  v-for="(item, i) in lDemand"
+                  v-for="(item, i) in lowDemand"
                   :key="i"
                 >
                   <v-list-item-icon>
@@ -230,7 +230,7 @@
       date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
       endmenu: false,
       startmenu: false,
-      startDate: "2022-01-08",
+      startDate: "2022-01-09",
       endDate: new Date().toISOString().slice(0, 10),
     }),
 
@@ -243,16 +243,113 @@
       },
       totalSales(){
         return this.showTotalSales();
-      }
+      },
+      highDemand(){
+        return this.showHighDemand();
+      },
+      lowDemand(){
+        return "gg";
+      },
+      categoryItems() {
+        return this.$store.state.categoryItems;
+      },
     },
 
     watch: {
       adminDataDeliver(){
         this.showTotalSales;
-      }
+      },
+      adminDataPickup(){
+        this.showTotalSales;
+      },
     },
 
     methods: {
+      showHighDemand(){
+        if((this.adminDataDeliver == null) || (this.adminDataPickup == null)){
+          return null;
+        }
+        else{
+          // console.log(this.adminDataDeliver);
+          // console.log(this.adminDataPickup);
+          var deliverdata = this.adminDataDeliver;
+          var pickupdata = this.adminDataPickup;
+          var tempItem = [];
+
+          var showItem = [];
+
+          for(var i = 0; i < deliverdata.length; i++){
+            // console.log(deliverdata[i].orders;
+            if((deliverdata[i].adjustedDate >= this.startDate) && (deliverdata[i].adjustedDate <= this.endDate)){
+              var deliverDataOrders = deliverdata[i].orders;
+              for(var j = 0; j < deliverdata[i].orders.length; j++){
+                // console.log(deliverDataOrders[j].itemCode);
+                // console.log(deliverDataOrders[j].quantity); 
+                tempItem.push({
+                  itemCode: deliverDataOrders[j].itemCode,
+                  itemQty: deliverDataOrders[j].quantity,
+                  itemDate: deliverdata[i].adjustedDate
+                });
+              }
+            }
+          }
+          for(var i = 0; i < pickupdata.length; i++){
+            if((pickupdata[i].pickupDate >= this.startDate) && (pickupdata[i].pickupDate <= this.endDate)){
+              var pickupDataOrders = pickupdata[i].orders;
+              for(var j = 0; j < pickupdata[i].orders.length; j++){
+                tempItem.push({
+                  itemCode: pickupDataOrders[j].itemCode,
+                  itemQty: pickupDataOrders[j].quantity,
+                  itemDate: pickupdata[i].pickupDate
+                });
+              }
+            }
+          }
+
+          tempItem.sort((a,b) => (a.itemCode > b.itemCode) ? 1 : ((b.itemCode > a.itemCode) ? -1 : 0))
+
+          var tempStore = "";
+          var items = [];
+          var itr = 0;
+
+          for(var i = 0; i < tempItem.length; i++){
+            if(tempStore == tempItem[i].itemCode){
+              items[itr-1].qty = items[itr-1].qty + tempItem[i].itemQty;
+            }
+            else{
+              tempStore = tempItem[i].itemCode;
+              items.push({
+                code: tempItem[i].itemCode,
+                qty: tempItem[i].itemQty
+              });
+              itr++;
+            }
+          }
+
+          items.sort((a,b) => (a.qty > b.qty) ? 1 : ((b.qty > a.qty) ? -1 : 0))
+          items.reverse();
+          items = items.slice(0,10);
+          // console.log(this.categoryItems);
+
+          for(var i = 0; i < items.length; i++){
+            // console.log("loop");
+            this.categoryItems.forEach(dat => {
+              if(dat.itemCode == items[i].code){
+                // console.log(dat);
+                showItem.push({
+                  name: dat.name,
+                  desc: dat.description,
+                  size: dat.size,
+                  qty: items[i].qty
+                })
+              }
+            });
+          }
+          
+
+          return showItem;
+        }
+      },
       showTotalSales(){
         if((this.adminDataDeliver == null) || (this.adminDataPickup == null)){
           return "0"
@@ -265,7 +362,6 @@
           var delivertotal = 0;
           var pickuptotal = 0;
           var total = 0;
-          var dayCount = 0;
 
           var val = [];
           var dpval = [];
@@ -362,19 +458,13 @@
           dpval.push(roundedTotal);
           this.value = dpval;
           total = this.priceRound(delivertotal + pickuptotal);
+          
           return total;          
         }
       },
       priceRound(price){
         var rounded = (Math.round(price * 100) / 100).toFixed(2);
         return rounded;
-      },
-      datediff(first, second) {
-      return Math.round((second-first)/(1000*60*60*24));
-      },
-      parseDate(str) {
-        var mdy = str.split('-');
-        return new Date(mdy[0], mdy[1], mdy[2]); 
       }
     },
 
