@@ -206,7 +206,7 @@
                     <v-icon v-text="i + 1"></v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title v-text="item.text"></v-list-item-title>
+                    <v-list-item-title>{{item.name}}&nbsp;{{item.size}}&nbsp;{{item.qty}}</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
               </v-list-item-group>
@@ -245,10 +245,10 @@
         return this.showTotalSales();
       },
       highDemand(){
-        return this.showHighDemand();
+        return this.showDemand("high");
       },
       lowDemand(){
-        return "gg";
+        return this.showDemand("low");
       },
       categoryItems() {
         return this.$store.state.categoryItems;
@@ -265,7 +265,7 @@
     },
 
     methods: {
-      showHighDemand(){
+      showDemand(cond){
         if((this.adminDataDeliver == null) || (this.adminDataPickup == null)){
           return null;
         }
@@ -327,27 +327,47 @@
           }
 
           items.sort((a,b) => (a.qty > b.qty) ? 1 : ((b.qty > a.qty) ? -1 : 0))
-          items.reverse();
-          items = items.slice(0,10);
-          // console.log(this.categoryItems);
+          if(cond == "high"){
+            items.reverse();
+            items = items.slice(0,10);
+            // console.log(this.categoryItems);
 
-          for(var i = 0; i < items.length; i++){
-            // console.log("loop");
-            this.categoryItems.forEach(dat => {
-              if(dat.itemCode == items[i].code){
-                // console.log(dat);
-                showItem.push({
-                  name: dat.name,
-                  desc: dat.description,
-                  size: dat.size,
-                  qty: items[i].qty
-                })
-              }
-            });
+            for(var i = 0; i < items.length; i++){
+              // console.log("loop");
+              this.categoryItems.forEach(dat => {
+                if(dat.itemCode == items[i].code){
+                  // console.log(dat);
+                  showItem.push({
+                    name: dat.name,
+                    desc: dat.description,
+                    size: dat.size,
+                    qty: items[i].qty
+                  })
+                }
+              });
+            }
+            return showItem;
           }
-          
+          else if(cond == "low"){
+            items = items.slice(0,10);
+            // console.log(this.categoryItems);
 
-          return showItem;
+            for(var i = 0; i < items.length; i++){
+              // console.log("loop");
+              this.categoryItems.forEach(dat => {
+                if(dat.itemCode == items[i].code){
+                  // console.log(dat);
+                  showItem.push({
+                    name: dat.name,
+                    desc: dat.description,
+                    size: dat.size,
+                    qty: items[i].qty
+                  })
+                }
+              });
+            }
+            return showItem;
+          }
         }
       },
       showTotalSales(){
@@ -459,6 +479,8 @@
           this.value = dpval;
           total = this.priceRound(delivertotal + pickuptotal);
           
+          // console.log(dpval);
+
           return total;          
         }
       },

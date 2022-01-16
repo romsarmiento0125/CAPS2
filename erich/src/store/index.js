@@ -51,6 +51,7 @@ export default new Vuex.Store({
     aboutCond: "term",
     adminDataDeliver: null,
     adminDataPickup: null,
+    adminDataPhysical: null,
     adminStaff: null,
   },
   mutations: {
@@ -330,6 +331,10 @@ export default new Vuex.Store({
     adminDataPickup: (state, payload) => {
       state.adminDataPickup = {},
       state.adminDataPickup = payload;
+    },
+    adminDataPhysical: (state, payload) => {
+      state.adminDataPhysical = {},
+      state.adminDataPhysical = payload;
     },
     adminStaff: (state, payload) => {
       state.adminStaff = {},

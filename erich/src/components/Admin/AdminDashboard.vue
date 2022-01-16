@@ -114,7 +114,7 @@
               <h1>{{totalSales}}</h1>
             </div>
             <div
-              class="d-flex justify-end yellow darken-2"
+              class="d-flex justify-end yellow darken-1"
             >
               <p
                 class="white--text headline"
@@ -171,14 +171,14 @@
                 color="primary"
               >
                 <v-list-item
-                  v-for="(item, i) in hDemand"
+                  v-for="(item, i) in highDemand"
                   :key="i"
                 >
                   <v-list-item-icon>
                     <v-icon v-text="i + 1"></v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title v-text="item.text"></v-list-item-title>
+                    <v-list-item-title>{{item.name}}&nbsp;{{item.size}}&nbsp;{{item.qty}}</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
               </v-list-item-group>
@@ -199,14 +199,14 @@
                 color="primary"
               >
                 <v-list-item
-                  v-for="(item, i) in lDemand"
+                  v-for="(item, i) in lowDemand"
                   :key="i"
                 >
                   <v-list-item-icon>
                     <v-icon v-text="i + 1"></v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title v-text="item.text"></v-list-item-title>
+                    <v-list-item-title>{{item.name}}&nbsp;{{item.size}}&nbsp;{{item.qty}}</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
               </v-list-item-group>
@@ -288,7 +288,7 @@
       date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
       endmenu: false,
       startmenu: false,
-      startDate: "2022-01-08",
+      startDate: "2022-01-09",
       endDate: new Date().toISOString().slice(0, 10),
     }),
 
@@ -299,34 +299,168 @@
       adminDataPickup(){
         return this.$store.state.adminDataPickup;
       },
+      adminDataPhysical(){
+        return this.$store.state.adminDataPhysical;
+      },
       totalSales(){
         return this.showTotalSales();
-      }
+      },
+      highDemand(){
+        return this.showDemand("high");
+      },
+      lowDemand(){
+        return this.showDemand("low");
+      },
+      categoryItems() {
+        return this.$store.state.categoryItems;
+      },
     },
 
     watch: {
       adminDataDeliver(){
         this.showTotalSales;
-      }
+      },
+      adminDataPickup(){
+        this.showTotalSales;
+      },
+      adminDataPhysical(){
+        this.showTotalSales;
+      },
     },
 
     methods: {
+      showDemand(cond){
+        if((this.adminDataDeliver == null) || (this.adminDataPickup == null) || (this.adminDataPhysical == null)){
+          return null;
+        }
+        else{
+          var deliverdata = this.adminDataDeliver;
+          var pickupdata = this.adminDataPickup;
+          var physicalData = this.adminDataPhysical;
+
+          var tempItem = [];
+
+          var showItem = [];
+
+          //Deliver get all orders that are complete
+          for(var i = 0; i < deliverdata.length; i++){
+            if((deliverdata[i].adjustedDate >= this.startDate) && (deliverdata[i].adjustedDate <= this.endDate)){
+              var deliverDataOrders = deliverdata[i].orders;
+              for(var j = 0; j < deliverdata[i].orders.length; j++){ 
+                tempItem.push({
+                  itemCode: deliverDataOrders[j].itemCode,
+                  itemQty: deliverDataOrders[j].quantity,
+                  itemDate: deliverdata[i].adjustedDate
+                });
+              }
+            }
+          }
+          //Pickup get all orders that are complete
+          for(var i = 0; i < pickupdata.length; i++){
+            if((pickupdata[i].pickupDate >= this.startDate) && (pickupdata[i].pickupDate <= this.endDate)){
+              var pickupDataOrders = pickupdata[i].orders;
+              for(var j = 0; j < pickupdata[i].orders.length; j++){
+                tempItem.push({
+                  itemCode: pickupDataOrders[j].itemCode,
+                  itemQty: pickupDataOrders[j].quantity,
+                  itemDate: pickupdata[i].pickupDate
+                });
+              }
+            }
+          }
+          //Physical get all orders that are complete
+          for(var i = 0; i < physicalData.length; i++){
+            if((physicalData[i].completeDate >= this.startDate) && (physicalData[i].completeDate <= this.endDate)){
+              var physicalDataOrders = physicalData[i].orders;
+              for(var j = 0; j < physicalData[i].orders.length; j++){
+                tempItem.push({
+                  itemCode: physicalDataOrders[j].itemCode,
+                  itemQty: physicalDataOrders[j].quantity,
+                  itemDate: physicalData[i].completeDate
+                });
+              }
+            }
+          }
+
+          tempItem.sort((a,b) => (a.itemCode > b.itemCode) ? 1 : ((b.itemCode > a.itemCode) ? -1 : 0))
+
+          var tempStore = "";
+          var items = [];
+          var itr = 0;
+
+          for(var i = 0; i < tempItem.length; i++){
+            if(tempStore == tempItem[i].itemCode){
+              items[itr-1].qty = items[itr-1].qty + tempItem[i].itemQty;
+            }
+            else{
+              tempStore = tempItem[i].itemCode;
+              items.push({
+                code: tempItem[i].itemCode,
+                qty: tempItem[i].itemQty
+              });
+              itr++;
+            }
+          }
+
+          items.sort((a,b) => (a.qty > b.qty) ? 1 : ((b.qty > a.qty) ? -1 : 0))
+          if(cond == "high"){
+            items.reverse();
+            items = items.slice(0,10);
+            // console.log(this.categoryItems);
+
+            for(var i = 0; i < items.length; i++){
+              // console.log("loop");
+              this.categoryItems.forEach(dat => {
+                if(dat.itemCode == items[i].code){
+                  // console.log(dat);
+                  showItem.push({
+                    name: dat.name,
+                    desc: dat.description,
+                    size: dat.size,
+                    qty: items[i].qty
+                  })
+                }
+              });
+            }
+            return showItem;
+          }
+          else if(cond == "low"){
+            items = items.slice(0,10);
+            // console.log(this.categoryItems);
+
+            for(var i = 0; i < items.length; i++){
+              // console.log("loop");
+              this.categoryItems.forEach(dat => {
+                if(dat.itemCode == items[i].code){
+                  // console.log(dat);
+                  showItem.push({
+                    name: dat.name,
+                    desc: dat.description,
+                    size: dat.size,
+                    qty: items[i].qty
+                  })
+                }
+              });
+            }
+            return showItem;
+          }
+        }
+      },
       showTotalSales(){
-        if((this.adminDataDeliver == null) || (this.adminDataPickup == null)){
+        if((this.adminDataDeliver == null) || (this.adminDataPickup == null) || (this.adminDataPhysical == null)){
           return "0"
         }
         else{
-          // console.log(this.adminDataDeliver);
-          // console.log(this.adminDataPickup);
           var deliverdata = this.adminDataDeliver;
           var pickupdata = this.adminDataPickup;
-          var delivertotal = 0;
-          var pickuptotal = 0;
+          var physicalData = this.adminDataPhysical;
+          var delivertotal = 0; // need to change
           var total = 0;
-          var dayCount = 0;
 
           var val = [];
           var dpval = [];
+
+          // Deliver get all total within the date given
           var tempDate = deliverdata[0].adjustedDate;
           var tempTotal = 0;
           var roundedTotal = 0;
@@ -358,6 +492,7 @@
             {date: tempDate, total: roundedTotal}
           );
 
+          // Pickup get all total within the date given
           var tempDate = pickupdata[0].pickupDate;
           var tempTotal = 0;
           var roundedTotal = 0;
@@ -390,6 +525,39 @@
             {date: tempDate, total: roundedTotal}
           );
 
+          // Physical get all total within the date given
+          var tempDate = physicalData[0].completeDate;
+          var tempTotal = 0;
+          var roundedTotal = 0;
+
+          for(var i = 0; i < physicalData.length; i++){
+            if((physicalData[i].completeDate >= this.startDate) && (physicalData[i].completeDate <= this.endDate)){
+    
+              if(physicalData[i].completeDate == tempDate){
+                tempTotal = tempTotal + (physicalData[i].total * 1);
+              }
+              else{
+                if(tempTotal == 0){
+                  tempTotal = tempTotal + (physicalData[i].total * 1);
+                  tempDate = physicalData[i].completeDate;
+                }
+                else{
+                  roundedTotal = parseFloat(this.priceRound(tempTotal));
+                  val.push(
+                    {date: tempDate, total: roundedTotal}
+                  );
+                  tempTotal = (physicalData[i].total * 1);
+                  tempDate = physicalData[i].completeDate;
+                }
+              }
+            }
+          }
+          roundedTotal = parseFloat(this.priceRound(tempTotal));
+          val.push(
+            {date: tempDate, total: roundedTotal}
+          );
+          // console.log(val);
+
           val.sort((a,b) => (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0))
 
           var tempDate = val[0].date;
@@ -419,20 +587,17 @@
           roundedTotal = parseFloat(this.priceRound(tempTotal));
           dpval.push(roundedTotal);
           this.value = dpval;
-          total = this.priceRound(delivertotal + pickuptotal);
+          // console.log(this.value);
+          total = this.priceRound(delivertotal);
+          
+          // console.log(dpval);
+
           return total;          
         }
       },
       priceRound(price){
         var rounded = (Math.round(price * 100) / 100).toFixed(2);
         return rounded;
-      },
-      datediff(first, second) {
-      return Math.round((second-first)/(1000*60*60*24));
-      },
-      parseDate(str) {
-        var mdy = str.split('-');
-        return new Date(mdy[0], mdy[1], mdy[2]); 
       }
     },
 

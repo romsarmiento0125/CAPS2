@@ -236,6 +236,18 @@
           })
           .catch(err => console.error(err));
 
+          axios.get(this.getDomain()+'api/physicalorder',
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
+          .then(res => {
+            // console.log(res.data);
+            this.$store.commit('adminDataPhysical', res.data);
+          })
+          .catch(err => console.error(err));
+
           axios.get(this.getDomain()+'api/addstaff',
           {
             headers:{

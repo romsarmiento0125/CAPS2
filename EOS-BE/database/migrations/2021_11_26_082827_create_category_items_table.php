@@ -21,6 +21,7 @@ class CreateCategoryItemsTable extends Migration
             $table->decimal('retailPrice', 8, 2);
             $table->string('size');
             $table->Integer('quantity');
+            $table->Integer('qtyLimit');
             $table->string('itemCode')->unique();
             $table->string('category');
             $table->string('expirationDate');
