@@ -8,20 +8,43 @@
           cols="8"
         >
           <v-row>
-            <v-col>
+            <v-col cols="5">
               <div
                 class="d-flex"
               >
-                <p>Name:&nbsp;</p>
-                <p>{{itemName}}</p>
+                <v-row>
+                  <v-col 
+                  cols="2"
+                  class="mt-2"
+                  
+                  >
+                    <h4>Name:&nbsp;</h4>
+                  </v-col>
+                  
+                  <v-col 
+                  cols="10" 
+                  class="nBorder ml-n5 mt-2 fontDesc">
+                    
+                    <h5 >{{itemName}}</h5>
+                  </v-col>
+                </v-row>
               </div>
             </v-col>
-            <v-col>
+            <v-col cols="7">
               <div
                 class="d-flex"
               >
-                <p>Description:&nbsp;</p>
-                <p>{{itemDesc}}</p>
+              <v-row>
+                <v-col cols="2" class="mt-2">
+                  <h4>Description:&nbsp;</h4>
+                </v-col>
+
+                <v-col cols="10" class="nBorder ml-n1  mt-2 fontDesc">
+                  <h5>{{itemDesc}}</h5>
+                </v-col>
+              </v-row>
+                
+                
               </div>
             </v-col>
           </v-row>
@@ -30,12 +53,12 @@
             <v-col
               cols="12"
             >
-              <div>
-                <p>Barcode</p>
+              <div class="mt-2">
+                <h3 class="fontBlue">Barcode</h3>
               </div>
             </v-col>
             <v-col>
-              <div>
+              <div class="mt-n5 ">
                 <v-text-field
                   label="Outlined"
                   placeholder="Placeholder"
@@ -111,11 +134,17 @@
         >
           <v-row>
             <v-col>
-              <div>
-                <p>Total</p>
-                <p
-                  class="display-3"
-                >{{priceRound(totalPrice)}}</p>
+              <div class="mx-10">
+                <h1 class="display-2 font-weight-black fontTitle">TOTAL</h1>
+                  <v-row>
+                    <v-col class="d-flex justify-center tBorder mt-1">
+                      <h4
+                      class="display-3 py-8 fontDesc"
+                      >{{priceRound(totalPrice)}}</h4>
+                    </v-col>
+                  </v-row>
+                
+                
               </div>
             </v-col>
           </v-row>
@@ -412,3 +441,23 @@
     },
   }
 </script>
+
+<style scoped>
+.fontBlue{
+  color: #1106a0;
+}
+.fontDesc{
+  color: #858585;
+}
+.fontTitle{
+  color: #464646;
+}
+.nBorder{
+    border: 1px solid #787885;
+    border-radius: 5px; 
+  }
+.tBorder{
+  border: 5px solid #464646;
+  border-radius: 10px;
+}
+</style>

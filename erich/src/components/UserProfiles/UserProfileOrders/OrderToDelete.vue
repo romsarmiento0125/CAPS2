@@ -9,28 +9,33 @@
             :key="n"
           >
             <v-divider></v-divider>
-            <v-row>
-              <v-col>
-                <p
-                  class="mb-0 mt-6 title"
-                >Status: &nbsp;</p>
-                <p
-                  class="my-0 Caption"
-                >Deliver</p>
+            <v-row class="mt-2 mx-2">
+              <v-col cols="3">
+                <h4
+                  class="my-0 fontTitle"
+                >Status: &nbsp;</h4>             
+              </v-col>
+              <v-col cols="9" class="d-flex justify-end ">
+                <h4
+                  class="fontBlue"
+                >Delivery</h4>
               </v-col>
             </v-row>
-            <v-row>
+
+            <v-row class="mx-2 mt-n5">
               <v-col>
-                <p
-                  class="my-0 subtitle-1"
-                >Invoice &nbsp; #: &nbsp; </p>
+                <h5
+                  class="my-0 fontDesc font-weight-regular"
+                >Invoice &nbsp; #: &nbsp; </h5>
               </v-col>
             </v-row>
-            <v-row>
+
+            <v-row class="mx-2">
               <v-col>
                 <orderdeliveritems></orderdeliveritems>
               </v-col>
             </v-row>
+            
             <v-row>
               <v-col
                 class="d-flex"
@@ -84,3 +89,15 @@
     
   }
 </script>
+
+<style scoped>
+.fontBlue{
+  color: #1106A0;
+}
+.fontTitle{
+  color: #464646;
+}
+.fontDesc{
+  color: #858585
+}
+</style>

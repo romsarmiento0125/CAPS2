@@ -36,6 +36,8 @@
           class="my-10 ml-4"
           >
             <v-btn
+              dark
+              color="#1106A0"
               @click="getPickupOrder"
             >
               <p
@@ -93,16 +95,18 @@
                     <v-btn
                       color="#1106A0"
                       dark
-                      outlined
+                      
                       @click="toPickupProcess(info.id, info.email, info.invoiceNumber, info.name, info.mobileNumber, info.pickupDate,
                                 info.pickupTime, info.discount, info.tax, info.subTotal, info.total)"
                     ><h6> Accept </h6></v-btn>
                   </td>
                   <td v-else-if="info.status == 'Pickup'">
                     <v-btn
+                      dark
+                      color="#1106A0"
                       @click="toPickupPickup(info.id, info.email, info.invoiceNumber, info.name, info.mobileNumber, info.pickupDate,
                                 info.pickupTime, info.discount, info.tax, info.subTotal, info.total)"
-                    >To Claim</v-btn>
+                    ><h6>To Claim</h6></v-btn>
                   </td>
                 </tr>
               </tbody>

@@ -53,13 +53,19 @@
                   <td>{{info.status}}</td>
                   <td>
                     <v-btn
+                      dark
+                      color="#1106A0 "
                       @click="toPickupPickup(info.id, info.email, info.invoiceNumber, info.name, info.mobileNumber, info.pickupDate,
                                 info.pickupTime, info.discount, info.tax, info.subTotal, info.total)"
-                    >Complete</v-btn>
+                    ><h6> Complete </h6> </v-btn>
                     <v-btn
+                      dark
+                      outlined
+                      color="#1106A0"
+                      class="ml-2 "
                       @click="toPickupCancel(info.id, info.email, info.invoiceNumber, info.name, info.mobileNumber, info.pickupDate,
                                 info.pickupTime, info.discount, info.tax, info.subTotal, info.total)"
-                    >Cancel</v-btn>
+                    > <h6> Cancel </h6></v-btn>
                   </td>
                 </tr>
               </tbody>

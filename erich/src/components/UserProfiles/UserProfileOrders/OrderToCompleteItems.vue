@@ -9,41 +9,63 @@
             :key="order.invoiceNumber"
           >
             <v-divider></v-divider>
-            <v-row>
-              <v-col>
-                <p
-                  class="mb-0 mt-6 title"
-                >Status: &nbsp;{{order.status}}</p>
-                <p
-                  class="my-0 Caption"
-                >Deliver</p>
+            <v-row class="mt-2 mx-2">
+              <v-col cols="3">
+                <h4
+                  class="my-0 fontTitle"
+                >Status: &nbsp;{{order.status}}</h4>
+              </v-col>
+
+              <v-col cols="9" class="d-flex justify-end ">
+                <h4
+                  class="fontBlue"
+                >Deliver</h4>
               </v-col>
             </v-row>
-            <v-row>
+
+            <v-row class="mx-2 mt-n5">
               <v-col>
-                <p
-                  class="my-0 subtitle-1"
-                >Invoice &nbsp; #: &nbsp; {{order.invoiceNumber}}</p>
+                <h5
+                  class="my-0 fontDesc font-weight-regular"
+                >Invoice &nbsp; #: &nbsp; {{order.invoiceNumber}}</h5>
               </v-col>
             </v-row>
-            <v-row>
+
+            <v-row class="mx-2">
               <v-col>
                 <orderdeliveritems :orders="order.orders"></orderdeliveritems>
               </v-col>
             </v-row>
-            <v-row>
+
+            <v-row class="d-flex justify-end">
               <v-col
-                class="d-flex"
+                cols="2"
+                offset="8"
               >
-                <v-spacer></v-spacer>
-                <p
-                  class="title mx-5"
+                
+                <h4
+                  class="mb-10 pl-16"
                 >
-                  Total: &nbsp;{{priceRound(order.total)}}
-                </p>
+                  Order total: 
+                </h4>
                 
               </v-col>
+               <v-col cols="1" class="mr-5">
+                <div class="d-flex">
+                  <v-icon
+                    color="#1106A0"
+                    size="18px"
+                    class=""
+                  >
+                    mdi-currency-php
+                  </v-icon>
+                  <h4 class="fontBlue">
+                    &nbsp;{{priceRound(order.total)}}
+                  </h4>
+                </div>
+              </v-col>
             </v-row>
+
             <v-divider></v-divider>
           </div>
 
@@ -53,39 +75,60 @@
             :key="order.invoiceNumber"
           >
             <v-divider></v-divider>
-            <v-row>
-              <v-col>
-                <p
-                  class="mb-0 mt-6 title"
-                >Status: &nbsp;{{order.status}}</p>
-                <p
-                  class="my-0 Caption"
-                >Pickup</p>
+            <v-row class="mt-2 mx-2">
+              <v-col cols="3">
+                <h4
+                  class="my-0 fontTitle"
+                >Status: &nbsp;{{order.status}}</h4>
+              </v-col>
+
+              <v-col cols="9" class="d-flex justify-end ">
+                <h4
+                  class="fontBlue"
+                >Pickup</h4>
               </v-col>
             </v-row>
-            <v-row>
+
+            <v-row class="mx-2 mt-n5">
               <v-col>
-                <p
-                  class="my-0 subtitle-1"
-                >Invoice &nbsp; #: &nbsp; {{order.invoiceNumber}}</p>
+                <h5
+                  class="my-0 fontDesc font-weight-regular"
+                >Invoice &nbsp; #: &nbsp; {{order.invoiceNumber}}</h5>
               </v-col>
             </v-row>
-            <v-row>
+
+            <v-row class="mx-2">
               <v-col>
                 <orderdeliveritems :orders="order.orders"></orderdeliveritems>
               </v-col>
             </v-row>
-            <v-row>
+
+            <v-row class="d-flex justify-end">
               <v-col
-                class="d-flex"
+                cols="2"
+                offset="8"
               >
-                <v-spacer></v-spacer>
-                <p
-                  class="title mx-5"
-                >
-                  Total: &nbsp;{{priceRound(order.total)}}
-                </p>
                 
+                <h4
+                  class="mb-10 pl-16"
+                >
+                  Order total: 
+                </h4>
+              </v-col>
+
+              <v-col cols="1" class="mr-5">
+                <div class="d-flex">
+                  <v-icon
+                    color="#1106A0"
+                    size="18px"
+                    class=""
+                  >
+                    mdi-currency-php
+                  </v-icon>
+                  <h4 class="fontBlue">
+                    &nbsp;{{priceRound(order.total)}}
+                  </h4>
+                </div>
               </v-col>
             </v-row>
             <v-divider></v-divider>
@@ -133,3 +176,15 @@
     
   }
 </script>
+
+<style scoped>
+.fontBlue{
+  color: #1106A0;
+}
+.fontTitle{
+  color: #464646;
+}
+.fontDesc{
+  color: #858585
+}
+</style>
