@@ -119,6 +119,7 @@ Route::middleware('auth:sanctum')->group( function (){
 
     //physical cashier
     Route::post('/physicalorder/store', [physicalCashierOrders::class, 'store']);
+    Route::get('/physicalorder', [physicalCashierOrders::class, 'index']);
 });
 
 Route::post('/customerlogin',[erichlogincontroller::class,'login']);
