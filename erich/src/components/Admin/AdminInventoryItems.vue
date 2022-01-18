@@ -83,12 +83,6 @@
                     Category
                   </th>
                   <th class="text-left">
-                    Image Name
-                  </th>
-                  <th class="text-left">
-                    Quantity
-                  </th>
-                  <th class="text-left">
                     Discount
                   </th>
                   <th class="text-left">
@@ -101,15 +95,21 @@
               </thead>
               <tbody>
                 <tr
-                  v-for="profile in profiles"
-                  :key="profile.id"
+                  v-for="(item, i) in categoryItems"
+                  :key="i"
                 >
-                  <td>{{ profile.id }}</td>
-                  <td>{{ profile.first_Name }} &nbsp; {{ profile.last_Name }}</td>
-                  <td>{{ profile.email }}</td>
-                  <td>{{ profile.mobile_Number }}</td>
-                  <td>{{ profile.tag }}</td>
-                  <td>{{ profile.status }}</td>
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ item.name }}</td>
+                  <td>{{ item.description }}</td>
+                  <td>{{ item.supplierPrice }}</td>
+                  <td>{{ item.retailPrice }}</td>
+                  <td>{{ item.size }}</td>
+                  <td>{{ item.quantity }}</td>
+                  <td>{{ item.qtyLimit }}</td>
+                  <td>{{ item.itemCode }}</td>
+                  <td>{{ item.category }}</td>
+                  <td>{{ item.discount }}</td>
+                  <td>{{ item.underCategory }}</td>
                   <td>
                     <div
                       class="d-flex flex-column"
@@ -169,15 +169,6 @@
                 >
                   <v-text-field
                     label="Supplier Price"
-                  ></v-text-field>
-                </v-col>
-                <v-col
-                  cols="12"
-                  sm="6"
-                  md="4"
-                >
-                  <v-text-field
-                    label="Retail Price"
                   ></v-text-field>
                 </v-col>
                 <v-col
@@ -303,7 +294,9 @@
     }),
 
     computed: {
-
+      categoryItems() {
+        return this.$store.state.categoryItems;
+      },
     },
 
     methods: {
