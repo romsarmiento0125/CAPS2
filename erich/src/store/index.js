@@ -52,7 +52,7 @@ export default new Vuex.Store({
     adminDataDeliver: null,
     adminDataPickup: null,
     adminDataPhysical: null,
-    adminStaff: null,
+    allPeople: null,
   },
   mutations: {
     //Views Login.vue
@@ -336,9 +336,9 @@ export default new Vuex.Store({
       state.adminDataPhysical = {},
       state.adminDataPhysical = payload;
     },
-    adminStaff: (state, payload) => {
-      state.adminStaff = {},
-      state.adminStaff = payload;
+    allPeople: (state, payload) => {
+      state.allPeople = {},
+      state.allPeople = payload;
     },
     
   },

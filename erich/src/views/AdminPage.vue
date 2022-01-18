@@ -26,6 +26,14 @@
 
           <v-divider></v-divider>
 
+          <div>
+            <v-btn
+              @click="sideBarPicker"
+            >
+              Refresh
+            </v-btn>
+          </div>
+
           <v-list>
             <v-list-item
               v-for="link in links"
@@ -204,6 +212,8 @@
         var l6 = {id: 6, AdminName: 'Supplier List', AdminCondition: 'asl', Admin: 'Admin', AdminId: 'supplierlist', AdminTitle: 'Supplier List'};
         var l7 = {id: 7, AdminName: 'Admin Management', AdminCondition: 'am', Admin: 'Admin', AdminId: 'management', AdminTitle: 'Management'};
 
+        this.links = [];
+
         if(this.usersTag == "Admin"){
           this.links.push(l1);
           this.links.push(l2);
@@ -256,7 +266,7 @@
           })
           .then(res => {
             // console.log(res.data);
-            this.$store.commit('adminStaff', res.data);
+            this.$store.commit('allPeople', res.data);
           })
           .catch(err => console.error(err));
         }

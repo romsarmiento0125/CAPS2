@@ -261,7 +261,7 @@
           .catch(err => console.error(err));
         }
         else{
-          console.log("process items");
+          // console.log("process items");
           this.orderUpdate.OrderStatus = "Process";
           axios.put(this.getDomain()+'api/customerorder/' + id, {
             register: this.orderUpdate
@@ -316,7 +316,7 @@
           }
           })
         .then(res => {
-          console.log(res.data);
+          // console.log(res.data);
           this.$store.commit('storeUserAllOrders', res.data);
         })
         .catch(err => console.error(err));

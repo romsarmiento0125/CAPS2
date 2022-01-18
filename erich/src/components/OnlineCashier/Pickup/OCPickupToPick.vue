@@ -136,7 +136,7 @@
         }
         })
         .then(res => {
-          console.log(res.data);
+          // console.log(res.data);
           this.getPickupPickup();
         })
         .catch(err => console.error(err));
@@ -153,7 +153,7 @@
         this.orderPickup.OrderTax = tax;
         this.orderPickup.SubTotal = subTotal;
         this.orderPickup.Total = total;
-        console.log(this.orderPickup);
+        // console.log(this.orderPickup);
 
         axios.post(this.getDomain()+'api/customerpickupcancel/store', {
           register: this.orderPickup,
@@ -165,7 +165,7 @@
         }
         })
         .then(res => {
-          console.log(res.data);
+          // console.log(res.data);
           this.getPickupPickup();
         })
         .catch(err => console.error(err));
@@ -178,7 +178,7 @@
           }
           })
           .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             this.$store.commit('storeUserAllPickup', res.data);
           })
           .catch(err => console.error(err));

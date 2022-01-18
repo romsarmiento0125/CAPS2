@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\categoryItems;
 use App\Models\customerPhysicalItems;
 use App\Models\customerPhysicalOrders;
 
@@ -47,7 +48,7 @@ class physicalCashierOrders extends Controller
 
         $register->save();
 
-        // return $register;
+       
 
         if(isset($request)){
             for($i = 0; $i < count($request->register); $i++){
@@ -62,11 +63,27 @@ class physicalCashierOrders extends Controller
                 $register->itemCode = $request->register[$i]['itemCode'];
                 $register->save();
             }
-            return "Success";
         }
         else{
             return 'false';
         }
+
+        $ivNumber = $request->orderinfo['InvoiceNumber'];
+        $itemCode = customerPhysicalItems::where('invoiceNumber', $ivNumber)->get(['itemCode', 'quantity']);
+        $itemId = null;
+        $existingItem = [];
+
+        foreach($itemCode as $value){
+            $itemId = categoryItems::where('itemCode' , $value->itemCode)->get()->pluck('id');
+            $existingItem = categoryItems::find($itemId);
+            foreach($existingItem as $item){
+                $updateItem = categoryItems::find($item->id);
+                $updateItem->quantity = $updateItem->quantity - $value->quantity;
+                $updateItem->save();
+            }
+        }
+
+        return $itemCode;
     }
 
     /**

@@ -154,21 +154,22 @@
         this.orderDeliver.SubTotal = SubTotal;
         this.orderDeliver.Total = Total;
         this.orderid = id;
-        console.log("to Complete");
-        console.log(this.orderDeliver);
+        // console.log("to Complete");
+        // console.log(this.orderDeliver);
         axios.post(this.getDomain()+'api/customercompleteitems/store', {
-            register: this.orderDeliver,
-            userid: this.orderid
-          },
-          {
-            headers:{
-              "Authorization": `Bearer ${this.usersToken}`,
-          }
-          })
-          .then(res => {
-            this.getAllDeliver();
-          })
-          .catch(err => console.error(err));
+          register: this.orderDeliver,
+          userid: this.orderid
+        },
+        {
+          headers:{
+            "Authorization": `Bearer ${this.usersToken}`,
+        }
+        })
+        .then(res => {
+          this.getAllDeliver();
+          // console.log(res.data);
+        })
+        .catch(err => console.error(err));
       },
       toCancel(id, Email, InvoiceNumber, Name, MobileNumber, CompleteAddress, OrderYear, OrderMonth, 
         OrderDay, AdjustedDate, ShipFee, Discount, Tax, SubTotal, Total) {
@@ -209,7 +210,7 @@
           }
           })
         .then(res => {
-          console.log(res.data);
+          // console.log(res.data);
           this.$store.commit('storeUserAllDeliver', res.data);
         })
         .catch(err => console.error(err));
