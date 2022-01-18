@@ -86,7 +86,7 @@
           }
           })
           .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             this.$store.commit('storeUserPickupCancel', res.data);
           })
           .catch(err => console.error(err));

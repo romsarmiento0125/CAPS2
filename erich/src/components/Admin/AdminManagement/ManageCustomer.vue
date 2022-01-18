@@ -5,9 +5,6 @@
     >
       <v-row>
         <v-col>
-          <v-btn>Sort</v-btn>
-        </v-col>
-        <v-col>
           <v-text-field
             append-icon="mdi-magnify"
             hide-details="auto"
@@ -37,8 +34,9 @@
                   </th>
                   <th class="text-left">
                     Mobile No.
+                  </th>
                   <th class="text-left">
-                    Last Login
+                    Role
                   </th>
                   <th class="text-left">
                     Account Status
@@ -50,14 +48,14 @@
               </thead>
               <tbody>
                 <tr
-                  v-for="profile in profiles"
+                  v-for="profile in customer"
                   :key="profile.id"
                 >
                   <td>{{ profile.id }}</td>
-                  <td>{{ profile.name }}</td>
+                  <td>{{ profile.first_Name }} &nbsp; {{ profile.last_Name }}</td>
                   <td>{{ profile.email }}</td>
-                  <td>{{ profile.mobile }}</td>
-                  <td>{{ profile.lastlogin }}</td>
+                  <td>{{ profile.mobile_Number }}</td>
+                  <td>{{ profile.tag }}</td>
                   <td>{{ profile.status }}</td>
                   <td>
                     <div
@@ -66,10 +64,6 @@
                       <v-btn
                         small
                       >Update
-                      </v-btn>
-                      <v-btn
-                        small
-                      >Delete
                       </v-btn>
                     </div>
                   </td>
@@ -84,17 +78,24 @@
 </template>
 
 <script>
+  import {Mixins} from '../../../Mixins/mixins.js'
+
   export default {
-    data () {
-      return {
-        profiles: [
-          {id: 1, name: 'Rom S. Sarmiento', email: 'rom@gmail.com', mobile: '09878564352', lastlogin: '2018-08-15', status: 'Active'},
-          {id: 2, name: 'Rom S. Sarmiento', email: 'rom@gmail.com', mobile: '09878564352', role: 'admin', lastlogin: '2018-08-15', status: 'Active'},
-          {id: 3, name: 'Rom S. Sarmiento', email: 'rom@gmail.com', mobile: '09878564352', role: 'admin', lastlogin: '2018-08-15', status: 'Active'},
-          {id: 4, name: 'Rom S. Sarmiento', email: 'rom@gmail.com', mobile: '09878564352', role: 'admin', lastlogin: '2018-08-15', status: 'Active'},
-          {id: 5, name: 'Rom S. Sarmiento', email: 'rom@gmail.com', mobile: '09878564352', role: 'admin', lastlogin: '2018-08-15', status: 'Active'},
-        ],
-      }
+    mixins: [Mixins],
+
+    props:['customer'],
+
+    data: () => ({
+      dialog: false,
+      profiles: [],
+    }),
+
+    computed: {
+
+    },
+
+    methods: {
+      
     },
   }
 </script>

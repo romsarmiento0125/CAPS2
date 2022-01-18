@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\categoryItems;
+use App\Models\customerPickupItems;
 use App\Models\customerPickupPickup;
 use App\Models\customerPickupComplete;
 
@@ -38,6 +40,11 @@ class CustomerPickupCompleteController extends Controller
     {
         $register = new customerPickupComplete();
 
+        $ivNumber = $request->register['InvoiceNumber'];
+        $itemCode = customerPickupItems::where('invoiceNumber', $ivNumber)->get(['itemCode', 'quantity']);
+        $itemId = null;
+        $existingItem = [];
+
         $register->email = $request->register['Email'];
         $register->invoiceNumber = $request->register['InvoiceNumber'];
         $register->name = $request->register['Name'];
@@ -51,6 +58,16 @@ class CustomerPickupCompleteController extends Controller
         $register->total = $request->register['Total'];
 
         $register->save();
+
+        foreach($itemCode as $value){
+            $itemId = categoryItems::where('itemCode' , $value->itemCode)->get()->pluck('id');
+            $existingItem = categoryItems::find($itemId);
+            foreach($existingItem as $item){
+                $updateItem = categoryItems::find($item->id);
+                $updateItem->quantity = $updateItem->quantity - $value->quantity;
+                $updateItem->save();
+            }
+        }
 
         $id = $request->userid;
 

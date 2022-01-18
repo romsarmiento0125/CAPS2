@@ -119,7 +119,7 @@
                 >
                   <v-text-field
                     v-model="customerInfo.Password"
-                    type="Password"
+                    :type="passType"
                     outlined
                     dense
                     class="mt-1"
@@ -127,6 +127,8 @@
                     hint="Use 8 or more letters with a mix of letters, numbers & symbols"
                     required
                     label="New password"
+                    :append-icon="passIcon"
+                    @click:append="passShow"
                   ></v-text-field>
                 </v-card-text>
 
@@ -518,6 +520,9 @@
       prompt: '',
       timeout: 4000,
 
+      passIcon: "mdi-eye-off",
+      passType: "Password",
+
       // Date of birth drop down
       activePicker: null,
       date: null,
@@ -597,6 +602,10 @@
     }),
 
     methods: {
+      passShow(){
+        this.passIcon = this.passIcon == "mdi-eye-off" ? 'mdi-eye' : 'mdi-eye-off';
+        this.passType = this.passIcon == "mdi-eye-off" ? 'Password' : 'text';
+      },
       register() {
         // console.log("register button");
         // console.log("Name: " + this.customerInfo.First_Name + " " + this.customerInfo.Last_Name);

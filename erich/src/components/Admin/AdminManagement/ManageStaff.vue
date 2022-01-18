@@ -211,6 +211,7 @@
       usersToken(){
         return localStorage.getItem('token');
       },
+      
     },
 
     methods: {

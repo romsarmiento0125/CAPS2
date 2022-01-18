@@ -18,9 +18,9 @@
               md="4"
             >
               <v-card
-                min-height="465px"
+                min-height="430px"
                 min-width="230px"
-                max-height="465px"
+                max-height="430px"
                 max-width="230px"
                 class="elevation-1"
               >
@@ -35,12 +35,8 @@
                     >
                       - {{item.discount}}%
                     </h4>
-                    <p
-                      class="pb-4"
-                      v-else
-                    >
-                      
-                    </p>
+                    <v-spacer></v-spacer>
+                    <span>{{item.quantity}} &nbsp; Pcs</span>
                   </div>
                 
 
@@ -102,7 +98,7 @@
                     <br>
                     
                     
-                    <span>{{item.quantity}} &nbsp; Pcs Available</span>
+                    
                   </v-card-subtitle>
                 </div>
 

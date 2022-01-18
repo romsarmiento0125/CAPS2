@@ -176,8 +176,8 @@
         this.orderPickup.SubTotal = subTotal;
         this.orderPickup.Total = total;
 
-        console.log(id);
-        console.log(this.orderPickup);
+        // console.log(id);
+        // console.log(this.orderPickup);
 
         axios.put(this.getDomain()+'api/customerpickup/' + id, {
             register: this.orderPickup
@@ -188,7 +188,7 @@
           }
           })
           .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             this.getPickupOrder();
           })
           .catch(err => console.error(err));
@@ -218,7 +218,7 @@
           }
           })
           .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             this.getPickupOrder();
           })
           .catch(err => console.error(err));
@@ -231,7 +231,7 @@
           }
           })
           .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             this.$store.commit('storeUserPickupOrders', res.data);
           })
           .catch(err => console.error(err));

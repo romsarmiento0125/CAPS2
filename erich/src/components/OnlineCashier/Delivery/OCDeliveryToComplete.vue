@@ -101,7 +101,7 @@
           }
           })
         .then(res => {
-          console.log(res.data);
+          // console.log(res.data);
           this.$store.commit('storeUserAllComplete', res.data);
         })
         .catch(err => console.error(err));

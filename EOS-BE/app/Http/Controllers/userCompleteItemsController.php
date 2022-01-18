@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\categoryItems;
+use App\Models\customerOrderItems;
 use App\Models\customerDeliverItems;
 use App\Models\customerCompleteItems;
 
@@ -37,6 +39,12 @@ class userCompleteItemsController extends Controller
     public function store(Request $request)
     {
         $register = new customerCompleteItems();
+
+        $ivNumber = $request->register['InvoiceNumber'];
+        $itemCode = customerOrderItems::where('invoiceNumber', $ivNumber)->get(['itemCode', 'quantity']);
+        $itemId = null;
+        $existingItem = [];
+
         $datecomplete = date("Y-m-d");
 
         $register->email = $request->register['Email'];
@@ -54,8 +62,18 @@ class userCompleteItemsController extends Controller
         $register->tax = $request->register['OrderTax'];
         $register->subTotal = $request->register['SubTotal'];
         $register->total = $request->register['Total'];
-
+        
         $register->save();
+
+        foreach($itemCode as $value){
+            $itemId = categoryItems::where('itemCode' , $value->itemCode)->get()->pluck('id');
+            $existingItem = categoryItems::find($itemId);
+            foreach($existingItem as $item){
+                $updateItem = categoryItems::find($item->id);
+                $updateItem->quantity = $updateItem->quantity - $value->quantity;
+                $updateItem->save();
+            }
+        }
 
         $id = $request->userid;
 

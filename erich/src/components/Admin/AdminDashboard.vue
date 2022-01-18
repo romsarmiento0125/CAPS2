@@ -229,14 +229,14 @@
                 color="primary"
               >
                 <v-list-item
-                  v-for="(item, i) in lStock"
+                  v-for="(item, i) in lowStocks"
                   :key="i"
                 >
                   <v-list-item-icon>
                     <v-icon v-text="i + 1"></v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title v-text="item.text"></v-list-item-title>
+                    <v-list-item-title>{{item.name}}&nbsp;{{item.size}}&nbsp;{{item.qty}}</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
               </v-list-item-group>
@@ -255,14 +255,12 @@
                 color="primary"
               >
                 <v-list-item
-                  v-for="(item, i) in tExpired"
+                  v-for="(item, i) in nearToExpire"
                   :key="i"
                 >
-                  <v-list-item-icon>
-                    <v-icon v-text="i + 1"></v-icon>
-                  </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title v-text="item.text"></v-list-item-title>
+                    <v-list-item-title>{{item.name}}&nbsp;{{item.size}}</v-list-item-title>
+                    <v-list-item-title>{{item.expireDate}}</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
               </v-list-item-group>
@@ -281,10 +279,6 @@
         0,
         0,
       ],
-      hDemand: [],
-      lDemand: [],
-      lStock: [],
-      tExpired: [],
       date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
       endmenu: false,
       startmenu: false,
@@ -311,6 +305,12 @@
       lowDemand(){
         return this.showDemand("low");
       },
+      lowStocks(){
+        return this.showLowStocks();
+      },
+      nearToExpire(){
+        return this.showNearToExpire();
+      },
       categoryItems() {
         return this.$store.state.categoryItems;
       },
@@ -319,16 +319,70 @@
     watch: {
       adminDataDeliver(){
         this.showTotalSales;
+        this.showDemand;
       },
       adminDataPickup(){
         this.showTotalSales;
+        this.showDemand;
       },
       adminDataPhysical(){
         this.showTotalSales;
+        this.showDemand;
       },
+      categoryItems(){
+        this.showLowStocks;
+        this.showNearToExpire;
+      }
     },
 
     methods: {
+      showNearToExpire(){
+        if(this.categoryItems == null){
+          return null;
+        }
+        else{
+          var allItems = this.categoryItems;
+
+          var tempItem = [];
+
+          // console.log(allItems);
+          allItems.forEach(data => {
+            tempItem.push({
+              name: data.name,
+              desc: data.description,
+              size: data.size,
+              expireDate: data.expirationDate
+            })
+          });
+          tempItem.sort((a,b) => (a.expireDate > b.expireDate) ? 1 : ((b.expireDate > a.expireDate) ? -1 : 0));
+          tempItem = tempItem.slice(0,10);
+          // console.log(tempItem);
+          return tempItem;
+        }
+      },
+      showLowStocks(){
+        if(this.categoryItems == null){
+          return null;
+        }
+        else{
+          var allItems = this.categoryItems;
+
+          var tempItem = [];
+
+          allItems.forEach(data => {
+            if(data.quantity < data.qtyLimit){
+              tempItem.push({
+                name: data.name,
+                desc: data.description,
+                size: data.size,
+                qty: data.quantity
+              })
+            }
+          });
+
+          return tempItem;
+        }
+      },
       showDemand(cond){
         if((this.adminDataDeliver == null) || (this.adminDataPickup == null) || (this.adminDataPhysical == null)){
           return null;
@@ -382,7 +436,7 @@
             }
           }
 
-          tempItem.sort((a,b) => (a.itemCode > b.itemCode) ? 1 : ((b.itemCode > a.itemCode) ? -1 : 0))
+          tempItem.sort((a,b) => (a.itemCode > b.itemCode) ? 1 : ((b.itemCode > a.itemCode) ? -1 : 0));
 
           var tempStore = "";
           var items = [];
@@ -424,7 +478,7 @@
             }
             return showItem;
           }
-          else if(cond == "low"){
+          if(cond == "low"){
             items = items.slice(0,10);
             // console.log(this.categoryItems);
 

@@ -21,7 +21,7 @@
       </v-row>
     </v-container>
     <manage-staff v-if="manageStaff" :staff="staffPerson"></manage-staff>
-    <manage-customer v-else-if="manageCustomer"></manage-customer>
+    <manage-customer v-else-if="manageCustomer" :customer="customerPerson"></manage-customer>
   </div>
 </template>
 
@@ -33,13 +33,20 @@
     data: () => ({
       manageStaff: true,
       manageCustomer: false,
-      staffPerson: null,
+      staffPerson: [],
+      customerPerson: [],
     }),
 
     computed: {
-      adminStaff() {
-        return this.$store.state.adminStaff;
+      allPeople() {
+        return this.$store.state.allPeople;
       },
+    },
+
+    watch: {
+      allPeople(){
+        this.sortPeople();
+      }
     },
 
     methods: {
@@ -54,8 +61,42 @@
         }
       },
       sortPeople(){
-        console.log(this.adminStaff);
-        this.staffPerson = this.adminStaff;
+        if(this.allPeople == null){
+          this.staffPerson = [];
+          this.customerPerson = [];
+        }
+        else{
+          this.staffPerson = [];
+          this.customerPerson = [];
+          this.allPeople.forEach(data => {
+            if(data.tag == "Customer"){
+              this.customerPerson.push({
+                birthday: data.birthday,
+                email: data.email,
+                first_Name: data.first_Name,
+                gender: data.gender,
+                id: data.id,
+                last_Name: data.last_Name,
+                mobile_Number: data.mobile_Number,
+                status: data.status,
+                tag: data.tag,
+              });
+            }
+            else{
+              this.staffPerson.push({
+                birthday: data.birthday,
+                email: data.email,
+                first_Name: data.first_Name,
+                gender: data.gender,
+                id: data.id,
+                last_Name: data.last_Name,
+                mobile_Number: data.mobile_Number,
+                status: data.status,
+                tag: data.tag,
+              });
+            }
+          });
+        }
       }
     },
 
@@ -64,7 +105,7 @@
       'manage-customer': AdminManagementCustomer,
     },
 
-    beforeMount() {
+    mounted(){
       this.sortPeople();
     }
   }
