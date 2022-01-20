@@ -35,9 +35,12 @@ class loginaddresscontroller extends Controller
      */
     public function store(Request $request)
     {
-        $getData = customeraddress::all();
-        $dataGet = $request->clientCred['usersEmail'];
-        return $getData->where('email', $dataGet)->values();
+        // $getData = customeraddress::all();
+        // $dataGet = $request->clientCred['usersEmail'];
+        // return $getData->where('email', $dataGet)->values();
+        $email = $request->clientCred['usersEmail'];
+        $getAddress = customeraddress::where('email', $email)->get();
+        return $getAddress;
         //return "gg";
     }
 
