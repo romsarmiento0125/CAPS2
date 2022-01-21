@@ -123,10 +123,14 @@
       }
     },
 
+    watch: {
+      customerAddress(){
+        this.insertAddress;
+      }
+    },
+
     methods: {
       insertAddress() {
-
-        
         var item;
         for(var i = 0; i < this.customerAddress.length; i++){
           var def = "";
@@ -144,7 +148,7 @@
                 Default: def
                 }
           //console.log("loop");
-          this.items.push(item)
+          this.items.push(item);
         }
       },
       deleteAddress() {

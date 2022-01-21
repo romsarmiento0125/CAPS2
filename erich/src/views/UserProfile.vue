@@ -96,6 +96,9 @@
       mProfile: true,
       mAddress: false,
       mOrders: false,
+      usersData: {
+        usersEmail: "",
+      }
     }),
 
     methods: {
@@ -220,6 +223,17 @@
           })  
           .catch(err => console.error(err));
       },
+      getUserAddress() {
+        this.usersData.usersEmail = this.usersEmail;
+        axios.post(this.getDomain()+'api/loginaddress/store',{
+          clientCred: this.usersData
+        })
+        .then(res => {
+          console.log(res.data);
+          this.$store.commit('storeCustomerAddress', res.data);
+        })
+        .catch(err => console.error(err));
+      },
       callOrders(){
         this.getUserOrder();
         this.getUserOrderDeliver();
@@ -227,6 +241,7 @@
         this.getUserPickup();
         this.getUserPickupPickup();
         this.getUserPickupComplete();
+        this.getUserAddress();
       },
     },
 
