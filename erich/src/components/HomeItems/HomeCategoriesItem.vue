@@ -70,7 +70,7 @@
                     <h3 class="fontBlue fontStyle font-weight-Black">{{priceRound(item.retailPrice - ((item.discount / 100) * item.retailPrice))}}</h3>                   
                     </div>
                     
-                  
+                  </v-card-title>
                   <div class="mx-5">
                     <h5 
                       class="text-decoration-line-through fontDesc"
