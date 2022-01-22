@@ -38,10 +38,9 @@
                     <v-spacer></v-spacer>
                     <span>{{item.quantity}} &nbsp; Pcs</span>
                   </div>
-                
-
+              
                   <v-img
-                    :src="require('../../assets/itemPhotos/'+item.image)"
+                    :src="imagePath+'/'+item.image"
                     min-height="200px"
                     min-width="230px"
                     max-height="200px"
@@ -159,6 +158,9 @@
     computed: {
       categoryItems() {
         return this.$store.state.categoryItems;
+      },
+      imagePath() {
+        return this.$store.state.imagePath;
       },
       cartQuantity(){
         return this.$store.state.cartQuantity;

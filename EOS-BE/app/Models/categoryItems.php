@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class categoryItems extends Model
 {
     use HasFactory;
+    public static function imagesSrc()
+    {
+        return asset('assets/itemPhotos');
+    }
 }

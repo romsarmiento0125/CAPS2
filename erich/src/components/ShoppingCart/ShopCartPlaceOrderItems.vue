@@ -46,10 +46,10 @@
                                 class="imgbg ma-1 pa-0"
                               >
                                 <v-img
+                                  :src="imagePath+'/'+item.item_image"
                                   height="100px"
                                   width="100px"
                                   contain
-                                  :src="require('../../assets/itemPhotos/'+item.item_image)"
                                 ></v-img>
                               </div>
                             
@@ -197,6 +197,9 @@
     computed: {
       categoryItems() {
         return this.$store.state.categoryItems;
+      },
+      imagePath() {
+        return this.$store.state.imagePath;
       },
       cartItems() {
         return this.$store.state.cartItems;

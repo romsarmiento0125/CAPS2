@@ -80,7 +80,7 @@
                                 max-height="150px"
                                 max-width="150px"
                                 contain
-                                :src="require('../../assets/itemPhotos/'+item.item_image)"
+                                :src="imagePath+'/'+item.item_image"
                               ></v-img>
 
                               <v-list-item-title>
@@ -307,6 +307,9 @@
     computed: {
       categoryItems() {
         return this.$store.state.categoryItems;
+      },
+      imagePath() {
+        return this.$store.state.imagePath;
       },
       cartItems() {
         return this.items;

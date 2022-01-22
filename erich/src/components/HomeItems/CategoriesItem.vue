@@ -45,7 +45,7 @@
                 
 
                   <v-img
-                    :src="require('../../assets/itemPhotos/'+item.image)"
+                    :src="imagePath+'/'+item.image"
                     min-height="200px"
                     min-width="230px"
                     max-height="200px"

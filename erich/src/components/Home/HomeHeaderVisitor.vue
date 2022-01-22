@@ -144,6 +144,12 @@
      data: () => ({
       searchKey: "",
     }),
+    computed: {
+      imageLink() {
+        return this.$store.state.imageLink;
+      },
+    },
+
     methods: {
       toHome() {
         alert("gg");

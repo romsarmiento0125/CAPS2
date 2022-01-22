@@ -53,6 +53,8 @@ export default new Vuex.Store({
     adminDataPickup: null,
     adminDataPhysical: null,
     allPeople: null,
+    imageLink: "",
+    imagePath: "",
   },
   mutations: {
     //Views Login.vue
@@ -340,7 +342,14 @@ export default new Vuex.Store({
       state.allPeople = {},
       state.allPeople = payload;
     },
-    
+    imageLink: (state, payload) => {
+      state.imageLink = {},
+      state.imageLink = payload;
+    },
+    imagePath: (state, payload) => {
+      state.imagePath = {},
+      state.imagePath = payload;
+    },
   },
   actions: {
   },
