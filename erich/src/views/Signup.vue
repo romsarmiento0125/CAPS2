@@ -8,13 +8,12 @@
         <v-row>
           <v-col
             offset-xl="4"
-            offset-lg="4"
-            offset-md="3"
-            offset-sm="2"
+            offset-lg="3"
+            offset-md="2"
             xl="4"
-            lg="4"
-            md="6"
-            sm="8"
+            lg="6"
+            md="8"
+            cols="12"
           >
             <v-card
               class="rounded-xl pa-12"
@@ -25,15 +24,22 @@
                 lazy-validation
               >
                 <v-card-title
-                  class="font-weight-black pt-0"
+                  class="font-weight-black 
+                  pt-0
+                  pl-0 
+                  text-h5
+                  fontTitle
+                  "
+                  
                 >
                   Create an Account
                 </v-card-title>
                 <v-card-subtitle
-                  class=""
+                  class="pl-0"
                 >
                   It's quick and easy
                 </v-card-subtitle>
+              
                 
                 <v-divider></v-divider>
                 
@@ -113,13 +119,16 @@
                 >
                   <v-text-field
                     v-model="customerInfo.Password"
-                    type="Password"
+                    :type="passType"
                     outlined
                     dense
                     class="mt-1"
                     :rules="passRules"
+                    hint="Use 8 or more letters with a mix of letters, numbers & symbols"
                     required
                     label="New password"
+                    :append-icon="passIcon"
+                    @click:append="passShow"
                   ></v-text-field>
                 </v-card-text>
 
@@ -136,7 +145,7 @@
 <!--  -->
                 <!-- Municipality -->
                 <v-card-text
-                  class="py-2 px-0"
+                  class="py-2 px-0 pt-0"
                 >
                   <v-menu
                     offset-y
@@ -150,8 +159,16 @@
                         v-on="on"
                         class=""
                         block
+                        outlined
+                        color="grey"
                       >
-                        <h4>{{customerInfo.Municipality}}</h4>
+                        <h4 
+                          class="grey--text 
+                          text--darken-3 
+                          font-weight-regular"
+                          >{{customerInfo.Municipality}}
+                        </h4>
+                          <v-spacer></v-spacer>
                         <v-icon>mdi-chevron-down</v-icon>
                       </v-btn>
                     </template>
@@ -182,7 +199,7 @@
 
                 <!-- Barangay -->
                 <v-card-text
-                  class="py-2 px-0"
+                  class="px-0 "
                 >
                   <v-menu
                     offset-y
@@ -196,8 +213,15 @@
                         v-on="on"
                         class=""
                         block
+                        outlined
+                        color="grey"
                       >
-                        <h4>{{customerInfo.Barangay}}</h4>
+                        <h4 
+                          class="grey--text
+                          text--darken-3 
+                          font-weight-regular"
+                        >{{customerInfo.Barangay}}</h4>
+                          <v-spacer></v-spacer>
                         <v-icon>mdi-chevron-down</v-icon>
                       </v-btn>
                     </template>
@@ -207,21 +231,23 @@
                         color="primary"
                         
                       >
-                        <v-list-item
-                          v-for="barangay in barangays"
-                          :key="barangay.id"
-                        >
-                          <v-list-item-content>
-                            <v-btn
-                              text
-                              @click="barangayInput(barangay.brgyCond, barangay.brgy)"
-                              
-                            >
-                              {{barangay.brgy}}
-                            </v-btn>
-                            <!-- <v-list-item-title v-text="barangay.brgy"></v-list-item-title> -->
-                          </v-list-item-content>
-                        </v-list-item>
+                        <v-simple-table height="300px">
+                          <v-list-item
+                            v-for="barangay in barangays"
+                            :key="barangay.id"
+                          >
+                            <v-list-item-content>
+                              <v-btn
+                                text
+                                @click="barangayInput(barangay.brgyCond, barangay.brgy)"
+                                
+                              >
+                                {{barangay.brgy}}
+                              </v-btn>
+                              <!-- <v-list-item-title v-text="barangay.brgy"></v-list-item-title> -->
+                            </v-list-item-content>
+                          </v-list-item>
+                        </v-simple-table>
                       </v-list-item-group>
                     </v-list>
                   </v-menu>
@@ -229,7 +255,7 @@
 
                 <!-- Under Barangay -->
                 <v-card-text
-                  class="py-2 px-0"
+                  class="px-0 py-2 pb-5"
                 >
                   <v-menu
                     offset-y
@@ -243,8 +269,15 @@
                         v-on="on"
                         class=""
                         block
+                        outlined
+                        color="grey"
                       >
-                        <h4>{{customerInfo.UnderBarangay}}</h4>
+                        <h4 
+                          class="grey--text 
+                          text--darken-3 
+                          font-weight-regular"
+                        >{{customerInfo.UnderBarangay}}</h4>
+                        <v-spacer></v-spacer>
                         <v-icon>mdi-chevron-down</v-icon>
                       </v-btn>
                     </template>
@@ -254,27 +287,31 @@
                         color="primary"
                         
                       >
-                        <v-list-item
-                          v-for="UnderBarangay in UnderBarangays"
-                          :key="UnderBarangay.id"
-                        >
-                          <v-list-item-content>
-                             <v-btn
-                              text
-                              @click="underBarangayInput(UnderBarangay.ubrgy)"
-                            >
-                              {{UnderBarangay.ubrgy}}
-                            </v-btn>
-                            <!-- <v-list-item-title v-text="underBarangay.ubrgy"></v-list-item-title> -->
-                          </v-list-item-content>
-                        </v-list-item>
+                        <v-simple-table height="300px">
+                          <v-list-item
+                            v-for="UnderBarangay in UnderBarangays"
+                            :key="UnderBarangay.id"
+                          >
+                            <v-list-item-content>
+                              <v-btn
+                                text
+                                @click="underBarangayInput(UnderBarangay.ubrgy, UnderBarangay.SFee)"
+                              >
+                                {{UnderBarangay.ubrgy}}
+                              </v-btn>
+                              <!-- <v-list-item-title v-text="underBarangay.ubrgy"></v-list-item-title> -->
+                            </v-list-item-content>
+                          </v-list-item>
+                        </v-simple-table>
                       </v-list-item-group>
                     </v-list>
                   </v-menu>
                 </v-card-text>
-
+                
                 <!-- Home Address -->
-                <v-textarea
+                
+                  <v-textarea
+                  class="py-2 px-0 pb-0"
                   v-model="customerInfo.HomeAddress"
                   label="Home Address"
                   auto-grow
@@ -282,6 +319,8 @@
                   rows="1"
                   row-height="15"
                 ></v-textarea>
+                
+                
 
 <!--  -->
 <!--  -->
@@ -295,7 +334,7 @@
 <!--  -->
 <!--  -->
 
-                <div>
+                <div class="py-0 px-0 pb-0">
                   <v-menu
                     ref="menu"
                     v-model="menu"
@@ -317,7 +356,7 @@
                     <v-date-picker
                       v-model="customerInfo.Birthday"
                       :active-picker.sync="activePicker"
-                      :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
+                      :max="maxDate"
                       min="1950-01-01"
                       @change="save"
                     ></v-date-picker>
@@ -336,21 +375,27 @@
 <!--  -->
 <!--  -->
 
-                <div>
+                <div>                
                   <p>Gender</p>
                   <v-radio-group
+                
                     v-model="customerInfo.Gender"
                     row
+                    
+                    
                   >
                     <v-radio
+                      color="#1106A0"
                       label="Male"
                       value="Male"
                     ></v-radio>
                     <v-radio
+                    color="#1106A0"
                       label="Female"
                       value="Female"
                     ></v-radio>
                     <v-radio
+                    color="#1106A0"
                       label="Other"
                       value="Other"
                     ></v-radio>
@@ -373,9 +418,8 @@
                 <div>
                   <p
                     class="text-center caption"
-                  >By clicking Sign Up, you agree to our <router-link to="/">Terms</router-link>, Learn how we collect, 
-                  use and share your data in our <router-link to="/">Data Policy</router-link>
-                    and how we use cookies and similar technology in our <router-link to="/">Cookie Policy</router-link>, 
+                  >By clicking Sign Up, you agree to our <router-link to="/about" class="indigo--text text--darken-4">Terms</router-link>, Learn how we collect, 
+                  use and share your data in our <router-link to="/about" class="indigo--text text--darken-4">Privacy Policy</router-link>
                     you may receive Email message from us to verify 
                     your account.
                   </p>
@@ -386,9 +430,9 @@
                   class="d-flex justify-center pb-0"
                 >
                   <v-btn
-                    color="blue darken-4"
+                    color="#1106A0"
                     dark
-                    class="rounded-lg"
+                    class="rounded-lg px-10"
                     @click="register()"
                     
                   >
@@ -460,10 +504,11 @@
   import nubPRTDA from '../components/Signup/brgyOfNGaray/nbrgyPartida'
   import nubPBLCN from '../components/Signup/brgyOfNGaray/nbrgyPoblacion.js'
   import nubTGBE from '../components/Signup/brgyOfNGaray/nbrgyTigbe'
-  import aubPBLCN from '../components/Signup/brgyOfAngat/abrgyPoblacion.js'
-  import aubSTCRZ from '../components/Signup/brgyOfAngat/abrgyStaCruz'
+  import aubPY from '../components/Signup/brgyOfAngat/abrgyPulogYantok.js'
+  import {Mixins} from '../Mixins/mixins.js'
 
   export default {
+    mixins: [Mixins],
     name: 'Signup',
 
     components: {
@@ -475,10 +520,14 @@
       prompt: '',
       timeout: 4000,
 
+      passIcon: "mdi-eye-off",
+      passType: "Password",
+
       // Date of birth drop down
       activePicker: null,
       date: null,
       menu: false,
+      maxDate: null,
 
       // Address Drop down Data
       municipalities: [
@@ -493,21 +542,36 @@
 
       // customerInfo data varaiables
       customerInfo: {
-        First_Name: "Rom Paulo",
-        Last_Name: "Sarmiento",
-        Mobile_Number: "09755254700",
-        Email: "rom@gmail.com",
+        First_Name: "",
+        Last_Name: "",
+        Mobile_Number: "",
+        Email: "",
         Gender: "Other",
         Municipality: "Sta.Maria",
         Barangay: "Pulong Buhangin",
         UnderBarangay: "Gulod",
-        HomeAddress: "Block 4 Lot 0",
-        Birthday: "2000-01-25",
-        Tag: "Customer",
-        Password: "@Admin123",
+        HomeAddress: "",
+        Birthday: "",
+        Tag: "Unverified",
+        Password: "",
         id: "",
         ShipFee: "Free",
         Default: "True",
+        // First_Name: "Rom Paulo",
+        // Last_Name: "Sarmiento",
+        // Mobile_Number: "09755254700",
+        // Email: "rom@gmail.com",
+        // Gender: "Other",
+        // Municipality: "Sta.Maria",
+        // Barangay: "Pulong Buhangin",
+        // UnderBarangay: "Gulod",
+        // HomeAddress: "Block 4 Lot 0",
+        // Birthday: "2000-01-25",
+        // Tag: "Unverified",
+        // Password: "@Admin123",
+        // id: "",
+        // ShipFee: "Free",
+        // Default: "True",
       },
 
       usersData: {
@@ -538,8 +602,12 @@
     }),
 
     methods: {
+      passShow(){
+        this.passIcon = this.passIcon == "mdi-eye-off" ? 'mdi-eye' : 'mdi-eye-off';
+        this.passType = this.passIcon == "mdi-eye-off" ? 'Password' : 'text';
+      },
       register() {
-        console.log("register button");
+        // console.log("register button");
         // console.log("Name: " + this.customerInfo.First_Name + " " + this.customerInfo.Last_Name);
         // console.log("Email: " + this.customerInfo.Email);
         // console.log("Phone Number: " + this.customerInfo.Mobile_Number);
@@ -549,7 +617,8 @@
         // console.log("Under Barangay: " + this.customerInfo.UnderBarangay);
         // console.log("Home Adress: " + this.customerInfo.HomeAddress);
         // console.log("Birthday: " + this.customerInfo.Birthday);
-        // console.log("Birthday: " + this.customerInfo.Gender);
+        // console.log("Gender: " + this.customerInfo.Gender);
+        // console.log("Ship Fee: " + this.customerInfo.ShipFee);
         // axios.post('http://127.0.0.1:8000/api/customers/store', {
         //   register: this.customerInfo
         // })
@@ -564,67 +633,119 @@
               (/[a-z]/.test(this.customerInfo.Password)) && (/[0-9]/.test(this.customerInfo.Password)) &&
               (/[#?!@$%^&*-]/.test(this.customerInfo.Password) && (this.customerInfo.Password.length >= 8))
               ){
-                axios.post('http://127.0.0.1:8000/api/customers/store', {
+                axios.post(this.getDomain()+'api/customers/store', {
                   register: this.customerInfo
                 })
-                .then(res => this.accCreateSuccess(res.data))
-                //.then(res => console.log(res.data))
+                .then(res => {
+                  this.accCreateSuccess(res.data);
+                  // console.log(res.data);
+                })
                 .catch(err => console.error(err));
               }
               else{
                 this.snackbar = true;
-                this.prompt = "yung pass"; 
+                this.prompt = "Incorrect password combination"; 
               }
             }
             else{
               this.snackbar = true;
-              this.prompt = "Number po"; 
+              this.prompt = "Invalid mobile number"; 
             }
           }
           else{
             this.snackbar = true;
-            this.prompt = "Yung email";
+            this.prompt = "Incorrect email combination";
           }
         }
         else{
           this.snackbar = true;
-          this.prompt = "Paki kumpleto mga input field";
+          this.prompt = "Incomplete input fields";
         }
 
       },
-      saveAddress(cinfo){
-        axios.post('http://127.0.0.1:8000/api/customeraddress/store', {
+      saveAddress(){
+        axios.post(this.getDomain()+'api/customeraddress/store', {
           register: this.customerInfo
         })
-        .then(res => this.addressCreateSuccess(res.data, cinfo))
+        .then(res => this.addressCreateSuccess(res.data))
         .catch(err => console.error(err));
       },
       accCreateSuccess(data) {
-        console.log("This is customer data: " + data);
-        if(data == "emailInvalid"){
+        // console.log(data);
+        if(data == "wrongemail"){
           alert("Your email is already taken. Try another email.")
         }
+        else if(data == "wrongnumber"){
+          alert("Your number is already taken. Try another number.")
+        }
         else{
-          this.saveAddress(data);
+          this.saveAddress();
         }
       },
-      addressCreateSuccess(creds, cinfo) {
+      addressCreateSuccess(creds) {
         //alert("Account Created Succesfully");
-        console.log("Account Created Succesfully");
-        console.log(creds);
-        if(creds != null){
-          this.usersData.usersEmail = creds.Email;
-
-          axios.post('http://127.0.0.1:8000/api/loginaddress/store',{
+        // console.log("Account Created Succesfully");
+        // console.log(creds);
+        this.usersData.usersEmail = this.customerInfo.Email;
+        this.usersData.usersPassword = this.customerInfo.Password;
+        if(creds == "login"){
+          axios.post(this.getDomain()+'api/customerlogin',{
             clientCred: this.usersData
           })
-          .then(res => this.$store.commit('storeCustomerAddress', res.data))
-          //.then(res => console.log(res.data))
+          .then(res => {
+            this.userLogin();
+            // console.log(res);
+          })
+          .catch(err => console.error(err));
+
+          axios.post(this.getDomain()+'api/customernotif/store',{
+            clientCred: this.usersData
+          })
+          .then(res => {
+            // console.log("This is notifications");
+            // console.log(res.data);
+          })
           .catch(err => console.error(err));
         }
-        // this.$store.commit('storeCustomerAddress', data);
-        this.$store.commit('storeCustomerInfo', cinfo);
-        this.$router.push('/');
+      },
+      userLogin() {
+        // console.log("login");
+        axios.post(this.getDomain()+'api/customerlogin',{
+          clientCred: this.usersData
+        })
+        .then(res => {
+          this.loginSuccess(res.data)
+          //console.log(res.data);
+        })
+        .catch(err => console.error(err));
+        
+      },
+      loginSuccess(cinfo) {
+        // console.log("login Success");
+        if(cinfo.status){
+          alert("Invalid Credentials");
+        }
+        else{
+          localStorage.setItem("id", cinfo.user.id);
+          localStorage.setItem("firstName", cinfo.user.first_Name);
+          localStorage.setItem("lastName", cinfo.user.last_Name);
+          localStorage.setItem("email", cinfo.user.email);
+          localStorage.setItem("mobileNumber", cinfo.user.mobile_Number);
+          localStorage.setItem("birthday", cinfo.user.birthday);
+          localStorage.setItem("gender", cinfo.user.gender);
+          localStorage.setItem("tag", cinfo.user.tag);
+          localStorage.setItem("token", cinfo.token);
+
+          axios.post(this.getDomain()+'api/loginaddress/store',{
+            clientCred: this.usersData
+          })
+          .then(res => {
+            // console.log(res.data);
+            this.$store.commit('storeCustomerAddress', res.data);
+          })
+          .catch(err => console.error(err));
+          this.$router.push("/");
+        }
       },
       municipalityInput(data){
         this.customerInfo.Municipality = data;
@@ -633,18 +754,21 @@
           this.UnderBarangays = subPBHNG;
           this.customerInfo.Barangay = 'Pulong Buhangin';
           this.customerInfo.UnderBarangay = "A.DelRosarioStreet"
+          this.customerInfo.ShipFee = "Free"
         }
         else if(data == "Norzagaray"){
           this.barangays = nbBarangays;
           this.UnderBarangays = nubPBLCN;
           this.customerInfo.Barangay = 'Poblacion';
           this.customerInfo.UnderBarangay = "Antonia Heights Subd"
+          this.customerInfo.ShipFee = "120"
         }
         else if(data == 'Angat'){
           this.barangays = abBarangays;
-          this.UnderBarangays = aubPBLCN;
-          this.customerInfo.Barangay = 'Poblacion';
-          this.customerInfo.UnderBarangay = "A.Cruz Street"
+          this.UnderBarangays = aubPY;
+          this.customerInfo.Barangay = 'Pulong Yantok';
+          this.customerInfo.UnderBarangay = "Pinaglagarian"
+          this.customerInfo.ShipFee = "85"
         }
       },
       barangayInput(data, bName){
@@ -655,153 +779,170 @@
           this.UnderBarangays = subBGBGN;
           this.customerInfo.Barangay = 'BagBaguin';
           this.customerInfo.UnderBarangay = "GovFortunatoHaliliAve"
+          this.customerInfo.ShipFee = "120"
         }
         else if(data == "smbBalasing"){
           this.UnderBarangays = subBLSNG;
           this.customerInfo.Barangay = 'Balasing';
           this.customerInfo.UnderBarangay = "834-830 Balasing SanJose Road"
+          this.customerInfo.ShipFee = "45"
         }
-        else if(data == "smbBuenavista"){
-          this.UnderBarangays = subBNAVST;
-          this.customerInfo.Barangay = 'Buenavista';
-          this.customerInfo.UnderBarangay = "Altamonte"
-        }
+        // else if(data == "smbBuenavista"){
+        //   this.UnderBarangays = subBNAVST;
+        //   this.customerInfo.Barangay = 'Buenavista';
+        //   this.customerInfo.UnderBarangay = "Altamonte"
+        // }
         else if(data == "smbBulac"){
           this.UnderBarangays = subBLC;
           this.customerInfo.Barangay = 'Bulac';
           this.customerInfo.UnderBarangay = "Bulac"
+          this.customerInfo.ShipFee = "65"
         }
         else if(data == "smbCamangyan"){
           this.UnderBarangays = subCMNGYN;
           this.customerInfo.Barangay = 'Camangyan';
-          this.customerInfo.UnderBarangay = "E.CruzStreet"
+          this.customerInfo.UnderBarangay = "Kalabasa Street"
+          this.customerInfo.ShipFee = "120"
         }
         else if(data == "smbCatmon"){
           this.UnderBarangays = subCTMN;
           this.customerInfo.Barangay = 'Catmon';
-          this.customerInfo.UnderBarangay = "HuloStreet"
+          this.customerInfo.UnderBarangay = "Kalsadang Munti"
+          this.customerInfo.ShipFee = "85"
         }
         else if(data == "smbCaypombo"){
           this.UnderBarangays = subCYPMB;
           this.customerInfo.Barangay = 'Caypombo';
-          this.customerInfo.UnderBarangay = "BrightHomes"
+          this.customerInfo.UnderBarangay = "Bright Homes Phase 1"
+          this.customerInfo.ShipFee = "45"
         }
         else if(data == "smbCaysio"){
           this.UnderBarangays = subCYSIO;
           this.customerInfo.Barangay = 'Caysio';
-          this.customerInfo.UnderBarangay = "CaysioRoad"
+          this.customerInfo.UnderBarangay = "Caysio Road"
+          this.customerInfo.ShipFee = "65"
         }
         else if(data == "smbGuyong"){
           this.UnderBarangays = subGYNG;
           this.customerInfo.Barangay = 'Guyong';
-          this.customerInfo.UnderBarangay = "BulodStreet"
+          this.customerInfo.UnderBarangay = "Bulod Street"
+          this.customerInfo.ShipFee = "85"
         }
         else if(data == "smblalakhan"){
           this.UnderBarangays = subLLKHN;
           this.customerInfo.Barangay = 'Lalakhan';
-          this.customerInfo.UnderBarangay = "LalakhanRoad"
+          this.customerInfo.UnderBarangay = "Narra Street"
+          this.customerInfo.ShipFee = "120"
         }
         else if(data == "smbMagAsawangSapa"){
           this.UnderBarangays = subMGASWNGSP;
           this.customerInfo.Barangay = 'Mag Asawang Sapa';
-          this.customerInfo.UnderBarangay = "BangkaBangkaRoad"
+          this.customerInfo.UnderBarangay = "Bangka Bangka Road"
+          this.customerInfo.ShipFee = "35"
         }
-        else if(data == "smbMahabangParang"){
-          this.UnderBarangays = subMHBNGPRNG;
-          this.customerInfo.Barangay = 'Mahabang Parang';
-          this.customerInfo.UnderBarangay = "MahabangParangRoad"
-        }
+        // else if(data == "smbMahabangParang"){
+        //   this.UnderBarangays = subMHBNGPRNG;
+        //   this.customerInfo.Barangay = 'Mahabang Parang';
+        //   this.customerInfo.UnderBarangay = "MahabangParangRoad"
+        // }
         else if(data == "smbManggahan"){
           this.UnderBarangays = subMNGHN;
           this.customerInfo.Barangay = 'Manggahan';
-          this.customerInfo.UnderBarangay = "New Manggahan Industrial compound"
+          this.customerInfo.UnderBarangay = "Sta Maria Pandi Road"
+          this.customerInfo.ShipFee = "85"
         }
         else if(data == "smbParada"){
           this.UnderBarangays = subPRDA;
           this.customerInfo.Barangay = 'Parada';
-          this.customerInfo.UnderBarangay = "C.DeJesusStreet"
+          this.customerInfo.UnderBarangay = "C.DeJesus Street"
+          this.customerInfo.ShipFee = "100"
         }
         else if(data == "smbPoblacion"){
           this.UnderBarangays = subPBLCN;
           this.customerInfo.Barangay = 'Poblacion';
-          this.customerInfo.UnderBarangay = "A.MorelesStreet"
+          this.customerInfo.UnderBarangay = "A.Moreles Street"
+          this.customerInfo.ShipFee = "120"
         }
         else if(data == "smbPulongBuhangin"){
           this.UnderBarangays = subPBHNG;
           this.customerInfo.Barangay = 'Pulong Buhangin';
-          this.customerInfo.UnderBarangay = "A.DelRosarioStreet"
+          this.customerInfo.UnderBarangay = "A.Del Rosario Street"
+          this.customerInfo.ShipFee = "Free"
         }
-        else if(data == "smbSanGabriel"){
-          this.UnderBarangays = subSNGBRL;
-          this.customerInfo.Barangay = 'San Gabriel';
-          this.customerInfo.UnderBarangay = "A.AguinaldoStreet"
-        }
+        // else if(data == "smbSanGabriel"){
+        //   this.UnderBarangays = subSNGBRL;
+        //   this.customerInfo.Barangay = 'San Gabriel';
+        //   this.customerInfo.UnderBarangay = "A.AguinaldoStreet"
+        // }
         else if(data == "smbSanJosePatag"){
           this.UnderBarangays = subSNJSEPTG;
           this.customerInfo.Barangay = 'San Jose Patag';
-          this.customerInfo.UnderBarangay = "BurgundyHomes"
+          this.customerInfo.UnderBarangay = "Burgundy Homes"
+          this.customerInfo.ShipFee = "85"
         }
         else if(data == "smbSantaClara"){
           this.UnderBarangays = subSNTCLRA;
           this.customerInfo.Barangay = 'Santa Clara';
           this.customerInfo.UnderBarangay = "AlMasiga"
+          this.customerInfo.ShipFee = "120"
         }
-        else if(data == "smbSanVicente"){
-          this.UnderBarangays = subSNVCNTE;
-          this.customerInfo.Barangay = 'San Vicente';
-          this.customerInfo.UnderBarangay = "AlgeraHeights"
-        }
+        // else if(data == "smbSanVicente"){
+        //   this.UnderBarangays = subSNVCNTE;
+        //   this.customerInfo.Barangay = 'San Vicente';
+        //   this.customerInfo.UnderBarangay = "AlgeraHeights"
+        // }
         else if(data == "smbStaCruz"){
           this.UnderBarangays = subSNTCRZ;
           this.customerInfo.Barangay = 'Santa Cruz';
-          this.customerInfo.UnderBarangay = "Dr.TSantiagoStreet"
+          this.customerInfo.UnderBarangay = "Dr.TSantiago Street"
+          this.customerInfo.ShipFee = "120"
         }
-        else if(data == "smbSilangan"){
-          this.UnderBarangays = subSLNGN;
-          this.customerInfo.Barangay = 'Silangan';
-          this.customerInfo.UnderBarangay = "AlMsigaStreet"
-        }
-        else if(data == "smbTabingBakod"){
-          this.UnderBarangays = subTBNGBKD;
-          this.customerInfo.Barangay = 'Tabing Bakod';
-          this.customerInfo.UnderBarangay = "A.B.nateo"
-        }
-        else if(data == "smbTumana"){
-          this.UnderBarangays = subTMNA;
-          this.customerInfo.Barangay = 'Tumana';
-          this.customerInfo.UnderBarangay = "KalabasaStreet"
-        }
+        // else if(data == "smbSilangan"){
+        //   this.UnderBarangays = subSLNGN;
+        //   this.customerInfo.Barangay = 'Silangan';
+        //   this.customerInfo.UnderBarangay = "AlMsigaStreet"
+        // }
+        // else if(data == "smbTabingBakod"){
+        //   this.UnderBarangays = subTBNGBKD;
+        //   this.customerInfo.Barangay = 'Tabing Bakod';
+        //   this.customerInfo.UnderBarangay = "A.B.nateo"
+        // }
+        // else if(data == "smbTumana"){
+        //   this.UnderBarangays = subTMNA;
+        //   this.customerInfo.Barangay = 'Tumana';
+        //   this.customerInfo.UnderBarangay = "KalabasaStreet"
+        // }
         else if(data == "nbPartida"){
           this.UnderBarangays = nubPRTDA;
           this.customerInfo.Barangay = 'Partida';
           this.customerInfo.UnderBarangay = "Eden Ville Subdivision"
+          this.customerInfo.ShipFee = "120"
         }
         else if(data == "nbPoblacion"){
           this.UnderBarangays = nubPBLCN;
           this.customerInfo.Barangay = 'Poblacion';
           this.customerInfo.UnderBarangay = "Antonia Heights Subd"
+          this.customerInfo.ShipFee = "120"
         }
         else if(data == "nbTigbe"){
           this.UnderBarangays = nubTGBE;
           this.customerInfo.Barangay = 'Tigbe';
           this.customerInfo.UnderBarangay = "Barrio Road"
+          this.customerInfo.ShipFee = "100"
         }
-        else if(data == "abPoblacion"){
-          this.UnderBarangays = aubPBLCN;
-          this.customerInfo.Barangay = 'Poblacion';
-          this.customerInfo.UnderBarangay = "A.Cruz Street"
-        }
-        else if(data == "abSantaCruz"){
-          this.UnderBarangays = aubSTCRZ;
-          this.customerInfo.Barangay = 'Santa Cruz';
-          this.customerInfo.UnderBarangay = "Illescas Street"
+        else if(data == "abPulongYantok"){
+          this.UnderBarangays = aubPY;
+          this.customerInfo.Barangay = 'Pulong Yantok';
+          this.customerInfo.UnderBarangay = "Pinaglagarian"
+          this.customerInfo.ShipFee = "85"
         }
         else{
           alert("Something wrong");
         }
       },
-      underBarangayInput(data){
+      underBarangayInput(data, fee){
         this.customerInfo.UnderBarangay = data;
+        this.customerInfo.ShipFee = fee;
       },
       save (date) {
         this.$refs.menu.save(date)
@@ -809,6 +950,15 @@
       handleInputOnChange() {
         this.customerInfo.Email = this.customerInfo.Email.toLowerCase()
       }
+    },
+
+    beforeMount(){
+      var today = new Date();
+      var day = String(today.getDate()).padStart(2, '0');
+      var month = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+      var year = today.getFullYear();
+
+      this.maxDate = (year - 13) + "-" + month + "-" + day;
     },
 
     watch: {
@@ -844,3 +994,11 @@
       // console.log("Birthday: " + this.customerInfo.Birthday);
 </script>
 
+<style scoped>
+.router-link{
+  color: #1106A0 ;
+}
+.fontTitle{
+  color: #464646;
+}
+</style>

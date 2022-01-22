@@ -3,34 +3,45 @@
     <v-container fluid>
       <v-row>
         <v-col
-          offset="1"
-          cols="7"
+          offset-xl="1"
+          xl="7"
+          lg="9"
+          md="9"
           class="d-flex justify-center"
         >
           <v-sheet
             color="#FFFFFF"
             width="100%"
-            class="my-10"
+            class="py-2 my-10"
+            rounded="lg"
           >
-            <v-row>
-              <v-col>
-                <p
-                  class="mt-3 mx-10"
-                >Product</p>
+            <v-row class="pa-4">
+              <v-col
+                xl="5"
+                lg="5"
+                md="4"
+              >
+                <h4
+                  class="mx-4 px-lg-15 font-weight-bold fontTitle"
+                >Product</h4>
               </v-col>
-              <v-col>
+              <v-col
+                xl="7" 
+                lg="7"
+                class="pr-xl-16"
+              >
                 <div
-                  class="d-flex mt-3"
+                  class="d-flex justify-end"
                 >
-                  <p
-                    class="mx-10"
-                  >Quantity</p>
-                  <p
-                    class="mx-10"
-                  >Total Price</p>
-                  <p
-                    class="mx-10"
-                  >Action</p>
+                  <h4
+                    class="fontTitle px-lg-11 px-10"
+                  >Quantity</h4>
+                  <h4
+                    class="fontTitle px-lg-14 px-5"
+                  >Total Price</h4>
+                  <h4
+                    class="fontTitle px-lg-10 px-5"
+                  >Action</h4>
                 </div>
               </v-col>
             </v-row>
@@ -38,94 +49,144 @@
             <v-divider></v-divider>
 
             <v-row>
-              <v-col>
-                <v-list>
+              <v-col
+                cols="12"
+              >
+                <v-list
+                  class="my-0 py-0"
+                >
                   <v-list-item-group
+                    v-for="(item, i) in cartItems"
+                      :key="i"
                   >
                     <v-list-item
-                      v-for="(item, i) in items"
-                      :key="i"
+                      class="my-0 py-0"
                     >
                       <v-list-item-content
-                        class="border ma-2 rounded-lg"
+                        class="border ma-2"
                       >
                         <v-row
                         >
                           <v-col
-                            cols="6"
+                            xl="5"
+                            lg="5"
+                            md="5"
+                            class="my-0 py-0"
                           >
                             <div
                               class="d-flex align-center"
                             >
                               <v-img
-                                height="120px"
-                                width="120px"
+                                max-height="150px"
+                                max-width="150px"
                                 contain
-                                :src="require('../../assets/'+item.item_image)"
+                                :src="require('../../assets/itemPhotos/'+item.item_image)"
                               ></v-img>
+
                               <v-list-item-title>
-                                <span>{{item.item_name}}</span>
-                                <br>
-                                <span>{{item.item_desc}}</span>
+                                <h3
+                                  class="my-lg-1"
+                                >
+                                  {{item.item_name}}
+                                </h3>
+                                <h4
+                                  class="fontBlue my-lg-1"
+                                >
+                                  {{item.item_desc}}
+                                </h4>
+                                <div class="d-flex my-lg-1">
+                                  <v-icon size="14px" class="pr-1">
+                                  
+                                    mdi-currency-php
+                                  </v-icon>
+
+                                  <h5
+                                    class="fontDesc"
+                                  >
+                                    {{priceRound(item.item_price - ((item.item_discount / 100) * item.item_price))}}
+                                  </h5>
+                                </div>
+                                
                               </v-list-item-title>
                             </div>
                           </v-col>
                           <v-col
-                            cols="6"
-                            class="d-flex align-center"
+                            xl="7"
+                            lg="7"
+                            md="7"
+                            class="d-flex align-center justify-end pr-xl-16"
                           >
                             <div
                               class="d-flex align-center"
                             >
                               <div
-                                class="qtt d-flex align-center justify-center"
+                                class="qtt d-flex align-center justify-center mr-2 "
+                                style="border-style: solid; border-width: 1px 1px; border-color: #BDBDBD"
                               >
                                 <v-btn
                                   depressed
                                   color="transparent"
                                   class=""
-                                  @click="decreaseQuantity(item.id, i)"
+                                  @click="updateQuantity(item.id, item.item_quantity, 'decrease')"
+                                  small
                                 >
                                   <v-icon
-                                    x-large
+                                    color="#757575"
                                   >
-                                    mdi-minus-box-outline
+                                    mdi-minus
                                   </v-icon>
                                 </v-btn>
-                                <p
-                                  class=" my-0 px-2"
+                                <v-btn
+                                  plain
+                                >
+                                  <p
+                                    class="my-0 px-2 subtitle-1 grey--text text--darken-2 font-weight-bold" 
+                                  >
+                                    {{item.item_quantity}}
+                                  </p>
+                                </v-btn>
+                                <!-- <p
+                                  class="my-0 px-2 subtitle-1 grey--text text--darken-2 font-weight-bold" 
                                 >
                                   {{item.item_quantity}}
-                                </p>
+                                </p> -->
                                 <v-btn
                                   depressed
                                   color="transparent"
-                                  @click="addQuantity(item.id, i)"
+                                  @click="updateQuantity(item.id, item.item_quantity, 'increase')"
+                                  small
                                 >
                                   <v-icon
-                                    x-large
+                                    color="#757575"
                                   >
-                                    mdi-plus-box-outline
+                                    mdi-plus
                                   </v-icon>
                                 </v-btn>
                               </div>
 
                               <div
-                                class="tp my-0 d-flex align-center justify-center"
+                                class="my-0 mx-lg-15 mx-4 d-flex align-center justify-center"
                               >
-                                <v-icon>
+                                <v-icon 
+                                small
+                                color="#858585" 
+                                class="pr-1"
+                                >
                                   mdi-currency-php
                                 </v-icon>
-                                <p>
-                                  {{priceRound(item.item_price * item.item_quantity)}}
-                                </p>
+                                <h4
+                                  class="pa-0 ma-0 fontDesc"
+                                >
+                                  {{priceRound((item.item_price - ((item.item_discount / 100) * item.item_price)) * item.item_quantity)}}
+                                </h4>
                               </div>
 
                               <v-btn
-                                class="act justify-center"
-                                color="primary"
+                                class="act justify-center mx-lg-4 font-weight-bold"
+                                color="#1106A0"
                                 plain
-                                @click="deleteItems(item.item_code)"
+                                @click="deleteItems(item.id)"
+                                
                               >
                                 Delete
                               </v-btn>
@@ -134,45 +195,94 @@
                         </v-row>
                       </v-list-item-content>
                     </v-list-item>
+                    <v-divider></v-divider>
                   </v-list-item-group>
                 </v-list>
               </v-col>
             </v-row>
           </v-sheet>
         </v-col>
+        
         <v-col
-          cols="4"
+          xl="3"
+          lg="3"
+          md="3"
           class="d-flex justify-center"
         >
           <v-sheet
             color="#FFFFFF"
-            height="200"
-            width="80%"
-            class="my-10"
+            height="250px"
+            width="100%"
+            class="py-2 my-10"
+            rounded="lg"
+            style="position: relative;"
           >
             <v-row>
-              <v-col>
-                <h2
-                >Total</h2>
+              <v-col
+                xl="6"
+                lg="4"
+                md="3"
+              >
+                <h3
+                  class="my-4 mx-10 title fontTitle"
+                >
+                  Total
+                </h3>
               </v-col>
-              <v-col>
-                <h2><v-icon>mdi-currency-php</v-icon>{{totPrice}}</h2>
+              <v-col
+                xl="6"
+                lg="8"
+                md="9"
+              >
+                <div
+                  class="d-flex justify-end"
+                >
+                  <h3
+                  class="my-4 mx-10 title fontTitle"
+                  >
+                    <v-icon color="#464646">mdi-currency-php</v-icon>{{totPrice}}
+                  </h3>
+                </div>
+                
               </v-col>
             </v-row>
 
             <v-divider></v-divider>
 
             <v-row>
-              <v-col>
-                <p>Taxes and <a class="text-decoration-underline">Shipping</a> are calculted at checkout</p>
-                <v-btn
-                  color="primary"
-                  :to="{name: 'Cart' , params: { id: 'place-order', title: 'Place Order'}}"
-                  @click="showPlaceOrder()"
-                  block
+              <v-col
+                cols="12"
+              >
+                <p
+                  class="my-3 mx-lg-10 mx-md-2 text-md-center text-lg-left"
                 >
-                  Checkout
-                </v-btn>
+                  Taxes and <router-link to="/" class="text-decoration-underline indigo--text text--darken-4">Shipping</router-link> are calculted at checkout
+                </p>
+                <div
+                  class="mx-8 pt-xl-12 pt-lg-6 pt-md-4"
+                >
+                  <p
+                    v-if="(usersTag == 'Unverified')"
+                    class="py-0 my-0 text-center subtitle-1"
+                  >
+                    Please Verify Your Account First.
+                  </p>
+                  <v-btn
+                    dark
+                    color="#1106A0"
+                    class="mx-2"
+                    :to="{name: 'Cart' , params: { id: 'place-order', title: 'Place Order'}}"
+                    @click="showPlaceOrder()"
+                    block
+                    :disabled="checkoutButton"
+                  >
+                    <p
+                      class="py-0 my-0"
+                    >
+                      Checkout
+                    </p>
+                  </v-btn>
+                </div>
               </v-col>
             </v-row>
           </v-sheet>
@@ -183,14 +293,15 @@
 </template>
 
 <script>
+  import {Mixins} from '../../Mixins/mixins.js'
+
   export default {
+    mixins: [Mixins],
+    
     data: () => ({
-      items: [
-        // {id: 0, item_name: "Koko Crunch", item_desc: "this is item description", item_price: 156.50, item_image: 'SamplePhoto.png'},
-        // {id: 1, item_name: "Pancake Plus", item_desc: "this is item description", item_price: 79.95, item_image: 'SamplePhoto.png'},
-        // {id: 2, item_name: "Gardenia", item_desc: "this is item description", item_price: 67.50, item_image: 'SamplePhoto.png'},
-      ],
+      items: [],
       totPrice: 0,
+      checkoutButton: true,
     }),
 
     computed: {
@@ -198,102 +309,155 @@
         return this.$store.state.categoryItems;
       },
       cartItems() {
-        return this.$store.state.cartItems;
+        return this.items;
       },
-      customerInfos() {
-        return this.$store.state.customerInfos;
+      cartQuantity() {
+        return this.$store.state.cartQuantity;
+      },
+      usersEmail(){
+        return localStorage.getItem('email');
+      },
+      usersTag(){
+        return localStorage.getItem('tag');
+      },
+      usersToken(){
+        return localStorage.getItem('token');
       },
     },
     
     methods: {
       showPlaceOrder() {
         this.$emit('scItemsEmit');
+        this.getCartItems();
       },
       showCartItems(data) {
+        this.items = [];
         var item;
         this.totPrice = 0;
         // console.log("cart items");
         // console.log(data.length);
         // console.log(data[0].Email);
         // console.log(this.customerInfos.Email)
-        // console.log(data);
+        // console.log(this.categoryItems[0].Discount)
         
         for(var i = 0; i < data.length; i++){
-          if(data[i].Email == this.customerInfos.Email){
-            for(var j = 0; j < this.categoryItems.length; j++){
-              if(data[i].ItemCode == this.categoryItems[j].ItemCode){
+          for(var j = 0; j < this.categoryItems.length; j++){
+            if(data[i].itemCode == this.categoryItems[j].itemCode){
               item = {id: data[i].id,
-              item_name: this.categoryItems[j].Name,
-              item_desc: this.categoryItems[j].Description,
-              item_code: this.categoryItems[j].ItemCode,
-              item_quantity: data[i].Quantity,
-              item_price: this.categoryItems[j].RetailPrice,
-              item_image: 'SamplePhoto.png',
-              item_email: this.customerInfos.Email
+              item_name: this.categoryItems[j].name,
+              item_desc: this.categoryItems[j].description,
+              item_size: this.categoryItems[j].size,
+              item_code: this.categoryItems[j].itemCode,
+              item_quantity: data[i].quantity,
+              item_price: this.categoryItems[j].retailPrice,
+              item_image: this.categoryItems[j].image,
+              item_email: this.usersEmail,
+              item_discount: this.categoryItems[j].discount
               }
               this.items.push(item);
-              this.totPrice = this.totPrice + (data[i].Quantity * this.categoryItems[j].RetailPrice * 1);
+              this.totPrice = (this.totPrice + ((data[i].quantity * this.categoryItems[j].retailPrice * 1) - ((data[i].quantity * this.categoryItems[j].retailPrice * 1) * (this.categoryItems[j].discount / 100) )));
               //console.log(i);
-              }
-              else{
-                //console.log("this is else");
-              }
+            }
+            else{
+              //console.log("this is else");
             }
           }
         }
         this.totPrice = (Math.round(this.totPrice * 100) / 100).toFixed(2);
         this.$store.commit('storeCartItems', this.items);
+        this.checkoutButtonChecker();
       },
       getCartItems() {
         this.items = [];
-        //console.log("This is customerInfos Email: " + this.customerInfos.Email);
-        axios.get('http://127.0.0.1:8000/api/headercart')
+        axios.post(this.getDomain()+'api/getcart/store', {
+          register: this.usersEmail
+        },
+        {
+          headers:{
+            "Authorization": `Bearer ${this.usersToken}`,
+        }
+        })
         .then(res => {
-          this.showCartItems(res.data)
-          console.log(res.data)
-          })
+          // console.log(res.data);
+          this.showCartItems(res.data);
+        })
         .catch(err => console.error(err));
       },
       deleteItems(code) {
-        console.log("Delete this item");
-        //console.log(code);
-        axios.delete('http://127.0.0.1:8000/api/getcart/'+ code)
-        //.then( res => console.log(res))
-        .then( res => this.getCartItems())
+        // console.log("Delete this item");
+        // console.log(code);
+        axios.delete(this.getDomain()+'api/getcart/'+ code,
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
+        .then( res => {
+          this.getCartItems()
+          // console.log(res.data)
+        })
         .catch(err => console.error(err))
       },
-      addQuantity(idcart, count) {
-        console.log("Quantity add");
-        // console.log(this.cartItems);
-        // console.log(this.cartItems[count].id);
-        // console.log(idcart);
-        // console.log(count);
-        axios.put('http://127.0.0.1:8000/api/getcart/' + idcart, {
-          itemupdate: this.cartItems[count]
-        })
-        .then(res => {
-          //console.log(res.data)
-          this.showQuantity(res.data)
-        })
-        .catch(err => console.error(err));
+      updateQuantity(idcart, quantity, cond) {
+        if(cond == "increase"){
+          axios.put(this.getDomain()+'api/getcart/' + idcart, {
+            updateCond: cond,
+            customerEmail: this.usersEmail
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
+          .then(res => {
+            if(res.data == "false"){
+              console.log("Too many request");
+            }
+            else{
+              this.showCartItems(res.data);
+            }
+            
+          })
+          .catch(err => console.error(err));
+        }
+        else if(cond == "decrease"){
+          if(quantity <= 1){
+            this.deleteItems(idcart);
+          }
+          else{
+            axios.put(this.getDomain()+'api/getcart/' + idcart, {
+              updateCond: cond,
+              customerEmail: this.usersEmail
+            },
+            {
+              headers:{
+                "Authorization": `Bearer ${this.usersToken}`,
+            }
+            })
+            .then(res => {
+              // console.log(res.data);
+              if(res.data == "false"){
+                console.log("Too many request");
+              }
+              else{
+                this.showCartItems(res.data);
+              }
+            })
+            .catch(err => console.error(err));
+          }
+        }
+        else{
+          console.log("something wrong");
+        }
+        
       },
-      decreaseQuantity(idcart, count) {
-        console.log("Quantity decrease");
-        console.log(this.cartItems);
-        axios.put('http://127.0.0.1:8000/api/headercart/' + idcart, {
-        itemupdate: this.cartItems[count]
-        })
-        .then(res => {
-          //console.log(res.data)
-          this.showQuantity(res.data)
-        })
-        .catch(err => console.error(err));
-      },
-      showQuantity(data) {
-        console.log("show quantity");
-        //console.log(data);
-        this.$store.commit('storeCartItems', data);
-        this.getCartItems();
+      checkoutButtonChecker(){
+        if((this.totPrice == 0) || (this.usersTag == "Unverified")){
+          this.checkoutButton = true;
+        }
+        else{
+          this.checkoutButton = false;
+      }
       },
       priceRound(price){
         var rounded = (Math.round(price * 100) / 100).toFixed(2);
@@ -303,55 +467,18 @@
 
     beforeMount() {
       this.getCartItems();
-      //this.showCartItems();
+      //console.log("before mount");
     }
-  }//export default closing bracket
-
-  //showCartItems methods with comments
-  // showCartItems(data) {
-  //   var item;
-    
-  //   // console.log("cart items");
-  //   // console.log(data);
-  //   // console.log(data[0]);
-  //   // console.log(data[1].ItemCode);
-  //   // console.log(data[0].Quantity);
-  //   // console.log(data[0].id);
-  //   // console.log(data.length);
-
-  //   // console.log("category items");
-  //   // console.log(this.categoryItems);
-  //   // console.log(this.categoryItems[0]);
-  //   // console.log(this.categoryItems[2].ItemCode);
-  //   // console.log(this.categoryItems.length)
-  //   for(var i = 0; i < data.length; i++){
-  //     for(var j = 0; j < this.categoryItems.length; j++){
-  //       if(data[i].ItemCode == this.categoryItems[j].ItemCode){
-  //       // alert("This is item Name " + this.categoryItems[j].Name + " " + this.categoryItems[j].Description
-  //       // + " This is item Code " + this.categoryItems[j].ItemCode + " This is item Quantity " + 
-  //       // data[i].Quantity + " This is item Retail Price " + this.categoryItems[j].RetailPrice + " This is item id " + i
-  //       // )
-  //       // console.log(i);
-  //       // console.log(this.categoryItems[j].Name,);
-  //       // console.log(this.categoryItems[j].ItemCode);
-  //       // console.log(data[i].ItemCode)
-  //       item = {id: i,
-  //       item_name: this.categoryItems[j].Name,
-  //       item_desc: this.categoryItems[j].Description,
-  //       item_code: this.categoryItems[j].ItemCode,
-  //       item_quantity: data[i].Quantity,
-  //       item_price: this.categoryItems[j].RetailPrice,
-  //       item_image: 'SamplePhoto.png'}
-  //       this.items.push(item);
-  //       this.totPrice = this.totPrice + (data[i].Quantity * this.categoryItems[j].RetailPrice * 1);
-  //       console.log(i);
-  //       }
-  //       else{
-  //         console.log("this is else");
-  //       }
-  //     }
-  //   }
-  //   this.totPrice = (Math.round(this.totPrice * 100) / 100).toFixed(2);
-  //   this.$store.commit('storeCartItems', this.items);
-  // },
+  }
 </script>
+<style scoped>
+.fontTitle{
+color: #464646;
+}
+.fontDesc{
+color: #858585;
+}
+.fontBlue{
+  color: #1106a0;
+}
+</style>

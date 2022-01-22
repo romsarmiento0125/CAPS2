@@ -8,50 +8,32 @@
           <v-sheet
             width="100%"
             height="100%"
+            class="pa-5"
           >
             <v-row>
-              <v-col>
+              <v-col
+              >
                 <div
-                  class="d-flex"
+                  class="d-flex pa-5"
                 >
-                  <p>My Adress</p>
+                  <h3
+                    class="fontTitle"
+                  >My Address</h3>
                   <v-spacer></v-spacer>
-                  <v-btn>
-                    <p>Add New Address</p>
-                  </v-btn>
+                  <!-- <v-btn
+                    color="orange"
+                    @click="addNewAddress"
+                  >
+                    <p
+                      class="my-0 white--text"
+                    >Add New Address</p>
+                  </v-btn> -->
                 </div>
               </v-col>
             </v-row>
             <v-divider></v-divider>
             <v-row>
               <v-col>
-                <!-- <div>
-                  <p>Default Address</p>
-                </div>
-                <div
-                  class="d-flex"
-                >
-                  <div>
-                    <p>{{Name}}&nbsp;{{Surname}}</p>
-                    <div
-                      class="d-flex"
-                    >
-                      <p>{{Municipality}}&nbsp;</p>
-                      <p>{{Barangay}}&nbsp;</p>
-                      <p>{{UBarangay}}&nbsp;</p>
-                      <p>{{HomeAddress}}</p>
-                    </div>
-                  </div>
-                  <v-spacer></v-spacer>
-                  <div>
-                    <v-btn>
-                      <p>Edit</p>
-                    </v-btn>
-                    <v-btn>
-                      <p>Delete</p>
-                    </v-btn>
-                  </div>
-                </div> -->
                 <v-list dense>
                   <v-list-item-group
                     
@@ -61,27 +43,45 @@
                       v-for="(item, i) in items"
                       :key="i"
                     >
-                      <div>
-                        <v-subheader>{{item.Default}}</v-subheader>
-                        <p>{{item.Name}}&nbsp;{{item.Surname}}</p>
+                      <div
+                        class="my-2"
+                      >
+                        <v-subheader
+                          v-if="item.Default == 'Default'"
+                          class="fontBlue"
+                        ><h3 class="ma-n2"> Default Address </h3></v-subheader>
+                        <p
+                          class="my-0"
+                        >{{item.Name}}&nbsp;{{item.Surname}}</p>
                         <div
                           class="d-flex"
                         >
-                          <p>{{item.Municipality}}&nbsp;</p>
+                          <p>{{item.Municipality}}</p>
                           <p>{{item.Barangay}}&nbsp;</p>
                           <p>{{item.UBarangay}}&nbsp;</p>
-                          <p>{{item.HomeAddress}}</p>
+                          <p>{{item.HomeAddress}}&nbsp;</p>
                         </div>
                       </div>
                       <v-spacer></v-spacer>
-                      <div>
-                        <v-btn>
-                          <p>Edit</p>
+                      <!-- <div>
+                        <v-btn
+                          plain
+                          @click="editAddress"
+                        >
+                          <p
+                            class="my-0"
+                          >Edit</p>
                         </v-btn>
-                        <v-btn>
-                          <p>Delete</p>
+                        <v-btn
+                          plain
+                          v-if="item.Default != 'Default'"
+                          @click="deleteAddress"
+                        >
+                          <p
+                            class="my-0"
+                          >Delete</p>
                         </v-btn>
-                      </div>
+                      </div> -->
                     </v-list-item>
                   </v-list-item-group>
                 </v-list>
@@ -96,7 +96,11 @@
 </template>
 
 <script>
+  import {Mixins} from '../../Mixins/mixins.js'
+
   export default {
+    mixins: [Mixins],
+
     data: () => ({
       selectedItem: 1,
       items: [
@@ -105,11 +109,23 @@
     }),
 
       computed: {
-      customerInfos() {
-        return this.$store.state.customerInfos;
+      usersFName(){
+        return localStorage.getItem('firstName');
+      },
+      usersLName(){
+        return localStorage.getItem('lastName');
+      },
+      usersEmail(){
+        return localStorage.getItem('email');
       },
       customerAddress() {
         return this.$store.state.customerAddress;
+      }
+    },
+
+    watch: {
+      customerAddress(){
+        this.insertAddress;
       }
     },
 
@@ -118,41 +134,56 @@
         var item;
         for(var i = 0; i < this.customerAddress.length; i++){
           var def = "";
-          if(this.customerAddress[i].Default == "True"){
+          if(this.customerAddress[i].default == "True"){
             def = "Default";
           }
           item = {id: this.customerAddress[i].id,
-                Name: this.customerInfos.First_Name,
-                Surname: this.customerInfos.Last_Name,
-                Email: this.customerAddress[i].Email,
-                Municipality: this.customerAddress[i].Municipality,
-                Barangay: this.customerAddress[i].Barangay,
-                UBarangay: this.customerAddress[i].UnderBarangay,
-                HomeAddress: this.customerAddress[i].HomeAddress,
+                Name: this.usersFName,
+                Surname: this.usersLName,
+                Email: this.customerAddress[i].email,
+                Municipality: this.customerAddress[i].municipality,
+                Barangay: this.customerAddress[i].barangay,
+                UBarangay: this.customerAddress[i].underBarangay,
+                HomeAddress: this.customerAddress[i].homeAddress,
                 Default: def
                 }
           //console.log("loop");
-          this.items.push(item)
+          this.items.push(item);
         }
+      },
+      deleteAddress() {
+        alert("Delete button is not functioning");
+      },
+      editAddress(){
+        alert("Edit button is not functioning");
+      },
+      addNewAddress(){
+        alert("Add new address button is not functioning");
       }
     },
 
     beforeMount() {
-      //this.getCustomerInfo();
-      console.log("infos");
-      console.log(this.customerInfos);
-      console.log(this.customerAddress);
-      console.log(this.customerAddress.length);
-      //console.log(this.customerAddress[0].id);
-      
       this.insertAddress();
-      // this.items.Name = this.customerInfos.First_Name;
-      // this.items.Surname = this.customerInfos.Last_Name;
-      // this.items.Email = this.customerInfos.Email;
-      // this.items.Municipality = this.customerAddress.Municipality;
-      // this.items.Barangay = this.customerAddress.Barangay;
-      // this.items.UBarangay = this.customerAddress.UnderBarangay;
-      // this.items.HomeAddress = this.customerAddress.HomeAddress;
     }
   }
 </script>
+
+<style scoped>
+.fontBlue{
+  color: #1106a0;
+}
+.fontDesc{
+  color: #858585;
+}
+.fontTitle{
+  color: #464646;
+}
+/* .nBorder{
+    border: 1px solid #787885;
+    border-radius: 5px;
+    border-right-width: 50px;
+    border-right: 1px solid #;
+    border-spacing: 50px 5px;
+    
+  } */
+</style>

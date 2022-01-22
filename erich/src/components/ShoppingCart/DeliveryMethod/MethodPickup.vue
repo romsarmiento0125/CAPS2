@@ -5,28 +5,37 @@
     >
       <v-row>
         <v-col
-          class="ma-0 pa-0"
+          class="pa-15"
         >
-          <div
-            class="pl-5 pt-5"
-          > 
-            <p
-              class="title ma-0 pa-0"
-            >Contact Information</p>
-            <p
-              class="ma-0 pa-0"
-            >Reyster Del Rosario</p>
-            <p
-              class="ma-0 pa-0"
-            >09098675786</p>
+
+          <div> 
+            <h4
+              class="fontTitle font-weight-bold"
+            >
+            Contact Information</h4>
+
+            <v-row class="nContact mx-0 ma-3">
+              <v-col cols="6">
+                <p
+                class="ma-0 pa-0 fontDesc"
+              >{{usersFName}}&nbsp;{{usersLName}}</p>
+              </v-col>
+
+              <v-col cols="6">
+                <p
+                class="ma-0 pa-0 fontDesc d-flex justify-end"
+              >{{usersMobileNumber}}</p>
+              </v-col>
+            </v-row>
           </div>
+          
           <div
-            class="pl-5 pt-5"
+            class="pt-4"
           >
-            <p
-              class="title ma-0 pa-0 "
-            >Pickup date and time</p>
-            <div>
+            <h4
+              class="fontTitle font-weight-bold"
+            >Pickup date and time</h4>
+            <div class="pt-3">
               <v-menu
                 ref="menu"
                 v-model="menu"
@@ -49,42 +58,52 @@
                 <v-date-picker
                   v-model="date"
                   :active-picker.sync="activePicker"
-                  :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
-                  min="1950-01-01"
-                  @change="save"
+                  :max="maxDate"
+                  :min="minDate"
+                  @change="ydm"
+                  
                 ></v-date-picker>
               </v-menu>
             </div>
             <div>
-              <v-menu
-                ref="menu"
-                v-model="menu2"
-                :close-on-content-click="false"
-                :nudge-right="40"
+              <v-dialog
+                v-model="modal2"
                 :return-value.sync="time"
-                transition="scale-transition"
-                offset-y
-                max-width="290px"
-                min-width="290px"
+                persistent
+                width="290px"
               >
                 <template v-slot:activator="{ on, attrs }">
                   <v-text-field
-                    v-model="time"
-                    label="Select a pickup time"
-                    append-icon="mdi-chevron-down"
+                    v-model="oras"
+                    label="Pick Time"
+                    outlined
                     readonly
                     v-bind="attrs"
                     v-on="on"
-                    outlined
                   ></v-text-field>
                 </template>
                 <v-time-picker
-                  v-if="menu2"
+                  v-if="modal2"
                   v-model="time"
                   full-width
-                  @click:minute="$refs.menu.save(time)"
-                ></v-time-picker>
-              </v-menu>
+                >
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    text
+                    color="primary"
+                    @click="modal2 = false"
+                  >
+                    Cancel
+                  </v-btn>
+                  <v-btn
+                    text
+                    color="primary"
+                    @click="saveTime(time)"
+                  >
+                    OK
+                  </v-btn>
+                </v-time-picker>
+              </v-dialog>
             </div>
           </div>
         </v-col>
@@ -101,14 +120,50 @@
       menu: false,
       time: null,
       menu2: false,
+      modal2: false,
+      oras: null,
+      minDate: null,
+      maxDate: null,
     }),
 
-    methods: {
-      save (date) {
-        console.log("save");
-        this.$refs.menu.save(date)
-        this.menu = false;
+    computed: {
+      usersFName(){
+        return localStorage.getItem('firstName');
       },
+      usersLName(){
+        return localStorage.getItem('lastName');
+      },
+      usersMobileNumber(){
+        return localStorage.getItem('mobileNumber');
+      },
+    },
+
+    methods: {
+      ydm (date) {
+        // console.log(date);
+        this.menu = false;
+        this.$store.commit('pickupDate', date);
+      },
+      saveTime(data) {
+        // console.log(data)
+        this.oras = data;
+        this.modal2 = false
+        this.$store.commit('pickupTime', data);
+      },
+      setTimeAndDate() {
+        var today = new Date();
+        var day = String(today.getDate()).padStart(2, '0');
+        var month = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var year = today.getFullYear();
+        var date = year + "-" + month + "-" + day;
+        var oras = (today.getHours() + 3)+ ":" + today.getMinutes();
+        this.date = date;
+        this.oras = oras;
+        this.minDate = year + "-" + month + "-" + day;
+        this.maxDate = (year + 5) + "-" + month + "-" + day;
+        this.ydm(date);
+        this.saveTime(oras);
+      }
     },
      
 
@@ -117,5 +172,31 @@
         val && setTimeout(() => (this.activePicker = 'YEAR'))
       },
     },
+
+    beforeMount() {
+      this.setTimeAndDate();
+
+    }
   }
 </script>
+
+<style scoped>
+  .fontTitle{
+    color:#464646;
+  }
+  .fontDesc{
+    color: #787885;
+  }
+
+  .nContact{
+    border: 1px solid #787885;
+    border-radius: 5px;
+    border-right: 1px solid;
+    line-height: 10px;
+  }
+  .nDelivery{
+    border: 1px solid #787885;
+    border-radius: 5px;
+  }
+
+</style>

@@ -15,14 +15,15 @@ class CreateErichcustomersTable extends Migration
     {
         Schema::create('erichcustomers', function (Blueprint $table) {
             $table->id();
-            $table->string('First_Name');
-            $table->string('Last_Name');
-            $table->string('Mobile_Number');
-            $table->string('Email')->unique();
-            $table->string('Gender');
-            $table->string('Birthday');
-            $table->string('Tag');
-            $table->string('Password');
+            $table->string('first_Name');
+            $table->string('last_Name');
+            $table->string('mobile_Number');
+            $table->string('email')->unique();
+            $table->string('gender');
+            $table->string('birthday');
+            $table->string('tag');
+            $table->string('status');
+            $table->string('password');
             $table->timestamps();
         });
     }

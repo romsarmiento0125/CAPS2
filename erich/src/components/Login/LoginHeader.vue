@@ -7,7 +7,7 @@
       <v-container fluid>
         <v-row>
           <v-col
-            cols="5"
+            cols="12"
           >
             <div
               class="d-flex"
@@ -18,15 +18,16 @@
                 <v-img
                   contain
                   src="../../assets/ERICH.svg"
-                  max-height="100px"
-                  max-width="100px"
+                  max-height="120px"
+                  max-width="120px"
+                  class="mr-1"
                 ></v-img>
               </router-link>
               <v-divider
                 vertical
               ></v-divider>
               <p
-                class="text-h4 ml-4"
+                class="text-h5 ml-3 my-0 pt-1 grey--text text--darken-1"
               >Login</p>
             </div>
           </v-col>
@@ -37,22 +38,17 @@
 </template>
 
 <script>
-export default {
-  
-  data: () => ({
 
-  }),
+  export default {
 
-  methods: {
-    getcreds() {
-      axios.get('http://127.0.0.1:8000/api/customers')
-      .then(res => console.log(res))
-      .catch(err => console.error(err));
-    }
-  },
+    data: () => ({
 
-  beforeMount(){
-    //this.getcreds();
-  },
-}
+    }),
+
+    methods: {
+    },
+
+    beforeMount(){
+    },
+  }
 </script>

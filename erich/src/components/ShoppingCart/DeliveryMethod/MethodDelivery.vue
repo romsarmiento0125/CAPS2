@@ -5,65 +5,66 @@
     >
       <v-row>
         <v-col
-          class="ma-0 pa-0"
+          class="pa-15"
         >
-          <div
-            class="pl-5 pt-5"
-          > 
-            <p
-              class="title ma-0 pa-0"
+          <div> 
+            <h4
+              class="fontTitle font-weight-bold"
             >
-              Contact Information
-            </p>
-            <p
-              class="ma-0 pa-0"
-            >
-              {{Name}}&nbsp;{{Surname}}
-            </p>
-            <p
-              class="ma-0 pa-0"
-            >
-              0{{Mobilenumber}}
-            </p>
+              Contact Information</h4>
+              <v-row class="nContact mx-0 ma-3">
+                <v-col cols="6">
+                  <p
+                    class="ma-0 pa-0 fontDesc"
+                  >
+                    {{usersFName}}&nbsp;{{usersLName}}
+                  </p>
+                </v-col>
+                
+                <v-col cols="6 " class="d-flex justify-end">
+                  <p
+                  class="ma-0 pa-0 fontDesc"
+                  >
+                  {{usersMobileNumber}}
+                  </p>
+                </v-col>  
+            </v-row> 
           </div>
           <div
-            class="pl-5 pt-5"
+            class="pt-4"
           >
-            <p
-              class="title ma-0 pa-0 "
+            <h4
+              class="fontTitle font-weight-bold"
             >
               Delivery Address
-            </p>
+            </h4>
             <div
-              class="d-flex"
+              class="d-flex nDelivery mx-0 ma-3 pa-3 fontDesc"
             >
-              <p>{{Municipality}}&nbsp;</p>
-              <p>{{Barangay}}&nbsp;</p>
-              <p>{{UBarangay}}&nbsp;</p>
-              <p>{{HomeAddress}}&nbsp;</p>
+                <p>{{Municipality}}&nbsp;{{Barangay}}&nbsp;{{UBarangay}}&nbsp;{{HomeAddress}}&nbsp;</p>              
             </div>
-            <div
+            <!-- <div
               class="d-flex justify-end"
             >
               <v-btn
                 class="justify-end"
                 plain
-                color="blue"
+                color="#1106A0"
                 small
                 right
                 @click="changeAddress"
               >
-                Change Adress
+                Change Address
               </v-btn>
-            </div>
+            </div> -->
           </div>
           <div
-            class="pl-5 pt-5"
+            class="pt-4"
           >
-            <p
-              class="title ma-0 pa-0 "
-            >Delivery Fee</p>
-            <div class="pa-5">
+            <h4
+              class="ma-0 pa-0 fontTitle font-weight-bold"
+            >Delivery Fee</h4>
+            <div class="py-2">
               <p>{{Shipping}}</p>
             </div>
           </div>
@@ -76,9 +77,6 @@
 <script>
   export default {
     data: () => ({
-      Name: "",
-      Surname: "",
-      Mobilenumber: "",
       Municipality: "",
       Barangay: "",
       UBarangay: "",
@@ -87,12 +85,18 @@
     }),
 
     computed: {
-      customerInfos() {
-        return this.$store.state.customerInfos;
-      },
       customerAddress() {
         return this.$store.state.customerAddress;
-      }
+      },
+      usersFName(){
+        return localStorage.getItem('firstName');
+      },
+      usersLName(){
+        return localStorage.getItem('lastName');
+      },
+      usersMobileNumber(){
+        return localStorage.getItem('mobileNumber');
+      },
     },
 
     methods: {
@@ -105,30 +109,41 @@
         // console.log(this.customerAddress[0].Default);
         // console.log(this.customerAddress.length);
         for(var i = 0; i < this.customerAddress.length; i++){
-          if(this.customerAddress[i].Default == "True"){
-            this.Municipality = this.customerAddress[i].Municipality;
-            this.Barangay = this.customerAddress[i].Barangay;
-            this.UBarangay = this.customerAddress[i].UnderBarangay;
-            this.HomeAddress = this.customerAddress[i].HomeAddress;
-            this.Shipping = this.customerAddress[i].ShipFee;
+          if(this.customerAddress[i].default == "True"){
+            this.Municipality = this.customerAddress[i].municipality;
+            this.Barangay = this.customerAddress[i].barangay;
+            this.UBarangay = this.customerAddress[i].underBarangay;
+            this.HomeAddress = this.customerAddress[i].homeAddress;
+            this.Shipping = this.customerAddress[i].shipFee;
           }
         }
       }
     },
 
     beforeMount() {
-      //this.getCustomerInfo();
-      console.log(this.customerInfos);
-      console.log(this.customerAddress);
       this.insertAddress()
-      this.Name = this.customerInfos.First_Name;
-      this.Surname = this.customerInfos.Last_Name;
-      this.Mobilenumber = this.customerInfos.Mobile_Number;
-      // this.Municipality = this.customerAddress.Municipality;
-      // this.Barangay = this.customerAddress.Barangay;
-      // this.UBarangay = this.customerAddress.UnderBarangay;
-      // this.HomeAddress = this.customerAddress.HomeAddress;
       
     }
   }
 </script>
+
+<style scoped>
+  .fontTitle{
+    color:#464646;
+  }
+  .fontDesc{
+    color: #787885;
+  }
+
+  .nContact{
+    border: 1px solid #787885;
+    border-radius: 5px;
+    border-right: 1px solid;
+    line-height: 10px;
+  }
+  .nDelivery{
+    border: 1px solid #787885;
+    border-radius: 5px;
+  }
+
+</style>

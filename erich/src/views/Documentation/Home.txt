@@ -1,0 +1,9 @@
+> Get the all the components from compenents folder named Home
+> Check if the header is for visitor or for those customer who have accounts
+> In NavBarPicker Method it will check if the accounts are for Regular Customer, Admin, Encoder, Online Cashier and Physical Cashier
+> Action will begin depends on the result of navbar picker
+
+> Get the components HomeCategoriesItem to show the items
+> beforemount() HomeCategoriesItem will get all the categoryitems stored in database
+> After getting the all the items it will store it in vuex using commit functions
+> Then After storing the items it will show it using iteration

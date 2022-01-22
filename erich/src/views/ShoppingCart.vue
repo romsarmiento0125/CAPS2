@@ -1,11 +1,7 @@
 <template>
-  <div>
-    <!-- <shopcart-header></shopcart-header>
-    <shopcart-items @scItemsEmit="scComponents('ph')"  v-if="scItems"></shopcart-items>
-    <shopcart-placeorder @scPlaceOrderDeliver="scComponents('dl')" @scPlaceOrderPickup="scComponents('pu')" v-else-if="scPlaceOrder"></shopcart-placeorder>
-    <shopcart-deliver v-else-if="scDelivery"></shopcart-deliver>
-    <shopcart-pickup v-else-if="scPickup"></shopcart-pickup>
-    <shopcart-footer></shopcart-footer> -->
+  <div
+  style="background-color:#EDEDF0"
+  >
     <shopcart-header></shopcart-header>
     <shopcart-items @scItemsEmit="scComponents('ph')"  v-if="scItems"></shopcart-items>
     <shopcart-placeorder @scPlaceOrderDeliver="scComponents('dl')" @scPlaceOrderPickup="scComponents('pu')" @scPickupDeliverFalse="scComponents('gg')" v-else-if="scPlaceOrder"></shopcart-placeorder>
@@ -76,3 +72,4 @@
     }
   }
 </script>
+

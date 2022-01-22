@@ -1,0 +1,40 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateCustomerPickupItemsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('customer_pickup_items', function (Blueprint $table) {
+            $table->id();
+            $table->string('invoiceNumber');
+            $table->string('itemName');
+            $table->string('itemDesc');
+            $table->string('itemSize');
+            $table->Integer('quantity');
+            $table->Integer('discount');
+            $table->decimal('retailPrice', 8, 2);
+            $table->string('itemCode');
+            $table->string('itemImage');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('customer_pickup_items');
+    }
+}

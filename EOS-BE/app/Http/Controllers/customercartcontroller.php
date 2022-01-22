@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\customercart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class customercartcontroller extends Controller
 {
@@ -35,56 +36,37 @@ class customercartcontroller extends Controller
      */
     public function store(Request $request)
     {
-        $getAll = customercart::all();
-        $Email = $request->register['Email'];
-        $ItemCode = $request->register['ItemCode'];
-        $validatorEmail = customercart::pluck('Email');
-        $validatorItemCode = customercart::where('Email', $Email)->pluck('ItemCode');
+        // $existingEmail = customercart::find($request->register['Email']);
+        if(isset($request)){
+            $existingId = customercart::where('email', $request->register['Email'])
+            ->where('itemCode', $request->register['ItemCode'])->get('id')->first();
 
-        $emailCond = "true";
-        $itemCodeCond = "true";
+            if(!$existingId){
+                $register = new customercart();
+                $register->email = $request->register['Email'];
+                $register->quantity = $request->register['Quantity'];
+                $register->itemCode = $request->register['ItemCode'];
 
-        foreach($validatorEmail as $value){
-            //$rvalue = $rvalue.$value;
-            if($Email == $value){
-                $emailCond = "false";
-                //$emailCond = $value;
+                $register->save();
+
+                return $register;
             }
-        }
+            else{
+                $existingItem = customercart::find($existingId->id);
+                
+                $existingItem->quantity =  $existingItem->quantity + 1;
 
-        foreach($validatorItemCode as $value){
-            //$rvalue = $rvalue.$value;
-            if($ItemCode == $value){
-                $itemCodeCond = "false";
-                //$itemCodeCond = $value;
+                $existingItem->save();
+
+                return $existingItem;
             }
-        }
-
-        //return $emailCond.$itemCodeCond.$Email.$ItemCode;
-        //return $validatorItemCode;
-
-        if(($emailCond == "true") || ($itemCodeCond == "true")){
-            $register = new customercart();
-
-            $register->Email = $request->register['Email'];
-            $register->Quantity = $request->register['Quantity'];
-            $register->ItemCode = $request->register['ItemCode'];
-
-            $register->save();
-
-            return "addSuccess";
-            
         }
         else{
-            $filtered = $getAll->where('Email', $Email)
-                                ->where('ItemCode', $ItemCode);
-            foreach($filtered as $value){
-                $data = $value;
-            }
-            return $data;
-            //return "this is else";
+            return "false";
         }
+        
 
+        
         
     }
 
@@ -119,37 +101,28 @@ class customercartcontroller extends Controller
      */
     public function update(Request $request, $id)
     {
-        $getData = customercart::all();
-        $dataGet = $request->itemupdate["Email"];
         $existingItem = customercart::find($id);
-        $existingQty = customercart::where('id', $id)->pluck('Quantity');
-        foreach($existingQty as $value){
-            $qty = $value;
-        }
-        $add = $request->itemupdate["Quantity"]+$qty;
 
-        if(true){
-            $existingItem->id = $id;
-            $existingItem->Email = $request->itemupdate["Email"];
-            $existingItem->Quantity = $add;
-            $existingItem->ItemCode = $request->itemupdate["ItemCode"];
-            $existingItem->save();
+        // return $existingItem->id;
 
-            //return $existingItem;
-            return $getData->where('Email', $dataGet)->values();
+        if($existingItem->id == null){
+            $register = new customercart();
+            $register->email = $request->register['Email'];
+            $register->quantity = $request->register['Quantity'];
+            $register->itemCode = $request->register['ItemCode'];
+
+            $register->save();
+
+            return $register;
         }
         else{
-            return "di success";
+            $existingItem->quantity = $existingItem->quantity + 1;
+
+            $existingItem->save();
+
+            return $existingItem;
         }
-        
-
-        // if($existingItem) {
-        //     $existingItem->Quantity = $request->
-        // }
-
-        //return $existingItem;
-       
-    }
+}
 
     /**
      * Remove the specified resource from storage.

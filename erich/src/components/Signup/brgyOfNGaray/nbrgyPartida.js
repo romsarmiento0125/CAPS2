@@ -1,11 +1,8 @@
 const nubrgyPRTDA = [
-  { id: 1, ubrgy:'Eden Ville Subdivision'},
-  { id: 2, ubrgy: 'Eden Ville Subdivision Phase 1'},
-  { id: 3, ubrgy: 'Eden Ville Subdivision Phase 2'},
-  { id: 4, ubrgy: 'PPP Subdivision'},
-  { id: 5, ubrgy: 'Sunjin Road'},
-  { id: 6, ubrgy: 'Tining Street'},
-  { id: 7, ubrgy: 'NorzagarayNewMarket'}
+  { id: 1, ubrgy: 'Eden Ville Subdivision', SFee: "100"},
+  { id: 2, ubrgy: 'Sunjin Road', SFee: "100"},
+  { id: 3, ubrgy: 'Tining Street', SFee: "85"},
+  { id: 4, ubrgy: 'Norzagaray New Market', SFee: "100"}
 ];
 
 export default nubrgyPRTDA;

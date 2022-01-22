@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\erichcustomer;
 
+use Illuminate\Support\Facades\Hash;
+
 class erichcustomercontroller extends Controller
 {
     /**
@@ -36,39 +38,45 @@ class erichcustomercontroller extends Controller
      */
     public function store(Request $request)
     {
-        $func = erichcustomer::pluck('Email');
         $email = $request->register['Email'];
+        $num = $request->register['Mobile_Number'];
 
-        $cond = true;
+        $getEmail = erichcustomer::where('Email', $email)->get()->pluck('Email');
+        $getNum = erichcustomer::where('Mobile_Number', $num)->get()->pluck('Mobile_Number');
+
+        $vemail = count($getEmail);
+        $vnum = count($getNum);
 
         $register = new erichcustomer();
 
-        $register->First_Name = $request->register['First_Name'];
-        $register->Last_Name = $request->register['Last_Name'];
-        $register->Mobile_Number = $request->register['Mobile_Number'];
-        $register->Email = $request->register['Email'];
-        $register->Gender = $request->register['Gender'];
-        $register->Birthday = $request->register['Birthday'];
-        $register->Tag = $request->register['Tag'];
-        $register->Password = $request->register['Password'];
-
-        foreach($func as $value){
-            //$rvalue = $rvalue.$value;
-            if($email == $value){
-                $cond = false;
-            }
+        if($vemail == 1){
+            return "wrongemail";
         }
-
-        if($cond){
-            $register->save();
-            return $register;
+        else if(false){
+            return "wrongnumber";
         }
         else{
-            return "Email Invalid";
-        }
+            $register->first_Name = $request->register['First_Name'];
+            $register->last_Name = $request->register['Last_Name'];
+            $register->mobile_Number = $request->register['Mobile_Number'];
+            $register->email = $request->register['Email'];
+            $register->gender = $request->register['Gender'];
+            $register->birthday = $request->register['Birthday'];
+            $register->tag = $request->register['Tag'];
+            $register->status = 'Active';
+            $register->password = Hash::make($request->register['Password']);
+            $register->save();
 
-        
-        return "hinde";
+            return $register;
+        }   
+
+        // if($cond){
+        //     //$register->save();
+        //     return $register;
+        // }
+        // else{
+        //     return "emailInvalid";
+        // }
     }
 
     /**

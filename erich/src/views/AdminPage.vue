@@ -26,6 +26,14 @@
 
           <v-divider></v-divider>
 
+          <div>
+            <v-btn
+              @click="sideBarPicker"
+            >
+              Refresh
+            </v-btn>
+          </div>
+
           <v-list>
             <v-list-item
               v-for="link in links"
@@ -73,40 +81,6 @@
           </v-container>
         </v-main>
       </v-app>
-
-      <!-- <h1>This is admin page container</h1>
-      <v-btn
-        color="primary"
-        :to="{name: 'Admin' , params: { id: 'dashboard', title: 'DashBoard'}}"
-        @click="adminSidebar('as')"
-      >
-        Dashboard
-      </v-btn>
-      <v-btn
-        color="primary"
-        :to="{name: 'Admin' , params: { id: 'transactions', title: 'Transactions'}}"
-        @click="adminSidebar('at')"
-      >
-        Transactions
-      </v-btn>
-      <v-btn
-        color="primary"
-        :to="{name: 'Admin' , params: { id: 'inventory', title: 'Inventory'}}"
-        @click="adminSidebar('ai')"
-      >
-        Inventory
-      </v-btn>
-      <v-btn
-        color="primary"
-        :to="{name: 'Admin' , params: { id: 'management', title: 'Management'}}"
-        @click="adminSidebar('am')"
-      >
-        Admin Management
-      </v-btn>
-      <admin-transactions v-if="aTransactions"></admin-transactions>
-      <admin-inventory v-else-if="aInventory"></admin-inventory>
-      <admin-management v-else-if="aManagement"></admin-management>
-      <admin-dashboard v-else></admin-dashboard> -->
     </div>
   </div>
 </template>
@@ -119,9 +93,11 @@
   import AdminInventoryItems from '../components/Admin/AdminInventoryItems.vue'
   import AdminSupplierList from '../components/Admin/AdminSupplierList.vue'
   import AdminManagement from '../components/Admin/AdminManagement.vue'
+  import {Mixins} from '../Mixins/mixins.js'
 
   export default{
     name: 'Admin',
+    mixins: [Mixins],
 
     components: {
       'admin-dashboard': AdminDashboard,
@@ -141,16 +117,17 @@
       aInventory: false,
       aManagement: false,
       aSupplierList: false,
-      links: [
-        {id: 1, AdminName: 'Dashboard', AdminCondition: 'as', Admin: 'Admin', AdminId: 'dashboard', AdminTitle: 'Dashboard'},
-        {id: 2, AdminName: 'Online Sales', AdminCondition: 'aon', Admin: 'Admin', AdminId: 'onlinesales', AdminTitle: 'Online Sales'},
-        {id: 3, AdminName: 'Offline Sales', AdminCondition: 'aof', Admin: 'Admin', AdminId: 'offlinesales', AdminTitle: 'Offline Sales'},
-        {id: 4, AdminName: 'Transactions', AdminCondition: 'at', Admin: 'Admin', AdminId: 'transaction', AdminTitle: 'Transaction'},
-        {id: 5, AdminName: 'Inventory', AdminCondition: 'ai', Admin: 'Admin', AdminId: 'inventory', AdminTitle: 'Inventory'},
-        {id: 6, AdminName: 'Supplier List', AdminCondition: 'asl', Admin: 'Admin', AdminId: 'supplierlist', AdminTitle: 'Supplier List'},
-        {id: 7, AdminName: 'Admin Management', AdminCondition: 'am', Admin: 'Admin', AdminId: 'management', AdminTitle: 'Management'},
-      ],
+      links: [],
     }),
+
+    computed: {
+      usersTag(){
+        return localStorage.getItem('tag');
+      },
+      usersToken(){
+        return localStorage.getItem('token');
+      },
+    },
 
     methods: {
       adminSidebar(cond){
@@ -225,7 +202,90 @@
           this.aSupplierList = false;
           this.aManagement =false;
         }
+      },
+      sideBarPicker(){
+        var l1 = {id: 1, AdminName: 'Dashboard', AdminCondition: 'as', Admin: 'Admin', AdminId: 'dashboard', AdminTitle: 'Dashboard'};
+        var l2 = {id: 2, AdminName: 'Online Sales', AdminCondition: 'aon', Admin: 'Admin', AdminId: 'onlinesales', AdminTitle: 'Online Sales'};
+        var l3 = {id: 3, AdminName: 'Offline Sales', AdminCondition: 'aof', Admin: 'Admin', AdminId: 'offlinesales', AdminTitle: 'Offline Sales'};
+        var l4 = {id: 4, AdminName: 'Transactions', AdminCondition: 'at', Admin: 'Admin', AdminId: 'transaction', AdminTitle: 'Transaction'};
+        var l5 = {id: 5, AdminName: 'Inventory', AdminCondition: 'ai', Admin: 'Admin', AdminId: 'inventory', AdminTitle: 'Inventory'};
+        var l6 = {id: 6, AdminName: 'Supplier List', AdminCondition: 'asl', Admin: 'Admin', AdminId: 'supplierlist', AdminTitle: 'Supplier List'};
+        var l7 = {id: 7, AdminName: 'Admin Management', AdminCondition: 'am', Admin: 'Admin', AdminId: 'management', AdminTitle: 'Management'};
+
+        this.links = [];
+
+        if(this.usersTag == "Admin"){
+          this.links.push(l1);
+          this.links.push(l2);
+          this.links.push(l3);
+          this.links.push(l4);
+          this.links.push(l5);
+          this.links.push(l6);
+          this.links.push(l7);
+          axios.get(this.getDomain()+'api/customercompleteitems',
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
+          .then(res => {
+            // console.log(res.data);
+            this.$store.commit('adminDataDeliver', res.data);
+          })
+          .catch(err => console.error(err));
+
+          axios.get(this.getDomain()+'api/customerpickupcomplete',
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
+          .then(res => {
+            // console.log(res.data);
+            this.$store.commit('adminDataPickup', res.data);
+          })
+          .catch(err => console.error(err));
+
+          axios.get(this.getDomain()+'api/physicalorder',
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
+          .then(res => {
+            // console.log(res.data);
+            this.$store.commit('adminDataPhysical', res.data);
+          })
+          .catch(err => console.error(err));
+
+          axios.get(this.getDomain()+'api/addstaff',
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
+          .then(res => {
+            // console.log(res.data);
+            this.$store.commit('allPeople', res.data);
+          })
+          .catch(err => console.error(err));
+        }
+        else if(this.usersTag == "Encoder"){
+          this.links.push(l5);
+          this.links.push(l6);
+          this.aDashboard = false,
+          this.aOnlineSales = false,
+          this.aOfflineSales = false;
+          this.aTransactions = false;
+          this.aInventory = true;
+          this.aSupplierList = false;
+          this.aManagement = false;
+        }
       }
-    }
+    },
+    beforeMount(){
+      this.sideBarPicker();
+      
+    },
   }
 </script>

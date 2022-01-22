@@ -7,19 +7,24 @@
       >
         <v-row>
           <v-col
-            offset="4"
-            cols="4"
+            offset-xl="4"
+            offset-lg="4"
+            offset-md="3"
+            xl="4"
+            lg="4"
+            md="6"
+            cols="12"
           >
             <v-card
               class="rounded-xl pa-12"
             >
               <v-card-title
-                class="font-weight-black pt-0"
+                class="font-weight-black pt-0 pl-0 text-h5 fontTitle"
               >
                 Registered Customer
               </v-card-title>
               <v-card-subtitle
-                class=""
+                class="pl-0"
               >
                 If you have an account, sign in with your number or email address
               </v-card-subtitle>
@@ -54,18 +59,26 @@
               <v-card-text
                 class="d-flex justify-end py-0 mt-n3"
               >
-                <a
-                  href=""
-                  class=""
+                <v-btn
+                  plain
+                  x-small
+                  @click="forgotPassword"
                 >
-                  Forgot Your Password?
-                </a>
+                  <p
+                    class="pb-1 indigo--text text--darken-4 my-0"
+                    
+                  >
+                    Forgot Your Password?
+                  </p>
+                </v-btn>
               </v-card-text>
 
               <v-btn
-                class="rounded-lg"
-                color="primary"
+                dark
+                class="rounded-lg px-10"
+                color="#1106A0"
                 @click="userLogin"
+                
               >
                 Sign in
               </v-btn>
@@ -78,13 +91,17 @@
 
 <script>
   import LoginHeader from '../components/Login/LoginHeader.vue'
+  import {Mixins} from '../Mixins/mixins.js'
 
   export default {
+    mixins: [Mixins],
     name: 'Login',
 
     data: () => ({
       usersData: {
-        usersEmail: "paul@gmail.com",
+        // usersEmail: "",
+        // usersPassword: ""
+        usersEmail: "sarmientopaulo01@gmail.com",
         usersPassword: "@Admin123"
       }
     }),
@@ -94,41 +111,54 @@
     },
 
     methods: {
+      forgotPassword(){
+        this.$store.commit('notifCond', 'forgotPass');
+        this.$router.push("/erich");
+      },
       userLogin() {
-        console.log("login");
-        // axios.post('', {
-        //   userLogin: this.usersData
-        // })
-        // .then(res => this.accCreateSuccess(res.data))
-        // .catch(err => console.error(err));
-
-        axios.post('http://127.0.0.1:8000/api/customerlogin/store',{
+        axios.post(this.getDomain()+'api/customerlogin',{
           clientCred: this.usersData
         })
-        .then(res => this.loginSuccess(res.data))
+        .then(res => {
+          this.loginSuccess(res.data)
+          // console.log(res.data);
+        })
         .catch(err => console.error(err));
         
       },
       loginSuccess(cinfo) {
-        console.log(cinfo);
-        if(cinfo == "InvalidCredentials"){
+        // console.log("login Success");
+        if(cinfo.status){
           alert("Invalid Credentials");
         }
         else{
-          axios.post('http://127.0.0.1:8000/api/loginaddress/store',{
+          // console.log(cinfo);
+          localStorage.setItem("id", cinfo.user.id);
+          localStorage.setItem("firstName", cinfo.user.first_Name);
+          localStorage.setItem("lastName", cinfo.user.last_Name);
+          localStorage.setItem("email", cinfo.user.email);
+          localStorage.setItem("mobileNumber", cinfo.user.mobile_Number);
+          localStorage.setItem("birthday", cinfo.user.birthday);
+          localStorage.setItem("gender", cinfo.user.gender);
+          localStorage.setItem("tag", cinfo.user.tag);
+          localStorage.setItem("token", cinfo.token);
+
+          axios.post(this.getDomain()+'api/loginaddress/store',{
             clientCred: this.usersData
           })
-          .then(res => this.saveInfos(res.data, cinfo))
-          //.then(res => console.log(res.data))
+          .then(res => {
+            // console.log(res.data);
+            this.$store.commit('storeCustomerAddress', res.data);
+          })
           .catch(err => console.error(err));
+          this.$router.push("/");
         }
       },
-      saveInfos(data, cinfo) {
-        console.log(data);
-        this.$store.commit('storeCustomerAddress', data);
-        this.$store.commit('storeCustomerInfo', cinfo);
-        this.$router.push('/');
-      }
     }
   }
 </script>
+<style scoped>
+.fontTitle{
+  color: #464646;
+}
+</style>

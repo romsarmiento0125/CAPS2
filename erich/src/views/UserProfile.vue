@@ -7,43 +7,51 @@
     >
       <v-row>
         <v-col
-          offset="1"
-          cols="1"
+          offset-xl="2"
+          xl="1"
+          lg="2"
+          md="2"
         >
           <v-sheet
             color="white"
             elevation="1"
-            height="100%"
+            height="200px"
             width="100%"
           >
-            <div>
+            <div class="py-7">
               <v-btn
+                
                 @click="profileCond('mp')"
                 plain
               >
-                My Profile
+                <h3 class="no-uppercase"> My Profile </h3>
               </v-btn>
               <v-btn
                 @click="profileCond('mad')"
                 plain
               >
-                My Address
+                <h3 class="no-uppercase"> My Address </h3>
               </v-btn>
               <v-btn
                 @click="profileCond('mo')"
                 plain
               >
-                My Orders
+                <h3 class="no-uppercase"> My Orders </h3>
               </v-btn>
               <v-btn
                 plain
+                @click="profileCond('log')"
               >
-                Logout
+                <h3 class="no-uppercase"> Logout </h3>
               </v-btn>
             </div>
           </v-sheet>
         </v-col>
-        <v-col>
+        <v-col
+          xl="7"
+          lg="10"
+          md="10"
+        >
           <profile-myprofile v-if="mProfile"></profile-myprofile>
           <profile-myaddress v-else-if="mAddress"></profile-myaddress>
           <profile-myorders v-else-if="mOrders"></profile-myorders>
@@ -58,8 +66,11 @@
   import ProfileMyProfile from '../components/UserProfiles/ProfileMyProfile.vue'
   import ProfileMyAdress from '../components/UserProfiles/ProfileMyAddress.vue'
   import profileMyOrders from '../components/UserProfiles/ProfileMyOrders.vue'
+  import {Mixins} from '../Mixins/mixins.js'
 
   export default {
+    mixins: [Mixins],
+
     components: {
       'profile-header': ProfileHeader,
       'profile-myprofile': ProfileMyProfile,
@@ -73,12 +84,21 @@
       goToOrder() {
         return this.$store.state.userOrder;
       },
+      usersEmail(){
+        return localStorage.getItem('email');
+      },
+      usersToken(){
+        return localStorage.getItem('token');
+      },
     },
 
     data: () => ({
       mProfile: true,
       mAddress: false,
       mOrders: false,
+      usersData: {
+        usersEmail: "",
+      }
     }),
 
     methods: {
@@ -87,6 +107,7 @@
           this.mProfile = true;
           this.mAddress = false;
           this.mOrders = false;
+
         }
         else if(cond == "mad"){
           this.mProfile = false;
@@ -99,16 +120,136 @@
           this.mOrders = true;
         }
         else{
-          this.mProfile = true;
-          this.mAddress = false;
-          this.mOrders = false;
+            localStorage.removeItem("firstName");
+            localStorage.removeItem("lastName");
+            localStorage.removeItem("email");
+            localStorage.removeItem("mobileNumber");
+            localStorage.removeItem("birthday");
+            localStorage.removeItem("gender");
+            localStorage.removeItem("tag");
+            localStorage.removeItem("token");
+            window.location.href = "http://localhost:8080/";
+            // window.location.href = "http://erichgrocery.store/";
         }
-      }
+
+      },
+      getUserOrder() {
+        axios.post(this.getDomain()+'api/userorder/store', {
+            register: this.usersEmail
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
+          .then(res => {
+            // console.log(res.data);
+            this.$store.commit('storeUserProfileOrders', res.data);
+          })
+          .catch(err => console.error(err));
+      },
+      getUserOrderDeliver() {
+        axios.post(this.getDomain()+'api/userorderdelivery/store', {
+            register: this.usersEmail
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
+          .then(res => {
+            // console.log(res.data);
+            this.$store.commit('storeUserToDeliver', res.data);
+          })
+          .catch(err => console.error(err));
+      },
+      getUserOrderComplete() {
+        axios.post(this.getDomain()+'api/userordercomplete/store', {
+            register: this.usersEmail
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
+          .then(res => {
+            // console.log(res.data);
+            this.$store.commit('storeUserToComplete', res.data);
+          })  
+          .catch(err => console.error(err));
+      },
+      getUserPickup() {
+        axios.post(this.getDomain()+'api/userorderpickup/store', {
+            register: this.usersEmail
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
+          .then(res => {
+            // console.log(res.data);
+            this.$store.commit('storeUserPickupOrders', res.data);
+          })  
+          .catch(err => console.error(err));
+      },
+      getUserPickupPickup() {
+        axios.post(this.getDomain()+'api/userpickuppickup/store', {
+            register: this.usersEmail
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
+          .then(res => {
+            // console.log(res.data);
+            this.$store.commit('storeUserPickupToPickup', res.data);
+          })  
+          .catch(err => console.error(err));
+      },
+      getUserPickupComplete() {
+        axios.post(this.getDomain()+'api/userpickupcomplete/store', {
+            register: this.usersEmail
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
+          .then(res => {
+            // console.log(res.data);
+            this.$store.commit('storeUserPickupToComplete', res.data);
+          })  
+          .catch(err => console.error(err));
+      },
+      getUserAddress() {
+        this.usersData.usersEmail = this.usersEmail;
+        axios.post(this.getDomain()+'api/loginaddress/store',{
+          clientCred: this.usersData
+        })
+        .then(res => {
+          console.log(res.data);
+          this.$store.commit('storeCustomerAddress', res.data);
+        })
+        .catch(err => console.error(err));
+      },
+      callOrders(){
+        this.getUserOrder();
+        this.getUserOrderDeliver();
+        this.getUserOrderComplete();
+        this.getUserPickup();
+        this.getUserPickupPickup();
+        this.getUserPickupComplete();
+        this.getUserAddress();
+      },
     },
 
     beforeMount() {
-      console.log("user profile");
-      console.log(this.goToAddress);
+      this.callOrders();
+      //console.log("user profile");
+      //console.log(this.goToAddress);
+      
       if(this.goToAddress){
         this.mProfile = false;
         this.mAddress = true;
@@ -123,3 +264,13 @@
     }
   }
 </script>
+
+<style scoped>
+.fontBlue{
+  color:#1106A0;
+}
+.no-uppercase{
+ text-transform: none;
+}
+
+</style>

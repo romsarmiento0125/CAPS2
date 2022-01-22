@@ -1,9 +1,5 @@
 const subrgyLLKHN = [
-  { id: 1 , ubrgy: 'LalakhanRoad'},
-  { id: 2, ubrgy: 'NarraStreet'},
-  { id: 3, ubrgy: 'SitioLawa'},
-  { id: 4, ubrgy: 'SitioLotte'},
-  { id: 5, ubrgy: 'St.ClaireVilleSubdivision'},
+  { id: 1, ubrgy: 'Narra Street', SFee:"120"},
 ];
 
 export default subrgyLLKHN;

@@ -7,8 +7,7 @@
       <v-container fluid>
         <v-row>
           <v-col
-            offset="1"
-            cols="5"
+            cols="12"
           >
             <div
               class="d-flex"
@@ -19,15 +18,16 @@
                 <v-img
                   contain
                   src="../../assets/ERICH.svg"
-                  max-height="100px"
-                  max-width="100px"
+                  max-height="120px"
+                  max-width="120px"
+                  class="mr-1"
                 ></v-img>
               </router-link>
               <v-divider
                 vertical
               ></v-divider>
               <p
-                class="text-h4 ml-4"
+                class="text-h5 my-0 ml-3 pt-1 grey--text text--darken-1"
               >Shopping cart</p>
             </div>
           </v-col>

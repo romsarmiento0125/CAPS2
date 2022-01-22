@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Test from '../views/TestViews.vue'
 import Login from '../views/Login.vue'
 import Signup from '../views/Signup.vue'
 import AdminPage from '../views/AdminPage.vue'
@@ -10,15 +9,13 @@ import StoreOrders from '../views/StoreOrders.vue'
 import HomeItems from '../views/HomeItems.vue'
 import Profiles from '../views/UserProfile.vue'
 import OnlineCashier from '../views/OnlineCashier.vue'
+import PhysicalCashier from '../views/PhysicalCashier.vue'
+import MiscFunctions from '../views/MiscFunction.vue'
+import About from '../views/About.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/test',
-    name: 'test',
-    component: Test
-  },
   {
     path: '/',
     name: 'Home',
@@ -64,6 +61,21 @@ const routes = [
     name: 'OnlineCashier',
     component: OnlineCashier
   },
+  {
+    path: '/physicalcashier',
+    name: 'PhysicalCashier',
+    component: PhysicalCashier
+  },
+  {
+    path: '/erich',
+    name: 'Erich',
+    component: MiscFunctions
+  },
+  {
+    path: '/about',
+    name: 'About',
+    component: About
+  }
   // {
   //   path: '/about',
   //   name: 'About',
@@ -75,12 +87,12 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  routes,
-  mode: 'history'
+  mode: "history",
+  routes
 })
 
 router.beforeEach((to, from, next) => {
-  console.log(to)
+  //console.log(to)
   let documentTitle = `${ process.env.VUE_APP_TITLE } - ${ to.name }`
   if(to.params.title){
     documentTitle += ` - ${ to.params.title }`

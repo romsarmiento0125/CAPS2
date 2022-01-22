@@ -1,16 +1,20 @@
 <template>
   <div
-    class=" d-none d-sm-flex mt-15 pt-15"
+    class="mt-15 pt-15"
   >
+  
     <v-container fluid>
       <v-row>
         <v-col
-          offset="1"
-          cols="10"
+          offset-xl="1"
+          xl="10"
+          lg="12"
+          md="12"
+          cols="12"
         >
           <v-carousel
             v-model="model"
-            class="rounded-xl"
+            class="rounded-xl color=black"
             height="29vw"
             hide-delimiters
             hide-delimiter-background
@@ -35,17 +39,18 @@
 
 <script>
   export default {
+
    data: () => ({
       model: 0,
       items: [
         {
-          src: 'carousel1.jpg',
+          src: 'carouselFinal1.jpg',
         },
         {
-          src: 'carousel1.jpg',
+          src: 'carouselFinal2.jpg',
         },
         {
-          src: 'carousel1.jpg',
+          src: 'carouselFinal3.png',
         },
       ],
     }) 

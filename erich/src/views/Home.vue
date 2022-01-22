@@ -4,8 +4,8 @@
     <home-header-acc v-else></home-header-acc>
     <home-carousel></home-carousel>
     <home-categories></home-categories>
-    <!-- <categories-item></categories-item> -->
-    <home-promodeals></home-promodeals>
+    <home-categories-item></home-categories-item>
+    <!-- <home-promodeals></home-promodeals> -->
     <home-footer></home-footer>
   </div>
 </template>
@@ -18,9 +18,12 @@
   import Footer from "../components/Footer.vue";
   import HomeHeaderAcc from "../components/Home/HomeHeaderAccount.vue";
 
-  import CategoriesItem from '../components/HomeItems/CategoriesItem.vue'
+  import HomeCategoriesItem from '../components/HomeItems/HomeCategoriesItem.vue'
+
+  import {Mixins} from '../Mixins/mixins.js'
 
   export default {
+    mixins: [Mixins],
     name: "Home",
 
     components: {
@@ -30,56 +33,46 @@
       "home-promodeals": HomePromoDeals,
       "home-footer": Footer,
       "home-header-acc": HomeHeaderAcc,
-      'categories-item': CategoriesItem,
+      'home-categories-item': HomeCategoriesItem,
     },
 
     data: () => ({
       promodeals: true,
       categoriesItem: false,
       headerCond: true,
+      usersData: {
+        usersEmail: "",
+        usersPassword: "",
+      }
     }),
 
     computed: {
-      customerInfos() {
-        return this.$store.state.customerInfos;
-      },
       categoryItems() {
         return this.$store.state.categoryItems;
       },
+      customerCredentials() {
+        return this.$store.state.customerCredentials;
+      },
+      usersTag(){
+        return localStorage.getItem('tag');
+      }
     },
 
     methods: {
       navbarPicker() {
-        //console.log("navbar picker");
-        //console.log(this.customerInfos.Tag);
-        if(this.customerInfos.Tag == "Customer" || this.customerInfos.Tag == "Admin"||
-          this.customerInfos.Tag == "Ocashier"|| this.customerInfos.Tag == "Pcashier"|| this.customerInfos.Tag == "Encoder"){
+        if(this.usersTag == "Customer" || this.usersTag == "Unverified" || this.usersTag == "Admin" || this.usersTag == "Encoder"){
           this.headerCond = false;
-          //console.log("headerCond false");
+        }
+        else if(this.usersTag == "Ocashier"){
+          this.$router.push("/onlinecashier")
+        }
+        else if(this.usersTag == "Pcashier"){
+          this.$router.push("/physicalcashier")
         }
       },
-      getCategoryItems() {
-        //console.log("Get Items");
-        axios.get('http://127.0.0.1:8000/api/categoryitem')
-        .then(res => this.storeCategoryItems(res.data))
-        .catch(err => console.error(err));
-      },
-      storeCategoryItems(data) {
-        //console.log("This is items data: ");
-        //console.log(data);
-        this.$store.commit('storeCategoryItem', data);
-        this.showItems();
-      },
-      showItems() {
-        //console.log("showItems: ");
-        //console.log(this.categoryItems);
-        //this.items = this.categoryItems;
-      },
     },
-
     beforeMount() {
       this.navbarPicker();
-      this.getCategoryItems();
     },
   }
 </script>

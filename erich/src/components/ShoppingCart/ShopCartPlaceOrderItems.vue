@@ -1,105 +1,179 @@
 <template>
   <div>
-    <v-container fluid>
+    <v-container
+      fluid
+      class="con"
+    >
       <v-row>
         <v-col
-          offset=""
-          cols=""
-          class=""
+          offset="1"
+          cols="10"
+          class="mx-15 mb-5 pa-0"
         >
-          <v-list>
-            <v-list-item-group
+          <div
+            class=""
+          >
+            <v-list
+              color=""
+              class="ma-0 pa-0"
             >
-              <v-list-item
-                v-for="item in items"
-                :key="item.id"
+              <v-list-item-group
               >
-                <v-list-item-content
-                  class="border ma-2 rounded-lg"
+                <v-simple-table
+                  height="400px"
                 >
-                  <v-row
+                  <v-list-item
+                    v-for="item in items"
+                    :key="item.id"
+                    class="ma-0 pa-0"
                   >
-                    <v-col
-                      cols=""
+                    <v-list-item-content
                     >
-                      <div
-                        class="d-flex align-center"
+                      <v-row
                       >
-                        <v-img
-                          height="120px"
-                          width="120px"
-                          contain
-                          :src="require('../../assets/'+item.item_image)"
-                        ></v-img>
-                        <v-list-item-title>
+                        <v-col
+                          cols="8"
+                          class="ma-0 pa-0"
+                        >
                           <div
-                            class="d-flex"
+                            class="d-flex ma-2"
+                            
                           >
                             <div
-                              class="ma-5 pa-5"
+                              class="d-flex"
                             >
-                              <span>{{item.item_name}}</span>
-                              <br>
-                              <span>{{item.item_desc}}</span>
+                              <div
+                                class="imgbg ma-1 pa-0"
+                              >
+                                <v-img
+                                  height="100px"
+                                  width="100px"
+                                  contain
+                                  :src="require('../../assets/itemPhotos/'+item.item_image)"
+                                ></v-img>
+                              </div>
+                            
+                           
+                              <div
+                                class="d-flex align-center"
+                              >
+                                <span class="ma-3">{{item.item_name}}</span>
+                                &nbsp;
+                                <span>{{item.item_desc}}</span>
+                              </div>
                             </div>
+                      
+                            
+                        
+                          </div>
+                        </v-col>
+                        <v-col
+                          cols="4"
+                          class="d-flex justify-end"
+                        >
+                          <div
+                            class="d-flex align-center mr-6"
+                          >
                             <div
-                              class="ma-5 pa-5"
+                              class=""
                             >
-                              <span>{{priceRound(item.item_price * item.item_quantity)}}</span>
+                              <span>{{item.item_quantity}}&nbsp;x&nbsp;{{priceRound(item.item_price - ((item.item_discount / 100) * item.item_price))}}</span>
                               <br>
-                              <span>{{item.item_quantity}}</span>
+                              <span
+                                class="title fontNum"
+                              >P&nbsp;{{priceRound((item.item_price - ((item.item_discount / 100) * item.item_price)) * item.item_quantity)}}</span>
                             </div>
                           </div>
-                        </v-list-item-title>
-                      </div>
-                    </v-col>
-                  </v-row>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list-item-group>
-          </v-list>
-        </v-col>
-      </v-row>
-      <v-divider></v-divider>
-      <v-row>
-        <v-col>
-          <div
-            class="d-flex"
-          >
-             <p
-              class="title"
-            >Subtotal</p>
-            <v-spacer></v-spacer>
-            <p
-              class="title"
-            >{{subTotPrice}}</p>
-          </div>
-          <div
-             class="d-flex"
-          >
-            <p
-              class="title"
-            >Shipping</p>
-            <v-spacer></v-spacer>
-             <p
-              class="title"
-            >{{shipFee}}</p>
+                        </v-col>
+                      </v-row>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-simple-table>
+              </v-list-item-group>
+            </v-list>
           </div>
         </v-col>
       </v-row>
       <v-divider></v-divider>
-      <v-row>
-        <v-col>
+      <v-row
+        class="mt-3 mr-2"
+      >
+        <v-col
+          offset="1"
+          cols="10"
+        >
           <div
             class="d-flex"
           >
-            <p
-              class="title"
-            >Total</p>
+            <v-row>
+              <v-col cols="6">
+                 <h4
+                  class="font-weight-bold fontNum"
+                >Subtotal</h4>
+              </v-col>
+
+              <v-col cols="6" class="d-flex justify-end">
+                <div class="d-flex">
+                  <v-icon
+                  size="15px"
+                  class="px-1"
+                  >
+                      mdi-currency-php
+                  </v-icon>
+
+                  <h4
+                      class="font-weight-regular"
+                    >{{priceRound(subTotPrice)}}</h4>
+                </div>
+              </v-col>
+            </v-row>
+            
+          </div>
+
+          <div
+             class="d-flex my-2 mb-5"
+          >
+            <h4
+              class="font-weight-bold fontNum"
+            >Shipping Method</h4>
             <v-spacer></v-spacer>
-            <p
-              class="title"
-            >{{totPrice}}</p>
+
+             <h4
+              class="font-weight-regular"
+            >{{shipFee}}</h4>
+          </div>
+        </v-col>
+      </v-row>
+      <v-divider></v-divider>
+      <v-row>
+        <v-col
+          offset="1"
+          cols="10"
+        >
+          <div
+            class="d-flex mr-4 mt-2"
+          >
+          <v-row>
+            <v-col cols="6">
+               <h3
+                  class="title fontBlue"
+                >Total</h3>
+            </v-col>
+            <v-col cols="6" class="d-flex justify-end">
+              <div class="d-flex">
+                <v-icon 
+                class="px-1"
+                size="20px"
+                color="#1106A0"
+                >
+                  mdi-currency-php
+                </v-icon>
+                <h3
+                  class="title fontBlue"
+                >{{priceRound(totPrice)}}</h3>
+              </div>
+            </v-col>
+          </v-row>
           </div>
         </v-col>
       </v-row>
@@ -126,9 +200,6 @@
       },
       cartItems() {
         return this.$store.state.cartItems;
-      },
-      customerInfos() {
-        return this.$store.state.customerInfos;
       },
       customerAddress() {
         return this.$store.state.customerAddress;
@@ -166,15 +237,18 @@
         // console.log(this.cartItems.length);
 
         for(var i = 0; i < this.cartItems.length; i++){
-          item = {id: i,
+          item = {id: this.cartItems[i].id,
             item_name: this.cartItems[i].item_name,
             item_desc: this.cartItems[i].item_desc,
+            item_size: this.cartItems[i].item_size,
             item_code: this.cartItems[i].item_code,
             item_quantity: this.cartItems[i].item_quantity,
             item_price: this.cartItems[i].item_price,
-            item_image: this.cartItems[i].item_image}
+            item_image: this.cartItems[i].item_image,
+            item_discount: this.cartItems[i].item_discount
+            }
             this.items.push(item);
-            this.subTotPrice = this.subTotPrice + (this.cartItems[i].item_quantity * this.cartItems[i].item_price * 1);
+            this.subTotPrice = (this.subTotPrice + ((this.cartItems[i].item_quantity * this.cartItems[i].item_price * 1) - ((this.cartItems[i].item_quantity * this.cartItems[i].item_price * 1) * (this.cartItems[i].item_discount / 100) )));
         }
         this.findShipFee();
       },
@@ -189,26 +263,48 @@
         }
         else{
           for(var i = 0; i < this.customerAddress.length; i++){
-            if(this.customerAddress[i].Default == "True"){
-              if(this.customerAddress[i].ShipFee == "Free"){
+            if(this.customerAddress[i].default == "True"){
+              if(this.customerAddress[i].shipFee == "Free"){
                 this.totPrice = this.subTotPrice;
-                this.shipFee = this.customerAddress[i].ShipFee;
+                this.shipFee = this.customerAddress[i].shipFee;
               }
               else{
-                this.shipFee = this.customerAddress[i].ShipFee;
-                this.totPrice = this.subTotPrice + (this.customerAddress[i].ShipFee * 1);
+                this.shipFee = this.customerAddress[i].shipFee;
+                this.totPrice = this.subTotPrice + (this.customerAddress[i].shipFee * 1);
               }
             }
           }
         }
-        
+        // console.log("items");
+        // console.log(this.items);
+        this.$store.commit('storeCustomerItems', this.items);
       }
     },
 
     beforeMount(){
       this.showCartItems();
-      console.log(this.customerAddress);
+      // console.log("Cart Items");
+      // console.log(this.cartItems);
+      //console.log(this.customerAddress);
     }
     
   }
 </script>
+
+<style scoped>
+  .con *{
+    background-color: transparent;
+  }
+  .imgbg{
+    border: 1px solid #787885;
+    border-radius: 5px;
+    background-color: white;
+  }
+  .fontNum{
+    color: #464646;
+  }
+  .fontBlue{
+    color: #1106A0;
+  }
+
+</style>

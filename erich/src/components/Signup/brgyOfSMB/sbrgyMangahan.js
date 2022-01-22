@@ -1,10 +1,9 @@
 const subrgyMNGHN = [
-  { id: 1, ubrgy: 'New Manggahan Industrial compound'},
-  { id: 2, ubrgy: 'Sta Maria Pandi Road'},
-  { id: 3, ubrgy: 'S.Crus Street'},
-  { id: 4, ubrgy: 'Be.DeGuzmanStreet'},
-  { id: 5, ubrgy: 'BakabakahanRoad'},
-  { id: 6, ubrgy: 'VillaTierraSubdivision'},
+  { id: 1, ubrgy: 'Sta Maria Pandi Road', SFee:"85"},
+  { id: 2, ubrgy: 'S.Crus Street', SFee:"100"},
+  { id: 3, ubrgy: 'E.DeGuzmanStreet', SFee:"100"},
+  { id: 4, ubrgy: 'Bakabakahan Road', SFee:"100"},
+  { id: 5, ubrgy: 'Villa Tierra Subdivision', SFee:"85"},
 ];
 
 export default subrgyMNGHN;

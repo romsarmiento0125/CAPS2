@@ -10,7 +10,10 @@
           <!-- Store Logo -->
           <v-col
             class="d-flex align-center"
-            offset="1"
+            offset-xl="1"
+            xl="2"
+            lg="2"
+            md="2"
             cols="2"
           >
             <router-link
@@ -19,8 +22,9 @@
               <v-img
                 contain
                 src="../../assets/ERICH.svg"
-                max-height="100px"
-                max-width="100px"
+                max-height="120px"
+                max-width="120px"
+                class="pb-1"
               >
                 <a href="/"></a>
               </v-img>
@@ -30,18 +34,40 @@
           <!-- Header Search Bar -->
           <v-col
             class="d-flex align-center"
-            cols="6"
+            xl="6"
+            lg="7"
+            md="7"
+            cols="7"
           >
+  
             <v-text-field
-              append-icon="mdi-magnify"
+              class="py-2"
+              color="#1106A0"
               hide-details="auto"
               outlined
+              prepend-inner-icon="mdi-magnify"
               dense
-              height="small"
               background-color="white"
               placeholder="Search for entire store here.."
+              v-model="searchKey"
+              v-on:keyup="toSearch(searchKey)"
             >
             </v-text-field>
+              <!-- <v-btn
+                class="my-0 py-0"
+                outlined
+                color="black"
+                large
+                max-height="40px"
+              >
+                <v-icon
+                  
+                >
+                  mdi-magnify
+                </v-icon>
+              </v-btn> -->
+            
+            
             <v-btn
               height="auto"
               dark
@@ -50,9 +76,9 @@
             >
               <v-icon
                 large
-                color="blue"
+                color="#1106A0"
               >
-                mdi-cart-outline
+                mdi-cart
               </v-icon>
               <span
                 class="white--text"
@@ -64,29 +90,43 @@
 
           <!-- Header Buttons -->
           <v-col
-            class="d-flex align-center"
-            cols="2"
+            class="d-flex align-center justify-end"
+            xl="2"
+            lg="3"
+            md="3"
+            cols="3"
           >
             <div
-              class="d-flex"
+              class="d-flex 
+              ml-10 
+              qfont 
+              "
             >
-                <v-btn
+                <!-- <v-btn
                 white
                 text
               >
-                <v-icon>mdi-bell-outline</v-icon>
-              </v-btn>
+                <v-icon
+                
+                medium
+                color="#1106A0"
+                class="ev"
+                >mdi-bell</v-icon>
+              </v-btn> -->
               <v-btn
+                medium
+                outlined             
+                color="#1106A0"
                 white
-                text
-                to="/signup"
+                to="/signup"             
               >
                 Sign Up
               </v-btn>
               <v-btn
+                class="ml-3 indigo--text text--darken-4"
+                medium
                 white
-                text
-                class="rounded-0"
+                color="white"                
                 to="/login"
               >
                 Login
@@ -101,13 +141,32 @@
 
 <script>
   export default {
+     data: () => ({
+      searchKey: "",
+    }),
     methods: {
       toHome() {
         alert("gg");
+      },
+      toSearch(data){
+        this.$store.commit('searchItem', data);
       }
     }
   }
 </script>
+
+<style scoped>
+@font-face {
+  font-family: "Quicksand";
+  src: local("Quicksand"),
+   url(../../assets/Fonts/Quicksand-Bold.ttf) format("truetype");
+}
+.qfont{
+     font-family: "Quicksand", Helvetica, Arial;
+  }
+
+
+</style>
 
 <!-- <v-btn
   dark

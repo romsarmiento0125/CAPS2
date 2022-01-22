@@ -1,69 +1,138 @@
 <template>
-  <div class="grey lighten-4">
+  <div>
     <v-container>
       <v-row>
         <v-col
-          offset-lg="1"
           offset-xl="1"
-          cols="12"
-          sm="12"
-          md="12"
-          lg="10"
           xl="10"
+          lg="12"
+          md="12"
+          cols="12"
         >
           <v-row>
             <v-col
-              v-for="item in items"
+              v-for="item in showItems"
               :key="item.id"
-              cols="6"
-              sm="4"
-              md="3"
-              lg="3"
               xl="2"
+              lg="3"
+              md="4"
             >
               <v-card
-                width="275px"
-                class="ma-2"
+                min-height="465px"
+                min-width="230px"
+                max-height="465px"
+                max-width="230px"
+                class="elevation-1"
               >
-                <v-card-text
-                  class="pb-0"
-                >
-                  <p
-                    class="ma-0"
-                  >{{item.Discount}}</p>
-                </v-card-text>
-
-                <v-img
-                  :src="require('../../assets/itemPhotos/'+item.Image)"
-                  contain
-                  max-height="200px"
-                ></v-img>
-
-                <v-card-title>
-                  {{item.RetailPrice}}
-                </v-card-title>
-
-                <v-card-subtitle>
-                  <span class="text-decoration-line-through">{{(item.SupplierPrice * 1) + (item.SupplierPrice * .05)}}</span>
-                  <br>
-                  <span>{{item.Name}}</span>
-                  <br>
-                  <span>{{item.Description}}</span>
-                  <br>
-                  <span>{{item.Quantity}}</span>
-                </v-card-subtitle>
-
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn
-                    icon
-                    @click="addToCartItems(item.ItemCode)"
+                <div>
+                  <div
+                    class="d-flex pt-1 pl-2"
                   >
-                    <v-icon>
-                      mdi-cart-outline
+                    <h4
+                      class="border ma-0 py-0 mt-1 px-1  pink--text"
+                      v-if="item.discount != 0"
+                      style="border: 1px solid red; border-radius: 5px"
+                    >
+                      - {{item.discount}}%
+                    </h4>
+                    <p
+                      class="pb-4"
+                      v-else
+                    >
+                      
+                    </p>
+                  </div>
+                
+
+                  <v-img
+                    :src="require('../../assets/itemPhotos/'+item.image)"
+                    min-height="200px"
+                    min-width="230px"
+                    max-height="200px"
+                    max-width="230px"
+                    contain
+                  ></v-img>
+
+                  <v-card-title
+                    class="fontStyle fontBlue"
+                    
+                  >
+                    <div class="d-flex">
+                      <v-icon
+                      color="#1106A0"
+                      size="18px"
+                      class="mr-1"
+                    >
+                      mdi-currency-php
                     </v-icon>
-                  </v-btn>
-                </v-card-actions>
+                    <h5>{{priceRound(item.retailPrice - ((item.discount / 100) * item.retailPrice))}}</h5>
+                    
+                    </div>
+                    
+                  </v-card-title>
+
+                  <v-card-subtitle
+                    class="py-0"
+                  >
+                    <span 
+                      class="text-decoration-line-through"
+                      v-if="item.discount != 0"
+                    >
+                      <v-icon
+                        small
+                      >
+                        mdi-currency-php
+                      </v-icon>
+                      {{priceRound((item.supplierPrice * 1) + (item.supplierPrice * .05))}}
+                    </span>
+                    <br>
+                    <span
+                      class="d-inline-block text-truncate subtitle-1"
+                      style="max-width: 200px;" 
+                    >{{item.name}}</span>
+                    <br>
+                    <span
+                      class="d-inline-block text-truncate"
+                      style="max-width: 200px;" 
+                    >{{item.description}}</span>
+                    <br>
+                    <span>
+                      {{item.size}}
+                    </span>
+                    <br>
+                    
+                    
+                    <span>{{item.quantity}} &nbsp; Pcs Available</span>
+                  </v-card-subtitle>
+                </div>
+
+                <div
+                  class=""
+                >
+                  <div
+                    class="d-flex"
+                  >
+                    <v-spacer></v-spacer>
+                    <v-btn
+                    class="mr-5"
+                      large
+                      icon
+                      white
+                      text
+                      color="#1106A0"
+                      @click="addToCartItems(item.itemCode, item.id)"
+                    >
+                      <v-img
+                        contain
+                        src="../../assets/Cart.svg"
+                        max-height="40px"
+                        max-width="40px"
+                        >
+                        
+                      </v-img>
+                    </v-btn>
+                  </div>
+                </div>
               </v-card>
             </v-col>
           </v-row>
@@ -74,13 +143,14 @@
 </template>
 
 <script>
+  import {Mixins} from '../../Mixins/mixins.js'
+
   export default {
+    mixins: [Mixins],
+
     data: () => ({
-      // items: [
-      //   {id: 1, Name: "Mini Oreo", Description: "Chocolate Flavored Cream", Price: 41.10, Size: "67 Grams", Quantity: 99,
-      //     ItemCode:"7622300761363", Category: "Biscuits", ExpirationDate: "01\/24\/2024", Image:"SamplePhoto.png", Discount: 10, Weigth: 0.1000},
-      // ],
-      items: null,
+      showItems: null,
+      searchKey: "",
       cartItems: {
         id: null,
         Email: "",
@@ -94,19 +164,35 @@
       categoryItems() {
         return this.$store.state.categoryItems;
       },
-      customerInfos() {
-        return this.$store.state.customerInfos;
-      },
       cartQuantity(){
         return this.$store.state.cartQuantity;
-      }
+      },
+      searchKeyWords() {
+        return this.$store.state.searchItem;
+      },
+      usersEmail(){
+        return localStorage.getItem('email');
+      },
+      usersToken(){
+        return localStorage.getItem('token');
+      },
+      computedShowItems(){
+        var sk = this.searchKeyWords;
+        var re = new RegExp(sk, 'gi');
+        return this.showItems.filter((item) => {
+          return item.name.match(re);
+        });
+      },
     },
 
-    // watch: {
-    //   cartItems: function(data){
-    //     console.log("watch",data);
-    //   }
-    // }, 
+    watch: {
+      searchKeyWords() {
+        this.filterItems();
+      },
+      categoryItems() {
+        this.getCategoryItems();
+      }
+    }, 
 
     // mounted(){
     //   setTimeout(() => {
@@ -114,94 +200,64 @@
     //   }, 3000);
     // },
 
-    // How Process Works. Ang i ssave mo lang sa cart ay yung email, itemcode at quantity.
-    // Then if existing nayung item i update lang yung quantity.
     methods: {
-      addToCartItems(code) {
-        console.log("add to cart");
-        this.cartItems.Email = this.customerInfos.Email;
-        this.cartItems.ItemCode = code;
-
-        //The if condition fire if there is no account login
-        //The else condition fire there is account login
-        if(this.cartItems.Email === ""){
-          console.log("login ka muna");
-          //this.$router.push('/login');
-        }
-        else {
-          console.log(this.cartItems.id);
-          console.log(this.cartItems.Email);
-          console.log(this.cartItems.Quantity);
-          console.log(this.cartItems.ItemCode);
-
-          //do axios post request to try to add items in cart
-          console.log("axios Fire");
-          console.log(this.cartItems);
-          axios.post('http://127.0.0.1:8000/api/customercart/store', {
-            register: this.cartItems
-          })
-          .then(res => {
-            this.updateCartCounter(res.data)
-            //console.log(res);  
-          })
-          //.then(res => console.log(res.data))
-          .catch(err => console.error(err));
-        }
-      },
-      updateCartCounter(data){
-        console.log("update cart counter");
-        console.log(data);
-        
-        //check if the post id success in adding items in cart.
-        //if not success in adding items in cart it will fire update in quantity
-        if(data === "addSuccess"){
-          console.log("item added succesfully");
-          this.$store.commit('storeCartQuantity', this.$store.state.cartQuantity + 1);
-          console.log(data);
-        }
-        else{
-          console.log("Fire Axios");
-          console.log(data);
-          console.log(data.id);
-          axios.put('http://127.0.0.1:8000/api/customercart/' + data.id, {
-            itemupdate: this.cartItems
-          })
-          .then(res => {
-            console.log(res.data)
-            this.showQuantity(res.data)
-          })
-          .catch(err => console.error(err));
-          console.log("axios fired");
-        }
-      },
-      showQuantity(data){
-        this.$store.commit('storeCartItems', data);
-        this.$store.commit('storeCartQuantity', this.$store.state.cartQuantity + 1);
-      },
-      // getCategoryItems() {
-      //   console.log("Get Items");
-      //   axios.get('http://127.0.0.1:8000/api/categoryitem')
-      //   .then(res => this.storeCategoryItems(res.data))
-      //   .catch(err => console.error(err));
-      // },
-      // storeCategoryItems(data) {
-      //   console.log("This is items data: ");
-      //   console.log(data);
-      //   this.$store.commit('storeCategoryItem', data);
-      //   this.showItems();
-      // },
-      showItems() {
-        console.log("showItems: ");
-        console.log(this.categoryItems);
-        this.items = this.categoryItems;
+      filterItems(){
+        this.showItems = this.categoryItems;
+        this.showItems = this.computedShowItems;
       },
       
+      addToCartItems(code, id) {
+        // console.log("add to cart");
+        this.cartItems.Email = this.usersEmail;
+        this.cartItems.ItemCode = code;
+
+        if(this.cartItems.Email == undefined){
+          this.$router.push('/login');
+        }
+        else {
+          axios.post(this.getDomain()+'api/customercart/store', {
+            register: this.cartItems
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
+          .then(res => {
+            // console.log(res.data);
+            this.$store.commit('storeCartQuantity');
+          })
+          .catch(err => console.error(err));
+        }
+      },
+      getCategoryItems() {
+        if(!(this.categoryItems == null)){
+          this.showItems = this.categoryItems;
+        }
+      },
+      priceRound(price){
+        var rounded = (Math.round(price * 100) / 100).toFixed(2);
+        return rounded;
+      }
     },
 
     beforeMount() {
-      //this.getCategoryItems();
-      //this.items = this.categoryItems();
-      this.showItems();
+      this.getCategoryItems();
     },
   }
 </script>
+
+<style scoped>
+.fontBlue{
+  color: #1106A0;
+}
+@font-face {
+  font-family: "RedHatDisplay";
+  src: local("RedHatDisplay"),
+   url(../../assets/Fonts/RedHatDisplay-VariableFont_wght.ttf) format("truetype");
+}
+.fontStyle{
+     font-family: "RedHatDisplay", Helvetica, Arial;
+  }
+
+</style>
