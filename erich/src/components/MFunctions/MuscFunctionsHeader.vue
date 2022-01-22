@@ -14,17 +14,17 @@
             >
               <v-img
                 contain
-                src="../../assets/ERICH.svg"
-                max-height="120px"
-                max-width="120px"
-                class="mr-1"
+                src="../../assets/ERICHNEW.svg"
+                max-height="100px"
+                max-width="100px"
+                class="mr-2"
               ></v-img>
               <v-divider
                 vertical
               ></v-divider>
-              <p
-                class="text-h5 ml-3 my-0 pt-1 grey--text text--darken-1"
-              >Erich Grocery Store</p>
+              <h2
+                class="ml-3 my-0 pt-1 grey--text text--darken-1"
+              >Erich Grocery Store</h2>
             </div>
           </v-col>
         </v-row>

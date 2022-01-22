@@ -56,6 +56,8 @@ use App\Http\Controllers\customerPasswordVerificationController;
 
 Route::middleware('auth:sanctum')->group( function (){
     Route::get('/loginaddress', [loginaddresscontroller::class, 'index']);
+    
+    Route::post('loginaddress/store', [loginaddresscontroller::class, 'store']);
 
     Route::get('/headercart', [erichheadercartcontroller::class, 'index']);
     Route::post('/headercart/store', [erichheadercartcontroller::class, 'store']);

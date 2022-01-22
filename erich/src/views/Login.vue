@@ -150,6 +150,10 @@
             // console.log(res.data);
             this.$store.commit('storeCustomerAddress', res.data);
           })
+          .then(res => {
+            // console.log(res.data);
+            this.$store.commit('storeCustomerAddress', res.data);
+          })
           .catch(err => console.error(err));
           this.$router.push("/");
         }
