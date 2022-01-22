@@ -14,7 +14,7 @@
         >
           <div>
             <v-img
-              :src="require('../../../assets/itemPhotos/'+item.itemImage)"
+              :src="require('../../../../../EOS-BE/public/assets/itemPhotos/'+item.image)"
               contain
               max-width="100px"
               max-height="80px"
