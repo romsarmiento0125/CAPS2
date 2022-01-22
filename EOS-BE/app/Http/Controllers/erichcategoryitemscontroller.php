@@ -14,7 +14,11 @@ class erichcategoryitemscontroller extends Controller
      */
     public function index()
     {
-        return categoryItems::all();
+
+        return response()->json([
+            'data' => categoryItems::all(),
+            'path' => categoryItems::imagesSrc(),
+           ]);
     }
 
     /**

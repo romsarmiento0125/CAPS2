@@ -52,8 +52,9 @@
       getCategoryItems() {
         axios.get(this.getDomain()+'api/categoryitem',)
         .then(res => {
-          this.$store.commit('storeCategoryItem', res.data);
-          // console.log(res.data);
+          this.$store.commit('storeCategoryItem', res.data.data);
+          this.$store.commit('imagePath', res.data.path);
+          // console.log(res.data.path);
           })
         .catch(err => console.error(err));
       }

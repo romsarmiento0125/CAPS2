@@ -45,21 +45,21 @@
                       </v-col>
                     </v-row>
                   </div>
-                
-                  <div class="d-flex justify-center">
-                    <v-img
-                      :src="require('../../assets/itemPhotos/'+item.image)"
-                      min-height="150px"
-                      min-width="180px"
-                      max-height="150px"
-                      max-width="180px"
-                      contain
-                    ></v-img>
-                  </div>
-                  
+              
+                  <v-img
+                    :src="imagePath+'/'+item.image"
+                    min-height="200px"
+                    min-width="230px"
+                    max-height="200px"
+                    max-width="230px"
+                    contain
+                  ></v-img>
 
-                  
-                    <div class="d-flex px-5">
+                  <v-card-title
+                    class="fontStyle fontBlue"
+                    
+                  >
+                    <div class="d-flex">
                       <v-icon
                       color="#1106A0"
                       size="18px"
@@ -170,6 +170,9 @@
     computed: {
       categoryItems() {
         return this.$store.state.categoryItems;
+      },
+      imagePath() {
+        return this.$store.state.imagePath;
       },
       cartQuantity(){
         return this.$store.state.cartQuantity;

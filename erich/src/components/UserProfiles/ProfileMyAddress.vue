@@ -131,8 +131,6 @@
 
     methods: {
       insertAddress() {
-
-        
         var item;
         for(var i = 0; i < this.customerAddress.length; i++){
           var def = "";

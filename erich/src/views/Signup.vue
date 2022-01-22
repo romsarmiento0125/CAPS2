@@ -738,11 +738,6 @@
 
           axios.post(this.getDomain()+'api/loginaddress/store',{
             clientCred: this.usersData
-          },
-          {
-            headers:{
-              "Authorization": `Bearer ${cinfo.token}`,
-          }
           })
           .then(res => {
             // console.log(res.data);

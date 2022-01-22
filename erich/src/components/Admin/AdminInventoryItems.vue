@@ -335,6 +335,7 @@
                   <v-file-input
                     color="deep-purple accent-4"
                     prepend-icon="mdi-paperclip"
+                    accept="image/*"
                     label="Select Photo"
                     outlined
                     type="file"
@@ -424,8 +425,8 @@
         category: "Baking Goods",
         underCategory: "Pasta",
         expirationDate: "",
-        image: "",
       },
+      itemImage: null,
       expanded: [],
       singleExpand: false,
       headers: [
@@ -469,6 +470,9 @@
           return item.name.match(re);
         });
       },
+      usersToken(){
+        return localStorage.getItem('token');
+      },
     },
 
     watch: {
@@ -483,7 +487,23 @@
       },
       saveItem(){
         this.dialog = false;
-        console.log(this.item);
+        console.log(this.itemImage);
+        let formData = new FormData;
+        formData.set('image', this.itemImage);
+        axios.post(this.getDomain()+'api/inventory/store', formData,
+        {
+          headers:{
+            "Authorization": `Bearer ${this.usersToken}`,
+            'content-type': 'multipart/form-data'
+        }
+        })
+        .then(res => {
+          console.log(res.data);
+        })
+        .catch(err => console.error(err));
+        
+        // console.log(formData);
+        // console.log(this.item);
       },
       assignCategory(cond){
         var baking = [{ title: 'Pasta' },{ title: 'Cereals' },{ title: 'Sugar' },{ title: 'Mixes' }];
@@ -569,14 +589,11 @@
       onFileChange(e){
         if(e == null){
           this.picUrl = null;
-          this.item.image = "";
+          this.itemImage = "";
         }
         else{
-          var crypto = require("crypto");
-          var id = crypto.randomBytes(2).toString('hex');
-          const file = e;
-          this.picUrl = URL.createObjectURL(file);
-          this.item.image = id + e.name;
+          this.picUrl = URL.createObjectURL(e);
+          this.itemImage = e;
           // console.log(this.item.image);
         }
       },

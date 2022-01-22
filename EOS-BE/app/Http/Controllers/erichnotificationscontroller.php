@@ -14,7 +14,9 @@ class erichnotificationscontroller extends Controller
      */
     public function index()
     {
-        //
+        $path = public_path();
+
+        return $path;
     }
 
     /**

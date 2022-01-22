@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\customeraddress;
 
-class loginaddresscontroller extends Controller
+class adminAddItem extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +13,7 @@ class loginaddresscontroller extends Controller
      */
     public function index()
     {
-        return customeraddress::all();
+        //
     }
 
     /**
@@ -35,13 +34,9 @@ class loginaddresscontroller extends Controller
      */
     public function store(Request $request)
     {
-        // $getData = customeraddress::all();
-        // $dataGet = $request->clientCred['usersEmail'];
-        // return $getData->where('email', $dataGet)->values();
-        $email = $request->clientCred['usersEmail'];
-        $getAddress = customeraddress::where('email', $email)->get();
-        return $getAddress;
-        //return "gg";
+        $pathToFile = $request->file('image')->store('images', 'public');
+
+        return $pathToFile;
     }
 
     /**
