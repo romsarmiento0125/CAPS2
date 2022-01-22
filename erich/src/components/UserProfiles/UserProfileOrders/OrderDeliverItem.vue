@@ -14,7 +14,7 @@
         >
           <div>
             <v-img
-              :src="require('../../../../../EOS-BE/public/assets/itemPhotos/'+item.image)"
+              :src="imagePath+'/'+item.itemImage"
               contain
               max-width="100px"
               max-height="80px"
@@ -59,6 +59,12 @@
 <script>
   export default {
     props: ['orders'],
+
+    computed: {
+      imagePath() {
+        return this.$store.state.imagePath;
+      },
+    },
 
     data: () => ({
 
