@@ -49,21 +49,24 @@
                     Supplied Product
                   </th>
                   <th class="text-left">
+                    Notes
+                  </th>
+                  <th class="text-left">
                     Action
                   </th>
                 </tr>
               </thead>
               <tbody>
                 <tr
-                  v-for="profile in customer"
-                  :key="profile.id"
+                  v-for="(supllier, i) in profiles"
+                  :key="i"
                 >
-                  <td>{{ profile.id }}</td>
-                  <td>{{ profile.first_Name }} &nbsp; {{ profile.last_Name }}</td>
-                  <td>{{ profile.email }}</td>
-                  <td>{{ profile.mobile_Number }}</td>
-                  <td>{{ profile.tag }}</td>
-                  <td>{{ profile.status }}</td>
+                  <td>{{}}</td>
+                  <td>{{}}</td>
+                  <td>{{}}</td>
+                  <td>{{}}</td>
+                  <td>{{}}</td>
+                  <td>{{}}</td>
                   <td>
                     <div
                       class="d-flex flex-column"
