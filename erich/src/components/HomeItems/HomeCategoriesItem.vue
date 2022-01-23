@@ -45,21 +45,19 @@
                       </v-col>
                     </v-row>
                   </div>
-              
-                  <v-img
-                    :src="imagePath+'/'+item.image"
-                    min-height="200px"
-                    min-width="230px"
-                    max-height="200px"
-                    max-width="230px"
-                    contain
-                  ></v-img>
 
-                  <v-card-title
-                    class="fontStyle fontBlue"
-                    
-                  >
-                    <div class="d-flex">
+                  <div class="d-flex justify-center">
+                    <v-img
+                      :src="imagePath+'/'+item.image"
+                      min-height="150px"
+                      min-width="180px"
+                      max-height="150px"
+                      max-width="180px"
+                      contain
+                    ></v-img>
+                  </div>
+                  
+                    <div class="d-flex px-5">
                       <v-icon
                       color="#1106A0"
                       size="18px"
@@ -70,7 +68,7 @@
                     <h3 class="fontBlue fontStyle font-weight-Black">{{priceRound(item.retailPrice - ((item.discount / 100) * item.retailPrice))}}</h3>                   
                     </div>
                     
-                  </v-card-title>
+                 
                   <div class="mx-5">
                     <h5 
                       class="text-decoration-line-through fontDesc"

@@ -26,9 +26,9 @@
               <v-divider
                 vertical
               ></v-divider>
-              <h2
-                class="my-0 ml-3 pt-1 grey--text text--darken-1"
-              >Shopping cart</h2>
+              <h3
+                class="my-0 ml-3 pt-2 grey--text text--darken-1"
+              >Shopping cart</h3>
             </div>
           </v-col>
         </v-row>

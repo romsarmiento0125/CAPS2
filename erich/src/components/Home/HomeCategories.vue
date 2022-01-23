@@ -71,7 +71,7 @@
                     width="150px"
                     class="rounded-lg mx-2 elevation-0"
                     
-                    :style="{'background-color':hover ?'#F8F8FC':'#EDEDF0'}"
+                    :style="{'background-color':hover ?'#DBDBFF':'#F8F8FC'}"
                     @click="toCategoriseItem(categorie.ccond)"
                   >
                     <div class="d-flex justify-center">
