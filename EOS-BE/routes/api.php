@@ -2,6 +2,7 @@
 
 use App\Mail\WelcomeMail;
 use Illuminate\Http\Request;
+use App\Models\erichSupplierList;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\adminAddItem;
@@ -24,14 +25,14 @@ use App\Http\Controllers\userDeliverItemsController;
 use App\Http\Controllers\customerOrderInfoController;
 use App\Http\Controllers\userCompleteItemsController;
 use App\Http\Controllers\userOrderCompleteController;
+
 use App\Http\Controllers\userOrderDeliveryController;
-
 use App\Http\Controllers\userOrderToPickupController;
+
 use App\Http\Controllers\customerOrderItemsController;
-
 use App\Http\Controllers\erichcategoryitemscontroller;
-use App\Http\Controllers\erichnotificationscontroller;
 
+use App\Http\Controllers\erichnotificationscontroller;
 use App\Http\Controllers\CustomerPickupInfosController;
 use App\Http\Controllers\CustomerPickupItemsController;
 use App\Http\Controllers\CustomerPickupPickupController;
@@ -57,7 +58,7 @@ use App\Http\Controllers\customerPasswordVerificationController;
 Route::middleware('auth:sanctum')->group( function (){
     Route::get('/loginaddress', [loginaddresscontroller::class, 'index']);
     
-    Route::post('loginaddress/store', [loginaddresscontroller::class, 'store']);
+    // Route::post('loginaddress/store', [loginaddresscontroller::class, 'store']);
 
     Route::get('/headercart', [erichheadercartcontroller::class, 'index']);
     Route::post('/headercart/store', [erichheadercartcontroller::class, 'store']);
@@ -119,6 +120,7 @@ Route::middleware('auth:sanctum')->group( function (){
     Route::post('/addstaff/store', [adminAddStaff::class, 'store']);
     Route::get('/addstaff', [adminAddStaff::class, 'index']);
     Route::post('/inventory/store', [adminAddItem::class, 'store']);
+    Route::post('/supplier/store', [erichSupplierList::class, 'store']);
 
     //physical cashier
     Route::post('/physicalorder/store', [physicalCashierOrders::class, 'store']);
