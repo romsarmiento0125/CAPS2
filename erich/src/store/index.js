@@ -55,6 +55,7 @@ export default new Vuex.Store({
     allPeople: null,
     imageLink: "",
     imagePath: "",
+    suppliers: null,
   },
   mutations: {
     //Views Login.vue
@@ -349,6 +350,10 @@ export default new Vuex.Store({
     imagePath: (state, payload) => {
       state.imagePath = {},
       state.imagePath = payload;
+    },
+    suppliers: (state, payload) => {
+      state.suppliers = {},
+      state.suppliers = payload;
     },
   },
   actions: {

@@ -20,6 +20,7 @@ class CreateErichSupplierListsTable extends Migration
             $table->text('address');
             $table->string('product');
             $table->text('notes');
+            $table->string('status');
             $table->timestamps();
         });
     }

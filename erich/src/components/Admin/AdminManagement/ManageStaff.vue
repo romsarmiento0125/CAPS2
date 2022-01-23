@@ -124,6 +124,7 @@
                 <v-text-field
                   v-model="personalInfo.Birthday"
                   label="Birthday"
+                  placeholder="2020-01-30"
                   required
                 ></v-text-field>
               </v-col>
