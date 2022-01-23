@@ -10,11 +10,6 @@
           >Add new</v-btn>
         </v-col>
         <v-col>
-          <v-btn
-
-          >Sort</v-btn>
-        </v-col>
-        <v-col>
           <v-text-field
             append-icon="mdi-magnify"
             hide-details="auto"
@@ -23,6 +18,8 @@
             height="small"
             background-color="white"
             placeholder="Search for entire store here.."
+            v-model="searchKey"
+            v-on:keyup="toSearchItems(searchKey)"
           >
           </v-text-field>
         </v-col>
@@ -58,26 +55,34 @@
               </thead>
               <tbody>
                 <tr
-                  v-for="(supllier, i) in profiles"
+                  v-for="(supplier, i) in showItems"
                   :key="i"
                 >
-                  <td>{{}}</td>
-                  <td>{{}}</td>
-                  <td>{{}}</td>
-                  <td>{{}}</td>
-                  <td>{{}}</td>
-                  <td>{{}}</td>
+                  <td>{{i+1}}</td>
+                  <td>{{supplier.supplierName}}</td>
+                  <td>{{supplier.contactNumber}}</td>
+                  <td>{{supplier.address}}</td>
+                  <td>{{supplier.product}}</td>
+                  <td>{{supplier.notes}}</td>
                   <td>
                     <div
                       class="d-flex flex-column"
                     >
                       <v-btn
                         small
-                      >Update
+                        @click="updateSupplier(supplier)"
+                      >
+                        <p
+                          class="my-0"
+                        >Update</p>
                       </v-btn>
                       <v-btn
                         small
-                      >Delete
+                        @click="deleteSupplier(supplier.id)"
+                      >
+                        <p
+                          class="my-0"
+                        >Delete</p>
                       </v-btn>
                     </div>
                   </td>
@@ -88,6 +93,83 @@
         </v-col>
       </v-row>
     </v-container>
+    <div>
+      <v-dialog
+        v-model="dialog"
+        persistent
+        max-width="600px"
+      >
+        <v-card>
+          <v-card-title>
+            <span class="text-h5">User Profile</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="6"
+                >
+                  <v-text-field
+                    v-model="supplierDetails.supplierName"
+                    label="Supplier Name"
+                  ></v-text-field>
+                </v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="6"
+                >
+                  <v-text-field
+                    v-model="supplierDetails.contact"
+                    label="Contact"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-textarea
+                    v-model="supplierDetails.address"
+                    rows="2"
+                    outlined
+                    label="Address"
+                  ></v-textarea>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="supplierDetails.supplierProduct"
+                    label="Supplier Product"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-textarea
+                    v-model="supplierDetails.notes"
+                    outlined
+                    label="Notes"
+                  ></v-textarea>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="closeDialog"
+            >
+              Close
+            </v-btn>
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="addSupplier"
+            >
+              Save
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </div>
   </div>
 </template>
 
@@ -101,17 +183,121 @@
 
     data: () => ({
       dialog: false,
-      profiles: [],
+      supplierDetails: {
+        supplierName: "",
+        contact: "",
+        address: "",
+        supplierProduct: "",
+        notes: "",
+      },
+      updateCond: false,
+      itemId: "",
+      searchKey: "",
+      showItems: null,
     }),
 
     computed: {
+      suppliers() {
+        return this.$store.state.suppliers;
+      },
+      usersToken(){
+        return localStorage.getItem('token');
+      },
+      computedShowItems(){
+        var sk = this.searchKey;
+        var re = new RegExp(sk, 'gi');
+        return this.showItems.filter((item) => {
+          return item.supplierName.match(re);
+        });
+      },
+    },
 
+    watch: {
+      suppliers() {
+        this.getSupplierItems();
+      },
     },
 
     methods: {
+      updateSupplier(data){
+        this.dialog = true;
+        this.updateCond = true;
+        this.supplierDetails.supplierName = data.supplierName;
+        this.supplierDetails.contact = data.contactNumber;
+        this.supplierDetails.address = data.address;
+        this.supplierDetails.supplierProduct = data.product;
+        this.supplierDetails.notes = data.notes;
+        this.itemId = data.id;
+      },
+      deleteSupplier(id){
+        axios.put(this.getDomain()+'api/editsupplier/'+id, {
+          register: this.supplierDetails
+        },
+        {
+          headers:{
+            "Authorization": `Bearer ${this.usersToken}`,
+        }
+        })
+        .then(res => {
+          this.$store.commit('suppliers', res.data.data);;
+        })
+        .catch(err => console.error(err));
+      },
       openDialog(){
         this.dialog = true;
       },
+      closeDialog(){
+        this.dialog = false;
+        this.updateCond = false;
+        this.supplierDetails = {};
+      },
+      addSupplier(){
+        this.dialog = false;
+        if(this.updateCond){
+          this.updateCond = false;
+          axios.put(this.getDomain()+'api/supplier/'+this.itemId, {
+            register: this.supplierDetails
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
+          .then(res => {
+            this.$store.commit('suppliers', res.data.suppliers);
+            this.supplierDetails = {};
+          })
+          .catch(err => console.error(err));
+        }
+        else{
+          axios.post(this.getDomain()+'api/supplier/store', {
+            register: this.supplierDetails
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
+          .then(res => {
+            this.$store.commit('suppliers', res.data.suppliers);
+            this.supplierDetails = {};
+          })
+          .catch(err => console.error(err));
+        }
+      },
+      toSearchItems(){
+        this.showItems = this.suppliers;
+        this.showItems = this.computedShowItems;
+      },
+      getSupplierItems() {
+        if(!(this.suppliers == null)){
+          this.showItems = this.suppliers;
+        }
+      },
     },
+
+    beforeMount(){
+      this.getSupplierItems();
+    }
   }
 </script>

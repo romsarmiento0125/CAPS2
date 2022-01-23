@@ -2,7 +2,6 @@
 
 use App\Mail\WelcomeMail;
 use Illuminate\Http\Request;
-use App\Models\erichSupplierList;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\adminAddItem;
@@ -18,20 +17,21 @@ use App\Http\Controllers\verifyemailcontroller;
 use App\Http\Controllers\customercartcontroller;
 use App\Http\Controllers\loginaddresscontroller;
 use App\Http\Controllers\erichcustomercontroller;
+use App\Http\Controllers\erichSupplierController;
 use App\Http\Controllers\customeraddresscontroller;
 use App\Http\Controllers\erichheadercartcontroller;
 use App\Http\Controllers\userOrderPickupController;
 use App\Http\Controllers\userDeliverItemsController;
 use App\Http\Controllers\customerOrderInfoController;
 use App\Http\Controllers\userCompleteItemsController;
+
 use App\Http\Controllers\userOrderCompleteController;
-
 use App\Http\Controllers\userOrderDeliveryController;
+
 use App\Http\Controllers\userOrderToPickupController;
-
 use App\Http\Controllers\customerOrderItemsController;
-use App\Http\Controllers\erichcategoryitemscontroller;
 
+use App\Http\Controllers\erichcategoryitemscontroller;
 use App\Http\Controllers\erichnotificationscontroller;
 use App\Http\Controllers\CustomerPickupInfosController;
 use App\Http\Controllers\CustomerPickupItemsController;
@@ -120,7 +120,10 @@ Route::middleware('auth:sanctum')->group( function (){
     Route::post('/addstaff/store', [adminAddStaff::class, 'store']);
     Route::get('/addstaff', [adminAddStaff::class, 'index']);
     Route::post('/inventory/store', [adminAddItem::class, 'store']);
-    Route::post('/supplier/store', [erichSupplierList::class, 'store']);
+    Route::post('/supplier/store', [erichSupplierController::class, 'store']);
+    Route::get('/supplier', [erichSupplierController::class, 'index']);
+    Route::put('/supplier/{id}', [erichSupplierController::class, 'update']);
+    Route::put('/editsupplier/{id}', [erichSupplierController::class, 'edit']);
 
     //physical cashier
     Route::post('/physicalorder/store', [physicalCashierOrders::class, 'store']);

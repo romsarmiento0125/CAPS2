@@ -269,6 +269,18 @@
             this.$store.commit('allPeople', res.data);
           })
           .catch(err => console.error(err));
+
+          axios.get(this.getDomain()+'api/supplier',
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
+          .then(res => {
+            // console.log(res.data.data);
+            this.$store.commit('suppliers', res.data.data);
+          })
+          .catch(err => console.error(err));
         }
         else if(this.usersTag == "Encoder"){
           this.links.push(l5);
@@ -280,6 +292,17 @@
           this.aInventory = true;
           this.aSupplierList = false;
           this.aManagement = false;
+          axios.get(this.getDomain()+'api/supplier',
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
+          .then(res => {
+            // console.log(res.data.data);
+            this.$store.commit('suppliers', res.data.data);
+          })
+          .catch(err => console.error(err));
         }
       }
     },

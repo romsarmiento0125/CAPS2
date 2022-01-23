@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\erichSupplierList;
 
 class erichSupplierController extends Controller
 {
@@ -13,7 +14,9 @@ class erichSupplierController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json([
+            'data' => erichSupplierList::where('status', 'Active')->get()
+        ]);
     }
 
     /**
@@ -34,7 +37,21 @@ class erichSupplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $register = new erichSupplierList();
+
+        $register->supplierName = $request->register['supplierName'];
+        $register->contactNumber = $request->register['contact'];
+        $register->address = $request->register['address'];
+        $register->product = $request->register['supplierProduct'];
+        $register->notes = $request->register['notes'];
+        $register->status = 'Active';
+
+        $register->save();
+
+        return response()->json([
+            'data' => $register,
+            'suppliers' => erichSupplierList::where('status', 'Active')->get()
+        ]);
     }
 
     /**
@@ -54,9 +71,17 @@ class erichSupplierController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        //
+        $existingItem = erichSupplierList::find($id);
+
+        $existingItem->status = 'Inactive';
+
+        $existingItem->save();
+
+        return response()->json([
+            'data' => erichSupplierList::where('status', 'Active')->get()
+        ]);
     }
 
     /**
@@ -68,7 +93,20 @@ class erichSupplierController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $existingItem = erichSupplierList::find($id);
+
+        $existingItem->supplierName = $request->register['supplierName'];
+        $existingItem->contactNumber = $request->register['contact'];
+        $existingItem->address = $request->register['address'];
+        $existingItem->product = $request->register['supplierProduct'];
+        $existingItem->notes = $request->register['notes'];
+
+        $existingItem->save();
+
+        return response()->json([
+            'data' => $existingItem,
+            'suppliers' => erichSupplierList::where('status', 'Active')->get()
+        ]);
     }
 
     /**
