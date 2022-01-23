@@ -200,11 +200,11 @@
         </v-col>
         
         <!-- High in demand column -->
-        <v-col cols="3" class="pl-5">
+        <v-col cols="3" class="pl-5 ">
           <v-card
-            class="ml-11"
-            max-width="300"
-            width="300"
+            class="ml-6"
+            max-width="355"
+            width="355"
             tile
           >
             <v-list dense>
@@ -229,11 +229,11 @@
         </v-col>
 
         <!-- Low in demand column -->
-        <v-col cols="3">
+        <v-col cols="3" class="d-flex justify-end">
           <v-card
             class=""
-            max-width="300"
-            width="300"
+            max-width="355"
+            width="355"
             tile
           >
             <v-list dense>
@@ -263,8 +263,8 @@
         <v-col cols="6">
           <v-card
             class=""
-            max-width="800"
-            width="755"
+            max-width="900"
+            width="800"
             tile
           >
             <v-list dense>
@@ -288,10 +288,11 @@
           </v-card>
         </v-col>
 
-        <v-col cols="6">
+        <v-col cols="6" class="d-flex justify-end">
           <v-card
             class=""
-            max-width="700"
+            max-width="743"
+            width="743"
             tile
           >
             <v-list dense>
