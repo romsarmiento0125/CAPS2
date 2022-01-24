@@ -4,14 +4,21 @@
       fluid
     >
       <v-row>
-        <v-col>
+        <v-col class="">
           <v-btn
+            outlined
+            class="px-10 bgWhite"
+            color="#787878"
             @click="openDialog"
-          >Add new</v-btn>
+          >
+            <h4 class="fontTitle black--grey ">
+              Add new
+            </h4>
+          </v-btn>
         </v-col>
       </v-row>
       <v-row>
-        <v-col>
+        <v-col class="mt-n3">
           <v-simple-table>
             <template v-slot:default>
               <thead>
@@ -56,10 +63,16 @@
                     >
                       <v-btn
                         small
+                        dark
+                        color="#FFA600"
+                        class="mt-2 my-1"
                       >Update
                       </v-btn>
                       <v-btn
+                        class="mb-2"
                         small
+                        dark
+                        color="#1106A0"
                       >Delete
                       </v-btn>
                     </div>
@@ -78,14 +91,13 @@
     >
       <v-card>
         <v-card-title>
-          <span class="text-h5">User Profile</span>
+          <h4 class="my-2 ml-2 fontTitle">User Profile</h4>
         </v-card-title>
         <v-card-text>
           <v-container>
             <v-row>
               <v-col
                 cols="12"
-                sm="6"
                 md="6"
               >
                 <v-text-field
@@ -158,15 +170,18 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
-            color="blue darken-1"
-            text
+            color="#1106A0"
+            outlined
+            class="px-10"
+            
             @click="dialog = false"
           >
             Close
           </v-btn>
           <v-btn
-            color="blue darken-1"
-            text
+            color="#1106A0"
+            dark
+            class="px-10"
             @click="addStaff"
           >
             Save
@@ -238,3 +253,21 @@
     },
   }
 </script>
+<style scoped>
+.fontTitle{
+  color: #464646;
+}
+.fontDesc{
+  color: #858585;
+}
+.bgYellow{
+  background-color: #FFA600;
+}
+.bgWhite{
+  background-color: #FFF;
+}
+.nBorder{
+    border: 1px solid #787885;
+    border-radius: 5px; 
+  }
+</style>
