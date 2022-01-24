@@ -9,11 +9,15 @@
             class="d-flex"
           >
             <v-btn
-              color="blue"
+              class="px-10"
+              dark
+              color="#1106A0"
               @click="gtStaffCustomer('st')"
             >Staff</v-btn>
             <v-btn
-              color="yellow"
+              class="ml-3"
+              dark
+              color="#FFA600"
               @click="gtStaffCustomer('cs')"
             >Customer</v-btn>
           </div>
