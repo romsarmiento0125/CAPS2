@@ -134,7 +134,6 @@
             item-key="invoiceNumber"
             show-expand
             class="elevation-1"
-            ref="exportTable"
           >
             <template v-slot:expanded-item="{ headers, item }">
               <td :colspan="headers.length">
@@ -239,11 +238,7 @@
     methods: {
       exportTheTable(){
         console.log("export");
-        var elt = this.$refs.exportTable;
-        // var wb = XLSX.utils.table_to_book(elt, {sheet:"Sheet JS"});
-        return dl ?
-          XLSX.write(wb, {bookType:type, bookSST:true, type: 'base64'}) :
-        XLSX.writeFile(wb, fn || (("erich" + '.'|| 'SheetJSTableExport.') + (type || 'xlsx')));
+        console.log(this.showItems);
       },
       toSearchItems(){
         this.showItems = this.adminPhysicalData;
