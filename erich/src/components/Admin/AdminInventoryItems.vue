@@ -143,7 +143,7 @@
                 >
                   <v-text-field
                     type="number"
-                    v-model="item.suplierPrice"
+                    v-model="item.supplierPrice"
                     label="Supplier Price"
                     @change="getRetailPrice"
                   ></v-text-field>
@@ -416,7 +416,7 @@
         name: "",
         desc: "",
         size: "",
-        suplierPrice: null,
+        supplierPrice: null,
         discount: null,
         retailPrice: 0,
         quantity: null,
@@ -432,17 +432,12 @@
       headers: [
         { text: '#', value: 'id'},
         { text: 'Name', value: 'name'},
-        // { text: 'Description', value: 'description'},
         { text: 'Supplier Price', value: 'supplierPrice'},
         { text: 'Retail Price', value: 'retailPrice'},
         { text: 'Size', value: 'size'},
         { text: 'Quantity', value: 'quantity'},
-        // { text: 'Qty Limit', value: 'qtyLimit'},
-        // { text: 'Item Code', value: 'itemCode'},
         { text: 'Category', value: 'category'},
-        // { text: 'Discount', value: 'discount'},
         { text: 'Specific Category', value: 'underCategory'},
-        // { text: 'Expiration Date', value: 'expirationDate'},
         { text: 'Action', value: 'actions'},
       ],
       dialog: false,
@@ -487,9 +482,15 @@
       },
       saveItem(){
         this.dialog = false;
-        console.log(this.itemImage);
+        console.log(this.item);
         let formData = new FormData;
-        formData.set('image', this.itemImage);
+        // formData.set('image', this.itemImage);
+        formData.append("image", this.itemImage);
+        for(let property in this.item)
+        {
+        formData.append(property,this.item[property]);
+        }
+        
         axios.post(this.getDomain()+'api/inventory/store', formData,
         {
           headers:{
@@ -499,6 +500,8 @@
         })
         .then(res => {
           console.log(res.data);
+          this.$store.commit('storeCategoryItem', res.data.allItems);
+          this.$store.commit('imagePath', res.data.path);
         })
         .catch(err => console.error(err));
         
@@ -583,7 +586,7 @@
         this.item.underCategory = val;
       },
       getRetailPrice(){
-        this.item.retailPrice = (this.item.suplierPrice - (this.item.suplierPrice * (this.item.discount / 100)));
+        this.item.retailPrice = (this.item.supplierPrice - (this.item.supplierPrice * (this.item.discount / 100)));
         this.item.retailPrice = this.priceRound(this.item.retailPrice + (this.item.retailPrice * .05));
       },
       onFileChange(e){
