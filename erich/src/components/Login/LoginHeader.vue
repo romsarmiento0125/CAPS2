@@ -26,9 +26,9 @@
               <v-divider
                 vertical
               ></v-divider>
-              <h2
-                class="ml-3 my-0 pt-1 grey--text text--darken-1"
-              >Login</h2>
+              <h3
+                class="ml-3 my-0 pt-2 grey--text text--darken-1"
+              >Login</h3>
             </div>
           </v-col>
         </v-row>

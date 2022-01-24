@@ -5,34 +5,53 @@
 
         <v-navigation-drawer
           app
+          color="#1106A0"
           
         >
           <v-sheet
-            color="grey lighten-4"
-            class="pa-4"
+            class="pa-4 bg"
+            
+            
           >
-            <router-link
-              to="/"
-            >
-              <v-img
-                contain
-                src="../assets/ERICH.svg"
-                max-height="100px"
-                max-width="100px"
+          <v-row>
+            <v-col cols="9">
+              <router-link
+                to="/"
               >
-              </v-img>
-            </router-link>
+                <v-img
+                  contain
+                  src="../assets/ERICHWHITE.svg"
+                  max-height="120px"
+                  max-width="120px"
+                  class="ml-3"
+                >
+                </v-img>
+              </router-link>
+            </v-col>
+
+            <v-col cols="3">
+              <div class="d-flex justify-end">
+                <v-btn
+                  text
+                 @click="sideBarPicker"
+                >
+                  <v-img
+                  src="../assets/refresh.png"
+                  max-height="30px"
+                  max-width="30px"
+                  >
+                  </v-img>
+              </v-btn>
+              </div>
+            </v-col>
+          </v-row>
+            
+            
           </v-sheet>
 
-          <v-divider></v-divider>
+          <v-divider class="dColor"></v-divider>
 
-          <div>
-            <v-btn
-              @click="sideBarPicker"
-            >
-              Refresh
-            </v-btn>
-          </div>
+          
 
           <v-list>
             <v-list-item
@@ -47,7 +66,8 @@
               <v-list-item-content>
                 <v-list-item-title>
                   <v-btn
-                    color="primary"
+                    text
+                    color="#fff"
                     :to="{name: link.Admin , params: { id: link.AdminId , title: link.AdminTitle}}"
                     @click="adminSidebar(link.AdminCondition)"
                   >
@@ -312,3 +332,13 @@
     },
   }
 </script>
+
+<style scoped>
+.bg{
+  background-color: #1106A0;
+
+}
+.dColor{
+  background-color: #fff;
+}
+</style>

@@ -20,16 +20,16 @@
                   src="../../assets/ERICHNEW.svg"
                   max-height="120x"
                   max-width="120px"
-                  class="mr-1"
+                  class="mr-2"
                 ></v-img>
               </router-link>
               <v-divider
                 vertical
                 
               ></v-divider>
-              <h2
-                class="ml-3 pt-1 my-0 grey--text text--darken-1"
-              >Signup</h2>
+              <h3
+                class="ml-3 pt-2 my-0 grey--text text--darken-1"
+              >Signup</h3>
             </div>
           </v-col>
         </v-row>
