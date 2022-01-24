@@ -227,10 +227,9 @@
       ],
       hDemand: [],
       lDemand: [],
-      date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
       endmenu: false,
       startmenu: false,
-      startDate: "2022-01-09",
+      startDate: "2022-01-19",
       endDate: new Date().toISOString().slice(0, 10),
     }),
 
