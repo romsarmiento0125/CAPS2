@@ -3,9 +3,13 @@
     <v-container
       fluid
     >
+      
       <v-row>
-        <v-col>
+        <v-col cols="6">
           <v-text-field
+            class=""
+            rounded
+            color="#1106A0"
             append-icon="mdi-magnify"
             hide-details="auto"
             outlined
@@ -62,7 +66,10 @@
                       class="d-flex flex-column"
                     >
                       <v-btn
+                        
                         small
+                        dark
+                        color="#FFA600"
                       >Update
                       </v-btn>
                     </div>

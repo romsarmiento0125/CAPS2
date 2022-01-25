@@ -172,7 +172,7 @@
             height="456 "
           >
             <v-card-text>
-              <div class="fontTitle">
+              <div class="fontTitle pt-2">
                 <h3>
                   Total Sales
                 </h3>
@@ -180,11 +180,11 @@
               </div>
             </v-card-text>
 
-            <v-card-text>
+            <v-card-text class="pt-14">
               <v-sheet color="#FFF">
                 <v-sparkline
                   :value="value"
-                  color="#1106A0"
+                  color="#FFA600"
                   height="100"
                   padding="24"
                   stroke-linecap="round"
