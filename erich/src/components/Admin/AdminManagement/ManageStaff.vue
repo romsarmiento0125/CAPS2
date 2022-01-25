@@ -49,7 +49,22 @@
                   <td>{{ profile.email }}</td>
                   <td>{{ profile.mobile_Number }}</td>
                   <td>{{ profile.tag }}</td>
-                  <td>{{ profile.status }}</td>
+                  <td>
+                    <div
+                      class="d-flex align-center"
+                    >
+                      <p
+                        class="my-0 mr-2"
+                      >
+                        {{profile.status}}
+                      </p>
+                      <v-switch
+                        :input-value="profile.status == 'Active'"
+                        @click="changeStatus(profile.status, profile.id)"
+                      ></v-switch>
+                    </div>
+                    
+                  </td>
                   <td>
                     <div
                       class="d-flex flex-column"
@@ -57,10 +72,6 @@
                       <v-btn
                         small
                       >Update
-                      </v-btn>
-                      <v-btn
-                        small
-                      >Delete
                       </v-btn>
                     </div>
                   </td>
@@ -194,7 +205,7 @@
         First_Name: "",
         Last_Name: "",
         Mobile_Number: "",
-        Email: "paulosantiago860@gmail.com",
+        Email: "",
         Gender: "Other",
         Municipality: "Sta.Maria",
         Barangay: "Pulong Buhangin",
@@ -205,25 +216,20 @@
         id: "",
         ShipFee: "Free",
         Default: "True",
-      }
+      },
     }),
 
     computed: {
       usersToken(){
         return localStorage.getItem('token');
       },
-      
     },
 
     methods: {
-      openDialog(){
-        this.dialog = true;
-      },
-      addStaff(){
-        this.dialog = false;
-        console.log(this.personalInfo);
-        axios.post(this.getDomain()+'api/addstaff/store', {
-          register: this.personalInfo
+      changeStatus(status, id){
+        console.log(status);
+        axios.put(this.getDomain()+'api/editstaff/'+id, {
+          register: status
         },
         {
           headers:{
@@ -232,8 +238,34 @@
         })
         .then(res => {
           console.log(res.data);
+          this.$store.commit('allPeople', res.data.staff);
         })
         .catch(err => console.error(err));
+      },
+      openDialog(){
+        this.dialog = true;
+      },
+      addStaff(){
+        // console.log(this.personalInfo);
+        if((this.personalInfo.First_Name == "") || (this.personalInfo.Last_Name == "") || (this.personalInfo.Mobile_Number == "") ||
+          (this.personalInfo.Birthday == "") || (this.personalInfo.Tag == "")){
+          alert("Please complete the input fields");
+        }
+        else{
+          this.dialog = false;
+          axios.post(this.getDomain()+'api/addstaff/store', {
+            register: this.personalInfo
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
+          .then(res => {
+            console.log(res.data);
+          })
+          .catch(err => console.error(err));
+        }
       }
     },
   }

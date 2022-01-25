@@ -42,7 +42,15 @@ class adminAddItem extends Controller
         // storePublicly()      getError()
         // move()               isValid()
 
-        $pathToFile = $request->file('image')->store('images', 'public');
+        $verifyItem = categoryItems::where('itemCode', $request->get('itemCode'))->get('itemCode');
+        if(sizeof($verifyItem)){
+            return response()->json([
+                'message' => "Item Already Exist",
+                'cond' => true
+            ]);
+        }
+
+        // $pathToFile = $request->file('image')->store('images', 'public');
         $imageName = time() . "-" . $request->file('image')->getClientOriginalName();
         $pathToSave = public_path('assets\itemPhotos');
 
@@ -106,7 +114,51 @@ class adminAddItem extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $existingItem = categoryItems::find($id);
+
+        $existingItem->name = $request->register['name'];
+        $existingItem->description = $request->register['desc'];
+        $existingItem->size = $request->register['size'];
+        $existingItem->supplierPrice = $request->register['supplierPrice'];
+        $existingItem->discount = $request->register['discount'];
+        $existingItem->retailPrice = $request->register['retailPrice'];
+        $existingItem->quantity = $request->register['quantity'];
+        $existingItem->qtyLimit = $request->register['qtyLimit'];
+        $existingItem->itemCode = $request->register['itemCode'];
+        $existingItem->category = $request->register['category'];
+        $existingItem->underCategory = $request->register['underCategory'];
+        $existingItem->expirationDate = $request->register['expirationDate'];
+
+        $existingItem->save();
+
+        return response()->json([
+            'data' => $existingItem,
+            'allItems' => categoryItems::all(),
+            'path' => categoryItems::imagesSrc()
+        ]);
+    }
+
+    public function uphoto(Request $request)
+    {
+        $imageName = time() . "-" . $request->file('photo')->getClientOriginalName();
+        $pathToSave = public_path('assets\itemPhotos');
+
+        $itemId = $request->get('id');
+
+        $existingItem = categoryItems::find($itemId);
+
+        $existingItem->image = $imageName;
+
+        $existingItem->save();
+
+        $imageSave = $request->file('photo')->move($pathToSave, $imageName);
+
+        return response()->json([
+            'data' => $existingItem,
+            'image' => $imageSave,
+            'allItems' => categoryItems::all(),
+            'path' => categoryItems::imagesSrc()
+        ]);
     }
 
     /**
