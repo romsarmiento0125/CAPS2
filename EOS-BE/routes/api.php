@@ -119,11 +119,14 @@ Route::middleware('auth:sanctum')->group( function (){
     //admin add staff
     Route::post('/addstaff/store', [adminAddStaff::class, 'store']);
     Route::get('/addstaff', [adminAddStaff::class, 'index']);
+    Route::put('/editstaff/{id}', [adminAddStaff::class, 'update']);
     Route::post('/inventory/store', [adminAddItem::class, 'store']);
     Route::post('/supplier/store', [erichSupplierController::class, 'store']);
     Route::get('/supplier', [erichSupplierController::class, 'index']);
     Route::put('/supplier/{id}', [erichSupplierController::class, 'update']);
     Route::put('/editsupplier/{id}', [erichSupplierController::class, 'edit']);
+    Route::put('/invitems/{id}', [adminAddItem::class, 'update']);
+    Route::post('/invphoto/store', [adminAddItem::class, 'uphoto']);
 
     //physical cashier
     Route::post('/physicalorder/store', [physicalCashierOrders::class, 'store']);

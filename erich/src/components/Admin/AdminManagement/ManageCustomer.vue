@@ -45,9 +45,6 @@
                   <th class="text-left">
                     Account Status
                   </th>
-                  <th class="text-left">
-                    Action
-                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -60,19 +57,21 @@
                   <td>{{ profile.email }}</td>
                   <td>{{ profile.mobile_Number }}</td>
                   <td>{{ profile.tag }}</td>
-                  <td>{{ profile.status }}</td>
                   <td>
                     <div
-                      class="d-flex flex-column"
+                      class="d-flex align-center"
                     >
-                      <v-btn
-                        
-                        small
-                        dark
-                        color="#FFA600"
-                      >Update
-                      </v-btn>
+                      <p
+                        class="my-0 mr-2"
+                      >
+                        {{profile.status}}
+                      </p>
+                      <v-switch
+                        :input-value="profile.status == 'Active'"
+                        @click="changeStatus(profile.status, profile.id)"
+                      ></v-switch>
                     </div>
+                    
                   </td>
                 </tr>
               </tbody>
@@ -98,11 +97,28 @@
     }),
 
     computed: {
-
+      usersToken(){
+        return localStorage.getItem('token');
+      },
     },
 
     methods: {
-      
+      changeStatus(status, id){
+        console.log(status);
+        axios.put(this.getDomain()+'api/editstaff/'+id, {
+          register: status
+        },
+        {
+          headers:{
+            "Authorization": `Bearer ${this.usersToken}`,
+        }
+        })
+        .then(res => {
+          console.log(res.data);
+          this.$store.commit('allPeople', res.data.staff);
+        })
+        .catch(err => console.error(err));
+      },
     },
   }
 </script>

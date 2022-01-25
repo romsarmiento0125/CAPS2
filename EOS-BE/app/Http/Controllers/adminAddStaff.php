@@ -125,7 +125,32 @@ class adminAddStaff extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $existingItem = erichcustomer::find($id);
+
+        if($request->register == "Inactive"){
+            $existingItem->status = "Active";
+            
+            $existingItem->save();
+
+            return response()->json([
+                'data' => $existingItem,
+                'staff' => erichcustomer::all(),
+            ]);
+        }
+        else{
+            $existingItem->status = "Inactive";
+            
+            $existingItem->save();
+
+            return response()->json([
+                'data' => $existingItem,
+                'staff' => erichcustomer::all(),
+            ]);
+        }
+
+        
+
+        
     }
 
     /**

@@ -6,7 +6,7 @@
       <v-row>
         <v-col>
           <v-btn
-            @click="openDialog"
+            @click="dialog = true"
           >Add new</v-btn>
         </v-col>
         <v-col>
@@ -71,9 +71,9 @@
               </td>
             </template>
               <template v-slot:[`item.actions`]="{ item }">
-                
                 <v-btn
                   @click="updateItem(item)"
+                  block
                 >
                   <v-icon
                     small
@@ -83,13 +83,28 @@
                   </v-icon>
                   <p
                     class="my-0"
-                  >Update</p>
+                  >Update Items</p>
+                </v-btn>
+                <v-btn
+                  @click="updatePhotoDialog(item.id)"
+                  block
+                >
+                  <v-icon
+                    small
+                    class="mr-2"
+                  >
+                    mdi-camera
+                  </v-icon>
+                  <p
+                    class="my-0"
+                  >Change Photo</p>
                 </v-btn>
               </template>
           </v-data-table>
         </v-col>
       </v-row>
     </v-container>
+    <!-- Add New Dialog -->
     <div>
       <v-dialog
         v-model="dialog"
@@ -371,7 +386,333 @@
             <v-btn
               color="blue darken-1"
               text
-              @click="saveItem"
+              @click="checkInputs"
+            >
+              Save
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </div>
+    <!-- Update Dialog -->
+    <div>
+      <v-dialog
+        v-model="updateDialog"
+        persistent
+        max-width="600px"
+      >
+        <v-card>
+          <v-card-title>
+            <span class="text-h5">Update Item</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <!-- First Row -->
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="4"
+                >
+                  <v-text-field
+                    v-model="update.name"
+                    label="Name"
+                  ></v-text-field>
+                </v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="4"
+                >
+                  <v-text-field
+                    v-model="update.desc"
+                    label="Description"
+                  ></v-text-field>
+                </v-col>
+                 <v-col
+                  cols="12"
+                  sm="6"
+                  md="4"
+                >
+                  <v-text-field
+                    v-model="update.size"
+                    label="Size"
+                  ></v-text-field>
+                </v-col>
+
+                <!-- Second Row -->
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="4"
+                >
+                  <v-text-field
+                    type="number"
+                    v-model="update.supplierPrice"
+                    label="Supplier Price"
+                    @change="getRetailPrice"
+                  ></v-text-field>
+                </v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="4"
+                >
+                  <v-text-field
+                    type="number"
+                    v-model="update.discount"
+                    label="Discount"
+                    @change="getRetailPrice"
+                  ></v-text-field>
+                </v-col>
+                 <v-col
+                  cols="12"
+                  sm="6"
+                  md="4"
+                >
+                  <v-text-field
+                    type="number"
+                    disabled
+                    v-model="update.retailPrice"
+                    label="Retail Price"
+                  ></v-text-field>
+                </v-col>
+               
+                <!-- Third Row -->
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="4"
+                >
+                  <v-text-field
+                    type="number"
+                    v-model="update.quantity"
+                    label="Quantity"
+                  ></v-text-field>
+                </v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="4"
+                >
+                  <v-text-field
+                    type="number"
+                    v-model="update.qtyLimit"
+                    label="Quantity Limit"
+                  ></v-text-field>
+                </v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="4"
+                >
+                  <v-text-field
+                    v-model="update.itemCode"
+                    label="Item Code"
+                  ></v-text-field>
+                </v-col>
+
+                <!-- Fourth Row -->
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="4"
+                >
+                  <div class="text-center">
+                    <v-menu offset-y>
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                          color="primary"
+                          dark
+                          v-bind="attrs"
+                          v-on="on"
+                        >
+                          {{update.category}}
+                        </v-btn>
+                      </template>
+                      <v-list>
+                        <v-list-item
+                          v-for="(item, index) in cat"
+                          :key="index"
+                        >
+                          <v-btn
+                            plain
+                            @click="assignCategory(item.title)"
+                          >
+                            <p
+                              class="my-0"
+                            >{{item.title}}</p>
+                          </v-btn>
+                        </v-list-item>
+                      </v-list>
+                    </v-menu>
+                  </div>
+                </v-col>
+                 <v-col
+                  cols="12"
+                  sm="6"
+                  md="4"
+                >
+                  <div class="text-center">
+                    <v-menu offset-y>
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                          color="primary"
+                          dark
+                          v-bind="attrs"
+                          v-on="on"
+                        >
+                          {{update.underCategory}}
+                        </v-btn>
+                      </template>
+                      <v-list>
+                        <v-list-item
+                          v-for="(item, index) in underCat"
+                          :key="index"
+                        >
+                          <v-btn
+                            plain
+                            @click="assignUnderCat(item.title)"
+                          >
+                            <p
+                              class="my-0"
+                            >{{item.title}}</p>
+                          </v-btn>
+                        </v-list-item>
+                      </v-list>
+                    </v-menu>
+                  </div>
+                </v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="4"
+                >
+                  <v-menu
+                    ref="menu"
+                    v-model="menu"
+                    :close-on-content-click="false"
+                    :return-value.sync="date"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="auto"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field
+                        v-model="update.expirationDate"
+                        label="Picker in menu"
+                        prepend-icon="mdi-calendar"
+                        readonly
+                        v-bind="attrs"
+                        v-on="on"
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker
+                      v-model="update.expirationDate"
+                      no-title
+                      scrollable
+                    >
+                      <v-spacer></v-spacer>
+                      <v-btn
+                        text
+                        color="primary"
+                        @click="menu = false"
+                      >
+                        Cancel
+                      </v-btn>
+                      <v-btn
+                        text
+                        color="primary"
+                        @click="$refs.menu.save(date)"
+                      >
+                        OK
+                      </v-btn>
+                    </v-date-picker>
+                  </v-menu>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="updateDialog = false"
+            >
+              Close
+            </v-btn>
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="saveUpdate"
+            >
+              Save
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </div>
+    <!-- Change Photo -->
+    <div>
+      <v-dialog
+        v-model="changePhotoDialog"
+        persistent
+        max-width="600px"
+      >
+        <v-card>
+          <v-card-title>
+            <span class="text-h5">Change Photo</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <!-- Photo  -->
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="6"
+                >
+                  <v-file-input
+                    color="deep-purple accent-4"
+                    prepend-icon="mdi-paperclip"
+                    accept="image/*"
+                    label="Select Photo"
+                    outlined
+                    type="file"
+                    :show-size="1000"
+                    @change="onPhotoChange"
+                  >
+                  </v-file-input>
+                </v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="6"
+                >
+                  <v-img
+                    contain
+                    max-height="200"
+                    max-width="200"
+                    :src="changePicUrl"
+                  ></v-img>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="changePhotoDialog = false"
+            >
+              Close
+            </v-btn>
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="changePhoto"
             >
               Save
             </v-btn>
@@ -389,6 +730,10 @@
     mixins: [Mixins],
 
     data: () => ({
+      changePhotoDialog: false,
+      changePicUrl: null,
+      changeImage: null,
+      updateDialog: false,
       date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
       menu: false,
       picUrl: null,
@@ -413,6 +758,21 @@
         { title: 'Mixes' },
       ],
       item: {
+        name: "",
+        desc: "",
+        size: "",
+        supplierPrice: null,
+        discount: null,
+        retailPrice: 0,
+        quantity: null,
+        qtyLimit: null,
+        itemCode: "",
+        category: "Baking Goods",
+        underCategory: "Pasta",
+        expirationDate: "",
+      },
+      update: {
+        id: 0,
         name: "",
         desc: "",
         size: "",
@@ -452,6 +812,7 @@
       ],
       searchKey: "",
       showItems: null,
+      photoId: 0,
     }),
 
     computed: {
@@ -477,14 +838,63 @@
     }, 
 
     methods: {
-      openDialog(){
-        this.dialog = true;
+      updatePhotoDialog(id){
+        this.changePhotoDialog = true;
+        this.photoId = id;
+      },
+      changePhoto(){
+        // console.log("change photo");
+        this.changePhotoDialog = false;
+        // console.log(this.changeImage);
+        // console.log(this.photoId);
+        let formData = new FormData;
+        formData.append("photo", this.changeImage);
+        formData.append("id", this.photoId);
+        // console.log(formData);
+        if(this.changeImage == null){
+          alert("Insert Image");
+        }
+        else{
+          axios.post(this.getDomain()+'api/invphoto/store', formData,
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+              'content-type': 'multipart/form-data'
+          }
+          })
+          .then(res => {
+            // console.log(res.data);
+            this.$store.commit('storeCategoryItem', res.data.allItems);
+            this.$store.commit('imagePath', res.data.path);
+          })
+          .catch(err => console.error(err));
+        }
+      },
+      onPhotoChange(e){
+        if(e == null){
+          this.changePicUrl = null;
+          this.changeImage = "";
+        }
+        else{
+          this.changePicUrl = URL.createObjectURL(e);
+          this.changeImage = e;
+          // console.log(this.item.image);
+        }
+      },
+      checkInputs(){
+        if((this.item.name == "") || (this.item.desc == "") || (this.item.size == "") || (this.item.supplierPrice == null) ||
+          (this.item.discount == null) || (this.item.quantity == null) || (this.item.qtyLimit == null) || (this.item.itemCode == "") ||
+          (this.item.expirationDate == "") || (this.itemImage == null)){
+          alert("Complete Input Feilds");
+        }
+        else{
+          this.saveItem();
+        }
       },
       saveItem(){
         this.dialog = false;
         console.log(this.item);
         let formData = new FormData;
-        // formData.set('image', this.itemImage);
         formData.append("image", this.itemImage);
         for(let property in this.item)
         {
@@ -499,14 +909,16 @@
         }
         })
         .then(res => {
-          console.log(res.data);
-          this.$store.commit('storeCategoryItem', res.data.allItems);
-          this.$store.commit('imagePath', res.data.path);
+          if(res.data.cond){
+            alert(res.data.message);
+          }
+          else{
+            this.$store.commit('storeCategoryItem', res.data.allItems);
+            this.$store.commit('imagePath', res.data.path);
+          }
+          
         })
         .catch(err => console.error(err));
-        
-        // console.log(formData);
-        // console.log(this.item);
       },
       assignCategory(cond){
         var baking = [{ title: 'Pasta' },{ title: 'Cereals' },{ title: 'Sugar' },{ title: 'Mixes' }];
@@ -524,61 +936,85 @@
         if(cond == "Baking"){
           this.item.category = "Baking";
           this.item.underCategory = "Pasta";
+          this.update.category = "Baking";
+          this.update.underCategory = "Pasta";
           this.underCat = baking;
         }
         else if(cond == "Beverage"){
           this.item.category = "Beverage";
           this.item.underCategory = "Cofee-Tea";
+          this.update.category = "Beverage";
+          this.update.underCategory = "Cofee-Tea";
           this.underCat = beverages;
         }
         else if(cond == "Bread-Bakery"){
           this.item.category = "Bread-Bakery";
           this.item.underCategory = "Sandwich";
+          this.update.category = "Bread-Bakery";
+          this.update.underCategory = "Sandwich";
           this.underCat = breadBakery;
         }
         else if(cond == "Canned Goods"){
           this.item.category = "Canned Goods";
           this.item.underCategory = "Fish";
+          this.update.category = "Canned Goods";
+          this.update.underCategory = "Fish";
           this.underCat = canGoods;
         }
         else if(cond == "Condiments"){
           this.item.category = "Condiments";
           this.item.underCategory = "Sauce";
+          this.update.category = "Condiments";
+          this.update.underCategory = "Sauce";
           this.underCat = condiments;
         }
         else if(cond == "Dairy"){
           this.item.category = "Dairy";
           this.item.underCategory = "Cheese";
+          this.update.category = "Dairy";
+          this.update.underCategory = "Cheese";
           this.underCat = dairy;
         }
         else if(cond == "Frozen Foods"){
           this.item.category = "Frozen Foods";
           this.item.underCategory = "Hotdog";
+          this.update.category = "Frozen Foods";
+          this.update.underCategory = "Hotdog";
           this.underCat = frozenGoods;
         }
         else if(cond == "Laundry"){
           this.item.category = "Laundry";
           this.item.underCategory = "Fabric Softener";
+          this.update.category = "Laundry";
+          this.update.underCategory = "Fabric Softener";
           this.underCat = laundry;
         }
         else if(cond == "Noodles"){
           this.item.category = "Noodles";
           this.item.underCategory = "Cup Noodles";
+          this.update.category = "Noodles";
+          this.update.underCategory = "Cup Noodles";
           this.underCat = noodles;
         }
         else if(cond == "Personal Care"){
           this.item.category = "Personal Care";
           this.item.underCategory = "Shampoo";
+          this.update.category = "Personal Care";
+          this.update.underCategory = "Shampoo";
           this.underCat = personalCare;
         }
         else if(cond == "Snacks"){
           this.item.category = "Snacks";
           this.item.underCategory = "Chips";
+          this.update.category = "Snacks";
+          this.update.underCategory = "Chips";
           this.underCat = snacks;
         }
         else if(cond == "Sweets"){
           this.item.category = "Sweets";
           this.item.underCategory = "Candy";
+          this.update.category = "Sweets";
+          this.update.underCategory = "Candy";
           this.underCat = sweets;
         }
       },
@@ -600,8 +1036,40 @@
           // console.log(this.item.image);
         }
       },
+      saveUpdate(){
+        this.updateDialog = false;
+        console.log(this.update);
+        axios.put(this.getDomain()+'api/invitems/'+this.update.id, {
+          register: this.update
+        },
+        {
+          headers:{
+            "Authorization": `Bearer ${this.usersToken}`,
+        }
+        })
+        .then(res => {
+          console.log(res.data);
+          this.$store.commit('storeCategoryItem', res.data.allItems);
+            this.$store.commit('imagePath', res.data.path);
+        })
+        .catch(err => console.error(err));
+      },
       updateItem(item){
         console.log(item);
+        this.updateDialog = true;
+        this.update.id = item.id;
+        this.update.name = item.name;
+        this.update.desc = item.description;
+        this.update.size = item.size;
+        this.update.supplierPrice = item.supplierPrice;
+        this.update.discount = item.discount;
+        this.update.retailPrice = item.retailPrice;
+        this.update.quantity = item.quantity;
+        this.update.qtyLimit = item.qtyLimit;
+        this.update.itemCode = item.itemCode;
+        this.update.category = item.category;
+        this.update.underCategory = item.underCategory;
+        this.update.expirationDate = item.expirationDate;
       },
       toSortItems(cond){
         if(cond == "az"){
