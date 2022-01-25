@@ -6,8 +6,15 @@
       <v-row>
         <v-col>
           <v-btn
+            outlined
+            class="px-10 bgWhite"
+            color="#787878"
             @click="openDialog"
-          >Add new</v-btn>
+          >
+            <h4 class="fontTitle black--grey">
+            Add new 
+            </h4>
+          </v-btn>
         </v-col>
         <v-col>
           <v-text-field
@@ -15,6 +22,8 @@
             hide-details="auto"
             outlined
             dense
+            color="#1106A0"
+            rounded
             height="small"
             background-color="white"
             placeholder="Search for entire store here.."
@@ -70,6 +79,9 @@
                     >
                       <v-btn
                         small
+                        dark
+                        color="#FFA600"
+                        class="mt-2 my-1"
                         @click="updateSupplier(supplier)"
                       >
                         <p
@@ -77,7 +89,10 @@
                         >Update</p>
                       </v-btn>
                       <v-btn
+                        class="mb-2"
                         small
+                        dark
+                        color="#1106A0"
                         @click="deleteSupplier(supplier.id)"
                       >
                         <p
@@ -101,7 +116,7 @@
       >
         <v-card>
           <v-card-title>
-            <span class="text-h5">User Profile</span>
+            <span class="my-2 ml-2 fontTitle">User Profile</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -153,15 +168,17 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn
-              color="blue darken-1"
-              text
+              color="#1106A0"
+              outlined
+              class="px-10"
               @click="closeDialog"
             >
               Close
             </v-btn>
             <v-btn
-              color="blue darken-1"
-              text
+              color="#1106A0"
+              dark
+              class="px-10"
               @click="addSupplier"
             >
               Save
@@ -301,3 +318,21 @@
     }
   }
 </script>
+<style scoped>
+.fontTitle{
+  color: #464646;
+}
+.fontDesc{
+  color: #858585;
+}
+.bgYellow{
+  background-color: #FFA600;
+}
+.bgWhite{
+  background-color: #FFF;
+}
+.nBorder{
+    border: 1px solid #787885;
+    border-radius: 5px; 
+  }
+</style>

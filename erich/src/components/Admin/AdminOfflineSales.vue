@@ -8,7 +8,7 @@
           <div
             class="d-flex justify-end"
           >
-            <h2>Total Earned and Profile</h2>
+            <h2 class="fontTitle">Total Earned and Profile</h2>
           </div>
         </v-col>
       </v-row>
@@ -16,11 +16,18 @@
       <!-- Date rows -->
       <v-row>
         <v-col>
-          <v-sheet>
+          <v-sheet
+          max-height="90px"
+          height="90px"
+          >
+            <div class="pl-10 pt-2">
+                <h4>From - To</h4> 
+            </div>
+
             <div
-              class="d-flex"
+              class="d-flex pl-10 mt-n4"
             >
-              <div>
+              <div class="">
                 <v-menu
                   v-model="startmenu"
                   transition="scale-transition"
@@ -104,53 +111,80 @@
         </v-col>
       </v-row>
 
-      <v-row>
+      <v-row class="pb-4">
         <!-- Total sales column -->
         <v-col>
-          <v-sheet>
-            <div
-              class="d-flex justify-end"
+          <v-sheet
+          max-height="200"
+          max-width="400"
+          height="200"
+          width="400"
+          >
+          <v-card 
+          class="d-flex align-center"
+          max-height="150"
+          height="150"
+          >
+            <v-card
+            flat
+            max-width="400"
+            width="400"
             >
-              <h1>{{totalSales}}</h1>
+
+            </v-card>
+
+              <div
+                class="d-flex justify-end pr-4 fontTitle"
+              >
+                <v-icon size="45px" class="fontTitle pr-1">mdi-currency-php</v-icon>
+                <h1 class="display-2 font-weight-bold">{{totalSales}}</h1>
             </div>
+
+          </v-card>
+
+          <v-card tile>
             <div
-              class="d-flex justify-end light-green lighten-1"
+              class="d-flex justify-end bgGreen"
             >
               <p
-                class="white--text headline"
+                class="white--text headline pt-4 pr-4"
               >Total Sales</p>
             </div>
+          </v-card>
           </v-sheet>
         </v-col>
       </v-row>
 
       <v-row>
         <!-- Graph column -->
-        <v-col>
+        <v-col cols="6">
           <v-card
-            class="mx-auto text-center"
-            color="green"
-            dark
-            max-width="600"
+            class=""
+            color="fff"
+            width="800"
+            max-width="800"
+            height="456"
           >
             <v-card-text>
-              <div class="text-h4 font-weight-thin">
-                Total Sales
+              <div class="fontTitle pt-2">
+                <h3>
+                  Total Sales
+                </h3>
               </div>
             </v-card-text>
 
-            <v-card-text>
-              <v-sheet color="rgba(0, 0, 0, .12)">
+            <v-card-text class="pt-14">
+              <v-sheet color="#FFF">
                 <v-sparkline
                   :value="value"
-                  color="rgba(255, 255, 255, .7)"
+                  color="#78BF23"
                   height="100"
                   padding="24"
                   stroke-linecap="round"
                   smooth
                 >
                   <template v-slot:label="item">
-                    ${{ item.value }}
+                    ₱{{ item.value }}
                   </template>
                 </v-sparkline>
               </v-sheet>
@@ -159,14 +193,15 @@
         </v-col>
         
         <!-- High in demand column -->
-        <v-col>
+        <v-col cols="3" class="pl-5">
           <v-card
-            class="mx-auto"
-            max-width="300"
+            class="ml-6"
+            max-width="355"
+            width="355"
             tile
           >
             <v-list dense>
-              <v-subheader>High in Demand</v-subheader>
+              <h4 class="fontTitle mx-5 my-2">High in Demand</h4>
               <v-list-item-group
                 color="primary"
               >
@@ -175,7 +210,7 @@
                   :key="i"
                 >
                   <v-list-item-icon>
-                    <v-icon v-text="i + 1"></v-icon>
+                    <h4  class="fontTitle pl-1" v-text="i + 1"></h4>
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title>{{item.name}}&nbsp;{{item.size}}&nbsp;{{item.qty}}</v-list-item-title>
@@ -187,14 +222,15 @@
         </v-col>
 
         <!-- Low in demand column -->
-        <v-col>
+        <v-col cols="3" class="d-flex justify-end">
           <v-card
-            class="mx-auto"
-            max-width="300"
+            class=""
+            max-width="355"
+            width="355"
             tile
           >
             <v-list dense>
-              <v-subheader>Low in Demand</v-subheader>
+              <h4 class="fontTitle mx-5 my-2">Low in Demand</h4>
               <v-list-item-group
                 color="primary"
               >
@@ -203,7 +239,7 @@
                   :key="i"
                 >
                   <v-list-item-icon>
-                    <v-icon v-text="i + 1"></v-icon>
+                    <h4  class="fontTitle pl-1" v-text="i + 1"></h4>
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title>{{item.name}}&nbsp;{{item.size}}&nbsp;{{item.qty}}</v-list-item-title>
@@ -443,3 +479,22 @@
 
   }
 </script>
+
+<style scoped>
+.fontTitle{
+  color: #464646;
+}
+.fontDesc{
+  color: #858585;
+}
+.bgYellow{
+  background-color: #FFA600;
+}
+.bgGreen{
+  background-color: #78bf23;
+}
+.nBorder{
+    border: 1px solid #787885;
+    border-radius: 5px; 
+  }
+</style>

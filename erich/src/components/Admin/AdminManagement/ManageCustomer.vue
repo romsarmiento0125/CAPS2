@@ -3,9 +3,13 @@
     <v-container
       fluid
     >
+      
       <v-row>
-        <v-col>
+        <v-col cols="6">
           <v-text-field
+            class=""
+            rounded
+            color="#1106A0"
             append-icon="mdi-magnify"
             hide-details="auto"
             outlined
