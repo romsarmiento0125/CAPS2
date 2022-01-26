@@ -5,16 +5,21 @@
     >
       <v-row>
         <v-col>
-          <div>
+          <div class="pl-3">
             <v-btn
+              class="px-10"
+              dark
+              color="#1106A0"
               @click="transComponents('ol')"
             >
-              <p>Online</p>
+            Online
             </v-btn>
             <v-btn
+              class="ml-3 px-7"
+              dark
+              color="#FFA600"
               @click="transComponents('ph')"
-            >
-              <p>Physical</p>
+            > Physical
             </v-btn>
           </div>
           <div>

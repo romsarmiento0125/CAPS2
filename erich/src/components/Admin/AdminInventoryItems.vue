@@ -4,22 +4,31 @@
       fluid
     >
       <v-row>
-        <v-col>
+        <v-col cols="1" class="mx-0">
           <v-btn
+            outlined
+            color="#787878"
+            class="px-10 bgWhite"
             @click="dialog = true"
-          >Add new</v-btn>
+          >
+          <h4 class="fontTitle black--grey"> Add new</h4>
+          </v-btn>
         </v-col>
-        <v-col>
-          <div class="text-center">
+
+        <v-col cols="1" class="mx-10">
+          <div class="">
             <v-menu offset-y>
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
-                  color="primary"
-                  dark
+                  outlined
+                  class="px-6 bgWhite"
+                  color="#787878"
+                  
                   v-bind="attrs"
                   v-on="on"
                 >
-                  Sort
+                <v-icon size="20px" class="mr-1"> mdi-sort </v-icon>
+                  <h4 class="fontTitle black--grey">Sort</h4>
                 </v-btn>
               </template>
               <v-list>
@@ -35,8 +44,11 @@
             </v-menu>
           </div>
         </v-col>
-        <v-col>
+
+        <v-col cols="6" class="justify-center">
           <v-text-field
+            rounded
+            color="#1106A0"
             append-icon="mdi-magnify"
             hide-details="auto"
             outlined
@@ -72,6 +84,9 @@
             </template>
               <template v-slot:[`item.actions`]="{ item }">
                 <v-btn
+                  dark
+                  color="#ffA600"
+                  class="mt-2 my-1"
                   @click="updateItem(item)"
                   block
                 >
@@ -86,6 +101,9 @@
                   >Update Items</p>
                 </v-btn>
                 <v-btn
+                  class="mb-2"
+                  dark
+                  color="#1106A0"
                   @click="updatePhotoDialog(item.id)"
                   block
                 >
@@ -113,7 +131,7 @@
       >
         <v-card>
           <v-card-title>
-            <span class="text-h5">Add New Item</span>
+            <span class="my-2 ml-2 fontTitle">Add New Item</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -232,12 +250,13 @@
                     <v-menu offset-y>
                       <template v-slot:activator="{ on, attrs }">
                         <v-btn
-                          color="primary"
-                          dark
+                          color="#787878"
+                          outlined
+
                           v-bind="attrs"
                           v-on="on"
                         >
-                          {{item.category}}
+                          <h4 class="fontTitle">{{item.category}}</h4>
                         </v-btn>
                       </template>
                       <v-list>
@@ -263,16 +282,16 @@
                   sm="6"
                   md="4"
                 >
-                  <div class="text-center">
+                  <div class="text-center ml-n16">
                     <v-menu offset-y>
                       <template v-slot:activator="{ on, attrs }">
                         <v-btn
-                          color="primary"
-                          dark
+                          color="#787878"
+                          outlined
                           v-bind="attrs"
                           v-on="on"
                         >
-                          {{item.underCategory}}
+                          <h4 class="fontTitle">{{item.underCategory}}</h4>
                         </v-btn>
                       </template>
                       <v-list>
@@ -377,15 +396,18 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn
-              color="blue darken-1"
+              color="#1106A0"
+              outlined
+              class="px-10"
               text
               @click="dialog = false"
             >
               Close
             </v-btn>
             <v-btn
-              color="blue darken-1"
-              text
+              color="#1106A0"
+              dark
+              class="px-10"
               @click="checkInputs"
             >
               Save
@@ -403,7 +425,7 @@
       >
         <v-card>
           <v-card-title>
-            <span class="text-h5">Update Item</span>
+            <span class="my-2 ml-2">Update Item</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -522,12 +544,12 @@
                     <v-menu offset-y>
                       <template v-slot:activator="{ on, attrs }">
                         <v-btn
-                          color="primary"
-                          dark
+                          color="#787878"
+                          outlined
                           v-bind="attrs"
                           v-on="on"
                         >
-                          {{update.category}}
+                          <h4 class="fontTitle">{{update.category}}</h4>
                         </v-btn>
                       </template>
                       <v-list>
@@ -557,14 +579,15 @@
                     <v-menu offset-y>
                       <template v-slot:activator="{ on, attrs }">
                         <v-btn
-                          color="primary"
-                          dark
+                          color="#787878"
+                          outlined
+                          class="ml-n16"
                           v-bind="attrs"
                           v-on="on"
                         >
-                          {{update.underCategory}}
+                          <h4 class="fontTitle">{{update.underCategory}}</h4>                        
                         </v-btn>
-                      </template>
+                        </template>
                       <v-list>
                         <v-list-item
                           v-for="(item, index) in underCat"
@@ -636,15 +659,18 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn
-              color="blue darken-1"
-              text
+              color="#1106A0"
+              outlined
+              class="px-10"
+              
               @click="updateDialog = false"
             >
               Close
             </v-btn>
             <v-btn
-              color="blue darken-1"
-              text
+              color="#1106A0"
+              dark
+              class="px-10"
               @click="saveUpdate"
             >
               Save
@@ -662,7 +688,7 @@
       >
         <v-card>
           <v-card-title>
-            <span class="text-h5">Change Photo</span>
+            <span class="my-2 ml-2 fontTitle">Change Photo</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -703,15 +729,17 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn
-              color="blue darken-1"
-              text
+              color="#1106a0"
+              class="px-10"
+              outlined
               @click="changePhotoDialog = false"
             >
               Close
             </v-btn>
             <v-btn
-              color="blue darken-1"
-              text
+              color="#1106A0"
+              dark
+              class="px-10"
               @click="changePhoto"
             >
               Save
@@ -1112,3 +1140,22 @@
     }
   }
 </script>
+
+<style scoped>
+.fontTitle{
+  color: #464646;
+}
+.fontDesc{
+  color: #858585;
+}
+.bgYellow{
+  background-color: #FFA600;
+}
+.bgWhite{
+  background-color: #FFF;
+}
+.nBorder{
+    border: 1px solid #787885;
+    border-radius: 5px; 
+  }
+</style>

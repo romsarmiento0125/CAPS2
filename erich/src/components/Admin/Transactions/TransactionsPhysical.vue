@@ -7,103 +7,117 @@
         <v-col>
           <v-sheet>
             <div
-              class="d-flex"
+              class="d-flex mt-3"
             >
-              <div>
-                <v-menu
-                  v-model="startmenu"
-                  transition="scale-transition"
-                  offset-y
-                  min-width="auto"
-                >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                      v-model="startDate"
-                      prepend-icon="mdi-calendar"
-                      readonly
-                      v-bind="attrs"
-                      v-on="on"
-                    ></v-text-field>
-                  </template>
-                  <v-date-picker
-                    v-model="startDate"
-                    scrollable
-                    show-current="false"
+              <v-row>
+                <v-col>
+                  <v-sheet
+                  max-height="90px"
+                  height="90px"
                   >
-                    <v-spacer></v-spacer>
-                    <v-btn
-                      text
-                      color="primary"
-                      @click="menu = false"
-                    >
-                      Cancel
-                    </v-btn>
-                    <v-btn
-                      text
-                      color="primary"
-                      @click="menu = false"
-                    >
-                      OK
-                    </v-btn>
-                  </v-date-picker>
-                </v-menu>
-              </div>
+                    <div class="pl-10 pt-2 fontTitle">
+                      <h4>From - To</h4>
+                    </div>
+                  
+                    <div class="d-flex pl-10 mt-n4">
+                      <div>
+                        <v-menu
+                          v-model="startmenu"
+                          transition="scale-transition"
+                          offset-y
+                          min-width="auto"
+                        >
+                          <template v-slot:activator="{ on, attrs }">
+                            <v-text-field
+                              v-model="startDate"
+                              prepend-icon="mdi-calendar"
+                              readonly
+                              v-bind="attrs"
+                              v-on="on"
+                            ></v-text-field>
+                          </template>
+                          <v-date-picker
+                            v-model="startDate"
+                            scrollable
+                            show-current="false"
+                          >
+                            <v-spacer></v-spacer>
+                            <v-btn
+                              text
+                              color="primary"
+                              @click="menu = false"
+                            >
+                              Cancel
+                            </v-btn>
+                            <v-btn
+                              text
+                              color="primary"
+                              @click="menu = false"
+                            >
+                              OK
+                            </v-btn>
+                          </v-date-picker>
+                        </v-menu>
+                      </div>
 
-              <div>
-                <v-menu
-                  v-model="endmenu"
-                  transition="scale-transition"
-                  offset-y
-                  min-width="auto"
-                >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                      v-model="endDate"
-                      prepend-icon="mdi-calendar"
-                      readonly
-                      v-bind="attrs"
-                      v-on="on"
-                    ></v-text-field>
-                  </template>
-                  <v-date-picker
-                    v-model="endDate"
-                    scrollable
-                    show-current="false"
-                  >
-                    <v-spacer></v-spacer>
-                    <v-btn
-                      text
-                      color="primary"
-                      @click="endmenu = false"
-                    >
-                      Cancel
-                    </v-btn>
-                    <v-btn
-                      text
-                      color="primary"
-                      @click="endmenu = false"
-                    >
-                      OK
-                    </v-btn>
-                  </v-date-picker>
-                </v-menu>
-              </div>
+                      <div>
+                        <v-menu
+                          v-model="endmenu"
+                          transition="scale-transition"
+                          offset-y
+                          min-width="auto"
+                        >
+                          <template v-slot:activator="{ on, attrs }">
+                            <v-text-field
+                              v-model="endDate"
+                              prepend-icon="mdi-calendar"
+                              readonly
+                              v-bind="attrs"
+                              v-on="on"
+                            ></v-text-field>
+                          </template>
+                          <v-date-picker
+                            v-model="endDate"
+                            scrollable
+                            show-current="false"
+                          >
+                            <v-spacer></v-spacer>
+                            <v-btn
+                              text
+                              color="primary"
+                              @click="endmenu = false"
+                            >
+                              Cancel
+                            </v-btn>
+                            <v-btn
+                              text
+                              color="primary"
+                              @click="endmenu = false"
+                            >
+                              OK
+                            </v-btn>
+                          </v-date-picker>
+                        </v-menu>
+                      </div>
+                    </div>
+                  </v-sheet>
+                </v-col>
+              </v-row>
             </div>
           </v-sheet>
         </v-col>
       </v-row>
 
-      <v-row>
-        <v-col>
-          <div
-            class="d-flex"
-          >
+      <v-row class="mt-15">
+        <v-col cols="6" class="py-5">
             <div>
               <v-text-field
                 append-icon="mdi-magnify"
                 hide-details="auto"
                 outlined
                 dense
+                rounded
+                color="#1106A0"
                 height="small"
                 background-color="white"
                 placeholder="Search for entire store here.."
@@ -112,16 +126,20 @@
               >
               </v-text-field>
             </div>
-            <div>
+
+        </v-col>
+        <v-col cols="6" class="d-flex justify-end">
+           <div class="mx-5">
               <v-btn
+                dark
+                color="#1106A0"
+                class="my-1"
                 @click="exportTheTable"
               >
-                <p
-                  class="my-0"
-                >Generate Report</p>
+                <h4
+                >Generate Report</h4>
               </v-btn>
             </div>
-          </div>
         </v-col>
       </v-row>
       <v-row>
