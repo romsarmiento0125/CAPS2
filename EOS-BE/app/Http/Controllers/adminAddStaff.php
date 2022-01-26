@@ -147,10 +147,26 @@ class adminAddStaff extends Controller
                 'staff' => erichcustomer::all(),
             ]);
         }
+    }
 
-        
+    public function profiles(Request $request, $id)
+    {
+        $existingItem = erichcustomer::find($id);
 
-        
+        $existingItem->first_Name = $request->register['First_Name'];
+        $existingItem->last_Name = $request->register['Last_Name'];
+        $existingItem->email = $request->register['Email'];
+        $existingItem->mobile_Number = $request->register['Mobile_Number'];
+        $existingItem->birthday = $request->register['Birthday'];
+        $existingItem->gender = $request->register['Gender'];
+        $existingItem->tag = $request->register['Tag'];
+
+        $existingItem->save();
+
+        return response()->json([
+            'data' => $existingItem,
+            'staff' => erichcustomer::all(),
+        ]);
     }
 
     /**

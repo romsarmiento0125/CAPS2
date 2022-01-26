@@ -511,7 +511,6 @@
           items.sort((a,b) => (a.qty > b.qty) ? 1 : ((b.qty > a.qty) ? -1 : 0))
           if(cond == "high"){
             items.reverse();
-            items = items.slice(0,10);
             // console.log(this.categoryItems);
 
             for(var i = 0; i < items.length; i++){
@@ -528,10 +527,10 @@
                 }
               });
             }
+            showItem = showItem.slice(0, 10);
             return showItem;
           }
           if(cond == "low"){
-            items = items.slice(0,10);
             // console.log(this.categoryItems);
 
             for(var i = 0; i < items.length; i++){
@@ -548,6 +547,7 @@
                 }
               });
             }
+            showItem = showItem.slice(0, 10);
             return showItem;
           }
         }

@@ -281,6 +281,7 @@
         return this.showTotalSales();
       },
       highDemand(){
+        // console.log(this.showDemand("high"));
         return this.showDemand("high");
       },
       lowDemand(){
@@ -365,14 +366,12 @@
           items.sort((a,b) => (a.qty > b.qty) ? 1 : ((b.qty > a.qty) ? -1 : 0))
           if(cond == "high"){
             items.reverse();
-            items = items.slice(0,10);
-            // console.log(this.categoryItems);
-
             for(var i = 0; i < items.length; i++){
               // console.log("loop");
               this.categoryItems.forEach(dat => {
+                // console.log(i + "<>" + dat.itemCode + "<>" + items[i].code);
                 if(dat.itemCode == items[i].code){
-                  // console.log(dat);
+                  
                   showItem.push({
                     name: dat.name,
                     desc: dat.description,
@@ -382,10 +381,11 @@
                 }
               });
             }
+            // console.log(showItem);
+            showItem = showItem.slice(0, 10);
             return showItem;
           }
           else if(cond == "low"){
-            items = items.slice(0,10);
             // console.log(this.categoryItems);
 
             for(var i = 0; i < items.length; i++){
@@ -402,6 +402,7 @@
                 }
               });
             }
+            showItem = showItem.slice(0, 10);
             return showItem;
           }
         }
