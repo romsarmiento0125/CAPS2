@@ -100,7 +100,8 @@
           </div>
           <v-card-actions class="justify-end mx-3">
             <v-btn
-              text
+              outlined
+              class="px-10"
               color="#1106A0"
               @click="dialog.value = false"
             >Close</v-btn>

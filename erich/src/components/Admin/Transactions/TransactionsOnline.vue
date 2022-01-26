@@ -7,179 +7,205 @@
         <v-col>
           <v-sheet>
             <div
-              class="d-flex"
+              class="d-flex mt-3"
             >
-              <div>
-                <v-menu
-                  v-model="startmenu"
-                  transition="scale-transition"
-                  offset-y
-                  min-width="auto"
-                >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                      v-model="startDate"
-                      prepend-icon="mdi-calendar"
-                      readonly
-                      v-bind="attrs"
-                      v-on="on"
-                    ></v-text-field>
-                  </template>
-                  <v-date-picker
-                    v-model="startDate"
-                    scrollable
-                    show-current="false"
+              <v-row>
+                <v-col>
+                  <v-sheet
+                  max-height="90px"
+                  height="90px"
                   >
-                    <v-spacer></v-spacer>
-                    <v-btn
-                      text
-                      color="primary"
-                      @click="menu = false"
-                    >
-                      Cancel
-                    </v-btn>
-                    <v-btn
-                      text
-                      color="primary"
-                      @click="menu = false"
-                    >
-                      OK
-                    </v-btn>
-                  </v-date-picker>
-                </v-menu>
-              </div>
+                    <div class="pl-10 pt-2 fontTitle">
+                      <h4>From - To</h4>
 
-              <div>
-                <v-menu
-                  v-model="endmenu"
-                  transition="scale-transition"
-                  offset-y
-                  min-width="auto"
-                >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                      v-model="endDate"
-                      prepend-icon="mdi-calendar"
-                      readonly
-                      v-bind="attrs"
-                      v-on="on"
-                    ></v-text-field>
-                  </template>
-                  <v-date-picker
-                    v-model="endDate"
-                    scrollable
-                    show-current="false"
-                  >
-                    <v-spacer></v-spacer>
-                    <v-btn
-                      text
-                      color="primary"
-                      @click="endmenu = false"
-                    >
-                      Cancel
-                    </v-btn>
-                    <v-btn
-                      text
-                      color="primary"
-                      @click="endmenu = false"
-                    >
-                      OK
-                    </v-btn>
-                  </v-date-picker>
-                </v-menu>
-              </div>
+                    </div>
+
+                    <div class="d-flex pl-10 mt-n4">
+                      <div>
+                        <v-menu
+                          v-model="startmenu"
+                          transition="scale-transition"
+                          offset-y
+                          min-width="auto"
+                        >
+                          <template v-slot:activator="{ on, attrs }">
+                            <v-text-field
+                              v-model="startDate"
+                              prepend-icon="mdi-calendar"
+                              readonly
+                              v-bind="attrs"
+                              v-on="on"
+                            ></v-text-field>
+                          </template>
+                          <v-date-picker
+                            v-model="startDate"
+                            scrollable
+                            show-current="false"
+                          >
+                            <v-spacer></v-spacer>
+                            <v-btn
+                              text
+                              color="primary"
+                              @click="menu = false"
+                            >
+                              Cancel
+                            </v-btn>
+                            <v-btn
+                              text
+                              color="primary"
+                              @click="menu = false"
+                            >
+                              OK
+                            </v-btn>
+                          </v-date-picker>
+                        </v-menu>
+                      </div>
+
+                      <div>
+                        <v-menu
+                          v-model="endmenu"
+                          transition="scale-transition"
+                          offset-y
+                          min-width="auto"
+                        >
+                          <template v-slot:activator="{ on, attrs }">
+                            <v-text-field
+                              v-model="endDate"
+                              prepend-icon="mdi-calendar"
+                              readonly
+                              v-bind="attrs"
+                              v-on="on"
+                            ></v-text-field>
+                          </template>
+                          <v-date-picker
+                            v-model="endDate"
+                            scrollable
+                            show-current="false"
+                          >
+                            <v-spacer></v-spacer>
+                            <v-btn
+                              text
+                              color="primary"
+                              @click="endmenu = false"
+                            >
+                              Cancel
+                            </v-btn>
+                            <v-btn
+                              text
+                              color="primary"
+                              @click="endmenu = false"
+                            >
+                              OK
+                            </v-btn>
+                          </v-date-picker>
+                        </v-menu>
+                      
+                      </div>
+                    </div>
+                  </v-sheet>
+                </v-col>
+              </v-row>
             </div>
           </v-sheet>
         </v-col>
       </v-row>
-
-      <v-row>
-        <v-col>
-          <div
-            class="d-flex"
-          >
-            <div>
-              <v-text-field
-                append-icon="mdi-magnify"
-                hide-details="auto"
-                outlined
-                dense
-                height="small"
-                background-color="white"
-                placeholder="Search for entire store here.."
-                v-model="searchKey"
-                v-on:keyup="toSearchItems(searchKey)"
-              >
-              </v-text-field>
-            </div>
-            <div>
-              <v-btn>
-                <p>Generate Report</p>
-              </v-btn>
-            </div>
-          </div>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col>
-          <v-data-table
-            :headers="headers"
-            :items="showItems"
-            :single-expand="singleExpand"
-            :expanded.sync="expanded"
-            item-key="invoiceNumber"
-            show-expand
-            class="elevation-1"
-          >
-            <template v-slot:expanded-item="{ headers, item }">
-              <td :colspan="headers.length">
-                <v-simple-table 
+      
+      
+        <v-row class="mt-15">
+          <v-col cols="6" class="py-5">
+              <div class="">
+                <v-text-field
+                  class=""
+                  append-icon="mdi-magnify"
+                  hide-details="auto"
+                  outlined
                   dense
-                  class="transparent"
+                  rounded
+                  height="small"
+                  color="#1106A0"
+                  background-color="white"
+                  placeholder="Search for entire store here.."
+                  v-model="searchKey"
+                  v-on:keyup="toSearchItems(searchKey)"
                 >
-                  <template v-slot:default>
-                    <thead>
-                      <tr>
-                        <th class="text-left">
-                          Name
-                        </th>
-                        <th class="text-left">
-                          Description
-                        </th>
-                        <th class="text-left">
-                          Size
-                        </th>
-                        <th class="text-left">
-                          Price
-                        </th>
-                        <th class="text-left">
-                          Quantity
-                        </th>
-                        <th class="text-left">
-                          Total
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr
-                        v-for="it in item.orders"
-                        :key="it.id"
-                      >
-                        <td>{{ it.itemName }}</td>
-                        <td>{{ it.itemDesc }}</td>
-                        <td>{{ it.itemSize }}</td>
-                        <td>{{ it.retailPrice }}</td>
-                        <td>{{ it.quantity }}</td>
-                        <td>{{ priceRound(it.retailPrice * it.quantity) }}</td>
-                      </tr>
-                    </tbody>
-                  </template>
-                </v-simple-table>
-              </td>
-            </template>
-          </v-data-table>
-        </v-col>
-      </v-row>
+                </v-text-field>
+              </div>
+            
+          </v-col>
+          <v-col cols="6" class="d-flex justify-end">
+            <div class="mx-6">
+                <v-btn 
+                dark
+                color="#1106A0"
+                class="my-1"
+                >
+                  <h4>Generate Report</h4>
+                </v-btn>
+              </div>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="">
+            <v-data-table
+              
+              :headers="headers"
+              :items="showItems"
+              :single-expand="singleExpand"
+              :expanded.sync="expanded"
+              item-key="invoiceNumber"
+              show-expand
+              class="elevation-1"
+            >
+              <template v-slot:expanded-item="{ headers, item }">
+                <td :colspan="headers.length">
+                  <v-simple-table 
+                    dense
+                    class="transparent"
+                  >
+                    <template v-slot:default>
+                      <thead>
+                        <tr>
+                          <th class="text-left">
+                            Name
+                          </th>
+                          <th class="text-left">
+                            Description
+                          </th>
+                          <th class="text-left">
+                            Size
+                          </th>
+                          <th class="text-left">
+                            Price
+                          </th>
+                          <th class="text-left">
+                            Quantity
+                          </th>
+                          <th class="text-left">
+                            Total
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          v-for="it in item.orders"
+                          :key="it.id"
+                        >
+                          <td>{{ it.itemName }}</td>
+                          <td>{{ it.itemDesc }}</td>
+                          <td>{{ it.itemSize }}</td>
+                          <td>{{ it.retailPrice }}</td>
+                          <td>{{ it.quantity }}</td>
+                          <td>{{ priceRound(it.retailPrice * it.quantity) }}</td>
+                        </tr>
+                      </tbody>
+                    </template>
+                  </v-simple-table>
+                </td>
+              </template>
+            </v-data-table>
+          </v-col>
+        </v-row>
+      
     </v-container>
   </div>
 </template>
@@ -294,3 +320,25 @@
     }
   }
 </script>
+
+<style scoped>
+.fontTitle{
+  color: #464646;
+}
+.fontDesc{
+  color: #858585;
+}
+.bgYellow{
+  background-color: #FFA600;
+}
+.bgWhite{
+  background-color: #FFF;
+}
+.bgBlue{
+  background-color: #1106A0;
+}
+.nBorder{
+    border: 1px solid #787885;
+    border-radius: 5px; 
+  }
+</style>

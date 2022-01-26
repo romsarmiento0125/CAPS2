@@ -248,14 +248,16 @@
           <v-spacer></v-spacer>
           <v-btn
             color="#1106A0"
-            text
+            class="px-10"
+            outlined
             @click="dialog = false"
           >
             Close
           </v-btn>
           <v-btn
             color="#1106A0"
-            text
+            dark
+            class="px-10"
             @click="finishOrder"
           >
             Save
@@ -282,15 +284,17 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
-            color="blue darken-1"
-            text
+            color="#1106A0"
+            outlined
+            class="px-10"
             @click="updateDialog = false"
           >
             Close
           </v-btn>
           <v-btn
-            color="blue darken-1"
-            text
+            color="#1106A0"
+            dark
+            class="px-10"
             @click="updateItem"
           >
             Save
