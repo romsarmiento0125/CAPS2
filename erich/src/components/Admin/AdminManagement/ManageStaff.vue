@@ -81,6 +81,7 @@
                         dark
                         color="#FFA600"
                         class="mt-2 my-1"
+                        @click="openDialogUpdate(profile)"
                       >Update
                       </v-btn>
                     </div>
@@ -92,111 +93,213 @@
         </v-col>
       </v-row>
     </v-container>
-    <v-dialog
-      v-model="dialog"
-      persistent
-      max-width="600px"
-    >
-      <v-card>
-        <v-card-title>
-          <h4 class="my-2 ml-2 fontTitle">User Profile</h4>
-        </v-card-title>
-        <v-card-text>
-          <v-container>
-            <v-row>
-              <v-col
-                cols="12"
-                md="6"
-              >
-                <v-text-field
-                  v-model="personalInfo.First_Name"
-                  label="First name"
-                  required
-                ></v-text-field>
-              </v-col>
-              <v-col
-                cols="12"
-                sm="6"
-                md="6"
-              >
-                <v-text-field
-                  v-model="personalInfo.Last_Name"
-                  label="Last name"
-                  persistent-hint
-                  required
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12">
-                <v-text-field
-                  v-model="personalInfo.Email"
-                  label="Email"
-                  required
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12">
-                <v-text-field
-                  v-model="personalInfo.Mobile_Number"
-                  label="Mobile number"
-                  required
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12">
-                <v-text-field
-                  v-model="personalInfo.Birthday"
-                  label="Birthday"
-                  placeholder="2020-01-30"
-                  required
-                ></v-text-field>
-              </v-col>
-              <v-col
-                cols="12"
-                sm="6"
-                md="6"
-              >
-                <v-select
-                  :items="['Male', 'Female']"
-                  v-model="personalInfo.Gender"
-                  label="Gender"
-                  required
-                ></v-select>
-              </v-col>
-              <v-col
-                cols="12"
-                sm="6"
-                md="6"
-              >
-                <v-select
-                  :items="['Admin', 'Ocashier', 'Pcashier', 'Encoder']"
-                  v-model="personalInfo.Tag"
-                  label="Role"
-                  required
-                ></v-select>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="#1106A0"
-            outlined
-            class="px-10"
-            
-            @click="dialog = false"
-          >
-            Close
-          </v-btn>
-          <v-btn
-            color="#1106A0"
-            dark
-            class="px-10"
-            @click="addStaff"
-          >
-            Save
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+    <div>
+      <v-dialog
+        v-model="dialog"
+        persistent
+        max-width="600px"
+      >
+        <v-card>
+          <v-card-title>
+            <h4 class="my-2 ml-2 fontTitle">User Profile</h4>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <v-text-field
+                    v-model="personalInfo.First_Name"
+                    label="First name"
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="6"
+                >
+                  <v-text-field
+                    v-model="personalInfo.Last_Name"
+                    label="Last name"
+                    persistent-hint
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="personalInfo.Email"
+                    label="Email"
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="personalInfo.Mobile_Number"
+                    label="Mobile number"
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="personalInfo.Birthday"
+                    label="Birthday"
+                    placeholder="2020-01-30"
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="6"
+                >
+                  <v-select
+                    :items="['Male', 'Female']"
+                    v-model="personalInfo.Gender"
+                    label="Gender"
+                    required
+                  ></v-select>
+                </v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="6"
+                >
+                  <v-select
+                    :items="['Admin', 'Ocashier', 'Pcashier', 'Encoder']"
+                    v-model="personalInfo.Tag"
+                    label="Role"
+                    required
+                  ></v-select>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="#1106A0"
+              outlined
+              class="px-10"
+              
+              @click="dialog = false"
+            >
+              Close
+            </v-btn>
+            <v-btn
+              color="#1106A0"
+              dark
+              class="px-10"
+              @click="addStaff"
+            >
+              Save
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </div>
+    <div>
+      <v-dialog
+        v-model="updateDialog"
+        persistent
+        max-width="600px"
+      >
+        <v-card>
+          <v-card-title>
+            <h4 class="my-2 ml-2 fontTitle">Update Profile</h4>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <v-text-field
+                    v-model="updateInfo.First_Name"
+                    label="First name"
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="6"
+                >
+                  <v-text-field
+                    v-model="updateInfo.Last_Name"
+                    label="Last name"
+                    persistent-hint
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="updateInfo.Mobile_Number"
+                    label="Mobile number"
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="updateInfo.Birthday"
+                    label="Birthday"
+                    placeholder="2020-01-30"
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="6"
+                >
+                  <v-select
+                    :items="['Male', 'Female', 'Other']"
+                    v-model="updateInfo.Gender"
+                    label="Gender"
+                    required
+                  ></v-select>
+                </v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="6"
+                >
+                  <v-select
+                    :items="['Admin', 'Ocashier', 'Pcashier', 'Encoder']"
+                    v-model="updateInfo.Tag"
+                    label="Role"
+                    required
+                  ></v-select>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="#1106A0"
+              outlined
+              class="px-10"
+              
+              @click="updateDialog = false"
+            >
+              Close
+            </v-btn>
+            <v-btn
+              color="#1106A0"
+              dark
+              class="px-10"
+              @click="saveUpdateDialog(updateInfo)"
+            >
+              Save
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </div>
   </div>
 </template>
 
@@ -229,6 +332,17 @@
         ShipFee: "Free",
         Default: "True",
       },
+      updateInfo: {
+        First_Name: "gg",
+        Last_Name: "",
+        Mobile_Number: "",
+        Email: "",
+        Gender: "",
+        Birthday: "",
+        Tag: "",
+        id: "",
+      },
+      updateDialog: false,
     }),
 
     computed: {
@@ -238,6 +352,40 @@
     },
 
     methods: {
+      openDialogUpdate(items){
+        this.updateInfo.First_Name = items.first_Name;
+        this.updateInfo.Last_Name = items.last_Name;
+        this.updateInfo.Mobile_Number = items.mobile_Number;
+        this.updateInfo.Email = items.email;
+        this.updateInfo.Gender = items.gender;
+        this.updateInfo.Birthday = items.birthday;
+        this.updateInfo.Tag = items.tag;
+        this.updateInfo.id = items.id;
+        this.updateDialog = true;
+      },
+      saveUpdateDialog(data){
+        // console.log(data);
+        if((data.First_Name == "") || (data.Last_Name == "") || (data.Email == "") || (data.Mobile_Number == "") || (data.Birthday == "")){
+          alert("Incomplete Input Fields");
+        }
+        else{
+          // console.log("save");
+          axios.put(this.getDomain()+'api/editprofiles/'+data.id, {
+            register: data
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
+          .then(res => {
+            // console.log(res.data);
+            this.$store.commit('allPeople', res.data.staff);
+          })
+          .catch(err => console.error(err));
+          this.updateDialog = false;
+        }
+      },
       changeStatus(status, id){
         console.log(status);
         axios.put(this.getDomain()+'api/editstaff/'+id, {
