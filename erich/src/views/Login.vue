@@ -99,10 +99,10 @@
 
     data: () => ({
       usersData: {
-        // usersEmail: "",
-        // usersPassword: ""
-        usersEmail: "sarmientopaulo01@gmail.com",
-        usersPassword: "@Admin123"
+        usersEmail: "",
+        usersPassword: ""
+        // usersEmail: "sarmientopaulo01@gmail.com",
+        // usersPassword: "@Admin123"
       }
     }),
 
@@ -143,18 +143,6 @@
           localStorage.setItem("tag", cinfo.user.tag);
           localStorage.setItem("token", cinfo.token);
 
-          axios.post(this.getDomain()+'api/loginaddress/store',{
-            clientCred: this.usersData
-          })
-          .then(res => {
-            // console.log(res.data);
-            this.$store.commit('storeCustomerAddress', res.data);
-          })
-          .then(res => {
-            // console.log(res.data);
-            this.$store.commit('storeCustomerAddress', res.data);
-          })
-          .catch(err => console.error(err));
           this.$router.push("/");
         }
       },

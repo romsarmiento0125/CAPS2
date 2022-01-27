@@ -57,8 +57,8 @@ use App\Http\Controllers\customerPasswordVerificationController;
 
 Route::middleware('auth:sanctum')->group( function (){
     Route::get('/loginaddress', [loginaddresscontroller::class, 'index']);
-    
-    // Route::post('loginaddress/store', [loginaddresscontroller::class, 'store']);
+
+    Route::post('loginaddress/store', [loginaddresscontroller::class, 'store']);
 
     Route::get('/headercart', [erichheadercartcontroller::class, 'index']);
     Route::post('/headercart/store', [erichheadercartcontroller::class, 'store']);
@@ -135,18 +135,14 @@ Route::middleware('auth:sanctum')->group( function (){
 });
 
 Route::post('/customerlogin',[erichlogincontroller::class,'login']);
-
-Route::post('loginaddress/store', [loginaddresscontroller::class, 'store']);
+Route::post('/customersignup/save',[erichlogincontroller::class,'signup']);
 
 Route::get('/categoryitem', [erichcategoryitemscontroller::class, 'index']);
 
 Route::get('/customers', [erichcustomercontroller::class, 'index']);
-Route::post('/customers/store', [erichcustomercontroller::class, 'store']);
 
 Route::get('/customeraddress', [customeraddresscontroller::class, 'index']);
-Route::post('/customeraddress/store', [customeraddresscontroller::class, 'store']);
 
-Route::post('/customernotif/store', [erichnotificationscontroller::class, 'store']);
 // Route::get('/testlang', [erichnotificationscontroller::class, 'index']);
 
 Route::post('/sendcode', [customerPasswordVerificationController::class, 'findemail']);

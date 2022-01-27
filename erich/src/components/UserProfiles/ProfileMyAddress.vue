@@ -40,7 +40,7 @@
                     color="primary"
                   >
                     <v-list-item
-                      v-for="(item, i) in items"
+                      v-for="(item, i) in showAddress"
                       :key="i"
                     >
                       <div
@@ -120,17 +120,21 @@
       },
       customerAddress() {
         return this.$store.state.customerAddress;
+      },
+      showAddress() {
+        return this.insertAddress();
       }
     },
 
     watch: {
       customerAddress(){
-        this.insertAddress;
+        this.insertAddress();
       }
     },
 
     methods: {
       insertAddress() {
+        this.items = [];
         var item;
         for(var i = 0; i < this.customerAddress.length; i++){
           var def = "";
@@ -150,6 +154,7 @@
           //console.log("loop");
           this.items.push(item);
         }
+        return this.items;
       },
       deleteAddress() {
         alert("Delete button is not functioning");
@@ -163,7 +168,6 @@
     },
 
     beforeMount() {
-      this.insertAddress();
     }
   }
 </script>
