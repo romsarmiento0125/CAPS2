@@ -132,10 +132,14 @@ Route::middleware('auth:sanctum')->group( function (){
     //physical cashier
     Route::post('/physicalorder/store', [physicalCashierOrders::class, 'store']);
     Route::get('/physicalorder', [physicalCashierOrders::class, 'index']);
+
+    
 });
 
 Route::post('/customerlogin',[erichlogincontroller::class,'login']);
 Route::post('/customersignup/save',[erichlogincontroller::class,'signup']);
+
+// Route::get('/pota', [erichlogincontroller::class, 'ayokona']);
 
 Route::get('/categoryitem', [erichcategoryitemscontroller::class, 'index']);
 
