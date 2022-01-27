@@ -64,6 +64,7 @@ export default new Vuex.Store({
     },
     //Views Login.vue
     storeCustomerAddress: (state, payload) => {
+      state.customerAddress = {};
       state.customerAddress = payload
     },
     //Components HomeItems CategoriesItem.vue

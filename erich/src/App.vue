@@ -35,6 +35,7 @@
       getAddress(){
         this.usersData.usersEmail = this.usersEmail;
         if(this.usersEmail){
+          console.log('get address');
           axios.post(this.getDomain()+'api/loginaddress/store',{
             clientCred: this.usersData
           },
@@ -44,8 +45,8 @@
           }
           })
           .then(res => {
-
-            this.$store.commit('storeCustomerAddress', res.data);
+            // console.log(res.data.data);
+            this.$store.commit('storeCustomerAddress', res.data.data);
           })
         } 
       },
@@ -54,7 +55,8 @@
         .then(res => {
           this.$store.commit('storeCategoryItem', res.data.data);
           this.$store.commit('imagePath', res.data.path);
-          // console.log(res.data.path);
+          // localStorage.setItem("token", res.data.token);
+          // console.log(res.data);
           })
         .catch(err => console.error(err));
       }

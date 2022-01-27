@@ -8,6 +8,11 @@ import axios from "axios";
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
+// axios.defaults.headers.common = {
+//   'X-Requested-With': 'XMLHttpRequest',
+//   'X-CSRF-TOKEN': window.csrf_token
+// };
+
 let config = {
   // baseURL: process.env.baseURL || process.env.apiUrl || ""
   // timeout: 60 * 1000, // Timeout

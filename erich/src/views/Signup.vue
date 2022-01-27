@@ -542,36 +542,36 @@
 
       // customerInfo data varaiables
       customerInfo: {
-        First_Name: "",
-        Last_Name: "",
-        Mobile_Number: "",
-        Email: "",
-        Gender: "Other",
-        Municipality: "Sta.Maria",
-        Barangay: "Pulong Buhangin",
-        UnderBarangay: "Gulod",
-        HomeAddress: "",
-        Birthday: "",
-        Tag: "Unverified",
-        Password: "",
-        id: "",
-        ShipFee: "Free",
-        Default: "True",
-        // First_Name: "Rom Paulo",
-        // Last_Name: "Sarmiento",
-        // Mobile_Number: "09755254700",
-        // Email: "rom@gmail.com",
+        // First_Name: "",
+        // Last_Name: "",
+        // Mobile_Number: "",
+        // Email: "",
         // Gender: "Other",
         // Municipality: "Sta.Maria",
         // Barangay: "Pulong Buhangin",
         // UnderBarangay: "Gulod",
-        // HomeAddress: "Block 4 Lot 0",
-        // Birthday: "2000-01-25",
+        // HomeAddress: "",
+        // Birthday: "",
         // Tag: "Unverified",
-        // Password: "@Admin123",
+        // Password: "",
         // id: "",
         // ShipFee: "Free",
         // Default: "True",
+        First_Name: "Rom Paulo",
+        Last_Name: "Sarmiento",
+        Mobile_Number: "09755254700",
+        Email: "rom@gmail.com",
+        Gender: "Other",
+        Municipality: "Sta.Maria",
+        Barangay: "Pulong Buhangin",
+        UnderBarangay: "Gulod",
+        HomeAddress: "Block 4 Lot 0",
+        Birthday: "2000-01-25",
+        Tag: "Unverified",
+        Password: "@Admin123",
+        id: "",
+        ShipFee: "Free",
+        Default: "True",
       },
 
       usersData: {
@@ -619,11 +619,7 @@
         // console.log("Birthday: " + this.customerInfo.Birthday);
         // console.log("Gender: " + this.customerInfo.Gender);
         // console.log("Ship Fee: " + this.customerInfo.ShipFee);
-        // axios.post('http://127.0.0.1:8000/api/customers/store', {
-        //   register: this.customerInfo
-        // })
-        // .then(res => this.accCreateSuccess(res.data))
-        // .catch(err => console.error(err));
+
         if(this.customerInfo.First_Name != "" && this.customerInfo.Last_Name != "" && this.customerInfo.Email != "" && 
         this.customerInfo.Mobile_Number != "" && this.customerInfo.Password != "" && this.customerInfo.HomeAddress != "" && 
         this.customerInfo.Birthday != ""){
@@ -633,12 +629,28 @@
               (/[a-z]/.test(this.customerInfo.Password)) && (/[0-9]/.test(this.customerInfo.Password)) &&
               (/[#?!@$%^&*-]/.test(this.customerInfo.Password) && (this.customerInfo.Password.length >= 8))
               ){
-                axios.post(this.getDomain()+'api/customers/store', {
+                axios.post(this.getDomain()+'api/customersignup/save', {
                   register: this.customerInfo
                 })
                 .then(res => {
-                  this.accCreateSuccess(res.data);
-                  // console.log(res.data);
+                  // this.accCreateSuccess(res.data);
+                  console.log(res.data);
+                  if(res.data.status){
+                    localStorage.setItem("id", res.data.user.id);
+                    localStorage.setItem("firstName", res.data.user.first_Name);
+                    localStorage.setItem("lastName", res.data.user.last_Name);
+                    localStorage.setItem("email", res.data.user.email);
+                    localStorage.setItem("mobileNumber", res.data.user.mobile_Number);
+                    localStorage.setItem("birthday", res.data.user.birthday);
+                    localStorage.setItem("gender", res.data.user.gender);
+                    localStorage.setItem("tag", res.data.user.tag);
+                    localStorage.setItem("token", res.data.token);
+
+                    this.$router.push("/");
+                  }
+                  else{
+                    alert(res.data.message);
+                  }
                 })
                 .catch(err => console.error(err));
               }
@@ -662,94 +674,6 @@
           this.prompt = "Incomplete input fields";
         }
 
-      },
-      saveAddress(){
-        axios.post(this.getDomain()+'api/customeraddress/store', {
-          register: this.customerInfo
-        })
-        .then(res => this.addressCreateSuccess(res.data))
-        .catch(err => console.error(err));
-      },
-      accCreateSuccess(data) {
-        // console.log(data);
-        if(data == "wrongemail"){
-          alert("Your email is already taken. Try another email.")
-        }
-        else if(data == "wrongnumber"){
-          alert("Your number is already taken. Try another number.")
-        }
-        else{
-          this.saveAddress();
-        }
-      },
-      addressCreateSuccess(creds) {
-        //alert("Account Created Succesfully");
-        // console.log("Account Created Succesfully");
-        // console.log(creds);
-        this.usersData.usersEmail = this.customerInfo.Email;
-        this.usersData.usersPassword = this.customerInfo.Password;
-        if(creds == "login"){
-          axios.post(this.getDomain()+'api/customerlogin',{
-            clientCred: this.usersData
-          })
-          .then(res => {
-            this.userLogin();
-            // console.log(res);
-          })
-          .catch(err => console.error(err));
-
-          axios.post(this.getDomain()+'api/customernotif/store',{
-            clientCred: this.usersData
-          })
-          .then(res => {
-            // console.log("This is notifications");
-            // console.log(res.data);
-          })
-          .catch(err => console.error(err));
-        }
-      },
-      userLogin() {
-        // console.log("login");
-        axios.post(this.getDomain()+'api/customerlogin',{
-          clientCred: this.usersData
-        })
-        .then(res => {
-          this.loginSuccess(res.data)
-          //console.log(res.data);
-        })
-        .catch(err => console.error(err));
-        
-      },
-      loginSuccess(cinfo) {
-        // console.log("login Success");
-        if(cinfo.status){
-          alert("Invalid Credentials");
-        }
-        else{
-          localStorage.setItem("id", cinfo.user.id);
-          localStorage.setItem("firstName", cinfo.user.first_Name);
-          localStorage.setItem("lastName", cinfo.user.last_Name);
-          localStorage.setItem("email", cinfo.user.email);
-          localStorage.setItem("mobileNumber", cinfo.user.mobile_Number);
-          localStorage.setItem("birthday", cinfo.user.birthday);
-          localStorage.setItem("gender", cinfo.user.gender);
-          localStorage.setItem("tag", cinfo.user.tag);
-          localStorage.setItem("token", cinfo.token);
-
-          axios.post(this.getDomain()+'api/loginaddress/store',{
-            clientCred: this.usersData
-          })
-          .then(res => {
-            // console.log(res.data);
-            this.$store.commit('storeCustomerAddress', res.data);
-          })
-          .then(res => {
-            // console.log(res.data);
-            this.$store.commit('storeCustomerAddress', res.data);
-          })
-          .catch(err => console.error(err));
-          this.$router.push("/");
-        }
       },
       municipalityInput(data){
         this.customerInfo.Municipality = data;

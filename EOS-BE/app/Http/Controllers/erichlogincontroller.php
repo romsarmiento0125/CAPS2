@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\erichcustomer;
 
+use App\Models\customeraddress;
+use App\Models\erichnotifications;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -15,6 +17,90 @@ class erichlogincontroller extends Controller
         return erichcustomer::with('address')->get();
     }
 
+    public function signup(Request $request)
+    {
+        $email = $request->register['Email'];
+        $num = $request->register['Mobile_Number'];
+
+        $getEmail = erichcustomer::where('Email', $email)->get()->pluck('Email');
+        $getNum = erichcustomer::where('Mobile_Number', $num)->get()->pluck('Mobile_Number');
+
+        $vemail = count($getEmail);
+        $vnum = count($getNum);
+
+        $returndata = "";
+
+        $register = new erichcustomer();
+        $registerAddress = new customeraddress();
+        $registerNotif = new erichnotifications();
+
+        if($vemail == 1){
+            $returndata = "wrongemail";
+        }
+        else if(false){
+            $returndata = "wrongnumber";
+        }
+        else{
+
+            $register->first_Name = $request->register['First_Name'];
+            $register->last_Name = $request->register['Last_Name'];
+            $register->mobile_Number = $request->register['Mobile_Number'];
+            $register->email = $request->register['Email'];
+            $register->gender = $request->register['Gender'];
+            $register->birthday = $request->register['Birthday'];
+            $register->tag = $request->register['Tag'];
+            $register->status = 'Active';
+            $register->password = Hash::make($request->register['Password']);
+            
+            $register->save();
+
+            $returndata = $register;
+
+            $registerAddress->email = $request->register['Email'];
+            $registerAddress->municipality = $request->register['Municipality'];
+            $registerAddress->barangay = $request->register['Barangay'];
+            $registerAddress->underBarangay = $request->register['UnderBarangay'];
+            $registerAddress->homeAddress = $request->register['HomeAddress'];
+            $registerAddress->shipFee = $request->register['ShipFee'];
+            $registerAddress->default = $request->register['Default'];
+
+            $registerAddress->save();
+
+            $registerNotif->email = $request->register['Email'];
+            $registerNotif->title = "Verify";
+            $registerNotif->description = "Verify Your Email";
+            $registerNotif->link = "verify";
+            $registerNotif->status = "undone";
+
+            $registerNotif->save();
+        }   
+
+        if($returndata == "wrongemail"){
+            return response()->json([
+                "status" => false,
+                "message" => "Your email has been already use. Try to forgot your password to recover your account.",
+            ],200);
+        }
+        else{
+            $credentials = ["email" => $request->register['Email'],"password" => $request->register['Password'],];
+            $user = erichcustomer::where('email', $credentials['email'])->first();
+
+            if(Hash::check($request->register['Password'],$user->password)){
+                $token = $user->createToken('auth-token');
+                return response()->json([
+                    "status" => true,
+                    "token" => $token->plainTextToken,
+                    "user" => $user,
+                    'data' => $returndata,
+                ],200);
+            } else {
+                return response()->json([
+                    "status" => false,
+                    "message" => "Wrong login credentials",
+                ],200);
+            }
+        }
+    }
     public function login(Request $request)
     {
         // $credentials = filter_var($request->get('username'), FILTER_VALIDATE_EMAIL) ?  ['email' => $request->get('username')] : ['username' => $request->get('username')];

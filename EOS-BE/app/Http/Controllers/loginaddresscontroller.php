@@ -40,7 +40,9 @@ class loginaddresscontroller extends Controller
         // return $getData->where('email', $dataGet)->values();
         $email = $request->clientCred['usersEmail'];
         $getAddress = customeraddress::where('email', $email)->get();
-        return $getAddress;
+        return response()->json([
+            'data' => $getAddress
+        ]);
         //return "gg";
     }
 
