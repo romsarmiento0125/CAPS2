@@ -29,13 +29,23 @@
       usersToken(){
         return localStorage.getItem('token');
       },
+      userAddress() {
+        return this.$store.state.userAddress;
+      },
+    },
+
+    watch: {
+      userAddress(){
+        // console.log("get address");
+        this.getAddress();
+      }
     },
 
     methods: {
       getAddress(){
         this.usersData.usersEmail = this.usersEmail;
         if(this.usersEmail){
-          console.log('get address');
+          // console.log('get address');
           axios.post(this.getDomain()+'api/loginaddress/store',{
             clientCred: this.usersData
           },
@@ -59,7 +69,8 @@
           // console.log(res.data);
           })
         .catch(err => console.error(err));
-      }
+      },
+      
     },
     beforeMount(){
       this.getCategoryItems();

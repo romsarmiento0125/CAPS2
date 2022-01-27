@@ -542,36 +542,36 @@
 
       // customerInfo data varaiables
       customerInfo: {
-        // First_Name: "",
-        // Last_Name: "",
-        // Mobile_Number: "",
-        // Email: "",
-        // Gender: "Other",
-        // Municipality: "Sta.Maria",
-        // Barangay: "Pulong Buhangin",
-        // UnderBarangay: "Gulod",
-        // HomeAddress: "",
-        // Birthday: "",
-        // Tag: "Unverified",
-        // Password: "",
-        // id: "",
-        // ShipFee: "Free",
-        // Default: "True",
-        First_Name: "Rom Paulo",
-        Last_Name: "Sarmiento",
-        Mobile_Number: "09755254700",
-        Email: "rom@gmail.com",
+        First_Name: "",
+        Last_Name: "",
+        Mobile_Number: "",
+        Email: "",
         Gender: "Other",
         Municipality: "Sta.Maria",
         Barangay: "Pulong Buhangin",
         UnderBarangay: "Gulod",
-        HomeAddress: "Block 4 Lot 0",
-        Birthday: "2000-01-25",
+        HomeAddress: "",
+        Birthday: "",
         Tag: "Unverified",
-        Password: "@Admin123",
+        Password: "",
         id: "",
         ShipFee: "Free",
         Default: "True",
+        // First_Name: "Rom Paulo",
+        // Last_Name: "Sarmiento",
+        // Mobile_Number: "09755254700",
+        // Email: "rom@gmail.com",
+        // Gender: "Other",
+        // Municipality: "Sta.Maria",
+        // Barangay: "Pulong Buhangin",
+        // UnderBarangay: "Gulod",
+        // HomeAddress: "Block 4 Lot 0",
+        // Birthday: "2000-01-25",
+        // Tag: "Unverified",
+        // Password: "@Admin123",
+        // id: "",
+        // ShipFee: "Free",
+        // Default: "True",
       },
 
       usersData: {
@@ -634,7 +634,7 @@
                 })
                 .then(res => {
                   // this.accCreateSuccess(res.data);
-                  console.log(res.data);
+                  // console.log(res.data);
                   if(res.data.status){
                     localStorage.setItem("id", res.data.user.id);
                     localStorage.setItem("firstName", res.data.user.first_Name);
@@ -653,6 +653,7 @@
                   }
                 })
                 .catch(err => console.error(err));
+                
               }
               else{
                 this.snackbar = true;

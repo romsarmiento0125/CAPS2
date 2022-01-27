@@ -12,6 +12,7 @@
     }
 </style>
 <body style="font-family: Arial, Helvetica, sans-serif;  letter-spacing: 1px;">
+    
     <h3>Confirm your verification code.</h3>
     <div style="font-size: 25px; margin: 10px 0px; font-weight:bold; letter-spacing: 1px;">{{$details['code']}}</div>
     <div style=" letter-spacing: 1px; margin-top:25px;">Regards,</div>

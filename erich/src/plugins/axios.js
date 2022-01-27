@@ -13,6 +13,8 @@ import axios from "axios";
 //   'X-CSRF-TOKEN': window.csrf_token
 // };
 
+// axios.defaults.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
+
 let config = {
   // baseURL: process.env.baseURL || process.env.apiUrl || ""
   // timeout: 60 * 1000, // Timeout

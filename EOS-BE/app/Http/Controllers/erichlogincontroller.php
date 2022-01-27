@@ -17,6 +17,16 @@ class erichlogincontroller extends Controller
         return erichcustomer::with('address')->get();
     }
 
+    // public function ayokona()
+    // {
+    //     $user = erichcustomer::where('email', 'rom@gmail.com')->first();
+    //     $token = $user->createToken('auth-token');
+    //     return response()->json([
+    //         "message" => "Tangina",
+    //         'token' => $token->plainTextToken
+    //     ],200);
+    // }
+
     public function signup(Request $request)
     {
         $email = $request->register['Email'];
