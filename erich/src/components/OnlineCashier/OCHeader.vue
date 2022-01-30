@@ -53,7 +53,6 @@
         localStorage.removeItem("mobileNumber");
         localStorage.removeItem("birthday");
         localStorage.removeItem("gender");
-        localStorage.removeItem("tag");
         localStorage.removeItem("token");
         localStorage.removeItem("id");
         window.location.href = this.getLogout();

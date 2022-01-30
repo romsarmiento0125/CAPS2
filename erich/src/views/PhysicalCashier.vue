@@ -1,6 +1,6 @@
 <template>
   <div v-if="usersTag == 'Pcashier' || usersTag == 'Admin'"
-  style="background-color: #FFFFFF"  
+    style="background-color: #FFFFFF"  
   >
     <pc-header></pc-header>
     <pc-body></pc-body>
@@ -26,7 +26,7 @@
 
     computed: {
       usersTag(){
-        return localStorage.getItem('tag');
+        return this.$store.state.userTag;
       },
       usersToken(){
         return localStorage.getItem('token');

@@ -1,6 +1,6 @@
 <template>
   <div v-if="usersTag == 'Ocashier' || usersTag == 'Admin'"
-  style="background-color: #FFFFFF"  
+    style="background-color: #FFFFFF"  
   >
     <oc-header></oc-header>
     <oc-deliver v-if="oCashierDeliver"></oc-deliver>
@@ -40,7 +40,7 @@
         return this.$store.state.oCashierPickup;
       },
       usersTag(){
-        return localStorage.getItem('tag');
+        return this.$store.state.userTag;
       },
       usersToken(){
         return localStorage.getItem('token');

@@ -117,19 +117,28 @@
                 <v-card-text
                   class="pa-0"
                 >
-                  <v-text-field
-                    v-model="customerInfo.Password"
-                    :type="passType"
-                    outlined
-                    dense
-                    class="mt-1"
-                    :rules="passRules"
-                    hint="Use 8 or more letters with a mix of letters, numbers & symbols"
-                    required
-                    label="New password"
-                    :append-icon="passIcon"
-                    @click:append="passShow"
-                  ></v-text-field>
+                  <div class="d-flex">
+                    <v-text-field
+                      v-model="customerInfo.Password"
+                      :type="passType"
+                      outlined
+                      dense
+                      class="mt-1"
+                      :rules="passRules"
+                      required
+                      label="New password"
+                      :append-icon="passIcon"
+                      @click:append="passShow"
+                      v-on:keyup="checkPassword()"
+                    ></v-text-field>
+                    <v-subheader
+                      class=""
+                    >
+                      <span
+                        :class="pStrengthClass"
+                      >{{pStrength}}</span>
+                    </v-subheader>
+                  </div>
                 </v-card-text>
 
 <!--  -->
@@ -378,11 +387,8 @@
                 <div>                
                   <p>Gender</p>
                   <v-radio-group
-                
                     v-model="customerInfo.Gender"
                     row
-                    
-                    
                   >
                     <v-radio
                       color="#1106A0"
@@ -396,7 +402,7 @@
                     ></v-radio>
                     <v-radio
                     color="#1106A0"
-                      label="Other"
+                      label="Prefer not to say"
                       value="Other"
                     ></v-radio>
                   </v-radio-group>
@@ -522,6 +528,8 @@
 
       passIcon: "mdi-eye-off",
       passType: "Password",
+      pStrengthClass: "green white--text pa-1 rounded",
+      pStrength: "",
 
       // Date of birth drop down
       activePicker: null,
@@ -560,7 +568,7 @@
         // First_Name: "Rom Paulo",
         // Last_Name: "Sarmiento",
         // Mobile_Number: "09755254700",
-        // Email: "rom@gmail.com",
+        // Email: "sarmientopaulo01@gmail.com",
         // Gender: "Other",
         // Municipality: "Sta.Maria",
         // Barangay: "Pulong Buhangin",
@@ -602,6 +610,25 @@
     }),
 
     methods: {
+      checkPassword(){
+        if((/[A-Z]/.test(this.customerInfo.Password)) && (/[a-z]/.test(this.customerInfo.Password)) && (/[0-9]/.test(this.customerInfo.Password)) &&
+        (/[#?!@$%^&*-]/.test(this.customerInfo.Password)) && (this.customerInfo.Password.length >= 8)){
+          this.pStrength = "Very Strong";
+          this.pStrengthClass = "green white--text pa-1 rounded";
+        }
+        else if(this.customerInfo.Password.length >= 24){
+          this.pStrength = "Very Strong";
+          this.pStrengthClass = "green white--text pa-1 rounded";
+        }
+        else if(this.customerInfo.Password.length <= 7){
+          this.pStrength = "Weak";
+          this.pStrengthClass = "red white--text pa-1 rounded";
+        }
+        else{
+          this.pStrength = "Strong";
+          this.pStrengthClass = "yellow black--text pa-1 rounded";
+        }
+      },
       passShow(){
         this.passIcon = this.passIcon == "mdi-eye-off" ? 'mdi-eye' : 'mdi-eye-off';
         this.passType = this.passIcon == "mdi-eye-off" ? 'Password' : 'text';
@@ -625,56 +652,59 @@
         this.customerInfo.Birthday != ""){
           if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.customerInfo.Email)){
             if(this.customerInfo.Mobile_Number.length == 11){
-              if((/[A-Z]/.test(this.customerInfo.Password)) && (/[A-Z]/.test(this.customerInfo.Password)) &&
-              (/[a-z]/.test(this.customerInfo.Password)) && (/[0-9]/.test(this.customerInfo.Password)) &&
-              (/[#?!@$%^&*-]/.test(this.customerInfo.Password) && (this.customerInfo.Password.length >= 8))
-              ){
-                axios.post(this.getDomain()+'api/customersignup/save', {
-                  register: this.customerInfo
-                })
-                .then(res => {
-                  // this.accCreateSuccess(res.data);
-                  // console.log(res.data);
-                  if(res.data.status){
-                    localStorage.setItem("id", res.data.user.id);
-                    localStorage.setItem("firstName", res.data.user.first_Name);
-                    localStorage.setItem("lastName", res.data.user.last_Name);
-                    localStorage.setItem("email", res.data.user.email);
-                    localStorage.setItem("mobileNumber", res.data.user.mobile_Number);
-                    localStorage.setItem("birthday", res.data.user.birthday);
-                    localStorage.setItem("gender", res.data.user.gender);
-                    localStorage.setItem("tag", res.data.user.tag);
-                    localStorage.setItem("token", res.data.token);
+              if(this.customerInfo.Password.length >= 8){
+                if(this.customerInfo.Password.length <= 254){
+                  axios.post(this.getDomain()+'api/customersignup/save', {
+                    register: this.customerInfo
+                  })
+                  .then(res => {
+                    // this.accCreateSuccess(res.data);
+                    // console.log(res.data);
+                    if(res.data.status){
+                      localStorage.setItem("id", res.data.user.id);
+                      localStorage.setItem("firstName", res.data.user.first_Name);
+                      localStorage.setItem("lastName", res.data.user.last_Name);
+                      localStorage.setItem("email", res.data.user.email);
+                      localStorage.setItem("mobileNumber", res.data.user.mobile_Number);
+                      localStorage.setItem("birthday", res.data.user.birthday);
+                      localStorage.setItem("gender", res.data.user.gender);
+                      localStorage.setItem("token", res.data.token);
+                      this.$store.commit('userTag', res.data.tag);
 
-                    this.$router.push("/");
-                  }
-                  else{
-                    alert(res.data.message);
-                  }
-                })
-                .catch(err => console.error(err));
-                
+                      this.$store.commit('storeCustomerAddress', res.data.address);
+
+                      this.$router.push("/");
+                    }
+                    else{
+                      this.$router.push("/login");
+                    }
+                  })
+                  .catch(err => console.error(err));
+                }
+                else{
+                  this.snackbar = true;
+                  this.prompt = "Password too long."; 
+                }
               }
               else{
                 this.snackbar = true;
-                this.prompt = "Incorrect password combination"; 
+                this.prompt = "Password too short."; 
               }
             }
             else{
               this.snackbar = true;
-              this.prompt = "Invalid mobile number"; 
+              this.prompt = "Invalid mobile number."; 
             }
           }
           else{
             this.snackbar = true;
-            this.prompt = "Incorrect email combination";
+            this.prompt = "Incorrect email combination.";
           }
         }
         else{
           this.snackbar = true;
-          this.prompt = "Incomplete input fields";
+          this.prompt = "Incomplete input fields.";
         }
-
       },
       municipalityInput(data){
         this.customerInfo.Municipality = data;

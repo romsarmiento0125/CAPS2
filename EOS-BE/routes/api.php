@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\adminAddItem;
+use App\Http\Controllers\allAdminItem;
 use App\Http\Controllers\adminAddStaff;
 use App\Http\Controllers\userOrderCancel;
 use App\Http\Controllers\userPickupCancel;
@@ -23,14 +24,14 @@ use App\Http\Controllers\erichheadercartcontroller;
 use App\Http\Controllers\userOrderPickupController;
 use App\Http\Controllers\userDeliverItemsController;
 use App\Http\Controllers\customerOrderInfoController;
+
 use App\Http\Controllers\userCompleteItemsController;
-
 use App\Http\Controllers\userOrderCompleteController;
+
 use App\Http\Controllers\userOrderDeliveryController;
-
 use App\Http\Controllers\userOrderToPickupController;
-use App\Http\Controllers\customerOrderItemsController;
 
+use App\Http\Controllers\customerOrderItemsController;
 use App\Http\Controllers\erichcategoryitemscontroller;
 use App\Http\Controllers\erichnotificationscontroller;
 use App\Http\Controllers\CustomerPickupInfosController;
@@ -90,7 +91,7 @@ Route::middleware('auth:sanctum')->group( function (){
     Route::post('/customerpickupitems/store', [CustomerPickupItemsController::class, 'store']);
     Route::get('/customerpickuppickup', [CustomerPickupPickupController::class, 'index']);
     Route::post('/customerpickuppickup/store', [CustomerPickupPickupController::class, 'store']);
-    Route::get('/customerpickupcomplete', [CustomerPickupCompleteController::class, 'index']);
+    // // Route::get('/customerpickupcomplete', [CustomerPickupCompleteController::class, 'index']);
     Route::post('/customerpickupcomplete/store', [CustomerPickupCompleteController::class, 'store']);
     Route::post('/customerpickupcancel/store', [userPickupCancel::class, 'store']);
     Route::get('/customerpickupcancel', [userPickupCancel::class, 'index']);
@@ -103,7 +104,7 @@ Route::middleware('auth:sanctum')->group( function (){
     Route::post('/customerdeliveritems/store', [userDeliverItemsController::class, 'store']);
     Route::post('/customerordercancel/store', [userOrderCancel::class, 'store']);
     Route::get('/customerordercancel', [userOrderCancel::class, 'index']);
-    Route::get('/customercompleteitems', [userCompleteItemsController::class, 'index']);
+    // // Route::get('/customercompleteitems', [userCompleteItemsController::class, 'index']);
     Route::post('/customercompleteitems/store', [userCompleteItemsController::class, 'store']);
     Route::post('/customercancel', [customerOrderInfoController::class, 'cancel']);
 
@@ -118,12 +119,12 @@ Route::middleware('auth:sanctum')->group( function (){
 
     //admin add staff
     Route::post('/addstaff/store', [adminAddStaff::class, 'store']);
-    Route::get('/addstaff', [adminAddStaff::class, 'index']);
+    // // Route::get('/addstaff', [adminAddStaff::class, 'index']);
     Route::put('/editstaff/{id}', [adminAddStaff::class, 'update']);
     Route::put('/editprofiles/{id}', [adminAddStaff::class, 'profiles']);
     Route::post('/inventory/store', [adminAddItem::class, 'store']);
     Route::post('/supplier/store', [erichSupplierController::class, 'store']);
-    Route::get('/supplier', [erichSupplierController::class, 'index']);
+    // // Route::get('/supplier', [erichSupplierController::class, 'index']);
     Route::put('/supplier/{id}', [erichSupplierController::class, 'update']);
     Route::put('/editsupplier/{id}', [erichSupplierController::class, 'edit']);
     Route::put('/invitems/{id}', [adminAddItem::class, 'update']);
@@ -131,9 +132,9 @@ Route::middleware('auth:sanctum')->group( function (){
 
     //physical cashier
     Route::post('/physicalorder/store', [physicalCashierOrders::class, 'store']);
-    Route::get('/physicalorder', [physicalCashierOrders::class, 'index']);
+    // // Route::get('/physicalorder', [physicalCashierOrders::class, 'index']);
 
-    
+    Route::get('/adminalldata', [allAdminItem::class, 'index']);
 });
 
 Route::post('/customerlogin',[erichlogincontroller::class,'login']);

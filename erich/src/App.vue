@@ -55,10 +55,25 @@
           }
           })
           .then(res => {
-            // console.log(res.data.data);
-            this.$store.commit('storeCustomerAddress', res.data.data);
+            // console.log(res.data.tag.tag);
+            if(!(res.data.status.status == 'Inactive')){
+              this.$store.commit('storeCustomerAddress', res.data.data);
+              this.$store.commit('userTag', res.data.tag.tag);
+            }
+            else{
+              localStorage.removeItem("firstName");
+              localStorage.removeItem("lastName");
+              localStorage.removeItem("email");
+              localStorage.removeItem("mobileNumber");
+              localStorage.removeItem("birthday");
+              localStorage.removeItem("gender");
+              localStorage.removeItem("token");
+              localStorage.removeItem("id");
+              window.location.href = this.getLogout();
+            }
+            
           })
-        } 
+        }
       },
       getCategoryItems() {
         axios.get(this.getDomain()+'api/categoryitem',)
@@ -73,8 +88,9 @@
       
     },
     beforeMount(){
-      this.getCategoryItems();
       this.getAddress()
+      this.getCategoryItems();
+      
     }
   };
 </script>

@@ -134,7 +134,7 @@
                 dark
                 color="#1106A0"
                 class="my-1"
-                @click="exportTheTable"
+                @click="generateReport()"
               >
                 <h4
                 >Generate Report</h4>
@@ -207,6 +207,8 @@
 </template>
 
 <script>
+  import XLSX from 'xlsx';
+
   export default {
     data: () => ({
       endmenu: false,
@@ -254,9 +256,20 @@
     },
 
     methods: {
-      exportTheTable(){
-        console.log("export");
+       generateReport(){
+        var wb = XLSX.utils.book_new();
         console.log(this.showItems);
+        var ws_data = [['Invoice Number', 'Item Name', 'Quantity', 'Price', 'Total', 'Date']];
+        for(var i = 0; i < this.showItems.length; i++){
+          for(var j =0; j < this.showItems[i].orders.length; j++){
+            ws_data.push([this.showItems[i].invoiceNumber, this.showItems[i].orders[j].itemName, this.showItems[i].orders[j].quantity, this.showItems[i].orders[j].retailPrice, 
+              this.priceRound(this.showItems[i].orders[j].quantity * this.showItems[i].orders[j].retailPrice), this.showItems[i].completeDate]);
+          }
+        }
+        // console.log(ws_data);
+        var ws = XLSX.utils.aoa_to_sheet(ws_data);
+        XLSX.utils.book_append_sheet(wb, ws, "Physical Store Transactions");
+        XLSX.writeFile(wb, "Physical Transactions.xlsx");
       },
       toSearchItems(){
         this.showItems = this.adminPhysicalData;

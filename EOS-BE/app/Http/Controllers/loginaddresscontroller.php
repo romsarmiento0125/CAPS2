@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\erichcustomer;
 use App\Models\customeraddress;
 
 class loginaddresscontroller extends Controller
@@ -40,8 +41,12 @@ class loginaddresscontroller extends Controller
         // return $getData->where('email', $dataGet)->values();
         $email = $request->clientCred['usersEmail'];
         $getAddress = customeraddress::where('email', $email)->get();
+        $getTag = erichcustomer::where('email', $email)->get('tag')->first();
+        $getStatus = erichcustomer::where('email', $email)->get('status')->first();
         return response()->json([
-            'data' => $getAddress
+            'data' => $getAddress,
+            'tag' => $getTag,
+            'status' => $getStatus
         ]);
         //return "gg";
     }
