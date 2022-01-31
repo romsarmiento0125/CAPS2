@@ -32,12 +32,18 @@
       userAddress() {
         return this.$store.state.userAddress;
       },
+      adminSupplier() {
+        return this.$store.state.suppliers;
+      },
     },
 
     watch: {
       userAddress(){
         // console.log("get address");
         this.getAddress();
+      },
+      adminSupplier(){
+        this.getCategoryItems();
       }
     },
 

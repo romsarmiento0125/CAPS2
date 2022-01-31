@@ -82,7 +82,8 @@ Route::middleware('auth:sanctum')->group( function (){
     Route::get('/getcart', [erichgetcartitems::class, 'index']);
     Route::post('/getcart/store', [erichgetcartitems::class, 'store']);
     Route::put('/getcart/{id}', [erichgetcartitems::class, 'update']);
-    Route::delete('/getcart/{id}', [erichgetcartitems::class, 'destroy']);
+    Route::post('/getcart', [erichgetcartitems::class, 'deleteCartItem']);
+    Route::put('/updatecart/{id}', [erichgetcartitems::class, 'updateQty']);
 
     // online cashier Pickup
     Route::get('/customerpickup', [CustomerPickupInfosController::class, 'index']);

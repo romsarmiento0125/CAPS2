@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\customercart;
 use Illuminate\Http\Request;
 use App\Models\customerOrderInfo;
+use App\Models\customerOrderItems;
 use App\Models\customerCancelItems;
 
 class customerOrderInfoController extends Controller
@@ -36,33 +38,45 @@ class customerOrderInfoController extends Controller
      */
     public function store(Request $request)
     {
-        if(isset($request)){
-            $register = new customerOrderInfo();
+        $register = new customerOrderInfo();
 
-            $register->email = $request->register['Email'];
-            $register->invoiceNumber = $request->register['InvoiceNumber'];
-            $register->name = $request->register['Name'];
-            $register->mobileNumber = $request->register['Mobilenumber'];
-            $register->completeAddress = $request->register['CompleteAddress'];
-            $register->status = $request->register['OrderStatus'];
-            $register->orderYear = $request->register['OrderYear'];
-            $register->orderMonth = $request->register['OrderMonth'];
-            $register->orderDay = $request->register['OrderDay'];
-            $register->adjustedDate = $request->register['AdjustedDate'];
-            $register->shipFee = $request->register['Shipping'];
-            $register->discount = $request->register['Discount'];
-            $register->tax = $request->register['OrderTax'];
-            $register->subTotal = $request->register['SubTotal'];
-            $register->total = $request->register['Total'];
+        $register->email = $request->register['Email'];
+        $register->invoiceNumber = $request->register['InvoiceNumber'];
+        $register->name = $request->register['Name'];
+        $register->mobileNumber = $request->register['Mobilenumber'];
+        $register->completeAddress = $request->register['CompleteAddress'];
+        $register->status = $request->register['OrderStatus'];
+        $register->orderYear = $request->register['OrderYear'];
+        $register->orderMonth = $request->register['OrderMonth'];
+        $register->orderDay = $request->register['OrderDay'];
+        $register->adjustedDate = $request->register['AdjustedDate'];
+        $register->shipFee = $request->register['Shipping'];
+        $register->discount = $request->register['Discount'];
+        $register->tax = $request->register['OrderTax'];
+        $register->subTotal = $request->register['SubTotal'];
+        $register->total = $request->register['Total'];
 
-            $register->save();
+        $register->save();
 
-            return $register;
+        for($i = 0; $i < count($request->items); $i++){
+            $item = new customerOrderItems();
+            $existingItem = customercart::find($request->items[$i]['id']);
+            $item->invoiceNumber = $request->items[$i]['item_invNumber'];
+            $item->itemName = $request->items[$i]['item_Name'];
+            $item->itemDesc = $request->items[$i]['item_Desc'];
+            $item->itemSize = $request->items[$i]['item_Size'];
+            $item->discount = $request->items[$i]['item_Discount'];
+            $item->quantity = $request->items[$i]['item_Quantity'];
+            $item->retailPrice = $request->items[$i]['item_Price'];
+            $item->itemCode = $request->items[$i]['item_Code'];
+            $item->itemImage = $request->items[$i]['item_Image'];
+            $existingItem->delete();
+            $item->save();
         }
-        else{
-            return 'false';
-        }
-        
+
+        return response()->json([
+            'status' => true,
+        ]);
     }
 
     public function cancel(Request $request)

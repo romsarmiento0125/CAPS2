@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\customercart;
 use Illuminate\Http\Request;
+use App\Models\categoryItems;
 
 class erichgetcartitems extends Controller
 {
@@ -39,6 +40,29 @@ class erichgetcartitems extends Controller
         return customercart::where('email', $dataGet)->get();
     }
 
+    public function deleteCartItem(Request $request)
+    {
+        $id = $request->id;
+        $email = $request->register;
+
+        $existingItem = customercart::find($id);
+        
+
+        if($existingItem){
+            $existingItem->delete();
+            return response()->json([
+                'cart' => customercart::where('email', $email)->get(),
+                'message' => "Item remove."
+            ]);
+        }
+        else{
+            return response()->json([
+                'cart' => customercart::where('email', $email)->get(),
+                'message' => "Item cannot be remove."
+            ]);
+        } 
+    }
+
     /**
      * Display the specified resource.
      *
@@ -70,36 +94,41 @@ class erichgetcartitems extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(isset($request)){
-            $existingItem = customercart::find($id);
+        $item = $request->itemCode;
 
-            if($existingItem->quantity < 1){
-                $existingItem->delete();
-                return "Item succesfully deleted.";
-            }
-            else{
-                $cond = $request->updateCond;
-                $dataGet = $request->customerEmail;
+        $itemQty = categoryItems::where('itemCode', $item)->get('quantity')->first();
+        $qtyLimit = categoryItems::where('itemCode', $item)->get('qtyLimit')->first();
 
-                if($cond == "increase"){
-                    $existingItem->quantity = $existingItem->quantity + 1;
-                    $existingItem->save();
-                    
-                    return customercart::where('email', $dataGet)->get();
-                }
-                else if($cond == "decrease"){
-                    $existingItem->quantity = $existingItem->quantity - 1;
-                    $existingItem->save();
+        $existingItem = customercart::find($id);
 
-                    return customercart::where('email', $dataGet)->get();
-                }
-                else{
-                    return "something wrong";
-                }
-            }
+        if($existingItem->quantity < 1){
+            $existingItem->delete();
+            return "Item succesfully deleted.";
         }
         else{
-            return "false";
+            $cond = $request->updateCond;
+            $dataGet = $request->customerEmail;
+
+            if($cond == "increase"){
+                if($itemQty->quantity < (1 + $qtyLimit->qtyLimit + $existingItem->quantity)){
+                    $existingItem->quantity = ($itemQty->quantity - $qtyLimit->qtyLimit);
+                    $existingItem->save();
+                }
+                else{
+                    $existingItem->quantity = $existingItem->quantity + 1;
+                    $existingItem->save();
+                }
+                return customercart::where('email', $dataGet)->get();
+            }
+            else if($cond == "decrease"){
+                $existingItem->quantity = $existingItem->quantity - 1;
+                $existingItem->save();
+
+                return customercart::where('email', $dataGet)->get();
+            }
+            else{
+                return "something wrong";
+            }
         }
         
         
@@ -127,6 +156,30 @@ class erichgetcartitems extends Controller
         // }
 
         //return $request->itemupdate;
+    }
+
+    public function updateQty(Request $request, $id)
+    {
+        $qty = $request->updateQty;
+        $email = $request->customerEmail;
+        $item = $request->itemCode;
+
+        $itemQty = categoryItems::where('itemCode', $item)->get('quantity')->first();
+        $qtyLimit = categoryItems::where('itemCode', $item)->get('qtyLimit')->first();
+        $existingItem = customercart::find($id);
+
+        if($itemQty->quantity < ($qtyLimit->qtyLimit + ($qty * 1))){
+            $existingItem->quantity = ($itemQty->quantity - $qtyLimit->qtyLimit);
+            $existingItem->save();
+        }
+        else{
+            $existingItem->quantity = $qty;
+            $existingItem->save();
+        }
+        
+        return response()->json([
+            'data' => customercart::where('email', $email)->get(),
+        ]);
     }
 
     /**

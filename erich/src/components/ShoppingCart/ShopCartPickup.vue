@@ -231,7 +231,8 @@
         this.customerPickup.pickupTime = this.pickupTime;
         
         axios.post(this.getDomain()+'api/customerpickup/store', {
-          register: this.customerPickup
+          register: this.customerPickup,
+          items: this.customerPickupItems,
         },
         {
           headers:{
@@ -239,55 +240,56 @@
         }
         })
         .then(res => {
-          if(res.data == 'false'){
-            console.log(res.data);
-          }
+          // console.log(res.data.status);
+          if(res.data.status){
+            this.showMessage();
+          } 
           else{
-            this.storeCustomerPickupItems();
-          }   
+            alert("Checkout failed, Sorry for inconvenience.")
+          }
         })
         .catch(err => console.error(err));
 
         
-        this.showMessage();
+        // this.showMessage();
       },
-      storeCustomerPickupItems(){
-        axios.post(this.getDomain()+'api/customerpickupitems/store', {
-            register: this.customerPickupItems
-          },
-          {
-            headers:{
-              "Authorization": `Bearer ${this.usersToken}`,
-          }
-          })
-          .then(res => {
-            if(res.data == 'false'){
-            console.log(res.data);
-            }
-            else{
-              this.cleanCart();
-            }
-          })
-          .catch(err => console.error(err));
-      },
-      cleanCart(){
-        // console.log("Clean Cart");
-        // console.log(this.customerPickupItems);
-        for(var i = 0; i < this.customerPickupItems.length; i++){
-          axios.delete(this.getDomain()+'api/getcart/'+ this.customerPickupItems[i].id,
-          {
-            headers:{
-              "Authorization": `Bearer ${this.usersToken}`,
-          }
-          })
-          .then( res => {
-            //console.log("Delete")
-            //console.log(res.data);
-          })
-          .catch(err => console.error(err))
-        }
-        this.$store.commit('cleanCustomerItems');
-      },
+      // storeCustomerPickupItems(){
+      //   axios.post(this.getDomain()+'api/customerpickupitems/store', {
+      //       register: this.customerPickupItems
+      //     },
+      //     {
+      //       headers:{
+      //         "Authorization": `Bearer ${this.usersToken}`,
+      //     }
+      //     })
+      //     .then(res => {
+      //       if(res.data == 'false'){
+      //       console.log(res.data);
+      //       }
+      //       else{
+      //         this.cleanCart();
+      //       }
+      //     })
+      //     .catch(err => console.error(err));
+      // },
+      // cleanCart(){
+      //   // console.log("Clean Cart");
+      //   // console.log(this.customerPickupItems);
+      //   for(var i = 0; i < this.customerPickupItems.length; i++){
+      //     axios.delete(this.getDomain()+'api/getcart/'+ this.customerPickupItems[i].id,
+      //     {
+      //       headers:{
+      //         "Authorization": `Bearer ${this.usersToken}`,
+      //     }
+      //     })
+      //     .then( res => {
+      //       //console.log("Delete")
+      //       //console.log(res.data);
+      //     })
+      //     .catch(err => console.error(err))
+      //   }
+      //   this.$store.commit('cleanCustomerItems');
+      // },
       showMessage(){
         this.dialog = true;
       },

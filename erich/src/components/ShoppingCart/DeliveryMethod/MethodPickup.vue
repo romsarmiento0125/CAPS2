@@ -86,6 +86,8 @@
                   v-if="modal2"
                   v-model="time"
                   full-width
+                  :allowed-hours="allowedHours"
+                  format="24hr"
                 >
                   <v-spacer></v-spacer>
                   <v-btn
@@ -139,6 +141,7 @@
     },
 
     methods: {
+      allowedHours: v => v < 17 && v > 5,
       ydm (date) {
         // console.log(date);
         this.menu = false;
@@ -156,11 +159,11 @@
         var month = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
         var year = today.getFullYear();
         var date = year + "-" + month + "-" + day;
-        var oras = (today.getHours() + 3)+ ":" + today.getMinutes();
+        var oras = "06"+ ":" + "00";
         this.date = date;
         this.oras = oras;
         this.minDate = year + "-" + month + "-" + day;
-        this.maxDate = (year + 5) + "-" + month + "-" + day;
+        this.maxDate = (year + 1) + "-" + month + "-" + day;
         this.ydm(date);
         this.saveTime(oras);
       }

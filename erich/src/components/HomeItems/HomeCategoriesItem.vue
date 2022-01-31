@@ -41,7 +41,7 @@
                       <v-col cols="6" class="d-flex justify-center">
                           <h5
                           class="borderQuan px-1 mt-1 ml-4 d-flex justify-center white--text"
-                          >{{item.quantity}} Pcs</h5>
+                          >{{item.quantity - item.qtyLimit}} Pcs</h5>
                       </v-col>
                     </v-row>
                   </div>
