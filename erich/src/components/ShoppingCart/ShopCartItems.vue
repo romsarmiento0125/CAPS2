@@ -129,6 +129,7 @@
                                   class=""
                                   @click="updateQuantity(item.id, item.item_quantity, 'decrease')"
                                   small
+                                  :disabled="timerCount > 0"
                                 >
                                   <v-icon
                                     color="#757575"
@@ -137,10 +138,14 @@
                                   </v-icon>
                                 </v-btn>
                                 <v-btn
-                                  plain
+                                  depressed
+                                  color="#1106A0"
+                                  dark
+                                  class="rounded-0"
+                                  @click="openUpdateQty(item.item_quantity, item.id, item.item_code)"
                                 >
                                   <p
-                                    class="my-0 px-2 subtitle-1 grey--text text--darken-2 font-weight-bold" 
+                                    class="my-0 px-2 subtitle-1 font-weight-bold" 
                                   >
                                     {{item.item_quantity}}
                                   </p>
@@ -153,8 +158,9 @@
                                 <v-btn
                                   depressed
                                   color="transparent"
-                                  @click="updateQuantity(item.id, item.item_quantity, 'increase')"
+                                  @click="updateQuantity(item.id, item.item_quantity, 'increase', item.item_code)"
                                   small
+                                  :disabled="timerCount > 0"
                                 >
                                   <v-icon
                                     color="#757575"
@@ -185,7 +191,7 @@
                                 class="act justify-center mx-lg-4 font-weight-bold"
                                 color="#1106A0"
                                 plain
-                                @click="deleteItems(item.id)"
+                                @click="openDeleteWarning(item.id)"
                                 
                               >
                                 Delete
@@ -289,6 +295,98 @@
         </v-col>
       </v-row>
     </v-container>
+    <v-dialog
+      v-model="deleteItem"
+      persistent
+      max-width="400px"
+    >
+      <v-card>
+        <v-card-title>
+          <span class="text-h5">Remove Item.</span>
+        </v-card-title>
+        <v-card-text>
+          <p
+            class="my-0 title"
+          >
+            Do you want to remove this item?
+          </p>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="#1106A0"
+            outlined
+            class="px-10"
+            @click="deleteItem = false"
+          >
+            NO
+          </v-btn>
+          <v-btn
+            color="#1106A0"
+            dark
+            class="px-10"
+            @click="deleteItems(deleteId)"
+          >
+            YES
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog
+      v-model="updateDialog"
+      persistent
+      max-width="600px"
+    >
+      <v-card>
+        <v-card-title>
+          <span class="text-h5"></span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-text-field
+              type="number"
+              v-model="initialQty"
+            ></v-text-field>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="#1106A0"
+            outlined
+            class="px-10"
+            @click="updateDialog = false"
+          >
+            Close
+          </v-btn>
+          <v-btn
+            color="#1106A0"
+            dark
+            class="px-10"
+            @click="updateItemQty"
+          >
+            Save
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="timeout"
+    >
+      {{ prompt }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="blue"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>
 
@@ -302,6 +400,17 @@
       items: [],
       totPrice: 0,
       checkoutButton: true,
+      deleteItem: false,
+      deleteId: 0,
+      updateDialog: false,
+      initialQty: 0,
+      initialId: 0,
+      initialCode: '',
+      snackbar: false,
+      timeout: 4000,
+      prompt: "",
+      timerCount: 0,
+      myInterval: null,
     }),
 
     computed: {
@@ -321,7 +430,7 @@
         return localStorage.getItem('email');
       },
       usersTag(){
-        return localStorage.getItem('tag');
+        return this.$store.state.userTag;
       },
       usersToken(){
         return localStorage.getItem('token');
@@ -329,9 +438,55 @@
     },
     
     methods: {
+      Timer(){
+        this.timerCount = 1;
+        this.myInterval = setInterval(this.myTimer, 1000);
+      },
+      myTimer() {
+        // console.log("disable");
+        this.timerCount--;
+        if(this.timerCount <= 0){
+          this.myStopFunction();
+        }
+      },
+      myStopFunction() {
+        // console.log("enable");
+        clearInterval(this.myInterval);
+      },
+      openUpdateQty(qty, id, code){
+        this.updateDialog = true;
+        this.initialQty = qty;
+        this.initialId = id;
+        this.initialCode = code;
+      },
+      updateItemQty(){
+        if(this.initialQty <= 0){
+          alert("Input Invalid");
+        }
+        else{
+          this.updateDialog = false;
+          axios.put(this.getDomain()+'api/updatecart/' + this.initialId, {
+            updateQty: this.initialQty,
+            customerEmail: this.usersEmail,
+            itemCode: this.initialCode
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
+          .then(res => {
+            this.showCartItems(res.data.data);
+          })
+          .catch(err => console.error(err));
+        }
+      },
+      openDeleteWarning(id){
+        this.deleteItem = true;
+        this.deleteId = id;
+      },
       showPlaceOrder() {
         this.$emit('scItemsEmit');
-        this.getCartItems();
       },
       showCartItems(data) {
         this.items = [];
@@ -389,23 +544,31 @@
       deleteItems(code) {
         // console.log("Delete this item");
         // console.log(code);
-        axios.delete(this.getDomain()+'api/getcart/'+ code,
-          {
-            headers:{
-              "Authorization": `Bearer ${this.usersToken}`,
-          }
-          })
+        axios.post(this.getDomain()+'api/getcart',{
+          register: this.usersEmail,
+          id: code
+        },
+        {
+          headers:{
+            "Authorization": `Bearer ${this.usersToken}`,
+        }
+        })
         .then( res => {
-          this.getCartItems()
-          // console.log(res.data)
+          this.snackbar = true;
+          this.prompt = res.data.message;
+          this.deleteItem = false;
+          this.showCartItems(res.data.cart);
+          // console.log(res.data);
         })
         .catch(err => console.error(err))
       },
-      updateQuantity(idcart, quantity, cond) {
+      updateQuantity(idcart, quantity, cond, code) {
+        this.Timer();
         if(cond == "increase"){
           axios.put(this.getDomain()+'api/getcart/' + idcart, {
             updateCond: cond,
-            customerEmail: this.usersEmail
+            customerEmail: this.usersEmail,
+            itemCode: code
           },
           {
             headers:{
@@ -425,7 +588,8 @@
         }
         else if(cond == "decrease"){
           if(quantity <= 1){
-            this.deleteItems(idcart);
+            this.deleteItem = true;
+            this.deleteId = idcart;
           }
           else{
             axios.put(this.getDomain()+'api/getcart/' + idcart, {
@@ -455,11 +619,11 @@
         
       },
       checkoutButtonChecker(){
-        if((this.totPrice == 0) || (this.usersTag == "Unverified")){
-          this.checkoutButton = true;
+        if(!((this.totPrice == 0) || (this.usersTag == "Unverified"))){
+          this.checkoutButton = false;
         }
         else{
-          this.checkoutButton = false;
+          this.checkoutButton = true;
       }
       },
       priceRound(price){

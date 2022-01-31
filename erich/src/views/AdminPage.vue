@@ -31,7 +31,8 @@
                 <div class="d-flex justify-end">
                   <v-btn
                     text
-                  @click="sideBarPicker"
+                    @click="sideBarPicker"
+                    :disabled="timerCount > 0"
                   >
                     <v-img
                     src="../assets/refresh.png"
@@ -133,6 +134,8 @@
       aManagement: false,
       aSupplierList: false,
       links: [],
+      timerCount: 0,
+      myInterval: null,
     }),
 
     computed: {
@@ -236,6 +239,7 @@
         this.links = [];
 
         if(this.usersTag == "Admin"){
+          this.Timer();
           this.links.push(l1);
           this.links.push(l2);
           this.links.push(l3);
@@ -256,10 +260,12 @@
             this.$store.commit('adminDataPhysical', res.data.physical);
             this.$store.commit('allPeople', res.data.user);
             this.$store.commit('suppliers', res.data.supplier);
+            
           })
           .catch(err => console.error(err));
         }
         else if(this.usersTag == "Encoder"){
+          this.Timer();
           this.links.push(l5);
           this.links.push(l6);
           this.aDashboard = false,
@@ -280,8 +286,26 @@
             this.$store.commit('suppliers', res.data.data);
           })
           .catch(err => console.error(err));
+
         }
-      }
+        // console.log("picker");
+        
+      },
+      Timer(){
+        this.timerCount = 5;
+        this.myInterval = setInterval(this.myTimer, 1000);
+      },
+      myTimer() {
+        // console.log("disable");
+        this.timerCount--;
+        if(this.timerCount <= 0){
+          this.myStopFunction();
+        }
+      },
+      myStopFunction() {
+        // console.log("enable");
+        clearInterval(this.myInterval);
+      },
     },
     beforeMount(){
       this.sideBarPicker();

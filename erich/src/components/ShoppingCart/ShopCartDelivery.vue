@@ -244,10 +244,11 @@
         // console.log("Total: " + this.customerOrder.Total);
         // console.log(this.customerOrderItems);
         
-        this.showMessage();
+        // this.showMessage();
 
         axios.post(this.getDomain()+'api/customerorder/store', {
-          register: this.customerOrder
+          register: this.customerOrder,
+          items: this.customerOrderItems
         },
           {
             headers:{
@@ -255,53 +256,51 @@
           }
           })
         .then(res => {
-          if(res.data == 'false'){
-            console.log(res.data);
-          }
-          else{
-            // console.log(res.data)
-            this.storeCustomerOrderItems();
+          // console.log(res.data);
+          if(res.data.status){
+            this.showMessage();
           } 
+          else{
+            alert("Checkout failed, Sorry for inconvenience.")
+          }
         })
         .catch(err => console.error(err));
-
-        
       },
-      storeCustomerOrderItems() {
-        axios.post(this.getDomain()+'api/customerorderitems/store', {
-            register: this.customerOrderItems
-          },
-          {
-            headers:{
-              "Authorization": `Bearer ${this.usersToken}`,
-          }
-          })
-          .then(res => {
-            if(res.data == 'false'){
-              console.log(res.data);
-            }
-            else{
-              this.cleanCart();
-            }
-          })
-          .catch(err => console.error(err));
-      },
-      cleanCart(){
-        for(var i = 0; i < this.customerOrderItems.length; i++){
-          axios.delete(this.getDomain()+'api/getcart/'+ this.customerOrderItems[i].id,
-          {
-            headers:{
-              "Authorization": `Bearer ${this.usersToken}`,
-          }
-          })
-          .then( res => {
-            // console.log("Delete")
-            // console.log(res.data);
-          })
-          .catch(err => console.error(err))
-        }
-        this.$store.commit('cleanCustomerItems');
-      },
+      // storeCustomerOrderItems() {
+      //   axios.post(this.getDomain()+'api/customerorderitems/store', {
+      //       register: this.customerOrderItems
+      //     },
+      //     {
+      //       headers:{
+      //         "Authorization": `Bearer ${this.usersToken}`,
+      //     }
+      //     })
+      //     .then(res => {
+      //       if(res.data == 'false'){
+      //         console.log(res.data);
+      //       }
+      //       else{
+      //         this.cleanCart();
+      //       }
+      //     })
+      //     .catch(err => console.error(err));
+      // },
+      // cleanCart(){
+      //   for(var i = 0; i < this.customerOrderItems.length; i++){
+      //     axios.delete(this.getDomain()+'api/getcart/'+ this.customerOrderItems[i].id,
+      //     {
+      //       headers:{
+      //         "Authorization": `Bearer ${this.usersToken}`,
+      //     }
+      //     })
+      //     .then( res => {
+      //       // console.log("Delete")
+      //       // console.log(res.data);
+      //     })
+      //     .catch(err => console.error(err))
+      //   }
+      //   this.$store.commit('cleanCustomerItems');
+      // },
       showMessage(){
         this.dialog = true;
       },

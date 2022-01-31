@@ -53,7 +53,6 @@
                                 ></v-img>
                               </div>
                             
-                           
                               <div
                                 class="d-flex align-center"
                               >
@@ -63,8 +62,6 @@
                               </div>
                             </div>
                       
-                            
-                        
                           </div>
                         </v-col>
                         <v-col
