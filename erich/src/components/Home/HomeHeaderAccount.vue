@@ -228,7 +228,7 @@
         return localStorage.getItem('lastName');
       },
       usersTag(){
-        return localStorage.getItem('tag');
+        return this.$store.state.userTag;
       },
       cartQuantity() {
         return this.$store.state.cartQuantity;
@@ -297,7 +297,6 @@
           localStorage.removeItem("mobileNumber");
           localStorage.removeItem("birthday");
           localStorage.removeItem("gender");
-          localStorage.removeItem("tag");
           localStorage.removeItem("token");
           localStorage.removeItem("id");
           window.location.href = this.getLogout();
@@ -315,25 +314,25 @@
           this.$router.push("/");
         }
       },
-      getItemsQuantity() {
-        //console.log("This is Header Cart quantity");
-        //console.log(this.customerInfos.Email);
-        this.customerEmail = this.usersEmail;
-        axios.post(this.getDomain()+'api/headercart/store', {
-          register: this.customerEmail
-        },
-        {
-          headers:{
-            "Authorization": `Bearer ${this.usersToken}`,
-        }
-        })
-        .then(res => {
-          // console.log(res.data);
-          this.cartCounter = res.data;
-        })
-        .catch(err => console.error(err));
-      },
-      getNotif(){
+      // getItemsQuantity() {
+      //   //console.log("This is Header Cart quantity");
+      //   //console.log(this.customerInfos.Email);
+      //   this.customerEmail = this.usersEmail;
+      //   axios.post(this.getDomain()+'api/headercart/store', {
+      //     register: this.customerEmail
+      //   },
+      //   {
+      //     headers:{
+      //       "Authorization": `Bearer ${this.usersToken}`,
+      //   }
+      //   })
+      //   .then(res => {
+      //     console.log(res.data);
+      //     this.cartCounter = res.data;
+      //   })
+      //   .catch(err => console.error(err));
+      // },
+      getNotifNIQ(){
         this.customerEmail = this.usersEmail;
         axios.post(this.getDomain()+'api/customernotif/getnotif', {
           customeremail: this.customerEmail
@@ -347,17 +346,20 @@
           var notif;
           // console.log("Customer Notif");
           // console.log(res.data);
-          for(var i = 0; i < res.data.length; i++){
+          for(var i = 0; i < res.data.notif.length; i++){
             notif = {
-              id: res.data[i].id,
-              title: res.data[i].title,
-              desc: res.data[i].description,
-              to: res.data[i].link,
+              id: res.data.notif[i].id,
+              title: res.data.notif[i].title,
+              desc: res.data.notif[i].description,
+              to: res.data.notif[i].link,
             }
             this.notifications.push(notif);
             this.notifCounter++;
           }
           this.$store.commit('userNotif', this.notifications);
+
+          // console.log(res.data.quantity);
+          this.cartCounter = res.data.quantity;
         })
         .catch(err => console.error(err));
       },
@@ -382,8 +384,8 @@
       else{
         this.items.push(ob4);
       }
-      this.getItemsQuantity();
-      this.getNotif();
+      // this.getItemsQuantity();
+      this.getNotifNIQ();
     },
   }
 </script>

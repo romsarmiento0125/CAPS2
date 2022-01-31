@@ -95,6 +95,9 @@ class erichlogincontroller extends Controller
             $credentials = ["email" => $request->register['Email'],"password" => $request->register['Password'],];
             $user = erichcustomer::where('email', $credentials['email'])->first();
 
+            $email = $request->register['Email'];
+            $getAddress = customeraddress::where('email', $email)->get();
+
             if(Hash::check($request->register['Password'],$user->password)){
                 $token = $user->createToken('auth-token');
                 return response()->json([
@@ -102,6 +105,7 @@ class erichlogincontroller extends Controller
                     "token" => $token->plainTextToken,
                     "user" => $user,
                     'data' => $returndata,
+                    'address' => $getAddress
                 ],200);
             } else {
                 return response()->json([
@@ -127,18 +131,32 @@ class erichlogincontroller extends Controller
             ],200);
         }
 
-        if(Hash::check($request->clientCred['usersPassword'],$user->password)){
-            $token = $user->createToken('auth-token');
+        $email = $request->clientCred['usersEmail'];
+
+        $status = erichcustomer::where('email', $email)->get('status')->first();
+
+        if($status->status == "Inactive"){
             return response()->json([
-                "status" => false,
-                "token" => $token->plainTextToken,
-                "user" => $user,
-            ],200);
-        } else {
-            return response()->json([
-                "status" => true,
-                "message" => "Wrong login credentials",
-            ],200);
+                "cond" => true,
+            ]);
+        }
+        else{
+            $getAddress = customeraddress::where('email', $email)->get();
+
+            if(Hash::check($request->clientCred['usersPassword'],$user->password)){
+                $token = $user->createToken('auth-token');
+                return response()->json([
+                    "status" => false,
+                    "token" => $token->plainTextToken,
+                    "user" => $user,
+                    'address' => $getAddress
+                ],200);
+            } else {
+                return response()->json([
+                    "status" => true,
+                    "message" => "Wrong login credentials",
+                ],200);
+            }
         }
     }
 

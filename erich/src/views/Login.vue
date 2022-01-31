@@ -48,11 +48,13 @@
               >
                 <v-text-field
                   v-model="usersData.usersPassword"
-                  type="password"
+                  :type="passType"
                   outlined
                   dense
                   class="mt-1"
                   label="Password"
+                  :append-icon="passIcon"
+                  @click:append="passShow"
                 ></v-text-field>
               </v-card-text>
 
@@ -98,6 +100,8 @@
     name: 'Login',
 
     data: () => ({
+      passIcon: "mdi-eye-off",
+      passType: "Password",
       usersData: {
         usersEmail: "",
         usersPassword: ""
@@ -111,6 +115,10 @@
     },
 
     methods: {
+      passShow(){
+        this.passIcon = this.passIcon == "mdi-eye-off" ? 'mdi-eye' : 'mdi-eye-off';
+        this.passType = this.passIcon == "mdi-eye-off" ? 'Password' : 'text';
+      },
       forgotPassword(){
         this.$store.commit('notifCond', 'forgotPass');
         this.$router.push("/erich");
@@ -120,8 +128,14 @@
           clientCred: this.usersData
         })
         .then(res => {
-          this.loginSuccess(res.data)
           // console.log(res.data);
+          if(res.data.cond){
+            alert("Your account has been banned due to some issues. Please contact our store to fix the issue. Thankyou for your Understanding")
+          }
+          else{
+            this.loginSuccess(res.data)
+            this.$store.commit('storeCustomerAddress', res.data.address);
+          }
         })
         .catch(err => console.error(err));
         
@@ -140,8 +154,8 @@
           localStorage.setItem("mobileNumber", cinfo.user.mobile_Number);
           localStorage.setItem("birthday", cinfo.user.birthday);
           localStorage.setItem("gender", cinfo.user.gender);
-          localStorage.setItem("tag", cinfo.user.tag);
           localStorage.setItem("token", cinfo.token);
+          this.$store.commit('userTag', cinfo.user.tag);
 
           this.$router.push("/");
         }

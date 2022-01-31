@@ -54,7 +54,13 @@
         return this.$store.state.customerCredentials;
       },
       usersTag(){
-        return localStorage.getItem('tag');
+        return this.$store.state.userTag;
+      }
+    },
+
+    watch:{
+      usersTag(){
+        this.navbarPicker();
       }
     },
 

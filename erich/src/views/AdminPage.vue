@@ -9,49 +9,44 @@
           
         >
           <v-sheet
-            class="pa-4 bg"
-            
-            
+            class="pa-4 bg" 
           >
-          <v-row>
-            <v-col cols="9">
-              <router-link
-                to="/"
-              >
-                <v-img
-                  contain
-                  src="../assets/ERICHWHITE.svg"
-                  max-height="120px"
-                  max-width="120px"
-                  class="ml-3"
-                >
-                </v-img>
-              </router-link>
-            </v-col>
-
-            <v-col cols="3">
-              <div class="d-flex justify-end">
-                <v-btn
-                  text
-                 @click="sideBarPicker"
+            <v-row>
+              <v-col cols="9">
+                <router-link
+                  to="/"
                 >
                   <v-img
-                  src="../assets/refresh.png"
-                  max-height="30px"
-                  max-width="30px"
+                    contain
+                    src="../assets/ERICHWHITE.svg"
+                    max-height="120px"
+                    max-width="120px"
+                    class="ml-3"
                   >
                   </v-img>
-              </v-btn>
-              </div>
-            </v-col>
-          </v-row>
-            
+                </router-link>
+              </v-col>
+
+              <v-col cols="3">
+                <div class="d-flex justify-end">
+                  <v-btn
+                    text
+                  @click="sideBarPicker"
+                  >
+                    <v-img
+                    src="../assets/refresh.png"
+                    max-height="30px"
+                    max-width="30px"
+                    >
+                    </v-img>
+                </v-btn>
+                </div>
+              </v-col>
+            </v-row>
             
           </v-sheet>
 
           <v-divider class="dColor"></v-divider>
-
-          
 
           <v-list>
             <v-list-item
@@ -142,11 +137,17 @@
 
     computed: {
       usersTag(){
-        return localStorage.getItem('tag');
+        return this.$store.state.userTag;
       },
       usersToken(){
         return localStorage.getItem('token');
       },
+    },
+
+    watch:{
+      usersTag(){
+        this.sideBarPicker();
+      }
     },
 
     methods: {
@@ -242,7 +243,7 @@
           this.links.push(l5);
           this.links.push(l6);
           this.links.push(l7);
-          axios.get(this.getDomain()+'api/customercompleteitems',
+          axios.get(this.getDomain()+'api/adminalldata',
           {
             headers:{
               "Authorization": `Bearer ${this.usersToken}`,
@@ -250,55 +251,11 @@
           })
           .then(res => {
             // console.log(res.data);
-            this.$store.commit('adminDataDeliver', res.data);
-          })
-          .catch(err => console.error(err));
-
-          axios.get(this.getDomain()+'api/customerpickupcomplete',
-          {
-            headers:{
-              "Authorization": `Bearer ${this.usersToken}`,
-          }
-          })
-          .then(res => {
-            // console.log(res.data);
-            this.$store.commit('adminDataPickup', res.data);
-          })
-          .catch(err => console.error(err));
-
-          axios.get(this.getDomain()+'api/physicalorder',
-          {
-            headers:{
-              "Authorization": `Bearer ${this.usersToken}`,
-          }
-          })
-          .then(res => {
-            // console.log(res.data);
-            this.$store.commit('adminDataPhysical', res.data);
-          })
-          .catch(err => console.error(err));
-
-          axios.get(this.getDomain()+'api/addstaff',
-          {
-            headers:{
-              "Authorization": `Bearer ${this.usersToken}`,
-          }
-          })
-          .then(res => {
-            // console.log(res.data);
-            this.$store.commit('allPeople', res.data);
-          })
-          .catch(err => console.error(err));
-
-          axios.get(this.getDomain()+'api/supplier',
-          {
-            headers:{
-              "Authorization": `Bearer ${this.usersToken}`,
-          }
-          })
-          .then(res => {
-            // console.log(res.data.data);
-            this.$store.commit('suppliers', res.data.data);
+            this.$store.commit('adminDataDeliver', res.data.deliver);
+            this.$store.commit('adminDataPickup', res.data.pickup);
+            this.$store.commit('adminDataPhysical', res.data.physical);
+            this.$store.commit('allPeople', res.data.user);
+            this.$store.commit('suppliers', res.data.supplier);
           })
           .catch(err => console.error(err));
         }

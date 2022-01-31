@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\customercart;
 use Illuminate\Http\Request;
-use App\Models\erichnotifications;
+use App\Models\erichcustomer;
+use App\Models\erichSupplierList;
+use App\Models\customerCompleteItems;
+use App\Models\customerPhysicalOrders;
+use App\Models\customerPickupComplete;
 
-class erichnotificationscontroller extends Controller
+class allAdminItem extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +18,20 @@ class erichnotificationscontroller extends Controller
      */
     public function index()
     {
-        $path = public_path();
+        $deliverComplete = customerCompleteItems::with('orders')->get();
+        $pickupComplete = customerPickupComplete::with('orders')->get();
+        $physicalComplete = customerPhysicalOrders::with('orders')->get();
+        $user = erichcustomer::all();
+        $supplier = erichSupplierList::where('status', 'Active')->get();
+        
+        return response()->json([
+            'deliver' => $deliverComplete,
+            'pickup' => $pickupComplete,
+            'physical' => $physicalComplete,
+            'user' => $user,
+            'supplier' => $supplier
 
-        return $path;
+        ]);
     }
 
     /**
@@ -38,36 +52,9 @@ class erichnotificationscontroller extends Controller
      */
     public function store(Request $request)
     {
-        $register = new erichnotifications();
-
-        $register->email = $request->clientCred['usersEmail'];
-        $register->title = "Verify";
-        $register->description = "Verify Your Email";
-        $register->link = "verify";
-        $register->status = "undone";
-
-        $register->save();
-
-        return $register;
+        //
     }
 
-    public function getnotif(Request $request)
-    {
-        $showQuantity = 0;
-        $getQuantity = customercart::where('email', $request->customeremail)->get('quantity');
-
-        foreach($getQuantity as $value){
-            $showQuantity += $value->quantity;
-        };
-
-        $notif = erichnotifications::all()->where('email', $request->customeremail)->where('status', 'undone')->values();
-        
-        
-        return response()->json([
-            'notif' => $notif,
-            'quantity' => $showQuantity
-        ]);
-    }
     /**
      * Display the specified resource.
      *
@@ -99,12 +86,7 @@ class erichnotificationscontroller extends Controller
      */
     public function update(Request $request, $id)
     {
-        $existingItem = erichnotifications::find($id);
-
-        $existingItem->status = $request->userstatus;
-        
-        $existingItem->save();
-        return "Success";
+        //
     }
 
     /**

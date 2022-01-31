@@ -138,6 +138,7 @@
                 dark
                 color="#1106A0"
                 class="my-1"
+                @click="generateReport()"
                 >
                   <h4>Generate Report</h4>
                 </v-btn>
@@ -211,6 +212,8 @@
 </template>
 
 <script>
+  import XLSX from 'xlsx';
+
   export default {
     data: () => ({
       endmenu: false,
@@ -266,6 +269,21 @@
     },
 
     methods: {
+      generateReport(){
+        var wb = XLSX.utils.book_new();
+        var ws_data = [['Invoice Number','Email' , 'Name', 'Item Name', 'Quantity', 'Price', 'Total', 'Date']];
+        for(var i = 0; i < this.showItems.length; i++){
+          for(var j =0; j < this.showItems[i].orders.length; j++){
+            ws_data.push([this.showItems[i].invoiceNumber, this.showItems[i].email, this.showItems[i].name, 
+              this.showItems[i].orders[j].itemName, this.showItems[i].orders[j].quantity, this.showItems[i].orders[j].retailPrice, 
+              this.priceRound(this.showItems[i].orders[j].quantity * this.showItems[i].orders[j].retailPrice), this.showItems[i].adjustedDate]);
+          }
+        }
+        // console.log(ws_data);
+        var ws = XLSX.utils.aoa_to_sheet(ws_data);
+        XLSX.utils.book_append_sheet(wb, ws, "Online Transactions");
+        XLSX.writeFile(wb, "Online Transactions.xlsx");
+      },
       toSearchItems(){
         this.showItems = this.adminAllData;
         this.showItems = this.computedShowItems;

@@ -6,6 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    userTag: "",
     customerInfos: null,
     customerAddress: {},
     categoryItems: null,
@@ -58,6 +59,9 @@ export default new Vuex.Store({
     suppliers: null,
   },
   mutations: {
+    userTag: (state, payload) => {
+      state.userTag = payload
+    },
     //Views Login.vue
     storeCustomerInfo: (state, payload) => {
       state.customerInfos = payload

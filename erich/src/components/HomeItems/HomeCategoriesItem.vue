@@ -113,31 +113,28 @@
                             <v-spacer></v-spacer>
                               <v-btn
                                 class="mr-3 mt-n1"
-                                  large
-                                  icon
-                                  white
-                                  text
-                                  color="#1106A0"
-                                  @click="addToCartItems(item.itemCode, item.id)"
+                                large
+                                icon
+                                white
+                                text
+                                color="#1106A0"
+                                @click="addToCartItems(item.itemCode)"
+                                :disabled="timerCount > 0"
                               >
-                              <v-img
-
-                                contain
-                                src="../../assets/Cart.svg"
-                                max-height="40px"
-                                max-width="40px"
+                                <v-img
+                                  contain
+                                  src="../../assets/Cart.svg"
+                                  max-height="40px"
+                                  max-width="40px"
                                 >
-                              </v-img>
+                                </v-img>
                             </v-btn>
                           </div>
                         </v-col> 
                       </v-col>
                     </v-row>
                   </div>
-
-  
                 </div>
-
               </v-card>
             </v-col>
           </v-row>
@@ -163,6 +160,8 @@
         ItemCode: "",
       },
       cartCounter: 0,
+      timerCount: 0,
+      myInterval: null,
     }),
 
     computed: {
@@ -202,19 +201,27 @@
       }
     }, 
 
-    // mounted(){
-    //   setTimeout(() => {
-    //     this.$store.state.cartItems = {cart: 0};
-    //   }, 3000);
-    // },
-
     methods: {
+      Timer(){
+        this.timerCount = 1;
+        this.myInterval = setInterval(this.myTimer, 1000);
+      },
+      myTimer() {
+        // console.log("disable");
+        this.timerCount--;
+        if(this.timerCount <= 0){
+          this.myStopFunction();
+        }
+      },
+      myStopFunction() {
+        // console.log("enable");
+        clearInterval(this.myInterval);
+      },
       filterItems(){
         this.showItems = this.categoryItems;
         this.showItems = this.computedShowItems;
       },
-      
-      addToCartItems(code, id) {
+      addToCartItems(code) {
         // console.log("add to cart");
         this.cartItems.Email = this.usersEmail;
         this.cartItems.ItemCode = code;
@@ -241,6 +248,7 @@
           })
           .catch(err => console.error(err));
         }
+        this.Timer();
       },
       getCategoryItems() {
         if(!(this.categoryItems == null)){
