@@ -95,7 +95,7 @@
                   <td>{{info.status}} <br> To Avoid cancellation please send the <br> products until &nbsp;{{info.adjustedDate}}</td>
                   <td v-if="info.status == 'Pending'">
                     <div>
-                      <v-menu offset-y>
+                      <!-- <v-menu offset-y>
                         <template v-slot:activator="{ on, attrs }">
                           <v-btn
                             color="#1106A0"
@@ -123,6 +123,39 @@
                             </v-list-item-title>
                           </v-list-item>
                         </v-list>
+                      </v-menu> -->
+                      
+                      <v-menu
+                        :close-on-content-click="false"
+                        transition="scale-transition"
+                        left
+                        offset-x
+                        min-width="auto"
+                      >
+                        <template v-slot:activator="{ on, attrs }">
+                          <!-- <v-text-field
+                            v-model="date"
+                            outlined
+                            readonly
+                            v-bind="attrs"
+                            v-on="on"
+                          ></v-text-field> -->
+                          <v-btn
+                            color="#1106A0"
+                            dark
+                            outlined
+                            v-bind="attrs"
+                            v-on="on"
+                          >
+                            <h6> Arrange Delivery </h6>
+                          </v-btn>
+                        </template>
+                        <v-date-picker
+                          v-model="date"
+                          @input="toProcess(date, info.id, info.email, info.mobileNumber, info.invoiceNumber, info.name, info.completeAddress,
+                              info.orderYear, info.orderMonth, info.orderDay, info.shipFee, info.discount, info.tax,
+                              info.subTotal, info.total)"
+                        ></v-date-picker>
                       </v-menu>
                     </div>
                   </td>
@@ -185,6 +218,8 @@
         SubTotal: 0,
         Total: 0,
       },
+      date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+      menu2: false,
     }),
 
     computed: {
@@ -206,27 +241,27 @@
       showProcessedToPack(){
         this.$store.commit('filterAllOrdersItems', 'Process');
       },
-      dateToAccept(yr, mn, dy, i) {
-        var today = new Date();
-        var day = String(today.getDate()).padStart(2, '0');
-        var month = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-        var year = today.getFullYear();
-        var dt = year + "-" + month + "-" + (day * 1);
-        // if(date == (yr + "-" + mn + "-" + (dy * 1 + i-1))){
-        //   return "go";
-        // }
-        if(day > (dy * 1 + (i-1))){
-          return "Cancel";
-        }
-        else{
-          // return yr + "-" + mn + "-" + (dy * 1 + (i-1));
-          var adjDate = new Date(today.setDate(today.getDate() + i));
-          var adjDay = String(adjDate.getDate()).padStart(2, '0');
-          var adjMonth = String(adjDate.getMonth() + 1).padStart(2, '0'); //January is 0!
-          var adjYear = adjDate.getFullYear(); 
-          return adjYear + "-" + adjMonth + "-" + adjDay;
-        }
-      },
+      // dateToAccept(yr, mn, dy, i) {
+      //   var today = new Date();
+      //   var day = String(today.getDate()).padStart(2, '0');
+      //   var month = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+      //   var year = today.getFullYear();
+      //   var dt = year + "-" + month + "-" + (day * 1);
+      //   // if(date == (yr + "-" + mn + "-" + (dy * 1 + i-1))){
+      //   //   return "go";
+      //   // }
+      //   if(day > (dy * 1 + (i-1))){
+      //     return "Cancel";
+      //   }
+      //   else{
+      //     // return yr + "-" + mn + "-" + (dy * 1 + (i-1));
+      //     var adjDate = new Date(today.setDate(today.getDate() + i));
+      //     var adjDay = String(adjDate.getDate()).padStart(2, '0');
+      //     var adjMonth = String(adjDate.getMonth() + 1).padStart(2, '0'); //January is 0!
+      //     var adjYear = adjDate.getFullYear(); 
+      //     return adjYear + "-" + adjMonth + "-" + adjDay;
+      //   }
+      // },
       toProcess(data, id, Email, MobileNumber, InvoiceNumber, Name, CompleteAddress, OrderYear, OrderMonth,
         OrderDay, ShipFee, Discount, Tax, SubTotal, Total){
         this.orderUpdate.Email = Email;
@@ -244,38 +279,25 @@
         this.orderUpdate.Discount = Discount;
         this.orderUpdate.SubTotal = SubTotal;
         this.orderUpdate.Total = Total;
-        if(data == "Cancel"){
-          this.orderUpdate.OrderStatus = "Cancel";
-          axios.post(this.getDomain()+'api/customercancel', {
-            register: this.orderUpdate,
-            userid: id
-          },
-          {
-            headers:{
-              "Authorization": `Bearer ${this.usersToken}`,
-          }
-          })
-          .then(res => {
-            this.getAllOrder();
-          })
-          .catch(err => console.error(err));
+        
+        //   // console.log("process items");
+        this.orderUpdate.OrderStatus = "Process";
+
+        axios.put(this.getDomain()+'api/customerorder/' + id, {
+          register: this.orderUpdate
+        },
+        {
+          headers:{
+            "Authorization": `Bearer ${this.usersToken}`,
         }
-        else{
-          // console.log("process items");
-          this.orderUpdate.OrderStatus = "Process";
-          axios.put(this.getDomain()+'api/customerorder/' + id, {
-            register: this.orderUpdate
-          },
-          {
-            headers:{
-              "Authorization": `Bearer ${this.usersToken}`,
-          }
-          })
-          .then(res => {
-            this.getAllOrder();
-          })
-          .catch(err => console.error(err));
-        }
+        })
+        .then(res => {
+          // console.log(res.data);
+          this.$store.commit('storeUserAllOrders', res.data.data);
+        })
+        .catch(err => console.error(err));
+
+        // console.log(data);
       },
       toDeliver(date, id, Email, MobileNumber, InvoiceNumber, Name, CompleteAddress, OrderYear, OrderMonth,
         OrderDay, ShipFee, Discount, Tax, SubTotal, Total){
@@ -304,7 +326,13 @@
           }
           })
           .then(res => {
-            this.getAllOrder();
+            // this.getAllOrder();
+            if(res.data.status){
+              this.$store.commit('storeUserAllOrders', res.data.data);
+            }
+            else{
+              alert(res.data.data);
+            }
           })
           .catch(err => console.error(err));
       },

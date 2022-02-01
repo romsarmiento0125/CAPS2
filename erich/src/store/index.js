@@ -22,12 +22,12 @@ export default new Vuex.Store({
     userProfileOrders: {},
     userProfileToDeliver: {},
     userProfileToComplete: {},
+    userProfileToCancel: {},
     userAllOrdersCons: {},
     userAllOrders: {},
     ocDeliverToPack: true,
     ocDeliverToDelivery: false,
     ocDeliverToComplete: false,
-    ocDeliverToReturn: false,
     ocDeliverToCancel: false,
     userAllDeliver: {},
     userAllComplete: {},
@@ -39,14 +39,14 @@ export default new Vuex.Store({
     ocPickupToComplete: false,
     ocPickupToCancel: false,
     userPickupOrders: {},
+    userPickupToPickup: {},
+    userPickupToComplete: {},
+    userPickupToCancel: {},
     userPickupOrdersCons: {},
     userPickupPickup: {},
     userPickupComplete: {},
     userPickupCancel: {},
     searchItem: "",
-    userPickupOrders: "",
-    userPickupToPickup: "",
-    userPickupToComplete: "",
     userNotif: "",
     notifCond: "",
     aboutCond: "term",
@@ -148,6 +148,10 @@ export default new Vuex.Store({
       state.userProfileToComplete = {};
       state.userProfileToComplete = payload;
     },
+    storeUserToCancel: (state, payload) => {
+      state.userProfileToCancel = {};
+      state.userProfileToCancel = payload;
+    },
     //Views UserProfile.vue
     //Views Home.vue
     storeUserPickupOrders: (state, payload) => {
@@ -166,6 +170,10 @@ export default new Vuex.Store({
       state.userPickupToComplete = {};
       state.userPickupToComplete = payload;
     },
+    storeUserPickupToCancel: (state, payload) => {
+      state.userPickupToCancel = {};
+      state.userPickupToCancel = payload;
+    },
     //Views OnlineCashier.vue
     storeUserAllOrders: (state, payload) => {
       state.userAllOrders = {};
@@ -177,8 +185,6 @@ export default new Vuex.Store({
     filterAllOrdersItems: (state, payload) => {
       let result = state.userAllOrdersCons.filter(res => res.status == payload);
       state.userAllOrders = result;
-      // console.log(state.userAllOrders);
-      // console.log(state.userAllOrdersCons);
     },
     //Components OnlineCashier OCDeliveryToPack.vue
     showAllOrdersItems: (state) => {
@@ -289,8 +295,6 @@ export default new Vuex.Store({
     filterAllPickupItems: (state, payload) => {
       let result = state.userPickupOrdersCons.filter(res => res.status == payload);
       state.userPickupOrders = result;
-      // console.log(state.userAllOrders);
-      // console.log(state.userAllOrdersCons);
     },
     //Components OnlineCashier OCDeliveryToPack.vue
     showAllPickupItems: (state) => {

@@ -166,8 +166,12 @@
         }
         })
         .then(res => {
-          this.getAllDeliver();
-          // console.log(res.data);
+          if(res.data.status){
+            this.$store.commit('storeUserAllDeliver', res.data.data);
+          }
+          else{
+            alert(res.data.data);
+          }
         })
         .catch(err => console.error(err));
       },
@@ -198,7 +202,12 @@
         }
         })
         .then(res => {
-          this.getAllDeliver();
+          if(res.data.status){
+            this.$store.commit('storeUserAllDeliver', res.data.data);
+          }
+          else{
+            alert(res.data.data);
+          }
         })
         .catch(err => console.error(err));
       },

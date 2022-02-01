@@ -58,10 +58,16 @@ class CustomerPickupPickupController extends Controller
 
         if( $existingItem){
             $existingItem->delete();
-            return "Item succesfully deleted.";
+            return response()->json([
+                'status' => true,
+                'data' => customerPickupInfos::with('orders')->get(),
+            ]);
         }
         else{
-            return "Item not Found";
+            return response()->json([
+                'status' => false,
+                'data' => "Item not found.",
+            ]);
         }
     }
 

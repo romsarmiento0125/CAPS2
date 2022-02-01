@@ -6,6 +6,7 @@ use App\Models\customercart;
 use Illuminate\Http\Request;
 use App\Models\customerOrderInfo;
 use App\Models\customerOrderItems;
+use App\Models\erichnotifications;
 use App\Models\customerCancelItems;
 
 class customerOrderInfoController extends Controller
@@ -73,6 +74,16 @@ class customerOrderInfoController extends Controller
             $existingItem->delete();
             $item->save();
         }
+
+        $notif = new erichnotifications();
+
+        $notif->email = $request->register['Email'];
+        $notif->title = "Check your order";
+        $notif->description = "Your order #:" . $request->register['InvoiceNumber'] . " has already been place.";
+        $notif->link = "userOrder";
+        $notif->status = "undone";
+
+        $notif->save();
 
         return response()->json([
             'status' => true,
@@ -146,27 +157,15 @@ class customerOrderInfoController extends Controller
     public function update(Request $request, $id)
     {
         $existingItem = customerOrderInfo::find($id);
-
-        $existingItem->id = $id;
-        $existingItem->email = $request->register['Email'];
-        $existingItem->invoiceNumber = $request->register['InvoiceNumber'];
-        $existingItem->name = $request->register['Name'];
-        $existingItem->mobileNumber = $request->register['Mobilenumber'];
-        $existingItem->completeAddress = $request->register['CompleteAddress'];
+        
         $existingItem->status = $request->register['OrderStatus'];
-        $existingItem->orderYear = $request->register['OrderYear'];
-        $existingItem->orderMonth = $request->register['OrderMonth'];
-        $existingItem->orderDay = $request->register['OrderDay'];
-        $existingItem->adjustedDate = $request->register['AdjustedDate'];
-        $existingItem->shipFee = $request->register['Shipping'];
-        $existingItem->discount = $request->register['Discount'];
-        $existingItem->tax = $request->register['OrderTax'];
-        $existingItem->subTotal = $request->register['SubTotal'];
-        $existingItem->total = $request->register['Total'];
+
         $existingItem->save();
 
         //return $existingItem;
-        return "goods";
+        return response()->json([
+            'data' => customerOrderInfo::with('orders')->get(),
+        ]);
     }
 
     /**

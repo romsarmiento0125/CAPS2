@@ -17,20 +17,21 @@ use App\Http\Controllers\physicalCashierOrders;
 use App\Http\Controllers\verifyemailcontroller;
 use App\Http\Controllers\customercartcontroller;
 use App\Http\Controllers\loginaddresscontroller;
+use App\Http\Controllers\userAllOrderController;
 use App\Http\Controllers\erichcustomercontroller;
 use App\Http\Controllers\erichSupplierController;
 use App\Http\Controllers\customeraddresscontroller;
 use App\Http\Controllers\erichheadercartcontroller;
 use App\Http\Controllers\userOrderPickupController;
 use App\Http\Controllers\userDeliverItemsController;
+
 use App\Http\Controllers\customerOrderInfoController;
-
 use App\Http\Controllers\userCompleteItemsController;
+
 use App\Http\Controllers\userOrderCompleteController;
-
 use App\Http\Controllers\userOrderDeliveryController;
-use App\Http\Controllers\userOrderToPickupController;
 
+use App\Http\Controllers\userOrderToPickupController;
 use App\Http\Controllers\customerOrderItemsController;
 use App\Http\Controllers\erichcategoryitemscontroller;
 use App\Http\Controllers\erichnotificationscontroller;
@@ -92,7 +93,7 @@ Route::middleware('auth:sanctum')->group( function (){
     Route::post('/customerpickupitems/store', [CustomerPickupItemsController::class, 'store']);
     Route::get('/customerpickuppickup', [CustomerPickupPickupController::class, 'index']);
     Route::post('/customerpickuppickup/store', [CustomerPickupPickupController::class, 'store']);
-    // // Route::get('/customerpickupcomplete', [CustomerPickupCompleteController::class, 'index']);
+    Route::get('/customerpickupcomplete', [CustomerPickupCompleteController::class, 'index']);
     Route::post('/customerpickupcomplete/store', [CustomerPickupCompleteController::class, 'store']);
     Route::post('/customerpickupcancel/store', [userPickupCancel::class, 'store']);
     Route::get('/customerpickupcancel', [userPickupCancel::class, 'index']);
@@ -105,7 +106,7 @@ Route::middleware('auth:sanctum')->group( function (){
     Route::post('/customerdeliveritems/store', [userDeliverItemsController::class, 'store']);
     Route::post('/customerordercancel/store', [userOrderCancel::class, 'store']);
     Route::get('/customerordercancel', [userOrderCancel::class, 'index']);
-    // // Route::get('/customercompleteitems', [userCompleteItemsController::class, 'index']);
+    Route::get('/customercompleteitems', [userCompleteItemsController::class, 'index']);
     Route::post('/customercompleteitems/store', [userCompleteItemsController::class, 'store']);
     Route::post('/customercancel', [customerOrderInfoController::class, 'cancel']);
 
@@ -136,6 +137,8 @@ Route::middleware('auth:sanctum')->group( function (){
     // // Route::get('/physicalorder', [physicalCashierOrders::class, 'index']);
 
     Route::get('/adminalldata', [allAdminItem::class, 'index']);
+
+    Route::post('/userall/store', [userAllOrderController::class, 'store']);
 });
 
 Route::post('/customerlogin',[erichlogincontroller::class,'login']);

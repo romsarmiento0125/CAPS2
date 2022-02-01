@@ -189,7 +189,7 @@
           })
           .then(res => {
             // console.log(res.data);
-            this.getPickupOrder();
+            this.$store.commit('storeUserPickupOrders', res.data.data);
           })
           .catch(err => console.error(err));
 
@@ -219,7 +219,13 @@
           })
           .then(res => {
             // console.log(res.data);
-            this.getPickupOrder();
+            
+            if(res.data.status){
+              this.$store.commit('storeUserPickupOrders', res.data.data);
+            }
+            else{
+              alert(res.data.data);
+            }
           })
           .catch(err => console.error(err));
       },

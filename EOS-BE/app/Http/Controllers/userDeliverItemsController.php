@@ -62,10 +62,16 @@ class userDeliverItemsController extends Controller
 
         if( $existingItem){
             $existingItem->delete();
-            return "Item succesfully deleted.";
+            return response()->json([
+                'status' => true,
+                'data' => customerOrderInfo::with('orders')->get(),
+            ]);
         }
         else{
-            return "Item not Found";
+            return response()->json([
+                'status' => false,
+                'data' => "Item Not Found",
+            ]);
         }
     }
 

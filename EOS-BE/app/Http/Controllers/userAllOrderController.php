@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\customercart;
 use Illuminate\Http\Request;
-use App\Models\erichnotifications;
+use App\Models\customerOrderInfo;
+use App\Models\customerCancelItems;
+use App\Models\customerPickupInfos;
+use App\Models\customerDeliverItems;
+use App\Models\customerPickupCancel;
+use App\Models\customerPickupPickup;
+use App\Models\customerCompleteItems;
+use App\Models\customerPickupComplete;
 
-class erichnotificationscontroller extends Controller
+class userAllOrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +21,7 @@ class erichnotificationscontroller extends Controller
      */
     public function index()
     {
-        $path = public_path();
-
-        return $path;
+        //
     }
 
     /**
@@ -38,36 +42,30 @@ class erichnotificationscontroller extends Controller
      */
     public function store(Request $request)
     {
-        $register = new erichnotifications();
+        $dataGet = $request->register;
 
-        $register->email = $request->clientCred['usersEmail'];
-        $register->title = "Verify";
-        $register->description = "Verify Your Email";
-        $register->link = "verify";
-        $register->status = "undone";
-
-        $register->save();
-
-        return $register;
-    }
-
-    public function getnotif(Request $request)
-    {
-        $showQuantity = 0;
-        $getQuantity = customercart::where('email', $request->customeremail)->get('quantity');
-
-        foreach($getQuantity as $value){
-            $showQuantity += $value->quantity;
-        };
-
-        $notif = erichnotifications::all()->where('email', $request->customeremail)->where('status', 'undone')->values();
+        $dtpack = customerOrderInfo::with('orders')->where('email', $dataGet)->get();
+        $dtdeliver = customerDeliverItems::with('orders')->where('Email', $dataGet)->get();
+        $dtcomplete = customerCompleteItems::with('orders')->where('Email', $dataGet)->get();
+        $dtcancel = customerCancelItems::with('orders')->where('Email', $dataGet)->get();
         
-        
+        $ptpack = customerPickupInfos::with('orders')->where('email', $dataGet)->get();
+        $ptpick = customerPickupPickup::with('orders')->where('Email', $dataGet)->get();
+        $ptcomplete = customerPickupComplete::with('orders')->where('Email', $dataGet)->get();
+        $ptcancel = customerPickupCancel::with('orders')->where('Email', $dataGet)->get();
+
         return response()->json([
-            'notif' => $notif,
-            'quantity' => $showQuantity
+            'dtpack' => $dtpack,
+            'dtdel' => $dtdeliver,
+            'dtcomp' => $dtcomplete,
+            'dtcancel' => $dtcancel,
+            'ptpack' => $ptpack,
+            'ptpick' => $ptpick,
+            'ptcomp' => $ptcomplete,
+            'ptcancel' => $ptcancel,
         ]);
     }
+
     /**
      * Display the specified resource.
      *
@@ -99,15 +97,7 @@ class erichnotificationscontroller extends Controller
      */
     public function update(Request $request, $id)
     {
-        $existingItem = erichnotifications::find($id);
-
-        $existingItem->status = $request->userstatus;
-        
-        $existingItem->save();
-        
-        return response()->json([
-            'status' => true,
-        ]);
+        //
     }
 
     /**

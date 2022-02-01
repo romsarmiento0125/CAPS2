@@ -262,6 +262,7 @@
           } 
           else{
             alert("Checkout failed, Sorry for inconvenience.")
+
           }
         })
         .catch(err => console.error(err));
