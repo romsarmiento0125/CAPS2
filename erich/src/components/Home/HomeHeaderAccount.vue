@@ -120,7 +120,7 @@
                       :key="n"
                     >
                       <v-list-item-content>
-                        <v-list-item-title @click="goToMiscFunctions(item.to)"><span>{{item.title}}</span><br><span>{{item.desc}}</span></v-list-item-title>
+                        <v-list-item-title @click="goToMiscFunctions(item.to, item.id)"><span>{{item.title}}</span><br><span>{{item.desc}}</span></v-list-item-title>
                       </v-list-item-content>
                     </v-list-item>
                   </v-list-item-group>
@@ -302,13 +302,32 @@
           window.location.href = this.getLogout();
         }
       },
-      goToMiscFunctions(cond){
+      goToMiscFunctions(cond, id){
         if(cond == "verify"){
           this.$store.commit('notifCond', 'verify');
           this.$router.push("/erich");
         }
-        else if(cond == "profile"){
-          this.$router.push("/profile");
+        else if(cond == "userOrder"){
+          // console.log(id);
+          axios.put(this.getDomain()+'api/customernotifstatus/' + id, {
+            userstatus: "done"
+          },
+          {
+            headers:{
+              "Authorization": `Bearer ${this.usersToken}`,
+          }
+          })
+          .then(res => {
+            if(res.data.status){
+              this.$router.push("/profile");
+              this.$store.commit('goToOrder');
+            }
+            else{
+              alert("Something wrong. Sorry for the inconvience");
+            }
+          })
+          .catch(err => console.error(err));
+          
         }
         else{
           this.$router.push("/");

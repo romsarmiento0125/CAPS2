@@ -148,10 +148,24 @@
         this.$store.commit('pickupDate', date);
       },
       saveTime(data) {
-        // console.log(data)
-        this.oras = data;
-        this.modal2 = false
-        this.$store.commit('pickupTime', data);
+        var today = new Date();
+        var time = today.getHours() + ":" + today.getMinutes();
+
+        var oras = "16"+ ":" + "00";
+
+        // console.log(data);
+        // console.log(time);
+
+        if(data > time){
+          this.oras = data;
+          this.modal2 = false
+          this.$store.commit('pickupTime', data);
+        }
+        else{
+          this.oras = oras;
+          this.modal2 = false
+          this.$store.commit('pickupTime', oras);
+        }
       },
       setTimeAndDate() {
         var today = new Date();
@@ -159,7 +173,7 @@
         var month = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
         var year = today.getFullYear();
         var date = year + "-" + month + "-" + day;
-        var oras = "06"+ ":" + "00";
+        var oras = "16"+ ":" + "00";
         this.date = date;
         this.oras = oras;
         this.minDate = year + "-" + month + "-" + day;

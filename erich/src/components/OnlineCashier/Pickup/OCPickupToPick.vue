@@ -136,8 +136,12 @@
         }
         })
         .then(res => {
-          // console.log(res.data);
-          this.getPickupPickup();
+          if(res.data.status){
+            this.$store.commit('storeUserAllPickup', res.data.data);
+          }
+          else{
+            alert(res.data.data);
+          }
         })
         .catch(err => console.error(err));
       },
@@ -165,23 +169,27 @@
         }
         })
         .then(res => {
-          // console.log(res.data);
-          this.getPickupPickup();
+          if(res.data.status){
+            this.$store.commit('storeUserAllPickup', res.data.data);
+          }
+          else{
+            alert(res.data.data);
+          }
         })
         .catch(err => console.error(err));
       },
       getPickupPickup(){
         axios.get(this.getDomain()+'api/customerpickuppickup',
-          {
-            headers:{
-              "Authorization": `Bearer ${this.usersToken}`,
-          }
-          })
-          .then(res => {
-            // console.log(res.data);
-            this.$store.commit('storeUserAllPickup', res.data);
-          })
-          .catch(err => console.error(err));
+        {
+          headers:{
+            "Authorization": `Bearer ${this.usersToken}`,
+        }
+        })
+        .then(res => {
+          // console.log(res.data);
+          this.$store.commit('storeUserAllPickup', res.data);
+        })
+        .catch(err => console.error(err));
       },
     },
 

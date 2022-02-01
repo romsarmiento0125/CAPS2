@@ -443,6 +443,9 @@
       userProfileToComplete() {
         return this.$store.state.userProfileToComplete;
       },
+      userProfileToCancel() {
+        return this.$store.state.userProfileToCancel;
+      },
       userPickupOrders() {
         return this.$store.state.userPickupOrders;
       },
@@ -451,6 +454,9 @@
       },
       userPickupToComplete() {
         return this.$store.state.userPickupToComplete;
+      },
+      userPickupToCancel() {
+        return this.$store.state.userPickupToCancel;
       },
     },
 

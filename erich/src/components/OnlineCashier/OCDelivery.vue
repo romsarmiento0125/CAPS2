@@ -24,6 +24,7 @@
             </v-btn>
           </div>
         </v-col>
+
         <v-col cols="11" class="d-flex justify-center">
           <div>
             <v-btn
@@ -90,9 +91,6 @@
     }),
 
     computed: {
-      userAllOrders() {
-        return this.$store.state.userAllOrders;
-      },
       ocDeliverToPack() {
         return this.$store.state.ocDeliverToPack;
       },
@@ -101,9 +99,6 @@
       },
       ocDeliverToComplete() {
         return this.$store.state.ocDeliverToComplete;
-      },
-      ocDeliverToReturn() {
-        return this.$store.state.ocDeliverToReturn;
       },
       ocDeliverToCancel() {
         return this.$store.state.ocDeliverToCancel;
@@ -128,9 +123,6 @@
         }
         else if(data == "complete"){
           this.$store.commit('ocDeliverToComplete');
-        }
-        else if(data == "return"){
-          this.$store.commit('ocDeliverToReturn');
         }
         else if(data == "cancel"){
           this.$store.commit('ocDeliverToCancel');

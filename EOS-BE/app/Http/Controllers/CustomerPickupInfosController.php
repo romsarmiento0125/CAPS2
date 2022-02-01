@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\customercart;
 use Illuminate\Http\Request;
+use App\Models\erichnotifications;
 use App\Models\customerPickupInfos;
 use App\Models\customerPickupItems;
 
@@ -37,45 +38,55 @@ class CustomerPickupInfosController extends Controller
      */
     public function store(Request $request)
     {
-            $info = $request->register;
-            $items = $request->items;
+        $info = $request->register;
+        $items = $request->items;
 
-            $register = new customerPickupInfos();
+        $register = new customerPickupInfos();
 
-            $register->email = $request->register['Email'];
-            $register->invoiceNumber = $request->register['InvoiceNumber'];
-            $register->name = $request->register['Name'];
-            $register->mobileNumber = $request->register['Mobilenumber'];
-            $register->status = $request->register['Status'];
-            $register->pickupDate = $request->register['pickupDate'];
-            $register->pickupTime = $request->register['pickupTime'];
-            $register->discount = $request->register['Discount'];
-            $register->tax = $request->register['OrderTax'];
-            $register->subTotal = $request->register['SubTotal'];
-            $register->total = $request->register['Total'];
+        $register->email = $request->register['Email'];
+        $register->invoiceNumber = $request->register['InvoiceNumber'];
+        $register->name = $request->register['Name'];
+        $register->mobileNumber = $request->register['Mobilenumber'];
+        $register->status = $request->register['Status'];
+        $register->pickupDate = $request->register['pickupDate'];
+        $register->pickupTime = $request->register['pickupTime'];
+        $register->discount = $request->register['Discount'];
+        $register->tax = $request->register['OrderTax'];
+        $register->subTotal = $request->register['SubTotal'];
+        $register->total = $request->register['Total'];
 
-            $register->save();
+        $register->save();
 
-            for($i = 0; $i < count($request->items); $i++){
-                $item = new customerPickupItems();
-                $existingItem = customercart::find($request->items[$i]['id']);
-                $item->invoiceNumber = $request->items[$i]['item_invNumber'];
-                $item->itemName = $request->items[$i]['item_Name'];
-                $item->itemDesc = $request->items[$i]['item_Desc'];
-                $item->itemSize = $request->items[$i]['item_Size'];
-                $item->discount = $request->items[$i]['item_Discount'];
-                $item->quantity = $request->items[$i]['item_Quantity'];
-                $item->retailPrice = $request->items[$i]['item_Price'];
-                $item->itemCode = $request->items[$i]['item_Code'];
-                $item->itemImage = $request->items[$i]['item_Image'];
-                $existingItem->delete();
-                $item->save();
-            }
+        for($i = 0; $i < count($request->items); $i++){
+            $item = new customerPickupItems();
+            $existingItem = customercart::find($request->items[$i]['id']);
+            $item->invoiceNumber = $request->items[$i]['item_invNumber'];
+            $item->itemName = $request->items[$i]['item_Name'];
+            $item->itemDesc = $request->items[$i]['item_Desc'];
+            $item->itemSize = $request->items[$i]['item_Size'];
+            $item->discount = $request->items[$i]['item_Discount'];
+            $item->quantity = $request->items[$i]['item_Quantity'];
+            $item->retailPrice = $request->items[$i]['item_Price'];
+            $item->itemCode = $request->items[$i]['item_Code'];
+            $item->itemImage = $request->items[$i]['item_Image'];
+            $existingItem->delete();
+            $item->save();
+        }
+
+        $notif = new erichnotifications();
+
+        $notif->email = $request->register['Email'];
+        $notif->title = "Check your order";
+        $notif->description = "Your order #:" . $request->register['InvoiceNumber'] . " has already been place.";
+        $notif->link = "userOrder";
+        $notif->status = "undone";
+
+        $notif->save();
 
 
-            return response()->json([
-                'status' => true,
-            ]);
+        return response()->json([
+            'status' => true,
+        ]);
 
             // $register = new customerPickupInfos();
 
@@ -155,22 +166,14 @@ class CustomerPickupInfosController extends Controller
     {
         $existingItem = customerPickupInfos::find($id);
 
-        $existingItem->id = $id;
-        $existingItem->email = $request->register['Email'];
-        $existingItem->invoiceNumber = $request->register['InvoiceNumber'];
-        $existingItem->name = $request->register['Name'];
-        $existingItem->mobileNumber = $request->register['Mobilenumber'];
         $existingItem->status = $request->register['OrderStatus'];
-        $existingItem->pickupDate = $request->register['PickupDate'];
-        $existingItem->pickupTime = $request->register['PickupTime'];
-        $existingItem->discount = $request->register['Discount'];
-        $existingItem->tax = $request->register['OrderTax'];
-        $existingItem->subTotal = $request->register['SubTotal'];
-        $existingItem->total = $request->register['Total'];
+
         $existingItem->save();
 
         //return $existingItem;
-        return "goods";
+        return response()->json([
+            'data' => customerPickupInfos::with('orders')->get(),
+        ]);
     }
 
     /**
