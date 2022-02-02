@@ -30,6 +30,7 @@ class CreateCustomerCancelItemsTable extends Migration
             $table->string('tax');
             $table->string('subTotal');
             $table->string('total');
+            $table->text('cancelReason');
             $table->timestamps();
         });
     }

@@ -170,6 +170,16 @@ class CustomerPickupInfosController extends Controller
 
         $existingItem->save();
 
+        $notif = new erichnotifications();
+
+        $notif->email = $request->register['Email'];
+        $notif->title = "Check your order";
+        $notif->description = "Your order #:" . $request->register['InvoiceNumber'] . " has already been accepted";
+        $notif->link = "userOrder";
+        $notif->status = "undone";
+
+        $notif->save();
+
         //return $existingItem;
         return response()->json([
             'data' => customerPickupInfos::with('orders')->get(),

@@ -86,6 +86,9 @@ Route::middleware('auth:sanctum')->group( function (){
     Route::post('/getcart', [erichgetcartitems::class, 'deleteCartItem']);
     Route::put('/updatecart/{id}', [erichgetcartitems::class, 'updateQty']);
 
+    Route::post('/customerdelete', [userOrderCancel::class, 'customerDelete']);
+    Route::post('/customerpdelete', [userPickupCancel::class, 'customerPDelete']);
+
     // online cashier Pickup
     Route::get('/customerpickup', [CustomerPickupInfosController::class, 'index']);
     Route::post('/customerpickup/store', [CustomerPickupInfosController::class, 'store']);
@@ -126,7 +129,7 @@ Route::middleware('auth:sanctum')->group( function (){
     Route::put('/editprofiles/{id}', [adminAddStaff::class, 'profiles']);
     Route::post('/inventory/store', [adminAddItem::class, 'store']);
     Route::post('/supplier/store', [erichSupplierController::class, 'store']);
-    // // Route::get('/supplier', [erichSupplierController::class, 'index']);
+    Route::get('/supplier', [erichSupplierController::class, 'index']);
     Route::put('/supplier/{id}', [erichSupplierController::class, 'update']);
     Route::put('/editsupplier/{id}', [erichSupplierController::class, 'edit']);
     Route::put('/invitems/{id}', [adminAddItem::class, 'update']);

@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\customerDeliverItems;
+use App\Models\customerOrderInfo;
 use App\Models\customerCancelItems;
+use App\Models\customerDeliverItems;
 
 class userOrderCancel extends Controller
 {
@@ -53,6 +54,7 @@ class userOrderCancel extends Controller
         $register->tax = $request->register['OrderTax'];
         $register->subTotal = $request->register['SubTotal'];
         $register->total = $request->register['Total'];
+        $register->cancelReason = $request->cancelReason;
 
         $register->save();
 
@@ -65,6 +67,56 @@ class userOrderCancel extends Controller
             return response()->json([
                 'status' => true,
                 'data' => customerDeliverItems::with('orders')->get(),
+            ]);
+        }
+        else{
+            return response()->json([
+                'status' => false,
+                'data' => "Item Not Found",
+            ]);
+        }
+    }
+
+    public function customerDelete(Request $request)
+    {
+        if($request->cancelReason == ""){
+            $reasons = "No Reasons from customer";
+        }
+        else{
+            $reasons = $request->cancelReason;
+        }
+
+        $register = new customerCancelItems();
+
+        $register->email = $request->register['email'];
+        $register->invoiceNumber = $request->register['invoiceNumber'];
+        $register->name = $request->register['name'];
+        $register->mobileNumber = $request->register['mobileNumber'];
+        $register->completeAddress = $request->register['completeAddress'];
+        $register->status = "Cancel";
+        $register->orderYear = $request->register['orderYear'];
+        $register->orderMonth = $request->register['orderMonth'];
+        $register->orderDay = $request->register['orderDay'];
+        $register->adjustedDate = $request->register['adjustedDate'];
+        $register->shipFee = $request->register['shipFee'];
+        $register->discount = $request->register['discount'];
+        $register->tax = $request->register['tax'];
+        $register->subTotal = $request->register['subTotal'];
+        $register->total = $request->register['total'];
+        $register->cancelReason = $reasons;
+
+        $register->save();
+
+        $id = $request->userid;
+
+        $existingItem = customerOrderInfo::find($id);
+
+        if( $existingItem){
+            $existingItem->delete();
+            return response()->json([
+                'status' => true,
+                'data' => customerOrderInfo::with('orders')->where('email', $request->register['email'])->get(),
+                'delete' => customerCancelItems::with('orders')->where('email', $request->register['email'])->get(),
             ]);
         }
         else{

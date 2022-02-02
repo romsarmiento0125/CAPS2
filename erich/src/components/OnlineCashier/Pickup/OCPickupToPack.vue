@@ -219,7 +219,6 @@
           })
           .then(res => {
             // console.log(res.data);
-            
             if(res.data.status){
               this.$store.commit('storeUserPickupOrders', res.data.data);
             }

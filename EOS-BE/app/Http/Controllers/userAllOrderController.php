@@ -45,14 +45,14 @@ class userAllOrderController extends Controller
         $dataGet = $request->register;
 
         $dtpack = customerOrderInfo::with('orders')->where('email', $dataGet)->get();
-        $dtdeliver = customerDeliverItems::with('orders')->where('Email', $dataGet)->get();
-        $dtcomplete = customerCompleteItems::with('orders')->where('Email', $dataGet)->get();
-        $dtcancel = customerCancelItems::with('orders')->where('Email', $dataGet)->get();
+        $dtdeliver = customerDeliverItems::with('orders')->where('email', $dataGet)->get();
+        $dtcomplete = customerCompleteItems::with('orders')->where('email', $dataGet)->get();
+        $dtcancel = customerCancelItems::with('orders')->where('email', $dataGet)->get();
         
         $ptpack = customerPickupInfos::with('orders')->where('email', $dataGet)->get();
-        $ptpick = customerPickupPickup::with('orders')->where('Email', $dataGet)->get();
-        $ptcomplete = customerPickupComplete::with('orders')->where('Email', $dataGet)->get();
-        $ptcancel = customerPickupCancel::with('orders')->where('Email', $dataGet)->get();
+        $ptpick = customerPickupPickup::with('orders')->where('email', $dataGet)->get();
+        $ptcomplete = customerPickupComplete::with('orders')->where('email', $dataGet)->get();
+        $ptcancel = customerPickupCancel::with('orders')->where('email', $dataGet)->get();
 
         return response()->json([
             'dtpack' => $dtpack,

@@ -194,7 +194,8 @@
         this.orderid = id;
         axios.post(this.getDomain()+'api/customerordercancel/store', {
           register: this.orderCancel,
-          userid: this.orderid
+          userid: this.orderid,
+          cancelReason: "Cashier Cancel"
         },
         {
           headers:{
