@@ -161,7 +161,8 @@
 
         axios.post(this.getDomain()+'api/customerpickupcancel/store', {
           register: this.orderPickup,
-          userid: id
+          userid: id,
+          cancelReason: "Cashier Cancel"
         },
         {
           headers:{
@@ -169,6 +170,7 @@
         }
         })
         .then(res => {
+          // console.log(res.data);
           if(res.data.status){
             this.$store.commit('storeUserAllPickup', res.data.data);
           }

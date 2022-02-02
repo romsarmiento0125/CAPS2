@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\customerOrderInfo;
+use App\Models\erichnotifications;
 use App\Models\customerDeliverItems;
 
 class userDeliverItemsController extends Controller
@@ -62,6 +63,17 @@ class userDeliverItemsController extends Controller
 
         if( $existingItem){
             $existingItem->delete();
+            
+            $notif = new erichnotifications();
+
+            $notif->email = $request->register['Email'];
+            $notif->title = "Check your order";
+            $notif->description = "Your order #:" . $request->register['InvoiceNumber'] . " has already been packed and ready to deliver.";
+            $notif->link = "userOrder";
+            $notif->status = "undone";
+
+            $notif->save();
+
             return response()->json([
                 'status' => true,
                 'data' => customerOrderInfo::with('orders')->get(),

@@ -51,13 +51,18 @@
         return this.$store.state.customerCredentials;
       },
       usersTag(){
-        return localStorage.getItem('tag');
+        return this.$store.state.userTag;
+      }
+    },
+
+    watch:{
+      usersTag(){
+        this.navbarPicker();
       }
     },
 
     methods: {
       navbarPicker() {
-        alert("Sorry for the inconvenince. As of now categories are not working but you can use search bar to search for the items thankyou.");
         if(this.usersTag == "Customer" || this.usersTag == "Unverified" || this.usersTag == "Admin" || this.usersTag == "Encoder"){
           this.headerCond = false;
         }
@@ -68,18 +73,8 @@
           this.$router.push("/physicalcashier")
         }
       },
-      loginChecker(){
-        this.usersData.usersEmail = sessionStorage.getItem('Email');
-        this.usersData.usersPassword = sessionStorage.getItem('Pass');
-        if(this.customerInfos == null){
-          this.loginAgain(this.usersData);
-        }
-        else{
-        }
-      }
     },
     beforeMount() {
-      // this.loginChecker();
       this.navbarPicker();
     },
   }
