@@ -110,6 +110,7 @@
         <v-dialog
           v-model="dialog"
           width="30%"
+          persistent
         >
           <div class="white pa-5">
             <div class="d-flex justify-center">
