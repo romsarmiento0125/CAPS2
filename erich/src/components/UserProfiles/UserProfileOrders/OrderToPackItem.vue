@@ -175,8 +175,9 @@
       max-width="400"
     >
       <v-card>
-        <v-card-title class="text-h5">
-          Are you sure?
+        <v-card-title>
+          <h5 class="fontTitle mx-1"> Can you please tell us the reason why you want to cancel your order? </h5>
+          
         </v-card-title>
         <v-card-text
           class="mb-0 pb-0"
@@ -184,20 +185,23 @@
           <v-textarea
             outlined
             v-model="customerCancelReason"
+            label="Leave your comment here..."
           ></v-textarea>
         </v-card-text>
-        <v-card-actions>
+        <v-card-actions class="mr-2">
           <v-spacer></v-spacer>
           <v-btn
-            color="green darken-1"
-            text
+            color="#1106A0"
+            outlined
+            class="px-10"
             @click="deliveryDialog = false"
           >
             No
           </v-btn>
           <v-btn
-            color="green darken-1"
-            text
+            color="#1106A0"
+            dark
+            class="px-10"
             @click="cancelDeliveryItem()"
           >
             Yes
@@ -212,29 +216,32 @@
       max-width="400"
     >
       <v-card>
-        <v-card-title class="text-h5">
-          Are you sure?
+        <v-card-title>
+          <h5 class="fontTitle mx-1"> Can you please tell us the reason why you want to cancel your order? </h5>
         </v-card-title>
         <v-card-text
           class="mb-0 pb-0"
         >
           <v-textarea
+            label="Leave your comment here..."
             outlined
             v-model="customerCancelReason"
           ></v-textarea>
         </v-card-text>
-        <v-card-actions>
+        <v-card-actions class="mr-2">
           <v-spacer></v-spacer>
           <v-btn
-            color="green darken-1"
-            text
+            color="#1106A0"
+            outlined
+            class="px-10"
             @click="pickupDialog = false"
           >
             No
           </v-btn>
           <v-btn
-            color="green darken-1"
-            text
+              color="#1106A0"
+              dark
+              class="px-10"
             @click="cancelPickupItem()"
           >
             Yes

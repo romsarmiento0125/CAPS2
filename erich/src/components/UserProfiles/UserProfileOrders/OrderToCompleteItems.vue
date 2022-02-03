@@ -19,7 +19,7 @@
               <v-col cols="9" class="d-flex justify-end ">
                 <h4
                   class="fontBlue"
-                >Deliver</h4>
+                >Delivered</h4>
               </v-col>
             </v-row>
 

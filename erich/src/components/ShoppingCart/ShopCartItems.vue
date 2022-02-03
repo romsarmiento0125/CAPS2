@@ -302,14 +302,16 @@
     >
       <v-card>
         <v-card-title>
-          <span class="text-h5">Remove Item.</span>
+          <span class="">
+           <h4>Remove Item.</h4>
+           </span>
         </v-card-title>
         <v-card-text>
-          <p
-            class="my-0 title"
+          <h4
+            class="my-0"
           >
             Do you want to remove this item?
-          </p>
+          </h4>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>

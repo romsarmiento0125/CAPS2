@@ -94,7 +94,8 @@
                   <td v-if="info.status == 'Pending'">
                     <v-btn
                       color="#1106A0"
-                      dark
+                      outlined
+                      
                       
                       @click="toPickupProcess(info.id, info.email, info.invoiceNumber, info.name, info.mobileNumber, info.pickupDate,
                                 info.pickupTime, info.discount, info.tax, info.subTotal, info.total)"

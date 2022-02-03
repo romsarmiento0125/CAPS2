@@ -126,7 +126,7 @@
                       class="mt-1"
                       :rules="passRules"
                       required
-                      label="New password"
+                      label="password"
                       :append-icon="passIcon"
                       @click:append="passShow"
                       v-on:keyup="checkPassword()"

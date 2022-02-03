@@ -43,23 +43,13 @@
                     :tTotal="info.total"
                   ></oc-orderdetails></td>
                   <td>{{info.completeAddress}}</td>
-                  <td>{{info.status}} <br> Pa deliver na</td>
+                  <td>{{info.status}} <br> On Delivery</td>
                   <td>
-                    <v-btn
-                      dark
-                      color="#1106A0"
-                      @click="toComplete(info.id, info.email, info.invoiceNumber, info.name, info.mobileNumber, info.completeAddress,
-                        info.orderYear, info.orderMonth, info.orderDay, info.adjustedDate, info.shipFee, info.discount,
-                        info.tax, info.subTotal, info.total
-                      )"
-                    >
-                      <h6>Complete</h6>
-                    </v-btn>
                     <v-btn
                       dark
                       outlined
                       color="#1106A0"
-                      class="ml-2"
+                      
                       @click="toCancel(info.id, info.email, info.invoiceNumber, info.name, info.mobileNumber, info.completeAddress,
                         info.orderYear, info.orderMonth, info.orderDay, info.adjustedDate, info.shipFee, info.discount,
                         info.tax, info.subTotal, info.total
@@ -67,6 +57,19 @@
                     >
                       <h6>Cancel</h6>
                     </v-btn>
+
+                    <v-btn
+                      dark
+                      color="#1106A0"
+                      class="ml-2"
+                      @click="toComplete(info.id, info.email, info.invoiceNumber, info.name, info.mobileNumber, info.completeAddress,
+                        info.orderYear, info.orderMonth, info.orderDay, info.adjustedDate, info.shipFee, info.discount,
+                        info.tax, info.subTotal, info.total
+                      )"
+                    >
+                      <h6>Complete</h6>
+                    </v-btn>
+                    
                   </td>
                 </tr>
               </tbody>
