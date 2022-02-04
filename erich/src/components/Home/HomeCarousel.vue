@@ -18,7 +18,6 @@
             height="29vw"
             hide-delimiters
             hide-delimiter-background
-            cycle
             progress
             >
             <v-carousel-item

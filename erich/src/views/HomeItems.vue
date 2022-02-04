@@ -3,8 +3,25 @@
     <home-header v-if="headerCond"></home-header>
     <home-header-acc v-else></home-header-acc>
     <home-carousel></home-carousel>
-    <home-categories-item></home-categories-item>
-    <!-- <home-promodeals></home-promodeals> -->
+    <v-row
+      class="mt-10"
+    >
+      <v-col
+        cols="2"
+      >
+        <v-treeview
+          v-model="pickCategory"
+          :items="items"
+          selection-type="independent"
+          selectable
+          return-object
+          dense
+        ></v-treeview>
+      </v-col>
+      <v-col>
+        <categories-item :categ="userCat"></categories-item>
+      </v-col>
+    </v-row>
     <home-footer></home-footer>
   </div>
 </template>
@@ -12,11 +29,10 @@
 <script>
   import HomeHeader from "../components/Home/HomeHeaderVisitor.vue";
   import HomeCarousel from "../components/Home/HomeCarousel.vue";
-  import HomePromoDeals from "../components/Home/HomePromoDeals.vue";
   import Footer from "../components/Footer.vue";
   import HomeHeaderAcc from "../components/Home/HomeHeaderAccount.vue";
+  import CategoriesItem from "../components/HomeItems/CategoriesItem.vue";
 
-  import HomeCategoriesItem from '../components/HomeItems/HomeCategoriesItem.vue'
 
   import {Mixins} from '../Mixins/mixins.js'
 
@@ -27,10 +43,9 @@
     components: {
       "home-header": HomeHeader,
       "home-carousel": HomeCarousel,
-      "home-promodeals": HomePromoDeals,
       "home-footer": Footer,
       "home-header-acc": HomeHeaderAcc,
-      'home-categories-item': HomeCategoriesItem,
+      "categories-item": CategoriesItem,
     },
 
     data: () => ({
@@ -40,7 +55,129 @@
       usersData: {
         usersEmail: "",
         usersPassword: "",
-      }
+      },
+      items: [
+        {
+          id: 1,
+          name: 'Baking',
+          children: [
+            { id: 2, name: 'Pasta' },
+            { id: 3, name: 'Cereals' },
+            { id: 4, name: 'Sugar' },
+            { id: 5, name: 'Mixes' },
+          ],
+        },
+        {
+          id: 6,
+          name: 'Beverage',
+          children: [
+            { id: 7, name: 'Cofee-Tea' },
+            { id: 8, name: 'Carbonated Drinks' },
+            { id: 9, name: 'Juice' },
+            { id: 10, name: 'Milk' },
+            { id: 11, name: 'Chocalate' },
+            { id: 12, name: 'Energy Drinks' },
+          ],
+        },
+        {
+          id: 13,
+          name: 'Bread-Bakery',
+          children: [
+            { id: 14, name: 'Sandwich' },
+            { id: 15, name: 'Pastries' },
+            { id: 16, name: 'Cakes' },
+            { id: 17, name: 'Biscuit' },
+          ],
+        },
+        {
+          id: 18,
+          name: 'Canned Goods',
+          children: [
+            { id: 19, name: 'Fish' },
+            { id: 20, name: 'Meat' },
+            { id: 21, name: 'Beef' },
+            { id: 22, name: 'Vegetables' },
+          ],
+        },
+        {
+          id: 23,
+          name: 'Condiments',
+          children: [
+            { id: 24, name: 'Sauce' },
+            { id: 25, name: 'Paste' },
+          ],
+        },
+        {
+          id: 26,
+          name: 'Dairy',
+          children: [
+            { id: 27, name: 'Cheese' },
+            { id: 28, name: 'Butter' },
+            { id: 29, name: 'Margarine' },
+            { id: 30, name: 'Milk' },
+            { id: 31, name: 'Cream' },
+          ],
+        },
+        {
+          id: 32,
+          name: 'Frozen Foods',
+          children: [
+            { id: 33, name: 'Hotdog' },
+            { id: 34, name: 'Nuggets' },
+            { id: 35, name: 'Ham' },
+          ],
+        },
+        {
+          id: 36,
+          name: 'Laundry',
+          children: [
+            { id: 37, name: 'Fabric Softener' },
+            { id: 38, name: 'Liquid Detergent' },
+            { id: 39, name: 'Powder Detergent' },
+            { id: 40, name: 'Dishwashing Liquid' },
+          ],
+        },
+        {
+          id: 41,
+          name: 'Noodles',
+          children: [
+            { id: 42, name: 'Cup Noodles' },
+            { id: 43, name: 'Pancit Canton' },
+            { id: 44, name: 'Instant noodles' },
+          ],
+        },
+        {
+          id: 45,
+          name: 'Personal Care',
+          children: [
+            { id: 46, name: 'Shampoo' },
+            { id: 47, name: 'Soap' },
+            { id: 48, name: 'Toothpaste' },
+          ],
+        },
+        {
+          id: 49,
+          name: 'Snacks',
+          children: [
+            { id: 50, name: 'Chips' },
+            { id: 51, name: 'Crackers' },
+            { id: 52, name: 'Nuts' },
+            { id: 53, name: 'Pretzels' },
+            { id: 54, name: 'Biscuits' },
+            { id: 55, name: 'Popcorn' },
+          ],
+        },
+        {
+          id: 56,
+          name: 'Sweets',
+          children: [
+            { id: 57, name: 'Candy' },
+            { id: 58, name: 'Candy Bar' },
+          ],
+        }, 
+      ],
+      pickCategory: [],
+      userCat: [],
     }),
 
     computed: {
@@ -58,10 +195,105 @@
     watch:{
       usersTag(){
         this.navbarPicker();
+      },
+      pickCategory(){
+        this.categoryPicker();
       }
     },
 
     methods: {
+      categoryPicker(){
+        // console.log(this.pickCategory);
+        this.userCat = [];
+
+        // var i = 0;
+
+        this.pickCategory.forEach(res => {
+          // console.log(res.name);
+          if(res.name == "Baking"){
+            this.userCat.push("Pasta");
+            this.userCat.push("Cereals");
+            this.userCat.push("Sugar");
+            this.userCat.push("Mixes");
+          }
+          else if(res.name == "Beverage"){
+            this.userCat.push("Cofee-Tea");
+            this.userCat.push("Carbonated Drinks");
+            this.userCat.push("Juice");
+            this.userCat.push("Milk");
+            this.userCat.push("Chocalate");
+            this.userCat.push("Energy Drinks");
+          }
+          else if(res.name == "Bread-Bakery"){
+            this.userCat.push("Sandwich");
+            this.userCat.push("Pastries");
+            this.userCat.push("Cakes");
+            this.userCat.push("Biscuit");
+          }
+          else if(res.name == "Canned Goods"){
+            this.userCat.push("Fish");
+            this.userCat.push("Meat");
+            this.userCat.push("Beef");
+            this.userCat.push("Vegetables");
+          }
+          else if(res.name == "Condiments"){
+            this.userCat.push("Sauce");
+            this.userCat.push("Paste");
+          }
+          else if(res.name == "Dairy"){
+            this.userCat.push("Cheese");
+            this.userCat.push("Butter");
+            this.userCat.push("Margarine");
+            this.userCat.push("Milk");
+            this.userCat.push("Cream");
+          }
+          else if(res.name == "Frozen Foods"){
+            this.userCat.push("Hotdog");
+            this.userCat.push("Nuggets");
+            this.userCat.push("Ham");
+          }
+          else if(res.name == "Laundry"){
+            this.userCat.push("Fabric Softener");
+            this.userCat.push("Liquid Detergent");
+            this.userCat.push("Powder Detergent");
+            this.userCat.push("Dishwashing Liquid");
+          }
+          else if(res.name == "Noodles"){
+            this.userCat.push("Cup Noodles");
+            this.userCat.push("Pancit Canton");
+            this.userCat.push("Instant noodles");
+          }
+          else if(res.name == "Personal Care"){
+            this.userCat.push("Shampoo");
+            this.userCat.push("Soap");
+            this.userCat.push("Toothpaste");
+          }
+          else if(res.name == "Snacks"){
+            this.userCat.push("Chips");
+            this.userCat.push("Crackers");
+            this.userCat.push("Nuts");
+            this.userCat.push("Pretzels");
+            this.userCat.push("Biscuits");
+            this.userCat.push("Popcorn");
+          }
+          else if(res.name == "Sweets"){
+            this.userCat.push("Candy");
+            this.userCat.push("Candy Bar");
+          }
+          else{
+            this.userCat.push(res.name);
+          }  
+        });
+
+        var uniqueArray = [];
+
+        uniqueArray = this.userCat.filter((item, pos) => {
+            return this.userCat.indexOf(item) == pos;
+        })
+
+        // console.log(uniqueArray);
+        this.userCat = uniqueArray;
+      },
       navbarPicker() {
         if(this.usersTag == "Customer" || this.usersTag == "Unverified" || this.usersTag == "Admin" || this.usersTag == "Encoder"){
           this.headerCond = false;

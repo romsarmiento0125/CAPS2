@@ -114,24 +114,25 @@
   export default {
     data: () => ({
       categories: [
-        { id: 1, cname: "Bakery", cimg: "bakery.png", ccond: "bakery"},
-        { id: 2, cname: "Baking Goods", cimg: "baking.png", ccond: "baking"},
-        { id: 3, cname: "Beverages", cimg: "Beverages.png", ccond: "beverages"},
-        { id: 4, cname: "Canned Goods", cimg: "cannedGoods.png", ccond: "cannedGoods"},
-        { id: 5, cname: "Condiments", cimg: "condiments.png", ccond: "condiments"},
-        { id: 6, cname: "Dairy", cimg: "dairy.png", ccond: "dairy"},
-        { id: 7, cname: "Frozen Goods", cimg: "Frozen.png", ccond: "frozenGoods"},
-        { id: 8, cname: "Laundry", cimg: "laundry.png", ccond: "laundry"}, 
-        { id: 9, cname: "Pasta", cimg: "pasta.png", ccond: "pasta"},
-        { id: 10, cname: "Personal Care", cimg: "personalCare.png", ccond: "personalCare"},
-        { id: 11, cname: "Snacks", cimg: "Snacks.png", ccond: "snacks"},
-        { id: 12, cname: "Sweets", cimg: "sweets.png", ccond: "sweets"},
+        { id: 1, cname: "Bakery", cimg: "bakery.png", ccond: "Bread-Bakery"},
+        { id: 2, cname: "Baking Goods", cimg: "baking.png", ccond: "Baking"},
+        { id: 3, cname: "Beverages", cimg: "Beverages.png", ccond: "Beverage"},
+        { id: 4, cname: "Canned Goods", cimg: "cannedGoods.png", ccond: "Canned Goods"},
+        { id: 5, cname: "Condiments", cimg: "condiments.png", ccond: "Condiments"},
+        { id: 6, cname: "Dairy", cimg: "dairy.png", ccond: "Dairy"},
+        { id: 7, cname: "Frozen Goods", cimg: "Frozen.png", ccond: "Frozen Foods"},
+        { id: 8, cname: "Laundry", cimg: "laundry.png", ccond: "Laundry"}, 
+        { id: 9, cname: "Pasta", cimg: "pasta.png", ccond: "Noodles"},
+        { id: 10, cname: "Personal Care", cimg: "personalCare.png", ccond: "Personal Care"},
+        { id: 11, cname: "Snacks", cimg: "Snacks.png", ccond: "Snacks"},
+        { id: 12, cname: "Sweets", cimg: "sweets.png", ccond: "Sweets"},
         { id: 13, cname: "Promo Deals", cimg: "deals.png", ccond: "deals"},
       ],
     }),
     methods: {
       toCategoriseItem(cond) {
         this.$router.push('/item');
+        console.log(cond);
       }
     }
   }

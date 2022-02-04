@@ -239,9 +239,9 @@
             No
           </v-btn>
           <v-btn
-              color="#1106A0"
-              dark
-              class="px-10"
+            color="#1106A0"
+            dark
+            class="px-10"
             @click="cancelPickupItem()"
           >
             Yes
