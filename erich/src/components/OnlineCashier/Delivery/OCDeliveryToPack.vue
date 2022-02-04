@@ -187,6 +187,7 @@
 <script>
   import OCOrderDetails from '../OCOrderDetails.vue'
   import {Mixins} from '../../../Mixins/mixins.js'
+  import jsPDF from 'jspdf'
 
   export default {
     mixins: [Mixins],
@@ -229,9 +230,115 @@
       usersToken(){
         return localStorage.getItem('token');
       },
+      usersFName(){
+        return localStorage.getItem('firstName');
+      },
+      usersLName(){
+        return localStorage.getItem('lastName');
+      },
     },
 
     methods: {
+      generateReciept(){
+        // console.log(this.orderUpdate);
+        // console.log(this.userAllOrders);
+
+        var tempId = 0; 
+
+        for(var p = 0; p < this.userAllOrders.length; p++){
+          if(this.orderUpdate.InvoiceNumber == this.userAllOrders[p].InvoiceNumber){
+            tempId = p;
+          }
+        }
+
+        var rn = this.orderUpdate.InvoiceNumber;
+        var name = this.usersFName + " " + this.usersLName;
+
+        var oqty = "";
+        var oname = "";
+        var odes = "";
+        var oprice = "";
+
+        var ship = 0;
+        if(this.orderUpdate.Shipping != "Free"){
+          ship = this.orderUpdate.Shipping;
+        }
+
+        var hgth = 3.2
+
+        var date = new Date();
+
+        for(var i = 0; i < this.userAllOrders[tempId].orders.length; i++){
+          oqty = oqty + this.userAllOrders[tempId].orders[i].quantity + "\n";
+          oname = oname + this.userAllOrders[tempId].orders[i].itemName + "\n";
+          odes = odes + this.userAllOrders[tempId].orders[i].itemDesc + "\n";
+          oprice = oprice + (this.priceRound((this.userAllOrders[tempId].orders[i].retailPrice * 1) * this.userAllOrders[tempId].orders[i].quantity)) + "\n";
+          hgth = hgth + .1;
+        }
+
+        var pdf = new jsPDF({
+          unit: "in",
+          format: [3.2, hgth]
+        });
+        
+        pdf.setFont("helvetica", "bold");
+        pdf.setFontSize(10);
+        pdf.text("ERICH GROCERY", 1.6, .5, null, null, 'center');
+
+        pdf.setFont("helvetica", "normal");
+        pdf.setFontSize(6);
+        pdf.text("Owner & Optd By: Jhona S. Pontejo", 1.6, .6, null, null, 'center');
+        pdf.text("Km. 38 Pulong Buhangin Sta. Maria Bulacan", 1.6, .7, null, null, 'center');
+        pdf.text("Vat Reg Tin: 123-456-789-0000", 1.6, .8, null, null, 'center');
+
+        pdf.setFont("helvetica", "bold");
+        pdf.setFontSize(8);
+        pdf.text("Official Receipt #:"+rn, .6, 1.1);
+
+        pdf.setFont("helvetica", "normal");
+        pdf.setFontSize(6);
+        pdf.text("Delivery", .6, 1.2);
+        pdf.text("Cashier: " + name, .6, 1.3);
+
+        pdf.text("-------------------------------------------------------------------------", .6, 1.4)
+
+        pdf.text("Qty", .6, 1.5);
+        pdf.text("Name", .9, 1.5);
+        pdf.text("Description", 1.6, 1.5);
+        pdf.text("Price", 2.4, 1.5);
+
+        pdf.text(oqty, .6, 1.6);
+        pdf.text(oname, .9, 1.6);
+        pdf.text(odes, 1.6, 1.6);
+        pdf.text(oprice, 2.4, 1.6);
+
+        pdf.text("-------------------------------------------------------------------------", .6, hgth - 1.6)
+
+        pdf.text("Sub Total", .6, hgth - 1.5);
+        pdf.text("" + this.priceRound(this.orderUpdate.SubTotal), 2.4, hgth - 1.5);
+
+        pdf.text("-------------------------------------------------------------------------", .6, hgth - 1.4)
+
+        pdf.text("Discount", .6, hgth - 1.3);
+        pdf.text("" + this.orderUpdate.Discount, 2.4, hgth - 1.3);
+        pdf.text("Tax", .6, hgth - 1.2);
+        pdf.text("" + this.orderUpdate.OrderTax, 2.4, hgth - 1.2);
+        pdf.text("Shipping Fee", .6, hgth - 1.1);
+        pdf.text("" + this.orderUpdate.Shipping, 2.4, hgth - 1.1);
+        pdf.text("Total", .6, hgth - 1);
+        pdf.text("" + this.priceRound(this.orderUpdate.Total + ship), 2.4, hgth - 1);
+
+        pdf.text("-------------------------------------------------------------------------", .6, hgth - .9)
+
+        pdf.text(date+"", 1.6, hgth - .8, null, null, 'center');
+
+        pdf.text("Name: " + this.orderUpdate.Name, .6, hgth - .6);
+        pdf.text("Contact Number: " + this.orderUpdate.Mobilenumber, .6, hgth - .5);
+        pdf.text("Address: ", .6, hgth - .4);
+        pdf.text("" + this.orderUpdate.CompleteAddress, 1.5, hgth - .3, null, null, 'center');
+        
+        pdf.save(rn +'.pdf');
+      },
       showAllToPack(){
         this.$store.commit('showAllOrdersItems');
       },
@@ -241,27 +348,6 @@
       showProcessedToPack(){
         this.$store.commit('filterAllOrdersItems', 'Process');
       },
-      // dateToAccept(yr, mn, dy, i) {
-      //   var today = new Date();
-      //   var day = String(today.getDate()).padStart(2, '0');
-      //   var month = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-      //   var year = today.getFullYear();
-      //   var dt = year + "-" + month + "-" + (day * 1);
-      //   // if(date == (yr + "-" + mn + "-" + (dy * 1 + i-1))){
-      //   //   return "go";
-      //   // }
-      //   if(day > (dy * 1 + (i-1))){
-      //     return "Cancel";
-      //   }
-      //   else{
-      //     // return yr + "-" + mn + "-" + (dy * 1 + (i-1));
-      //     var adjDate = new Date(today.setDate(today.getDate() + i));
-      //     var adjDay = String(adjDate.getDate()).padStart(2, '0');
-      //     var adjMonth = String(adjDate.getMonth() + 1).padStart(2, '0'); //January is 0!
-      //     var adjYear = adjDate.getFullYear(); 
-      //     return adjYear + "-" + adjMonth + "-" + adjDay;
-      //   }
-      // },
       toProcess(data, id, Email, MobileNumber, InvoiceNumber, Name, CompleteAddress, OrderYear, OrderMonth,
         OrderDay, ShipFee, Discount, Tax, SubTotal, Total){
         this.orderUpdate.Email = Email;
@@ -274,14 +360,13 @@
         this.orderUpdate.OrderMonth = OrderMonth;
         this.orderUpdate.OrderDay = OrderDay;
         this.orderUpdate.AdjustedDate = data;
-        this.orderUpdate.OrderStatus = "";
+        this.orderUpdate.OrderStatus = "Process";
         this.orderUpdate.OrderTax = Tax;
         this.orderUpdate.Discount = Discount;
         this.orderUpdate.SubTotal = SubTotal;
         this.orderUpdate.Total = Total;
         
         //   // console.log("process items");
-        this.orderUpdate.OrderStatus = "Process";
 
         axios.put(this.getDomain()+'api/customerorder/' + id, {
           register: this.orderUpdate
@@ -316,6 +401,7 @@
         this.orderUpdate.Discount = Discount;
         this.orderUpdate.SubTotal = SubTotal;
         this.orderUpdate.Total = Total;
+        
         axios.post(this.getDomain()+'api/customerdeliveritems/store', {
             register: this.orderUpdate,
             userid: id
@@ -328,6 +414,7 @@
           .then(res => {
             // this.getAllOrder();
             if(res.data.status){
+              this.generateReciept();
               this.$store.commit('storeUserAllOrders', res.data.data);
             }
             else{
@@ -348,6 +435,10 @@
           this.$store.commit('storeUserAllOrders', res.data);
         })
         .catch(err => console.error(err));
+      },
+      priceRound(price){
+        var rounded = (Math.round(price * 100) / 100).toFixed(2);
+        return rounded;
       },
     },
 
