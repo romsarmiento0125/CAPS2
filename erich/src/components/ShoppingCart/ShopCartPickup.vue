@@ -48,8 +48,8 @@
               <div>
                 <div class="mt-5 nOrder elevation-1">
                   <div class="ma-4 pa-0">
-                    <h4 class="my-0 font-weight-bold fontTitle">Your Order is confirmed</h4>
-                    <h5 class="my-0 font-weight-regular">Please bring the exact amount.</h5>
+                    <h4 class="my-0 font-weight-bold fontTitle">Your order is confirmed</h4>
+                    <h5 class="my-0 font-weight-regular">Wait for the store to contact you. Thank you and have a nice day.</h5>
                   </div>
                   
                 </div>
@@ -137,11 +137,11 @@
                 </div>   
 
                 <div class="d-flex justify-center fontDesc">
-                  <h3 class="">Your order is pending.</h3>
+                  <h3 class="">You have a pending order.</h3>
                 </div>    
                           
-                <div class="d-flex justify-center fontDesc">
-                <h4 class="">Kindly wait for the confirmation text.</h4>
+                <div class="d-flex justify-center fontSub">
+                <h4 class="">Wait for the store to contact you. Thankyou and have a nice day.</h4>
                 </div>
               </div>
               <div class="d-flex justify-end">
@@ -352,6 +352,9 @@
   }
 .fontBlue{
   color:#1106A0;
+}
+.fontSub{
+  color: #858585;
 }
 
   .nContact{

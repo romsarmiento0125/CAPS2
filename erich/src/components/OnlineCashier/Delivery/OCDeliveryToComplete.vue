@@ -40,7 +40,7 @@
                     :tTotal="info.total"
                   ></oc-orderdetails></td>
                   <td>{{info.completeAddress}}</td>
-                  <td>{{info.status}} <br> Recieve na</td>
+                  <td>{{info.status}} <br> Recieved</td>
                 </tr>
               </tbody>
             </template>
