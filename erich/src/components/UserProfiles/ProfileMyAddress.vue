@@ -4,11 +4,11 @@
       fluid
     >
       <v-row>
-        <v-col>
+        <v-col cols="12" class="d-none d-md-block">
           <v-sheet
             width="100%"
             height="100%"
-            class="pa-5"
+            class="pa-0"
           >
             <v-row>
               <v-col
@@ -57,6 +57,94 @@
                           class="d-flex"
                         >
                           <p>{{item.Municipality}}</p>
+                          <p>{{item.Barangay}}&nbsp;</p>
+                          <p>{{item.UBarangay}}&nbsp;</p>
+                          <p>{{item.HomeAddress}}&nbsp;</p>
+                        </div>
+                      </div>
+                      <v-spacer></v-spacer>
+                      <!-- <div>
+                        <v-btn
+                          plain
+                          @click="editAddress"
+                        >
+                          <p
+                            class="my-0"
+                          >Edit</p>
+                        </v-btn>
+                        <v-btn
+                          plain
+                          v-if="item.Default != 'Default'"
+                          @click="deleteAddress"
+                        >
+                          <p
+                            class="my-0"
+                          >Delete</p>
+                        </v-btn>
+                      </div> -->
+                    </v-list-item>
+                  </v-list-item-group>
+                </v-list>
+                <v-divider></v-divider>
+              </v-col>
+            </v-row>
+          </v-sheet>
+        </v-col>
+        
+        <v-col class="d-md-none pa-0 py-sm-3">
+          <v-sheet
+            width="100%"
+            height="100%"
+            
+            
+          >
+            <v-row>
+              <v-col class="px-8 py-2 px-sm-8 py-sm-4"
+              >
+                <div
+                  class="d-flex"
+                >
+                  <h3
+                    class="fontTitle ftSize"
+                  >My Address</h3>
+                  <v-spacer></v-spacer>
+                  <!-- <v-btn
+                    color="orange"
+                    @click="addNewAddress"
+                  >
+                    <p
+                      class="my-0 white--text"
+                    >Add New Address</p>
+                  </v-btn> -->
+                </div>
+              </v-col>
+            </v-row>
+            <v-divider class="mt-3"></v-divider>
+            <v-row>
+              <v-col>
+                <v-list dense>
+                  <v-list-item-group
+                    
+                    color="primary"
+                  >
+                    <v-list-item
+                      v-for="(item, i) in showAddress"
+                      :key="i"
+                    >
+                      <div
+                        class="pa-sm-1 pa-1"
+                      >
+                        <v-subheader
+                          v-if="item.Default == 'Default'"
+                          class="fontBlue"
+                        ><h3 class="ma-n2 ma-sm-n2 fontSize"> Default Address </h3></v-subheader>
+                        <p
+                          class="my-0 fontSize"
+                        >{{item.Name}}&nbsp;{{item.Surname}}</p>
+                        <div
+                          class="d-flex fontSize"
+                        >
+                          <p>{{item.Municipality}}&nbsp;</p>
                           <p>{{item.Barangay}}&nbsp;</p>
                           <p>{{item.UBarangay}}&nbsp;</p>
                           <p>{{item.HomeAddress}}&nbsp;</p>
@@ -181,6 +269,12 @@
 }
 .fontTitle{
   color: #464646;
+}
+.ftSize{
+  font-size: 2vh;
+}
+.fontSize{
+  font-size: 1.5vh;
 }
 /* .nBorder{
     border: 1px solid #787885;
