@@ -10,13 +10,15 @@
           offset-xl="2"
           xl="1"
           lg="2"
-          md="2"
+         class="d-none d-md-block"
         >
           <v-sheet
             color="white"
             elevation="1"
             height="200px"
-            width="100%"
+            width="90%"
+            
+            
           >
             <div class="py-7">
               <v-btn
@@ -47,10 +49,66 @@
             </div>
           </v-sheet>
         </v-col>
+
+        <v-col
+          offset-xl="2"
+          xl="1"
+          lg="2"
+          md="2"
+          sm="3"
+          cols="6"
+          class="d-md-none"
+          
+        >
+          <v-sheet
+            color="white"
+            elevation="1"
+            height="150px"
+            width="85%"
+            class=""
+            
+            
+          >
+            <div class="py-1 pa-1 px-sm-3">
+              <v-btn
+                
+                @click="profileCond('mp')"
+                plain
+                class="fontSize "
+              >
+                <h3 class="no-uppercase"> My Profile </h3>
+              </v-btn>
+              <v-btn
+                @click="profileCond('mad')"
+                plain
+                class="fontSize"
+              >
+                <h3 class="no-uppercase"> My Address </h3>
+              </v-btn>
+              <v-btn
+                @click="profileCond('mo')"
+                plain
+                class="fontSize"
+              >
+                <h3 class="no-uppercase"> My Orders </h3>
+              </v-btn>
+              <v-btn
+                plain
+                @click="profileCond('log')"
+                class="fontSize"
+              >
+                <h3 class="no-uppercase"> Logout </h3>
+              </v-btn>
+            </div>
+          </v-sheet>
+        </v-col>
+      
         <v-col
           xl="7"
           lg="10"
           md="10"
+          sm="9"
+          cols="12"
         >
           <profile-myprofile v-if="mProfile"></profile-myprofile>
           <profile-myaddress v-else-if="mAddress"></profile-myaddress>
@@ -279,6 +337,9 @@
 }
 .no-uppercase{
  text-transform: none;
+}
+.fontSize{
+  font-size: 1.5vh;
 }
 
 </style>
