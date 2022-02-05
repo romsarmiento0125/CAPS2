@@ -189,7 +189,10 @@
       },
       usersTag(){
         return this.$store.state.userTag;
-      }
+      },
+      categoryPick() {
+        return this.$store.state.categoryPick;
+      },
     },
 
     watch:{
@@ -198,15 +201,12 @@
       },
       pickCategory(){
         this.categoryPicker();
-      }
+      },
     },
 
     methods: {
       categoryPicker(){
-        // console.log(this.pickCategory);
         this.userCat = [];
-
-        // var i = 0;
 
         this.pickCategory.forEach(res => {
           // console.log(res.name);
@@ -305,9 +305,178 @@
           this.$router.push("/physicalcashier")
         }
       },
+      assignPickCat(){
+        if(this.categoryPick == "Baking"){
+          this.pickCategory = [
+            {
+              id: 1,
+              name: 'Baking',
+              children: [
+                { id: 2, name: 'Pasta' },
+                { id: 3, name: 'Cereals' },
+                { id: 4, name: 'Sugar' },
+                { id: 5, name: 'Mixes' },
+              ],
+            }
+          ];
+        }
+        else if(this.categoryPick == "Beverage"){
+          this.pickCategory = [
+            {
+              id: 6,
+              name: 'Beverage',
+              children: [
+                { id: 7, name: 'Cofee-Tea' },
+                { id: 8, name: 'Carbonated Drinks' },
+                { id: 9, name: 'Juice' },
+                { id: 10, name: 'Milk' },
+                { id: 11, name: 'Chocalate' },
+                { id: 12, name: 'Energy Drinks' },
+              ],
+            }
+          ];
+        }
+        else if(this.categoryPick == "Bread-Bakery"){
+          this.pickCategory = [
+            {
+              id: 13,
+              name: 'Bread-Bakery',
+              children: [
+                { id: 14, name: 'Sandwich' },
+                { id: 15, name: 'Pastries' },
+                { id: 16, name: 'Cakes' },
+                { id: 17, name: 'Biscuit' },
+              ],
+            }
+          ];
+        }
+        else if(this.categoryPick == "Canned Goods"){
+          this.pickCategory = [
+            {
+              id: 18,
+              name: 'Canned Goods',
+              children: [
+                { id: 19, name: 'Fish' },
+                { id: 20, name: 'Meat' },
+                { id: 21, name: 'Beef' },
+                { id: 22, name: 'Vegetables' },
+              ],
+            }
+          ];
+        }
+        else if(this.categoryPick == "Condiments"){
+          this.pickCategory = [
+            {
+              id: 23,
+              name: 'Condiments',
+              children: [
+                { id: 24, name: 'Sauce' },
+                { id: 25, name: 'Paste' },
+              ],
+            }
+          ];
+        }
+        else if(this.categoryPick == "Dairy"){
+          this.pickCategory = [
+            {
+              id: 26,
+              name: 'Dairy',
+              children: [
+                { id: 27, name: 'Cheese' },
+                { id: 28, name: 'Butter' },
+                { id: 29, name: 'Margarine' },
+                { id: 30, name: 'Milk' },
+                { id: 31, name: 'Cream' },
+              ],
+            }
+          ];
+        }
+        else if(this.categoryPick == "Frozen Foods"){
+          this.pickCategory = [
+            {
+              id: 32,
+              name: 'Frozen Foods',
+              children: [
+                { id: 33, name: 'Hotdog' },
+                { id: 34, name: 'Nuggets' },
+                { id: 35, name: 'Ham' },
+              ],
+            }
+          ];
+        }
+        else if(this.categoryPick == "Laundry"){
+          this.pickCategory = [
+            {
+              id: 36,
+              name: 'Laundry',
+              children: [
+                { id: 37, name: 'Fabric Softener' },
+                { id: 38, name: 'Liquid Detergent' },
+                { id: 39, name: 'Powder Detergent' },
+                { id: 40, name: 'Dishwashing Liquid' },
+              ],
+            }
+          ];
+        }
+        else if(this.categoryPick == "Noodles"){
+          this.pickCategory = [
+            {
+              id: 41,
+              name: 'Noodles',
+              children: [
+                { id: 42, name: 'Cup Noodles' },
+                { id: 43, name: 'Pancit Canton' },
+                { id: 44, name: 'Instant noodles' },
+              ],
+            }
+          ];
+        }
+        else if(this.categoryPick == "Personal Care"){
+          this.pickCategory = [
+            {
+              id: 45,
+              name: 'Personal Care',
+              children: [
+                { id: 46, name: 'Shampoo' },
+                { id: 47, name: 'Soap' },
+                { id: 48, name: 'Toothpaste' },
+              ],
+            }
+          ];
+        }
+        else if(this.categoryPick == "Snacks"){
+          this.pickCategory = [
+            {
+              id: 49,
+              name: 'Snacks',
+              children: [
+                { id: 50, name: 'Chips' },
+                { id: 51, name: 'Crackers' },
+                { id: 52, name: 'Nuts' },
+                { id: 53, name: 'Pretzels' },
+                { id: 54, name: 'Biscuits' },
+                { id: 55, name: 'Popcorn' },
+              ],
+            }
+          ];
+        }
+        else if(this.categoryPick == "Sweets"){
+          this.pickCategory = [
+            {
+              id: 56,
+              name: 'Sweets',
+              children: [
+                { id: 57, name: 'Candy' },
+                { id: 58, name: 'Candy Bar' },
+              ],
+            }
+          ];
+        }
+      }
     },
     beforeMount() {
       this.navbarPicker();
+      this.assignPickCat();
     },
   }
 </script>

@@ -66,6 +66,7 @@
 
     methods: {
       navbarPicker() {
+        // console.log(this.usersTag);
         if(this.usersTag == "Customer" || this.usersTag == "Unverified" || this.usersTag == "Admin" || this.usersTag == "Encoder"){
           this.headerCond = false;
         }

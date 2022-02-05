@@ -39,7 +39,7 @@
                   <v-row>
                     <v-col cols="12" class="ma-0 pa-0">
                       <h5 class="my-0 font-weight-black fontTitle">
-                      Thank you!&nbsp;{{usersFName}}&nbsp;{{usersFName}}</h5>
+                      Thank you!&nbsp;{{usersFName}}&nbsp;{{usersLName}}</h5>
                     </v-col>
                   </v-row>
                 </v-col>

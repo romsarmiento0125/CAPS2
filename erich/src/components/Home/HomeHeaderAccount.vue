@@ -166,12 +166,19 @@
                         v-for="(item, n) in items"
                         :key="n"
                       >
-                        <v-list-item-icon>
-                          <v-icon v-text="item.icon"></v-icon>
-                        </v-list-item-icon>
-                        <v-list-item-content>
-                          <v-list-item-title v-text="item.text" @click="accountButton(item.to)"></v-list-item-title>
-                        </v-list-item-content>
+                        <v-btn
+                          plain
+                          @click="accountButton(item.to)"
+                          class="mx-0"
+                        >
+                          <v-list-item-icon>
+                            <v-icon v-text="item.icon"></v-icon>
+                          </v-list-item-icon>
+                          <v-list-item-content >
+                            <v-list-item-title v-text="item.text" ></v-list-item-title>
+                          </v-list-item-content>
+                        </v-btn>
+                        
                       </v-list-item>
                     </v-list-item-group>
                   </v-list>

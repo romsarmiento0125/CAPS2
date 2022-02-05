@@ -153,15 +153,30 @@
                   <v-card-text
                     class="pa-0 mt-5 "
                   >
-                    <v-text-field
-                      v-model="newPass"
-                      type="Password"
-                      outlined
-                      dense
-                      class="mt-1"
-                      label="New Password"
-                      hint="Use 8 or more letters with a mix of letters, numbers & symbols"
-                    ></v-text-field>
+                    <div
+                      class="d-flex"
+                    >
+                      <v-text-field
+                        v-model="newPass"
+                        :type="passType"
+                        outlined
+                        dense
+                        class="mt-1"
+                        label="New Password"
+                        hint="Use 8 or more letters with a mix of letters, numbers & symbols"
+                        :append-icon="passIcon"
+                        @click:append="passShow"
+                        v-on:keyup="checkPassword()"
+                      ></v-text-field>
+                      <v-subheader
+                        class=""
+                      >
+                        <span
+                          :class="pStrengthClass"
+                        >{{pStrength}}</span>
+                      </v-subheader>
+                    </div>
+                    
                   </v-card-text>
 
                   <div
@@ -215,6 +230,10 @@
   export default {
     mixins: [Mixins],
     data: () => ({
+      passIcon: "mdi-eye-off",
+      passType: "Password",
+      pStrengthClass: "green white--text pa-1 rounded",
+      pStrength: "",
       snackbar: false,
       timeout: 4000,
       prompt: '',
@@ -239,6 +258,29 @@
     },
 
     methods: {
+      checkPassword(){
+        if((/[A-Z]/.test(this.newPass)) && (/[a-z]/.test(this.newPass)) && (/[0-9]/.test(this.newPass)) &&
+        (/[#?!@$%^&*-]/.test(this.newPass)) && (this.newPass.length >= 8)){
+          this.pStrength = "Very Strong";
+          this.pStrengthClass = "green white--text pa-1 rounded";
+        }
+        else if(this.newPass.length >= 24){
+          this.pStrength = "Very Strong";
+          this.pStrengthClass = "green white--text pa-1 rounded";
+        }
+        else if(this.newPass.length <= 7){
+          this.pStrength = "Weak";
+          this.pStrengthClass = "red white--text pa-1 rounded";
+        }
+        else{
+          this.pStrength = "Strong";
+          this.pStrengthClass = "yellow black--text pa-1 rounded";
+        }
+      },
+      passShow(){
+        this.passIcon = this.passIcon == "mdi-eye-off" ? 'mdi-eye' : 'mdi-eye-off';
+        this.passType = this.passIcon == "mdi-eye-off" ? 'Password' : 'text';
+      },
       sendCode(){
         var r1 = Math.floor(Math.random() * 9) + 1;
         var r2 = Math.floor(Math.random() * 9) + 1;
@@ -271,10 +313,8 @@
         }
       },
       changePass(){
-        if((/[A-Z]/.test(this.newPass)) && (/[A-Z]/.test(this.newPass)) &&
-        (/[a-z]/.test(this.newPass)) && (/[0-9]/.test(this.newPass)) &&
-        (/[#?!@$%^&*-]/.test(this.newPass) && (this.newPass.length >= 8))
-        ){
+        if(this.newPass.length >= 8)
+        {
           if(this.id != ""){
             axios.put(this.getDomain()+'api/changepass/' + this.id, {
               pass: this.newPass
@@ -290,7 +330,7 @@
         }
         else{
           this.snackbar = true;
-          this.prompt = "Incorrect password combination"; 
+          this.prompt = "Password too short"; 
         }
         
       },

@@ -132,7 +132,8 @@
     methods: {
       toCategoriseItem(cond) {
         this.$router.push('/item');
-        console.log(cond);
+        // console.log(cond);
+        this.$store.commit('categoryPick', cond);
       }
     }
   }
