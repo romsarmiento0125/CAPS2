@@ -3,7 +3,6 @@
     <v-container>
       <v-row>
         <v-col
-          offset-xl="1"
           xl="10"
           lg="12"
           md="12"
@@ -13,7 +12,7 @@
             <v-col
               v-for="item in showItems"
               :key="item.id"
-              xl="2"
+              xl="3"
               lg="3"
               md="4"
             >

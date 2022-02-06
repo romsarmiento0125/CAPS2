@@ -7,6 +7,7 @@
       class="mt-10"
     >
       <v-col
+        offset-xl="1"
         cols="2"
       >
         <v-treeview
