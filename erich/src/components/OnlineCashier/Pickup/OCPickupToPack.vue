@@ -237,9 +237,9 @@
 
         pdf.text("-------------------------------------------------------------------------", .6, hgth - 1.4)
 
-        pdf.text("Discount", .6, hgth - 1.3);
-        pdf.text("" + this.orderPickup.Discount, 2.4, hgth - 1.3);
-        pdf.text("Tax", .6, hgth - 1.2);
+        pdf.text("Vatable Sales", .6, hgth - 1.3);
+        pdf.text("" + this.priceRound(this.orderPickup.Total - this.orderPickup.OrderTax) , 2.4, hgth - 1.3);
+        pdf.text("Vat Amount", .6, hgth - 1.2);
         pdf.text("" + this.orderPickup.OrderTax, 2.4, hgth - 1.2);
         pdf.text("Shipping Fee", .6, hgth - 1.1);
         pdf.text("Free", 2.4, hgth - 1.1);
@@ -307,7 +307,7 @@
         this.orderPickup.PickupDate = pickupDate;
         this.orderPickup.PickupTime = pickupTime;
         this.orderPickup.Discount = discount;
-        this.orderPickup.OrderTax = tax;
+        this.orderPickup.OrderTax = this.priceRound(total * .12);
         this.orderPickup.SubTotal = subTotal;
         this.orderPickup.Total = total;
         

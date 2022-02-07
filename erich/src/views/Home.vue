@@ -1,7 +1,19 @@
 <template>
   <div style="background-color: #ffffff">
-    <home-header v-if="headerCond"></home-header>
-    <home-header-acc v-else></home-header-acc>
+    <div
+      class="d-none d-sm-block"
+    >
+      <home-header v-if="headerCond"></home-header>
+      <home-header-acc v-else></home-header-acc>
+    </div>
+
+    <div
+      class="d-sm-none"
+    >
+      <home-header-mobile v-if="false"></home-header-mobile>
+      <home-account-mobile v-else></home-account-mobile>
+    </div>
+    
     <home-carousel></home-carousel>
     <home-categories></home-categories>
     <home-categories-item></home-categories-item>
@@ -17,6 +29,8 @@
   import HomePromoDeals from "../components/Home/HomePromoDeals.vue";
   import Footer from "../components/Footer.vue";
   import HomeHeaderAcc from "../components/Home/HomeHeaderAccount.vue";
+  import HomeHeaderMobile from "../components/Home/HomeHeaderMobile.vue";
+  import HomeAccountMobile from "../components/Home/HomeAccountMobile.vue"
 
   import HomeCategoriesItem from '../components/HomeItems/HomeCategoriesItem.vue'
 
@@ -34,16 +48,23 @@
       "home-footer": Footer,
       "home-header-acc": HomeHeaderAcc,
       'home-categories-item': HomeCategoriesItem,
+      "home-header-mobile": HomeHeaderMobile,
+      "home-account-mobile": HomeAccountMobile,
     },
 
     data: () => ({
+      drawer: null,
       promodeals: true,
       categoriesItem: false,
       headerCond: true,
       usersData: {
         usersEmail: "",
         usersPassword: "",
-      }
+      },
+      items: [
+        { title: 'Home', icon: 'mdi-view-dashboard' },
+        { title: 'About', icon: 'mdi-forum' },
+      ],
     }),
 
     computed: {

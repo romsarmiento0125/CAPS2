@@ -42,7 +42,7 @@
                 <h4
                   class="mb-10 ml-5"
                 >
-                  Expected receive date: {{order.pickupDate}}
+                  Expected pick up date: {{order.pickupDate}}
                 </h4> 
               </v-col>
             

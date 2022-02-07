@@ -149,7 +149,7 @@
                     <v-col class="d-flex justify-center tBorder mt-1">
                       <h4
                       class="display-3 font-weight-bold py-8 fontTitle"
-                      >{{priceRound(totalPrice)}}</h4>
+                      >{{priceRound(showTotalPrice)}}</h4>
                     </v-col>
                   </v-row>
               </div>
@@ -188,6 +188,18 @@
 
             </v-col>
           </v-row>
+
+          <v-row>
+            <v-col>
+              <div class="ml-7">
+                <v-switch
+                  v-model="giveDiscount"
+                  :label="`Discount: ${giveDiscount.toString()}`"
+                ></v-switch>
+              </div>
+            </v-col>
+          </v-row>
+
           <v-row>
             <v-col>
               <div class="ml-7">
@@ -241,7 +253,9 @@
                 </v-list-item>
               </v-list-item-group>
             </v-list>
-            <h3 class="fontBlue d-flex justify-end pr-4 mt-10">{{priceRound(totalPrice)}}</h3>
+            <h3 class="fontBlue d-flex justify-end pr-4 mt-10"><span class="black--text">Sub Total:&nbsp;</span>{{priceRound(totalPrice)}}</h3>
+            <h3 class="fontBlue d-flex justify-end pr-4"><span class="black--text">Discount:&nbsp;</span>{{priceRound(totalPrice - showTotalPrice)}}</h3>
+            <h3 class="fontBlue d-flex justify-end pr-4"><span class="black--text">Total:&nbsp;</span>{{priceRound(showTotalPrice)}}</h3>
           </v-container>
         </v-card-text>
         <v-card-actions class="mr-2">
@@ -313,6 +327,7 @@
     mixins: [Mixins],
 
     data: () => ({
+      giveDiscount: false,
       orders: [],
       barcodeBuy: '',
       barcode: '',
@@ -344,6 +359,20 @@
           total = (total + (item.itemPrice * item.itemQty) * 1);
         })
         return total;
+      },
+      showTotalPrice(){
+        var total = 0;
+        this.orders.forEach(item => {
+          total = (total + (item.itemPrice * item.itemQty) * 1);
+        })
+        if(this.giveDiscount){
+          return total - (total * .05);
+        }
+        else{
+          return total;
+        }
+        
+        
       },
       usersToken(){
         return localStorage.getItem('token');
@@ -428,17 +457,19 @@
 
         pdf.text("-------------------------------------------------------------------------", .5, hgth - 1.2)
 
-        pdf.text("Discount", .6, hgth - 1.1);
-        pdf.text("" + this.orderInfo.Discount, 2.3, hgth - 1.1);
-        pdf.text("Tax", .6, hgth - 1);
+        pdf.text("Vatable Sales", .6, hgth - 1.1);
+        pdf.text("" + this.priceRound(this.orderInfo.Total - this.orderInfo.OrderTax), 2.3, hgth - 1.1);
+        pdf.text("Vat Amount", .6, hgth - 1);
         pdf.text("" + this.orderInfo.OrderTax, 2.3, hgth - 1);
-        pdf.text("Total", .6, hgth - .9);
-        pdf.text("" + this.priceRound(this.orderInfo.Total), 2.3, hgth - .9);
+        pdf.text("Discount", .6, hgth - .9);
+        pdf.text("" + this.orderInfo.Discount, 2.3, hgth - .9);
+        pdf.text("Total", .6, hgth - .8);
+        pdf.text("" + this.priceRound(this.orderInfo.Total), 2.3, hgth - .8);
 
-        pdf.text("-------------------------------------------------------------------------", .5, hgth - .8)
+        pdf.text("-------------------------------------------------------------------------", .5, hgth - .7)
 
-        pdf.text("Contact Number: 09123456789", 1.5, hgth - .7, null, null, 'center');
-        pdf.text(date+"", 1.5, hgth - .6, null, null, 'center');
+        pdf.text("Contact Number: 09123456789", 1.5, hgth - .6, null, null, 'center');
+        pdf.text(date+"", 1.5, hgth - .5, null, null, 'center');
 
         pdf.save(rn +'.pdf');
       },
@@ -455,8 +486,19 @@
         var r5 = Math.floor(Math.random() * 9) + 1;
         this.orderInfo.InvoiceNumber = "3" + year + month + day + r1 + r2 + r3 + r4 + r5;
         this.orderInfo.CompleteDate = year + "-" + month + "-" + day;
-        this.orderInfo.SubTotal = this.totalPrice;
-        this.orderInfo.Total = this.totalPrice;
+        this.orderInfo.OrderTax = this.priceRound(this.showTotalPrice * 0.12);
+
+        if(this.giveDiscount){
+          this.orderInfo.Discount = this.priceRound(this.totalPrice  * 0.05);
+          this.orderInfo.SubTotal = this.priceRound(this.totalPrice);
+          this.orderInfo.Total = this.priceRound(this.showTotalPrice);
+        }
+        else{
+          this.orderInfo.Discount = 0;
+          this.orderInfo.SubTotal = this.priceRound(this.showTotalPrice);
+          this.orderInfo.Total = this.priceRound(this.showTotalPrice);
+        }
+
         
 
         // console.log(this.orders);
@@ -472,14 +514,14 @@
         }
         })
         .then(res => {
-          console.log(res.data);
+          // console.log(res.data);
           this.generateReciept();
           this.orders = [];
           this.itemName = "";
           this.itemDesc = "";
           this.itemSize = "";
           this.barcodeBuy = "";
-          
+          this.giveDiscount = false;
         })
 
         
@@ -523,7 +565,7 @@
         this.orders.splice(id,1);
       },
       updateItem(){
-        console.log("update");
+        // console.log("update");
         this.orders[this.initialId].itemQty = this.initialQty;
         this.updateDialog = false;
       },
