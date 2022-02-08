@@ -5,7 +5,7 @@
     >
       <v-row>
         <v-col
-          class="pa-15"
+          class="pa-lg-15 pa-sm-10 pa-5"
         >
 
           <div> 
@@ -151,13 +151,20 @@
         var today = new Date();
         var time = today.getHours() + ":" + today.getMinutes();
 
-        var oras = "16"+ ":" + "00";
+        var day = String(today.getDate()).padStart(2, '0');
+        var month = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var year = today.getFullYear();
+        var date = year + "-" + month + "-" + day;
 
-        // console.log(data);
-        // console.log(time);
+        var oras = "16"+ ":" + "00";
 
         if(data > time){
           this.oras = data;
+          this.modal2 = false
+          this.$store.commit('pickupTime', data);
+        }
+        else if(date < this.date){
+          this.oras = data == null ? oras : data;
           this.modal2 = false
           this.$store.commit('pickupTime', data);
         }
@@ -172,12 +179,24 @@
         var day = String(today.getDate()).padStart(2, '0');
         var month = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
         var year = today.getFullYear();
-        var date = year + "-" + month + "-" + day;
+        
         var oras = "16"+ ":" + "00";
+        var time = today.getHours() + ":" + today.getMinutes();
+
+        if(time > oras){
+          this.minDate = year + "-" + month + "-" + (String(today.getDate() + 1).padStart(2, '0'));
+          this.maxDate = (year + 1) + "-" + month + "-" + day;
+          var date = year + "-" + month + "-" + (String(today.getDate() + 1).padStart(2, '0'));
+        }
+        else{
+          this.minDate = year + "-" + month + "-" + day;
+          this.maxDate = (year + 1) + "-" + month + "-" + day;
+          var date = year + "-" + month + "-" + day;
+        }
+
         this.date = date;
         this.oras = oras;
-        this.minDate = year + "-" + month + "-" + day;
-        this.maxDate = (year + 1) + "-" + month + "-" + day;
+        
         this.ydm(date);
         this.saveTime(oras);
       }

@@ -2,7 +2,6 @@
   <div
     class="mt-15 pt-15"
   >
-  
     <v-container fluid>
       <v-row>
         <v-col
@@ -15,10 +14,9 @@
           <v-carousel
             v-model="model"
             class="rounded-xl color=black"
-            height="29vw"
+            height="35vw"
             hide-delimiters
             hide-delimiter-background
-            cycle
             progress
             >
             <v-carousel-item
@@ -28,7 +26,6 @@
               reverse-transition="fade-transition"
               transition="fade-transition"
             >
-              
             </v-carousel-item>
           </v-carousel>  
         </v-col>

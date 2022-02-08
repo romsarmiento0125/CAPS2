@@ -57,8 +57,13 @@ export default new Vuex.Store({
     imageLink: "",
     imagePath: "",
     suppliers: null,
+    categoryPick: [],
   },
   mutations: {
+    categoryPick: (state, payload) => {
+      state.categoryPick = [];
+      state.categoryPick.push(payload);
+    },
     userTag: (state, payload) => {
       state.userTag = payload
     },

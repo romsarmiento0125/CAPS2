@@ -35,22 +35,28 @@
               </v-col>
             </v-row>
 
-            <v-row class="d-flex justify-end">
+            <v-row class="">
               <v-col
-                 cols="2"
-                 offset="8"
+                 cols="5"
               >
-                
                 <h4
-                  class="mb-10 pl-16"
+                  class="mb-10 ml-5"
+                >
+                  Expected receive date: {{order.adjustedDate}}
+                </h4> 
+              </v-col>
+            
+              <v-col
+                 cols="3"
+                 offset="4"
+                 class="d-flex"
+              >
+                <h4
+                  class="mb-10 ml-10 mr-2"
                 >
                   Order total: 
                 </h4>
-                
-              </v-col>
-
-              <v-col cols="1" class="mr-5">
-                <div class="d-flex">
+                <h4 class="fontBlue">
                   <v-icon
                     color="#1106A0"
                     size="18px"
@@ -58,11 +64,8 @@
                   >
                     mdi-currency-php
                   </v-icon>
-                  <h4 class="fontBlue">
-                    &nbsp;{{priceRound(order.total)}}
-                  </h4>
-                </div>
-                
+                  &nbsp;{{priceRound(order.total)}}
+                </h4>
               </v-col>
             </v-row>
             <v-divider></v-divider>
@@ -88,6 +91,7 @@
 
     computed: {
       userProfileToDeliver() {
+        console.log(this.$store.state.userProfileToDeliver);
         return this.$store.state.userProfileToDeliver;
       },
     },

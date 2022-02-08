@@ -126,7 +126,7 @@
                       class="mt-1"
                       :rules="passRules"
                       required
-                      label="password"
+                      label="Password"
                       :append-icon="passIcon"
                       @click:append="passShow"
                       v-on:keyup="checkPassword()"
@@ -669,7 +669,8 @@
                       localStorage.setItem("birthday", res.data.user.birthday);
                       localStorage.setItem("gender", res.data.user.gender);
                       localStorage.setItem("token", res.data.token);
-                      this.$store.commit('userTag', res.data.tag);
+                      // console.log(res.data.tag);
+                      this.$store.commit('userTag', res.data.user.tag);
 
                       this.$store.commit('storeCustomerAddress', res.data.address);
 

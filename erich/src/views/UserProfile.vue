@@ -190,96 +190,6 @@
         }
 
       },
-      // getUserOrder() {
-      //   axios.post(this.getDomain()+'api/userorder/store', {
-      //       register: this.usersEmail
-      //     },
-      //     {
-      //       headers:{
-      //         "Authorization": `Bearer ${this.usersToken}`,
-      //     }
-      //     })
-      //     .then(res => {
-      //       // console.log(res.data);
-      //       this.$store.commit('storeUserProfileOrders', res.data);
-      //     })
-      //     .catch(err => console.error(err));
-      // },
-      // getUserOrderDeliver() {
-      //   axios.post(this.getDomain()+'api/userorderdelivery/store', {
-      //       register: this.usersEmail
-      //     },
-      //     {
-      //       headers:{
-      //         "Authorization": `Bearer ${this.usersToken}`,
-      //     }
-      //     })
-      //     .then(res => {
-      //       // console.log(res.data);
-      //       this.$store.commit('storeUserToDeliver', res.data);
-      //     })
-      //     .catch(err => console.error(err));
-      // },
-      // getUserOrderComplete() {
-      //   axios.post(this.getDomain()+'api/userordercomplete/store', {
-      //       register: this.usersEmail
-      //     },
-      //     {
-      //       headers:{
-      //         "Authorization": `Bearer ${this.usersToken}`,
-      //     }
-      //     })
-      //     .then(res => {
-      //       // console.log(res.data);
-      //       this.$store.commit('storeUserToComplete', res.data);
-      //     })  
-      //     .catch(err => console.error(err));
-      // },
-      // getUserPickup() {
-      //   axios.post(this.getDomain()+'api/userorderpickup/store', {
-      //       register: this.usersEmail
-      //     },
-      //     {
-      //       headers:{
-      //         "Authorization": `Bearer ${this.usersToken}`,
-      //     }
-      //     })
-      //     .then(res => {
-      //       // console.log(res.data);
-      //       this.$store.commit('storeUserPickupOrders', res.data);
-      //     })  
-      //     .catch(err => console.error(err));
-      // },
-      // getUserPickupPickup() {
-      //   axios.post(this.getDomain()+'api/userpickuppickup/store', {
-      //       register: this.usersEmail
-      //     },
-      //     {
-      //       headers:{
-      //         "Authorization": `Bearer ${this.usersToken}`,
-      //     }
-      //     })
-      //     .then(res => {
-      //       // console.log(res.data);
-      //       this.$store.commit('storeUserPickupToPickup', res.data);
-      //     })  
-      //     .catch(err => console.error(err));
-      // },
-      // getUserPickupComplete() {
-      //   axios.post(this.getDomain()+'api/userpickupcomplete/store', {
-      //       register: this.usersEmail
-      //     },
-      //     {
-      //       headers:{
-      //         "Authorization": `Bearer ${this.usersToken}`,
-      //     }
-      //     })
-      //     .then(res => {
-      //       // console.log(res.data);
-      //       this.$store.commit('storeUserPickupToComplete', res.data);
-      //     })  
-      //     .catch(err => console.error(err));
-      // },
       callOrders(){
         axios.post(this.getDomain()+'api/userall/store', {
           register: this.usersEmail
@@ -301,21 +211,11 @@
           this.$store.commit('storeUserPickupToCancel', res.data.ptcancel);
         })
         .catch(err => console.error(err));
-
-        // this.getUserOrder();
-        // this.getUserOrderDeliver();
-        // this.getUserOrderComplete();
-        // this.getUserPickup();
-        // this.getUserPickupPickup();
-        // this.getUserPickupComplete();
       },
     },
 
     beforeMount() {
       this.callOrders();
-      //console.log("user profile");
-      //console.log(this.goToAddress);
-      
       if(this.goToAddress){
         this.mProfile = false;
         this.mAddress = true;

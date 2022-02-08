@@ -149,7 +149,7 @@
                     <v-col class="d-flex justify-center tBorder mt-1">
                       <h4
                       class="display-3 font-weight-bold py-8 fontTitle"
-                      >{{priceRound(totalPrice)}}</h4>
+                      >{{priceRound(showTotalPrice)}}</h4>
                     </v-col>
                   </v-row>
               </div>
@@ -188,6 +188,18 @@
 
             </v-col>
           </v-row>
+
+          <v-row>
+            <v-col>
+              <div class="ml-7">
+                <v-switch
+                  v-model="giveDiscount"
+                  :label="`Discount: ${giveDiscount.toString()}`"
+                ></v-switch>
+              </div>
+            </v-col>
+          </v-row>
+
           <v-row>
             <v-col>
               <div class="ml-7">
@@ -241,7 +253,9 @@
                 </v-list-item>
               </v-list-item-group>
             </v-list>
-            <h3 class="fontBlue d-flex justify-end pr-4 mt-10">{{priceRound(totalPrice)}}</h3>
+            <h3 class="fontBlue d-flex justify-end pr-4 mt-10"><span class="black--text">Sub Total:&nbsp;</span>{{priceRound(totalPrice)}}</h3>
+            <h3 class="fontBlue d-flex justify-end pr-4"><span class="black--text">Discount:&nbsp;</span>{{priceRound(totalPrice - showTotalPrice)}}</h3>
+            <h3 class="fontBlue d-flex justify-end pr-4"><span class="black--text">Total:&nbsp;</span>{{priceRound(showTotalPrice)}}</h3>
           </v-container>
         </v-card-text>
         <v-card-actions class="mr-2">
@@ -306,12 +320,14 @@
 </template>
 
 <script>
+  import jsPDF from 'jspdf'
   import {Mixins} from '../../Mixins/mixins.js'
   
   export default {
     mixins: [Mixins],
 
     data: () => ({
+      giveDiscount: false,
       orders: [],
       barcodeBuy: '',
       barcode: '',
@@ -344,8 +360,28 @@
         })
         return total;
       },
+      showTotalPrice(){
+        var total = 0;
+        this.orders.forEach(item => {
+          total = (total + (item.itemPrice * item.itemQty) * 1);
+        })
+        if(this.giveDiscount){
+          return total - (total * .05);
+        }
+        else{
+          return total;
+        }
+        
+        
+      },
       usersToken(){
         return localStorage.getItem('token');
+      },
+      usersFName(){
+        return localStorage.getItem('firstName');
+      },
+      usersLName(){
+        return localStorage.getItem('lastName');
       },
     },
 
@@ -354,6 +390,88 @@
         this.updateDialog = true;
         this.initialQty = this.orders[i].itemQty;
         this.initialId = i;
+      },
+      generateReciept(){
+        // console.log(this.orderInfo);
+        // console.log(this.orders);
+        var rn = this.orderInfo.InvoiceNumber;
+        var name = this.usersFName + " " + this.usersLName;
+
+        var oqty = "";
+        var oname = "";
+        var odes = "";
+        var oprice = "";
+
+        var hgth = 3
+
+        var date = new Date();
+
+        for(var i = 0; i < this.orders.length; i++){
+          oqty = oqty + this.orders[i].itemQty + "\n";
+          oname = oname + this.orders[i].itemName + "\n";
+          odes = odes + this.orders[i].itemDesc + "\n";
+          oprice = oprice + (this.priceRound((this.orders[i].itemPrice * 1) * this.orders[i].itemQty)) + "\n";
+          hgth = hgth + .1;
+        }
+
+        var pdf = new jsPDF({
+          unit: "in",
+          format: [3, hgth]
+        });
+        
+        pdf.setFont("helvetica", "bold");
+        pdf.setFontSize(10);
+        pdf.text("ERICH GROCERY", 1.5, .5, null, null, 'center');
+
+        pdf.setFont("helvetica", "normal");
+        pdf.setFontSize(6);
+        pdf.text("Owner & Optd By: Jhona S. Pontejo", 1.5, .6, null, null, 'center');
+        pdf.text("Km. 38 Pulong Buhangin Sta. Maria Bulacan", 1.5, .7, null, null, 'center');
+        pdf.text("Vat Reg Tin: 123-456-789-0000", 1.5, .8, null, null, 'center');
+
+        pdf.setFont("helvetica", "bold");
+        pdf.setFontSize(8);
+        pdf.text("Official Receipt #:"+rn, .5, 1.1);
+
+        pdf.setFont("helvetica", "normal");
+        pdf.setFontSize(6);
+        pdf.text("Walk-In", .5, 1.2);
+        pdf.text("Cashier: " + name, .5, 1.3);
+
+        pdf.text("-------------------------------------------------------------------------", .5, 1.4)
+
+        pdf.text("Qty", .5, 1.5);
+        pdf.text("Name", .8, 1.5);
+        pdf.text("Description", 1.5, 1.5);
+        pdf.text("Price", 2.3, 1.5);
+
+        pdf.text(oqty, .5, 1.6);
+        pdf.text(oname, .8, 1.6);
+        pdf.text(odes, 1.5, 1.6);
+        pdf.text(oprice, 2.3, 1.6);
+
+        pdf.text("-------------------------------------------------------------------------", .5, hgth - 1.4)
+
+        pdf.text("Sub Total", .6, hgth - 1.3);
+        pdf.text("" + this.priceRound(this.orderInfo.SubTotal), 2.3, hgth - 1.3);
+
+        pdf.text("-------------------------------------------------------------------------", .5, hgth - 1.2)
+
+        pdf.text("Vatable Sales", .6, hgth - 1.1);
+        pdf.text("" + this.priceRound(this.orderInfo.Total - this.orderInfo.OrderTax), 2.3, hgth - 1.1);
+        pdf.text("Vat Amount", .6, hgth - 1);
+        pdf.text("" + this.orderInfo.OrderTax, 2.3, hgth - 1);
+        pdf.text("Discount", .6, hgth - .9);
+        pdf.text("" + this.orderInfo.Discount, 2.3, hgth - .9);
+        pdf.text("Total", .6, hgth - .8);
+        pdf.text("" + this.priceRound(this.orderInfo.Total), 2.3, hgth - .8);
+
+        pdf.text("-------------------------------------------------------------------------", .5, hgth - .7)
+
+        pdf.text("Contact Number: 09123456789", 1.5, hgth - .6, null, null, 'center');
+        pdf.text(date+"", 1.5, hgth - .5, null, null, 'center');
+
+        pdf.save(rn +'.pdf');
       },
       finishOrder(){
         this.dialog = false;
@@ -368,8 +486,20 @@
         var r5 = Math.floor(Math.random() * 9) + 1;
         this.orderInfo.InvoiceNumber = "3" + year + month + day + r1 + r2 + r3 + r4 + r5;
         this.orderInfo.CompleteDate = year + "-" + month + "-" + day;
-        this.orderInfo.SubTotal = this.totalPrice;
-        this.orderInfo.Total = this.totalPrice;
+        this.orderInfo.OrderTax = this.priceRound(this.showTotalPrice * 0.12);
+
+        if(this.giveDiscount){
+          this.orderInfo.Discount = this.priceRound(this.totalPrice  * 0.05);
+          this.orderInfo.SubTotal = this.priceRound(this.totalPrice);
+          this.orderInfo.Total = this.priceRound(this.showTotalPrice);
+        }
+        else{
+          this.orderInfo.Discount = 0;
+          this.orderInfo.SubTotal = this.priceRound(this.showTotalPrice);
+          this.orderInfo.Total = this.priceRound(this.showTotalPrice);
+        }
+
+        
 
         // console.log(this.orders);
         // console.log(this.orderInfo);
@@ -384,14 +514,17 @@
         }
         })
         .then(res => {
-          console.log(res.data);
+          // console.log(res.data);
+          this.generateReciept();
+          this.orders = [];
+          this.itemName = "";
+          this.itemDesc = "";
+          this.itemSize = "";
+          this.barcodeBuy = "";
+          this.giveDiscount = false;
         })
 
-        this.orders = [];
-        this.itemName = "";
-        this.itemDesc = "";
-        this.itemSize = "";
-        this.barcodeBuy = "";
+        
       },
       saveItem() {
         // console.log(this.barcodeBuy);
@@ -432,7 +565,7 @@
         this.orders.splice(id,1);
       },
       updateItem(){
-        console.log("update");
+        // console.log("update");
         this.orders[this.initialId].itemQty = this.initialQty;
         this.updateDialog = false;
       },

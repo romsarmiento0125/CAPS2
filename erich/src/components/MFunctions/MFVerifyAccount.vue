@@ -194,7 +194,8 @@
           .then(res => {
             // console.log(res.data)
             if(res.data == "Success"){
-              localStorage.setItem("tag", "Customer");
+              // localStorage.setItem("tag", "Customer");
+              this.$store.commit('userTag', "Customer");
               for(var i = 0; i < this.userNotif.length; i++){
                 if(this.userNotif[i].title == "Verify"){
                   axios.put(this.getDomain()+'api/customernotifstatus/' + this.userNotif[i].id, {

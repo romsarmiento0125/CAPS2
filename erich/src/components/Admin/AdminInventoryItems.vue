@@ -329,7 +329,7 @@
                     <template v-slot:activator="{ on, attrs }">
                       <v-text-field
                         v-model="item.expirationDate"
-                        label="Picker in menu"
+                        label="Expiration Date"
                         prepend-icon="mdi-calendar"
                         readonly
                         v-bind="attrs"
@@ -472,7 +472,7 @@
                     type="number"
                     v-model="update.supplierPrice"
                     label="Supplier Price"
-                    @change="getRetailPrice"
+                    @change="getRetailPriceUpdate"
                   ></v-text-field>
                 </v-col>
                 <v-col
@@ -484,7 +484,7 @@
                     type="number"
                     v-model="update.discount"
                     label="Discount"
-                    @change="getRetailPrice"
+                    @change="getRetailPriceUpdate"
                   ></v-text-field>
                 </v-col>
                  <v-col
@@ -623,7 +623,7 @@
                     <template v-slot:activator="{ on, attrs }">
                       <v-text-field
                         v-model="update.expirationDate"
-                        label="Picker in menu"
+                        label="Expiration Date"
                         prepend-icon="mdi-calendar"
                         readonly
                         v-bind="attrs"
@@ -921,7 +921,7 @@
       },
       saveItem(){
         this.dialog = false;
-        console.log(this.item);
+        // console.log(this.item);
         let formData = new FormData;
         formData.append("image", this.itemImage);
         for(let property in this.item)
@@ -1053,6 +1053,10 @@
         this.item.retailPrice = (this.item.supplierPrice - (this.item.supplierPrice * (this.item.discount / 100)));
         this.item.retailPrice = this.priceRound(this.item.retailPrice + (this.item.retailPrice * .05));
       },
+      getRetailPriceUpdate(){
+        this.update.retailPrice = (this.update.supplierPrice - (this.update.supplierPrice * (this.update.discount / 100)));
+        this.update.retailPrice = this.priceRound(this.update.retailPrice + (this.update.retailPrice * .05));
+      },
       onFileChange(e){
         if(e == null){
           this.picUrl = null;
@@ -1066,7 +1070,7 @@
       },
       saveUpdate(){
         this.updateDialog = false;
-        console.log(this.update);
+        // console.log(this.update);
         axios.put(this.getDomain()+'api/invitems/'+this.update.id, {
           register: this.update
         },
@@ -1076,14 +1080,14 @@
         }
         })
         .then(res => {
-          console.log(res.data);
+          // console.log(res.data);
           this.$store.commit('storeCategoryItem', res.data.allItems);
             this.$store.commit('imagePath', res.data.path);
         })
         .catch(err => console.error(err));
       },
       updateItem(item){
-        console.log(item);
+        // console.log(item);
         this.updateDialog = true;
         this.update.id = item.id;
         this.update.name = item.name;

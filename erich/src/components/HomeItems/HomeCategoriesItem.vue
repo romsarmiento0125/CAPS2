@@ -16,13 +16,15 @@
               xl="2"
               lg="3"
               md="4"
+              sm="4"
+              cols="6"
             >
               <v-card
                 min-height="335px"
                 min-width="230px"
                 max-height="335px"
                 max-width="230px"
-                class="elevation-1"
+                class="elevation-1 d-none d-sm-block"
               >
                 <div>
                   <div
@@ -39,9 +41,14 @@
                         </h4>
                       </v-col>
                       <v-col cols="6" class="d-flex justify-center">
-                          <h5
+                        <h5
                           class="borderQuan px-1 mt-1 ml-4 d-flex justify-center white--text"
-                          >{{item.quantity - item.qtyLimit}} Pcs</h5>
+                          v-if="(item.quantity - item.qtyLimit) >= 1"
+                        >{{item.quantity - item.qtyLimit}} Pcs</h5>
+                        <h5
+                          v-else
+                          class="borderQuan px-1 mt-1 ml-4 d-flex justify-center white--text"
+                        >Sold Out</h5>
                       </v-col>
                     </v-row>
                   </div>
@@ -119,6 +126,133 @@
                                 text
                                 color="#1106A0"
                                 @click="addToCartItems(item.itemCode)"
+                                v-if="(item.quantity - item.qtyLimit) >= 1"
+                                :disabled="timerCount > 0"
+                              >
+                                <v-img
+                                  contain
+                                  src="../../assets/Cart.svg"
+                                  max-height="40px"
+                                  max-width="40px"
+                                >
+                                </v-img>
+                            </v-btn>
+                          </div>
+                        </v-col> 
+                      </v-col>
+                    </v-row>
+                  </div>
+                </div>
+              </v-card>
+
+              <v-card
+                min-height="335px"
+                min-width="180px"
+                max-height="335px"
+                max-width="180px"
+                class="elevation-1 d-sm-none"
+              >
+                <div>
+                  <div
+                    class="d-flex pt-1"
+                  >
+                   <v-row >
+                      <v-col cols="6" class="d-flex">
+                        <h4
+                          class="borderDisc mt-1 px-2 ml-1 pink--text"
+                          v-if="item.discount != 0"
+
+                          >
+                            - {{item.discount}}%
+                        </h4>
+                      </v-col>
+                      <v-col cols="6" class="d-flex justify-center">
+                        <h5
+                          class="borderQuan px-1 mt-1 d-flex justify-center white--text"
+                          v-if="(item.quantity - item.qtyLimit) >= 1"
+                        >{{item.quantity - item.qtyLimit}} Pcs</h5>
+                        <h5
+                          v-else
+                          class="borderQuan px-1 mt-1 d-flex justify-center white--text"
+                        >Sold Out</h5>
+                      </v-col>
+                    </v-row>
+                  </div>
+
+                  <div class="d-flex justify-center">
+                    <v-img
+                      :src="imagePath+'/'+item.image"
+                      min-height="120px"
+                      min-width="130px"
+                      max-height="120px"
+                      max-width="130px"
+                      contain
+                    ></v-img>
+                  </div>
+                  
+                    <div class="d-flex px-5">
+                      <v-icon
+                      color="#1106A0"
+                      size="18px"
+                      class="mr-1 mx-0 my-0 py-0 px-0"
+                    >
+                      mdi-currency-php
+                    </v-icon>
+                    <h3 class="fontBlue fontStyle font-weight-Black">{{priceRound(item.retailPrice - ((item.discount / 100) * item.retailPrice))}}</h3>                   
+                    </div>
+                    
+                 
+                  <div class="mx-5">
+                    <h5 
+                      class="text-decoration-line-through fontDesc"
+                      v-if="item.discount != 0"
+                    >
+                      <v-icon
+                        small
+                      >
+                        mdi-currency-php
+                      </v-icon>
+                      {{priceRound((item.supplierPrice * 1) + (item.supplierPrice * .05))}}
+                    </h5>
+                  </div>
+                  
+                  <div class="px-5 mt-1">
+                    <h4
+                      class="d-inline-block text-truncate"
+                      style="max-width: 160px;" 
+                    >{{item.name}}</h4>
+                  </div>
+
+                  <div class="px-5 mt-n2">
+                    <h5
+                      class="d-inline-block text-truncate fontDesc"
+                      style="max-width: 160px;" 
+                    >{{item.description}}</h5>
+                  </div>
+                  
+                  <div>
+                    <v-row>
+                      <v-col cols="" class="ml-5 mt-n2">
+                        <h5 class="fontDesc font-weight-black">
+                          {{item.size}}
+                        </h5> 
+                      </v-col>
+
+                      <v-col>
+                        <v-col cols="">
+                          <div
+                            class="d-flex"
+                            >
+                            <v-spacer></v-spacer>
+                              <v-btn
+                                class="mr-3 mt-n1"
+                                large
+                                icon
+                                white
+                                text
+                                color="#1106A0"
+                                @click="addToCartItems(item.itemCode)"
+                                v-if="(item.quantity - item.qtyLimit) >= 1"
                                 :disabled="timerCount > 0"
                               >
                                 <v-img
