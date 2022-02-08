@@ -1,6 +1,9 @@
 <template>
   <div>
-    <v-container fluid>
+    <v-container
+      fluid
+      class="d-none d-md-block"  
+    >
       <v-row>
         <v-col
           offset-xl="1"
@@ -295,6 +298,322 @@
         </v-col>
       </v-row>
     </v-container>
+
+    <v-container
+      fluid
+      class="d-md-none"  
+    >
+      <v-row>
+        <v-col
+          md="12"
+          cols="12"
+          class="d-flex justify-center"
+        >
+          <v-sheet
+            color="#FFFFFF"
+            width="100%"
+            class="py-2 my-10"
+            rounded="lg"
+          >
+            <div
+              class="d-none d-sm-block"
+            >
+              <v-row class="pa-4">
+                <v-col
+                  xl="5"
+                  lg="5"
+                  md="4"
+                >
+                  <h4
+                    class="mx-4 px-lg-15 font-weight-bold fontTitle"
+                  >Product</h4>
+                </v-col>
+                <v-col
+                  xl="7" 
+                  lg="7"
+                  class="pr-xl-16"
+                >
+                  <div
+                    class="d-flex justify-end"
+                  >
+                    <h4
+                      class="fontTitle px-lg-11 px-10"
+                    >Quantity</h4>
+                    <h4
+                      class="fontTitle px-lg-14 px-5"
+                    >Total Price</h4>
+                    <h4
+                      class="fontTitle px-lg-10 px-5"
+                    >Action</h4>
+                  </div>
+                </v-col>
+              </v-row>
+            </div>
+
+            <div
+              class="d-sm-none"
+            >
+              <v-row class="pa-4">
+                <v-col
+                  cols="12"
+                >
+                  <h4
+                    class="mx-4 px-lg-15 font-weight-bold fontTitle"
+                  >Product</h4>
+                </v-col>
+              </v-row>
+            </div>
+            
+            <v-divider></v-divider>
+
+            <v-row>
+              <v-col
+                cols="12"
+              >
+                <v-list
+                  class="my-0 py-0"
+                >
+                  <v-list-item-group
+                    v-for="(item, i) in cartItems"
+                      :key="i"
+                  >
+                    <v-list-item
+                      class="my-0 py-0"
+                    >
+                      <v-list-item-content
+                        class="border ma-2"
+                      >
+                        <v-row
+                        >
+                          <v-col
+                            xl="5"
+                            lg="5"
+                            md="5"
+                            class="my-0 py-0"
+                          >
+                            <div
+                              class="d-flex align-center"
+                            >
+                              <v-img
+                                max-height="150px"
+                                max-width="150px"
+                                contain
+                                :src="imagePath+'/'+item.item_image"
+                              ></v-img>
+
+                              <v-list-item-title>
+                                <h3
+                                  class="my-lg-1"
+                                >
+                                  {{item.item_name}}
+                                </h3>
+                                <h4
+                                  class="fontBlue my-lg-1"
+                                >
+                                  {{item.item_desc}}
+                                </h4>
+                                <div class="d-flex my-lg-1">
+                                  <v-icon size="14px" class="pr-1">
+                                  
+                                    mdi-currency-php
+                                  </v-icon>
+
+                                  <h5
+                                    class="fontDesc"
+                                  >
+                                    {{priceRound(item.item_price - ((item.item_discount / 100) * item.item_price))}}
+                                  </h5>
+                                </div>
+                                
+                              </v-list-item-title>
+                            </div>
+                          </v-col>
+                          <v-col
+                            xl="7"
+                            lg="7"
+                            md="7"
+                            class="d-flex align-center justify-end pr-xl-16"
+                          >
+                            <div
+                              class="d-flex align-center"
+                            >
+                              <div
+                                class="qtt d-flex align-center justify-center mr-2 "
+                                style="border-style: solid; border-width: 1px 1px; border-color: #BDBDBD"
+                              >
+                                <v-btn
+                                  depressed
+                                  color="transparent"
+                                  class=""
+                                  @click="updateQuantity(item.id, item.item_quantity, 'decrease')"
+                                  x-small
+                                  :disabled="timerCount > 0"
+                                >
+                                  <v-icon
+                                    color="#757575"
+                                  >
+                                    mdi-minus
+                                  </v-icon>
+                                </v-btn>
+                                <v-btn
+                                  depressed
+                                  color="#1106A0"
+                                  dark
+                                  x-small
+                                  class="rounded-0"
+                                  @click="openUpdateQty(item.item_quantity, item.id, item.item_code)"
+                                >
+                                  <p
+                                    class="my-0 subtitle-1 font-weight-bold" 
+                                  >
+                                    {{item.item_quantity}}
+                                  </p>
+                                </v-btn>
+                                <!-- <p
+                                  class="my-0 px-2 subtitle-1 grey--text text--darken-2 font-weight-bold" 
+                                >
+                                  {{item.item_quantity}}
+                                </p> -->
+                                <v-btn
+                                  depressed
+                                  color="transparent"
+                                  @click="updateQuantity(item.id, item.item_quantity, 'increase', item.item_code)"
+                                  x-small
+                                  :disabled="timerCount > 0"
+                                >
+                                  <v-icon
+                                    color="#757575"
+                                  >
+                                    mdi-plus
+                                  </v-icon>
+                                </v-btn>
+                              </div>
+
+                              <div
+                                class="my-0 mx-lg-15 mx-4 d-flex align-center justify-center"
+                              >
+                                <v-icon 
+                                small
+                                color="#858585" 
+                                class="pr-1"
+                                >
+                                  mdi-currency-php
+                                </v-icon>
+                                <h4
+                                  class="pa-0 ma-0 fontDesc"
+                                >
+                                  {{priceRound((item.item_price - ((item.item_discount / 100) * item.item_price)) * item.item_quantity)}}
+                                </h4>
+                              </div>
+
+                              <v-btn
+                                class="act justify-center mx-lg-4 font-weight-bold"
+                                color="#1106A0"
+                                plain
+                                @click="openDeleteWarning(item.id)"
+                                large
+                              >
+                                <v-icon>
+                                  mdi-trash-can-outline
+                                </v-icon>
+                              </v-btn>
+                            </div>
+                          </v-col>
+                        </v-row>
+                      </v-list-item-content>
+                    </v-list-item>
+                    <v-divider></v-divider>
+                  </v-list-item-group>
+                </v-list>
+              </v-col>
+            </v-row>
+          </v-sheet>
+        </v-col>
+        
+        <v-col
+          offset-sm="2"
+          sm="8"
+          cols="12"
+          class="d-flex justify-center"
+        >
+          <v-sheet
+            color="#FFFFFF"
+            height="250px"
+            width="100%"
+            class="py-2 my-10"
+            rounded="lg"
+            style="position: relative;"
+          >
+            <v-row>
+              <v-col
+                cols="4"
+              >
+                <h3
+                  class="my-4 mx-5 title fontTitle"
+                >
+                  Total
+                </h3>
+              </v-col>
+              <v-col
+                color="8"
+              >
+                <div
+                  class="d-flex justify-end"
+                >
+                  <h3
+                  class="my-4 mx-10 title fontTitle"
+                  >
+                    <v-icon color="#464646">mdi-currency-php</v-icon>{{totPrice}}
+                  </h3>
+                </div>
+                
+              </v-col>
+            </v-row>
+
+            <v-divider></v-divider>
+
+            <v-row>
+              <v-col
+                cols="12"
+                
+              >
+                <p
+                  class="my-3 mx-lg-10 mx-md-2 text-center text-lg-left"
+                >
+                  Taxes and <router-link to="/" class="text-decoration-underline indigo--text text--darken-4">Shipping</router-link> are calculted at checkout
+                </p>
+                <div
+                  class="mx-8 pt-xl-12 pt-lg-6 pt-md-4"
+                >
+                  <p
+                    v-if="(usersTag == 'Unverified')"
+                    class="py-0 my-0 text-center subtitle-1"
+                  >
+                    Please Verify Your Account First.
+                  </p>
+                  <v-btn
+                    dark
+                    color="#1106A0"
+                    class="mx-2"
+                    :to="{name: 'Cart' , params: { id: 'place-order', title: 'Place Order'}}"
+                    @click="showPlaceOrder()"
+                    block
+                    :disabled="checkoutButton"
+                  >
+                    <p
+                      class="py-0 my-0"
+                    >
+                      Checkout
+                    </p>
+                  </v-btn>
+                </div>
+              </v-col>
+            </v-row>
+          </v-sheet>
+        </v-col>
+      </v-row>
+    </v-container>
+
     <v-dialog
       v-model="deleteItem"
       persistent
