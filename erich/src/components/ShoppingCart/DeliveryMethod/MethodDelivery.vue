@@ -5,7 +5,7 @@
     >
       <v-row>
         <v-col
-          class="pa-15"
+          class="pa-lg-15 pa-sm-10 pa-5"
         >
           <div> 
             <h4
@@ -64,8 +64,8 @@
             <h4
               class="ma-0 pa-0 fontTitle font-weight-bold"
             >Delivery Fee</h4>
-            <div class="py-2">
-              <p>{{Shipping}}</p>
+            <div class="py-0">
+              <p class="my-0">{{Shipping}}</p>
             </div>
           </div>
         </v-col>

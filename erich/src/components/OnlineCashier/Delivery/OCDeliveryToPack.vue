@@ -319,9 +319,9 @@
 
         pdf.text("-------------------------------------------------------------------------", .6, hgth - 1.4)
 
-        pdf.text("Discount", .6, hgth - 1.3);
-        pdf.text("" + this.orderUpdate.Discount, 2.4, hgth - 1.3);
-        pdf.text("Tax", .6, hgth - 1.2);
+        pdf.text("Vatable Sales", .6, hgth - 1.3);
+        pdf.text("" + this.priceRound(this.orderUpdate.Total - this.orderUpdate.OrderTax), 2.4, hgth - 1.3);
+        pdf.text("Vat Amount", .6, hgth - 1.2);
         pdf.text("" + this.orderUpdate.OrderTax, 2.4, hgth - 1.2);
         pdf.text("Shipping Fee", .6, hgth - 1.1);
         pdf.text("" + this.orderUpdate.Shipping, 2.4, hgth - 1.1);
@@ -397,7 +397,7 @@
         this.orderUpdate.OrderDay = OrderDay;
         this.orderUpdate.AdjustedDate = date;
         this.orderUpdate.OrderStatus = "Deliver";
-        this.orderUpdate.OrderTax = Tax;
+        this.orderUpdate.OrderTax = this.priceRound(Total * .12);
         this.orderUpdate.Discount = Discount;
         this.orderUpdate.SubTotal = SubTotal;
         this.orderUpdate.Total = Total;

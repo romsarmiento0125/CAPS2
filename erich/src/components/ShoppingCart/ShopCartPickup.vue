@@ -9,13 +9,14 @@
           xl="4"
           lg="6"
           md="6"
+          cols="12"
         >
           <v-sheet
             width="100%"
             height="100%"
           >
             <div
-              class="ma-5 pa-10"
+              class="ma-sm-5 pa-sm-10 pa-5"
             >
               <v-row>
                 <v-col cols="2">
@@ -110,10 +111,10 @@
       <div>
         <v-dialog
           v-model="dialog"
-          width="30%"
+          width="400px"
           persistent
         >
-          <div class="white pa-5">
+          <div class="white pa-sm-5 pa-2">
             <div class="d-flex justify-center">
               <v-img
                 contain
@@ -177,7 +178,7 @@
     },
 
     data: () => ({
-      dialog: false,
+      dialog: true,
       customerPickup: {
         Email: "",
         Name: "",

@@ -18,6 +18,8 @@
           xl="1"
           lg="2"
           md="2"
+          sm="3"
+          cols="5"
         >
           <div>
             
@@ -46,6 +48,8 @@
           xl="1"
           lg="2"
           md="2"
+          cols="5"
+          sm="3"
           class="ma-0 pl-0"
         >
           <div>
@@ -81,6 +85,7 @@
           xl="4"
           lg="6"
           md="6"
+          cols="12"
         >
           <v-container
             v-if="deliveryCond"
@@ -107,7 +112,13 @@
                         class=""
                       >
                         <v-row>
-                          <v-col cols="6" class="mt-2">
+                          <v-col
+                            lg="6"
+                            md="6"
+                            sm="6"
+                            cols="6"
+                            class="mt-1"
+                          >
                             <v-btn
                               plain
                               color="#1106A0"
@@ -117,15 +128,21 @@
                             >
                               <v-icon>mdi-chevron-left</v-icon>
                               <p
-                                class="ma-0 font-weight-black"
+                                class="ma-0 font-weight-black d-none d-sm-block"
                               >return to cart</p>
                             </v-btn>
                           </v-col>
 
-                          <v-col cols="6" class="d-flex justify-end">
+                          <v-col
+                            lg="6"
+                            md="6"
+                            sm="6"
+                            cols="6"
+                            class="d-flex justify-end"
+                          >
                             <v-btn
                               dark
-                              class="px-6 mr-6"
+                              class="px-sm-6 mr-sm-6"
                               color="#1106A0"
                               :to="{name: 'Cart' , params: { id: 'delivery', title: 'Delivery'}}"
                               @click="placeOrderDeliver()"
@@ -161,7 +178,7 @@
 
                       <div>
                         <v-row>
-                          <v-col cols="6" class="mt-2">
+                          <v-col cols="6" class="mt-1">
                             <v-btn
                               plain
                               color="#1106A0"
@@ -171,7 +188,7 @@
                             >
                               <v-icon>mdi-chevron-left</v-icon>
                               <p
-                                class="ma-0 font-weight-bold"
+                                class="ma-0 font-weight-bold d-none d-sm-block"
                               >return to cart</p>
                             </v-btn>
                           </v-col>
@@ -179,7 +196,7 @@
                           <v-col cols="6" class="d-flex justify-end">
                             <v-btn
                               dark
-                              class="px-6 mr-6"
+                              class="px-sm-6 mr-sm-6"
                               color="#1106A0"
                               :to="{name: 'Cart' , params: { id: 'pickup', title: 'Pick Up'}}"
                               @click="placeOrderPickup()"
@@ -201,6 +218,7 @@
           xl="5"
           lg="6"
           md="6"
+          cols="12"
         >
           <order-items></order-items>
         </v-col>

@@ -111,7 +111,7 @@
                   >{{Gender}}</h5>
                 </div>
 
-                 <div
+                 <!-- <div
                   class="d-flex mt-5 ml-5 mb-5"
                 >
                   <h4
@@ -121,7 +121,7 @@
                   <h5
                     class="my-0 py-1  px-15  fontTitle font-weight-regular"
                   >{{Account}}</h5>
-                </div>
+                </div> -->
                 <!-- <div
                   class="mt-6"
                 >

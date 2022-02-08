@@ -132,7 +132,7 @@
             <div
               class="d-flex"
             >
-              <div class="text-center">
+              <div class="text-center d-none d-lg-block">
                 <p
                   class="my-0 py-0 mx-2 d-flex"
                 >{{usersFName}} {{usersLName}}</p>
@@ -192,6 +192,59 @@
                     mdi-account-circle
                   </v-icon>
                 </v-avatar>
+              </div>
+
+              <div class="text-center d-lg-none">
+                <p
+                  class="my-0 py-0 mx-2 d-flex"
+                >{{usersFName}} {{usersLName}}</p>
+                <v-menu
+                  offset-y
+                  transition="slide-y-transition"
+                  bottom
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                      white
+                      text
+                      v-bind="attrs"
+                      v-on="on"
+                      class="qfont elevation-3 px-2"
+                      color="#1106A0"           
+                    >
+                      <h4 class="font-weight-black">My Account</h4>
+                      <v-spacer></v-spacer>
+                      <v-icon>mdi-chevron-down</v-icon>
+                    </v-btn>
+                  </template>
+
+                  <v-list dense>
+                    <v-list-item-group
+                      v-model="selectedItem"
+                      color="#1106A0"
+                      
+                    >
+                      <v-list-item
+                        v-for="(item, n) in items"
+                        :key="n"
+                      >
+                        <v-btn
+                          plain
+                          @click="accountButton(item.to)"
+                          class="mx-0"
+                        >
+                          <v-list-item-icon>
+                            <v-icon v-text="item.icon"></v-icon>
+                          </v-list-item-icon>
+                          <v-list-item-content >
+                            <v-list-item-title v-text="item.text" ></v-list-item-title>
+                          </v-list-item-content>
+                        </v-btn>
+                        
+                      </v-list-item>
+                    </v-list-item-group>
+                  </v-list>
+                </v-menu>
               </div>
             </div>
           </v-col>

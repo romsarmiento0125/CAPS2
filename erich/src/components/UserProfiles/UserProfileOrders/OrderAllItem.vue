@@ -131,6 +131,38 @@
 
             <v-row class="d-flex justify-end">
               <v-col
+                 cols="5"
+              >
+                <h4
+                  class="mb-10 ml-5"
+                >
+                  Expected receive date: {{ordertd.adjustedDate}}
+                </h4> 
+              </v-col>
+            
+              <v-col
+                 cols="3"
+                 offset="4"
+                 class="d-flex"
+              >
+                <h4
+                  class="mb-10 ml-10 mr-2"
+                >
+                  Order total: 
+                </h4>
+                <h4 class="fontBlue">
+                  <v-icon
+                    color="#1106A0"
+                    size="18px"
+                    class=""
+                  >
+                    mdi-currency-php
+                  </v-icon>
+                  &nbsp;{{priceRound(ordertd.total)}}
+                </h4>
+              </v-col>
+              
+              <!-- <v-col
                 cols="2"
                 offset="8"
               >
@@ -156,7 +188,7 @@
                   </h4>
                 </div>
                 
-              </v-col>
+              </v-col> -->
             </v-row>
             <v-divider></v-divider>
           </div>
@@ -353,6 +385,38 @@
 
             <v-row class="d-flex justify-end">
               <v-col
+                 cols="5"
+              >
+                <h4
+                  class="mb-10 ml-5"
+                >
+                  Expected pick up date: {{orderpp.pickupDate}}
+                </h4> 
+              </v-col>
+            
+              <v-col
+                 cols="3"
+                 offset="4"
+                 class="d-flex"
+              >
+                <h4
+                  class="mb-10 ml-10 mr-2"
+                >
+                  Order total: 
+                </h4>
+                  
+                <h4 class="fontBlue">
+                  <v-icon
+                    color="#1106A0"
+                    size="18px"
+                    class=""
+                  >
+                    mdi-currency-php
+                  </v-icon>
+                  &nbsp;{{priceRound(orderpp.total)}}
+                </h4>
+              </v-col>
+              <!-- <v-col
                 cols="2"
                 offset="8"
               >
@@ -378,7 +442,7 @@
                   </h4>
                 </div>
                 
-              </v-col>
+              </v-col> -->
             </v-row>
             <v-divider></v-divider>
           </div>

@@ -6,9 +6,10 @@
     >
       <v-row>
         <v-col
-          offset="1"
-          cols="10"
-          class="mx-15 mb-5 pa-0"
+          offset-sm="1"
+          sm="10"
+          cols="12"
+          class="mx-sm-15 mb-5 pa-0 mx-0"
         >
           <div
             class=""

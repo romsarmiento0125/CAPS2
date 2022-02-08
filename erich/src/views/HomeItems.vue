@@ -1,14 +1,18 @@
 <template>
   <div style="background-color: #ffffff">
-    <home-header v-if="headerCond"></home-header>
-    <home-header-acc v-else></home-header-acc>
-    <home-carousel></home-carousel>
-    <v-row
-      class="mt-10"
+    <v-navigation-drawer
+      v-model="drawer"
+      absolute
+      temporary
     >
-      <v-col
-        cols="2"
+      <div
+        class="ma-2"
       >
+        <p
+          class="title"
+        >
+          Categories
+        </p>
         <v-treeview
           v-model="pickCategory"
           :items="items"
@@ -17,12 +21,93 @@
           return-object
           dense
         ></v-treeview>
-      </v-col>
-      <v-col>
-        <categories-item :categ="userCat"></categories-item>
-      </v-col>
-    </v-row>
+      </div>
+     
+    </v-navigation-drawer>
+
+    <div
+      class="d-none d-sm-block"
+    >
+      <home-header v-if="headerCond"></home-header>
+      <home-header-acc v-else></home-header-acc>
+    </div>
+
+    <div
+      class="d-sm-none"
+    >
+      <home-header-mobile v-if="false"></home-header-mobile>
+      <home-account-mobile v-else></home-account-mobile>
+    </div>
+
+    <!-- <home-header v-if="headerCond"></home-header>
+    <home-header-acc v-else></home-header-acc> -->
+    <home-carousel></home-carousel>
+
+    <div
+    class="d-none d-md-block"
+    >
+      <v-row
+        class="mt-10"
+      >
+        <v-col
+          cols="2"
+        >
+          <v-treeview
+            v-model="pickCategory"
+            :items="items"
+            selection-type="independent"
+            selectable
+            return-object
+            dense
+          ></v-treeview>
+        </v-col>
+        <v-col
+          cols="10"
+        >
+          <categories-item :categ="userCat"></categories-item>
+        </v-col>
+      </v-row>
+    </div>
+
+    <div class="d-md-none">
+      
+      <v-row
+        class="mt-10"
+      >
+        
+        <!-- <v-col
+          offset-xl="1"
+          cols="2"
+        >
+          <v-treeview
+            v-model="pickCategory"
+            :items="items"
+            selection-type="independent"
+            selectable
+            return-object
+            dense
+          ></v-treeview>
+        </v-col> -->
+        <v-col>
+          <div
+            class="mx-3"
+          >
+            <v-btn
+              @click="drawer = true"
+            >
+              <v-icon>
+                mdi-menu
+              </v-icon>
+            </v-btn>
+          </div>
+          <categories-item :categ="userCat"></categories-item>
+        </v-col>
+      </v-row>
+    </div>
+    
     <home-footer></home-footer>
+
+    
   </div>
 </template>
 
@@ -32,6 +117,8 @@
   import Footer from "../components/Footer.vue";
   import HomeHeaderAcc from "../components/Home/HomeHeaderAccount.vue";
   import CategoriesItem from "../components/HomeItems/CategoriesItem.vue";
+  import HomeHeaderMobile from "../components/Home/HomeHeaderMobile.vue";
+  import HomeAccountMobile from "../components/Home/HomeAccountMobile.vue"
 
 
   import {Mixins} from '../Mixins/mixins.js'
@@ -46,9 +133,13 @@
       "home-footer": Footer,
       "home-header-acc": HomeHeaderAcc,
       "categories-item": CategoriesItem,
+      "home-header-mobile": HomeHeaderMobile,
+      "home-account-mobile": HomeAccountMobile,
     },
 
     data: () => ({
+      drawer: false,
+      group: null,
       promodeals: true,
       categoriesItem: false,
       headerCond: true,
@@ -201,6 +292,9 @@
       },
       pickCategory(){
         this.categoryPicker();
+      },
+      group () {
+        this.drawer = false
       },
     },
 

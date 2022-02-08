@@ -5,7 +5,7 @@
     >
       <v-row>
         <v-col
-          class="pa-15"
+          class="pa-lg-15 pa-sm-10 pa-5"
         >
 
           <div> 
