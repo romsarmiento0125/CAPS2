@@ -3,6 +3,7 @@
     <v-container
       fluid
     >
+
       <v-sheet
         color="White"
         width="100%"
@@ -14,74 +15,86 @@
         >
           <v-col
             lg="2"
+            md="4"
+            cols="6"
           >
             <v-btn
               plain
               @click="navigateOrders('all')"
             >
-              <h3
+              <h4
                 class="my-0 black--text fontTitle"
-              >All</h3>
+              >All</h4>
             </v-btn>
           </v-col>
           <v-col
             lg="2"
+            md="4"
+            cols="6"
           >
             <v-btn
               plain
               @click="navigateOrders('tp')"
             >
-              <h3
+              <h4
                 class="my-0 black--text fontTitle"
-              >To Pack</h3>
+              >To Pack</h4>
             </v-btn>
           </v-col>
           <v-col
             lg="2"
+            md="4"
+            cols="6"
           >
             <v-btn
               plain
               @click="navigateOrders('dl')"
             >
-              <h3
+              <h4
                 class="my-0 black--text fontTitle"
-              >To Receive</h3>
+              >To Receive</h4>
             </v-btn>
           </v-col>
           <v-col
             lg="2"
+            md="4"
+            cols="6"
           >
             <v-btn
               plain
               @click="navigateOrders('pu')"
             >
-              <h3
+              <h4
                 class="my-0 black--text fontTitle"
-              >To Pickup</h3>
+              >To Pickup</h4>
             </v-btn>
           </v-col>
           <v-col
             lg="2"
+            md="4"
+            cols="6"
           >
             <v-btn
               plain
               @click="navigateOrders('com')"
             >
-              <h3
+              <h4
                 class="my-0 black--text fontTitle"
-              >Complete</h3>
+              >Complete</h4>
             </v-btn>
           </v-col>
           <v-col
             lg="2"
+            md="4"
+            cols="6"
           >
             <v-btn
               plain
               @click="navigateOrders('can')"
             >
-              <h3
+              <h4
                 class="my-0 black--text fontTitle"
-              >Cancelled</h3>
+              >Cancelled</h4>
             </v-btn>
           </v-col>
         </v-row>

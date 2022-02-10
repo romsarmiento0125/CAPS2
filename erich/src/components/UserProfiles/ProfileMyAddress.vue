@@ -8,7 +8,7 @@
           <v-sheet
             width="100%"
             height="100%"
-            class="pa-5"
+            class="pa-sm-5"
           >
             <v-row>
               <v-col
@@ -20,14 +20,6 @@
                     class="fontTitle"
                   >My Address</h3>
                   <v-spacer></v-spacer>
-                  <!-- <v-btn
-                    color="orange"
-                    @click="addNewAddress"
-                  >
-                    <p
-                      class="my-0 white--text"
-                    >Add New Address</p>
-                  </v-btn> -->
                 </div>
               </v-col>
             </v-row>
@@ -54,34 +46,26 @@
                           class="my-0"
                         >{{item.Name}}&nbsp;{{item.Surname}}</p>
                         <div
-                          class="d-flex"
+                          class="d-none d-sm-block"
                         >
-                          <p>{{item.Municipality}}</p>
-                          <p>{{item.Barangay}}&nbsp;</p>
-                          <p>{{item.UBarangay}}&nbsp;</p>
-                          <p>{{item.HomeAddress}}&nbsp;</p>
+                          <div
+                            class="d-flex"
+                          >
+                            <p>{{item.Municipality}}</p>
+                            <p>{{item.Barangay}}&nbsp;</p>
+                            <p>{{item.UBarangay}}&nbsp;</p>
+                            <p>{{item.HomeAddress}}&nbsp;</p>
+                          </div>
+                        </div>
+                        <div
+                          class="d-sm-none"
+                        >
+                          <div>
+                            <p>{{item.Municipality}}&nbsp; {{item.Barangay}}&nbsp; {{item.UBarangay}}&nbsp; {{item.HomeAddress}}</p>
+                          </div>
                         </div>
                       </div>
                       <v-spacer></v-spacer>
-                      <!-- <div>
-                        <v-btn
-                          plain
-                          @click="editAddress"
-                        >
-                          <p
-                            class="my-0"
-                          >Edit</p>
-                        </v-btn>
-                        <v-btn
-                          plain
-                          v-if="item.Default != 'Default'"
-                          @click="deleteAddress"
-                        >
-                          <p
-                            class="my-0"
-                          >Delete</p>
-                        </v-btn>
-                      </div> -->
                     </v-list-item>
                   </v-list-item-group>
                 </v-list>

@@ -4,7 +4,7 @@
       <v-row>
         <v-col>
           <div
-            class="my-2 mx-4"
+            class="my-sm-2 mx-sm-4"
             v-for="order in userPickupToPickup"
             :key="order.id"
           >
@@ -30,7 +30,7 @@
               </v-col>
             </v-row>
 
-            <v-row class="mx-2">
+            <v-row class="mx-sm-2">
               <v-col>
                 <orderdeliveritems :orders="order.orders"></orderdeliveritems>
               </v-col>
@@ -47,17 +47,45 @@
               </v-col>
             
               <v-col
-                 cols="3"
-                 offset="4"
-                 class="d-flex"
+                offset-xl="5"
+                offset-lg="4"
+                offset-md="1"
+                offset-sm="0"
+                xl="2"
+                lg="2"
+                md="3"
+                sm="3"
+                cols="6"
+                class="mb-sm-0 mb-5"
               >
                 <h4
-                  class="mb-10 ml-10 mr-2"
+                  class="mb-sm-10 ml-sm-10 mr-2"
                 >
                   Order total: 
                 </h4>
-                  
-                <h4 class="fontBlue">
+                <div class="d-flex d-sm-none">
+                  <h4 class="fontBlue">
+                    <v-icon
+                      color="#1106A0"
+                      size="18px"
+                      class=""
+                    >
+                      mdi-currency-php
+                    </v-icon>
+                    &nbsp;{{priceRound(order.total)}}
+                  </h4>
+                </div>
+              </v-col>
+
+              <v-col
+                xl="1"
+                lg="1"
+                md="2"
+                sm="2"
+                cols="5"
+                class="mr-5 d-none d-sm-block"
+              >
+                <div class="d-flex">
                   <v-icon
                     color="#1106A0"
                     size="18px"
@@ -65,9 +93,12 @@
                   >
                     mdi-currency-php
                   </v-icon>
-                  &nbsp;{{priceRound(order.total)}}
-                </h4>
+                  <h4 class="fontBlue">
+                    &nbsp;{{priceRound(order.total)}}
+                  </h4>
+                </div>
               </v-col>
+
             </v-row>
             <v-divider></v-divider>
           </div>

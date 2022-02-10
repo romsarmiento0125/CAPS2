@@ -16,10 +16,10 @@
             <v-img
               :src="imagePath+'/'+item.itemImage"
               contain
-              max-width="100px"
-              max-height="80px"
-              min-width="100px"
-              min-height="80px"
+              max-width="60px"
+              max-height="60px"
+              min-width="60px"
+              min-height="60px"
             ></v-img>
           </div>
           <div>

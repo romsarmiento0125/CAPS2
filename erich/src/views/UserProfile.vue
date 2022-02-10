@@ -11,11 +11,12 @@
           xl="1"
           lg="2"
           md="2"
+          cols="12"
         >
           <v-sheet
             color="white"
             elevation="1"
-            height="200px"
+            height="100%"
             width="100%"
           >
             <div class="py-7">
@@ -51,6 +52,7 @@
           xl="7"
           lg="10"
           md="10"
+          cols="12"
         >
           <profile-myprofile v-if="mProfile"></profile-myprofile>
           <profile-myaddress v-else-if="mAddress"></profile-myaddress>

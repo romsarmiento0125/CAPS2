@@ -4,7 +4,7 @@
       <v-row>
         <v-col>
           <div
-            class="my-2 mx-4"
+            class="my-sm-2 mx-sm-4"
             v-for="order in userProfileToCancel"
             :key="order.invoiceNumber"
           >
@@ -31,7 +31,7 @@
               </v-col>
             </v-row>
 
-            <v-row class="mx-2">
+            <v-row class="mx-sm-2">
               <v-col>
                 <orderdeliveritems :orders="order.orders"></orderdeliveritems>
               </v-col>
@@ -39,8 +39,16 @@
 
             <v-row class="d-flex justify-end">
               <v-col
-                cols="2"
-                offset="8"
+                offset-xl="8"
+                offset-lg="8"
+                offset-md="6"
+                offset-sm="6"
+                xl="2"
+                lg="2"
+                md="3"
+                sm="3"
+                cols="8"
+                class="mb-sm-0 mb-5"
               >
                 
                 <h4
@@ -50,7 +58,14 @@
                 </h4>
                 
               </v-col>
-               <v-col cols="1" class="mr-5">
+               <v-col
+                xl="1"
+                lg="1"
+                md="2"
+                sm="2"
+                cols="3"
+                class="mr-5"
+              >
                 <div class="d-flex">
                   <v-icon
                     color="#1106A0"
@@ -70,7 +85,7 @@
           </div>
 
           <div
-            class="my-2 mx-4"
+            class="my-sm-2 mx-sm-4"
             v-for="order in userPickupToCancel"
             :key="order.invoiceNumber"
           >
@@ -97,7 +112,7 @@
               </v-col>
             </v-row>
 
-            <v-row class="mx-2">
+            <v-row class="mx-sm-2">
               <v-col>
                 <orderdeliveritems :orders="order.orders"></orderdeliveritems>
               </v-col>
@@ -105,8 +120,16 @@
 
             <v-row class="d-flex justify-end">
               <v-col
-                cols="2"
-                offset="8"
+                offset-xl="8"
+                offset-lg="8"
+                offset-md="6"
+                offset-sm="6"
+                xl="2"
+                lg="2"
+                md="3"
+                sm="3"
+                cols="8"
+                class="mb-sm-0 mb-5"
               >
                 
                 <h4
@@ -116,7 +139,14 @@
                 </h4>
               </v-col>
 
-              <v-col cols="1" class="mr-5">
+              <v-col
+                xl="1"
+                lg="1"
+                md="2"
+                sm="2"
+                cols="3"
+                class="mr-5"
+              >
                 <div class="d-flex">
                   <v-icon
                     color="#1106A0"

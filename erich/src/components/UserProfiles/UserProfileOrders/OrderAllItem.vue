@@ -6,7 +6,7 @@
 
           <!-- Deliver To Pack -->
           <div
-            class="my-2 mx-4"
+            class="my-sm-2 mx-sm-4"
             v-for="orderto in userProfileOrders"
             :key="orderto.invoiceNumber"
           >
@@ -33,7 +33,7 @@
               </v-col>
             </v-row>
 
-            <v-row class="mx-2">
+            <v-row class="mx-sm-2">
               <v-col>
                 <orderdeliveritems :orders="orderto.orders"></orderdeliveritems>
               </v-col>
@@ -41,7 +41,11 @@
 
             <v-row class="d-flex justify-end">
               <v-col
-                cols="2"
+                xl="1"
+                lg="2"
+                md="3"
+                sm="3"
+                cols="6"
               >
                 <v-btn
                   v-if="orderto.status == 'Pending'"
@@ -57,20 +61,45 @@
                   </p>
                 </v-btn>
               </v-col>
-              <v-col 
-              cols="2"
-              offset="6"
-                
+              <v-col
+                offset-xl="7"
+                offset-lg="6"
+                offset-md="3"
+                offset-sm="3"
+                xl="2"
+                lg="2"
+                md="3"
+                sm="3"
+                cols="6"
+                class="mb-sm-0 mb-5"
               >
                 <h4
-                  class="mb-10 pl-16"
+                  class="mb-sm-10 pl-sm-16"
                 >  
                   Order total: 
                 </h4>
-                
+                <div class="d-flex d-sm-none">
+                  <v-icon
+                    color="#1106A0"
+                    size="18px"
+                    class=""
+                  >
+                    mdi-currency-php
+                  </v-icon>
+                  <h4 class="fontBlue">
+                    &nbsp;{{priceRound(orderto.total)}}
+                  </h4>
+                </div>
               </v-col>
 
-              <v-col cols="1" class="mr-5">
+              <v-col
+                xl="1"
+                lg="1"
+                md="2"
+                sm="2"
+                cols="5"
+                class="mr-5 d-none d-sm-block"
+              >
                 <div class="d-flex">
                   <v-icon
                     color="#1106A0"
@@ -83,10 +112,8 @@
                     &nbsp;{{priceRound(orderto.total)}}
                   </h4>
                 </div>
-                
               </v-col>
             </v-row>
-
             <v-divider></v-divider>
           </div>
         </v-col>
@@ -96,7 +123,7 @@
       <v-row>
         <v-col>
           <div
-            class="my-2 mx-4"
+            class="my-sm-2 mx-sm-4"
             v-for="ordertd in userProfileToDeliver"
             :key="ordertd.invoiceNumber"
           >
@@ -123,7 +150,7 @@
               </v-col>
             </v-row>
 
-            <v-row class="mx-2">
+            <v-row class="mx-sm-2">
               <v-col>
                 <orderdeliveritems :orders="ordertd.orders"></orderdeliveritems>
               </v-col>
@@ -131,7 +158,11 @@
 
             <v-row class="d-flex justify-end">
               <v-col
-                 cols="5"
+                xl="3"
+                lg="4"
+                md="5"
+                sm="6"
+                cols="6"
               >
                 <h4
                   class="mb-10 ml-5"
@@ -141,16 +172,23 @@
               </v-col>
             
               <v-col
-                 cols="3"
-                 offset="4"
-                 class="d-flex"
+                offset-xl="5"
+                offset-lg="4"
+                offset-md="1"
+                offset-sm="0"
+                xl="2"
+                lg="2"
+                md="3"
+                sm="3"
+                cols="6"
+                class="mb-sm-0 mb-5"
               >
                 <h4
-                  class="mb-10 ml-10 mr-2"
+                  class="mb-sm-10 ml-sm-10 mr-2"
                 >
                   Order total: 
                 </h4>
-                <h4 class="fontBlue">
+                <div class="d-flex d-sm-none">
                   <v-icon
                     color="#1106A0"
                     size="18px"
@@ -158,23 +196,20 @@
                   >
                     mdi-currency-php
                   </v-icon>
-                  &nbsp;{{priceRound(ordertd.total)}}
-                </h4>
+                  <h4 class="fontBlue">
+                    &nbsp;{{priceRound(ordertd.total)}}
+                  </h4>
+                </div>
               </v-col>
-              
-              <!-- <v-col
-                cols="2"
-                offset="8"
+
+              <v-col
+                xl="1"
+                lg="1"
+                md="2"
+                sm="2"
+                cols="5"
+                class="mr-5 d-none d-sm-block"
               >
-                
-                <h4
-                  class="mb-10 pl-16"
-                >
-                  Order total: 
-                </h4>
-                
-              </v-col>
-              <v-col cols="1" class="mr-5">
                 <div class="d-flex">
                   <v-icon
                     color="#1106A0"
@@ -187,8 +222,7 @@
                     &nbsp;{{priceRound(ordertd.total)}}
                   </h4>
                 </div>
-                
-              </v-col> -->
+              </v-col>
             </v-row>
             <v-divider></v-divider>
           </div>
@@ -199,7 +233,7 @@
       <v-row>
         <v-col>
           <div
-            class="my-2 mx-4"
+            class="my-sm-2 mx-sm-4"
             v-for="ordertc in userProfileToComplete"
             :key="ordertc.invoiceNumber"
           >
@@ -225,7 +259,7 @@
               </v-col>
             </v-row>
 
-            <v-row class="mx-2">
+            <v-row class="mx-sm-2">
               <v-col>
                 <orderdeliveritems :orders="ordertc.orders"></orderdeliveritems>
               </v-col>
@@ -233,10 +267,17 @@
 
             <v-row class="d-flex justify-end">
               <v-col
-                cols="2"
-                offset="8"
+                offset-xl="8"
+                offset-lg="8"
+                offset-md="6"
+                offset-sm="6"
+                xl="2"
+                lg="2"
+                md="3"
+                sm="3"
+                cols="8"
+                class="mb-sm-0 mb-5"
               >
-                
                 <h4
                   class="mb-10 pl-16"
                 >
@@ -244,7 +285,14 @@
                 </h4>
                 
               </v-col>
-               <v-col cols="1" class="mr-5">
+              <v-col
+                xl="1"
+                lg="1"
+                md="2"
+                sm="2"
+                cols="3"
+                class="mr-5"
+              >
                 <div class="d-flex">
                   <v-icon
                     color="#1106A0"
@@ -266,7 +314,7 @@
 
           <!-- Pickup To Pack -->
           <div
-            class="my-2 mx-4"
+            class="my-sm-2 mx-sm-4"
             v-for="orderpo in userPickupOrders"
             :key="orderpo.invoiceNumber"
           >
@@ -293,7 +341,7 @@
               </v-col>
             </v-row>
 
-            <v-row class="mx-2">
+            <v-row class="mx-sm-2">
               <v-col>
                 <orderdeliveritems :orders="orderpo.orders"></orderdeliveritems>
               </v-col>
@@ -301,7 +349,11 @@
 
             <v-row class="d-flex justify-end">
               <v-col
-                cols="2"
+                xl="1"
+                lg="2"
+                md="3"
+                sm="3"
+                cols="6"
               >
                 <v-btn
                   v-if="orderpo.status == 'Pending'"
@@ -318,18 +370,44 @@
                 </v-btn>
               </v-col>
               <v-col
-                cols="2"
-                offset="6"
+                offset-xl="7"
+                offset-lg="6"
+                offset-md="3"
+                offset-sm="3"
+                xl="2"
+                lg="2"
+                md="3"
+                sm="3"
+                cols="6"
+                class="mb-sm-0 mb-5"
               >
-
                 <h4
-                  class="mb-10 pl-16"
+                  class="mb-sm-10 pl-sm-16"
                 >
                   Order total: 
                 </h4>
-                
+                <div class="d-flex d-sm-none">
+                  <v-icon
+                    color="#1106A0"
+                    size="18px"
+                    class=""
+                  >
+                    mdi-currency-php
+                  </v-icon>
+                  <h4 class="fontBlue">
+                    &nbsp;{{priceRound(orderpo.total)}}
+                  </h4>
+                </div>
               </v-col>
-              <v-col cols="1" class="mr-5">
+
+              <v-col
+                xl="1"
+                lg="1"
+                md="2"
+                sm="2"
+                cols="5"
+                class="mr-5 d-none d-sm-block"
+              >
                 <div class="d-flex">
                   <v-icon
                     color="#1106A0"
@@ -351,7 +429,7 @@
 
           <!-- Pickup To Pickup -->
           <div
-            class="my-2 mx-4"
+            class="my-sm-2 mx-sm-4"
             v-for="orderpp in userPickupToPickup"
             :key="orderpp.invoiceNumber"
           >
@@ -377,7 +455,7 @@
               </v-col>
             </v-row>
 
-            <v-row class="mx-2">
+            <v-row class="mx-sm-2">
               <v-col>
                 <orderdeliveritems :orders="orderpp.orders"></orderdeliveritems>
               </v-col>
@@ -385,7 +463,11 @@
 
             <v-row class="d-flex justify-end">
               <v-col
-                 cols="5"
+                xl="3"
+                lg="4"
+                md="5"
+                sm="6"
+                cols="6"
               >
                 <h4
                   class="mb-10 ml-5"
@@ -395,40 +477,44 @@
               </v-col>
             
               <v-col
-                 cols="3"
-                 offset="4"
-                 class="d-flex"
+                offset-xl="5"
+                offset-lg="4"
+                offset-md="1"
+                offset-sm="0"
+                xl="2"
+                lg="2"
+                md="3"
+                sm="3"
+                cols="6"
+                class="mb-sm-0 mb-5"
               >
                 <h4
-                  class="mb-10 ml-10 mr-2"
+                  class="mb-sm-10 ml-sm-10 mr-2"
                 >
                   Order total: 
                 </h4>
-                  
-                <h4 class="fontBlue">
-                  <v-icon
-                    color="#1106A0"
-                    size="18px"
-                    class=""
-                  >
-                    mdi-currency-php
-                  </v-icon>
-                  &nbsp;{{priceRound(orderpp.total)}}
-                </h4>
+                <div class="d-flex d-sm-none">
+                  <h4 class="fontBlue">
+                    <v-icon
+                      color="#1106A0"
+                      size="18px"
+                      class=""
+                    >
+                      mdi-currency-php
+                    </v-icon>
+                    &nbsp;{{priceRound(orderpp.total)}}
+                  </h4>
+                </div>
               </v-col>
-              <!-- <v-col
-                cols="2"
-                offset="8"
+
+              <v-col
+                xl="1"
+                lg="1"
+                md="2"
+                sm="2"
+                cols="5"
+                class="mr-5 d-none d-sm-block"
               >
-                
-                <h4
-                  class="mb-10 pl-16"
-                >
-                  Order total: 
-                </h4>
-                
-              </v-col>
-              <v-col cols="1" class="mr-5">
                 <div class="d-flex">
                   <v-icon
                     color="#1106A0"
@@ -437,19 +523,18 @@
                   >
                     mdi-currency-php
                   </v-icon>
-                  <h4 class="fontBlue">
-                    &nbsp;{{priceRound(orderpp.total)}}
-                  </h4>
+                <h4 class="fontBlue">
+                  &nbsp;{{priceRound(orderpp.total)}}
+                </h4>
                 </div>
-                
-              </v-col> -->
+              </v-col>
             </v-row>
             <v-divider></v-divider>
           </div>
 
           <!-- Pickup Complete -->
           <div
-            class="my-2 mx-4"
+            class="my-sm-2 mx-sm-4"
             v-for="orderpc in userPickupToComplete"
             :key="orderpc.invoiceNumber"
           >
@@ -475,7 +560,7 @@
               </v-col>
             </v-row>
 
-            <v-row class="mx-2">
+            <v-row class="mx-sm-2">
               <v-col>
                 <orderdeliveritems :orders="orderpc.orders"></orderdeliveritems>
               </v-col>
@@ -483,8 +568,16 @@
 
             <v-row class="d-flex justify-end">
               <v-col
-                cols="2"
-                offset="8"
+                offset-xl="8"
+                offset-lg="8"
+                offset-md="6"
+                offset-sm="6"
+                xl="2"
+                lg="2"
+                md="3"
+                sm="3"
+                cols="8"
+                class="mb-sm-0 mb-5"
               >
                 
                 <h4
@@ -494,7 +587,14 @@
                 </h4>
                 
               </v-col>
-              <v-col cols="1" class="mr-5">
+              <v-col
+                xl="1"
+                lg="1"
+                md="2"
+                sm="2"
+                cols="3"
+                class="mr-5"
+              >
                 <div class="d-flex">
                   <v-icon
                     color="#1106A0"
