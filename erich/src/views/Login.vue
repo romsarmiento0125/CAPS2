@@ -3,20 +3,22 @@
     <login-header></login-header>
       <v-container
         fluid
-        class="pa-16"
+        class="pa-sm-16"
       >
         <v-row>
           <v-col
             offset-xl="4"
             offset-lg="4"
             offset-md="3"
+            offset-sm="1"
             xl="4"
             lg="4"
             md="6"
+            sm="10"
             cols="12"
           >
             <v-card
-              class="rounded-xl pa-12"
+              class="rounded-xl pa-sm-12 py-6 px-6"
             >
               <v-card-title
                 class="font-weight-black pt-0 pl-0 text-h5 fontTitle"

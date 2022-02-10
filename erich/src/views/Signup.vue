@@ -3,20 +3,22 @@
     <signup-header></signup-header>
     <div>
       <v-container
-        class="pa-16"
+        class="pa-sm-16"
       >
         <v-row>
           <v-col
             offset-xl="4"
             offset-lg="3"
             offset-md="2"
+            offset-sm="1"
             xl="4"
             lg="6"
             md="8"
+            sm="10"
             cols="12"
           >
             <v-card
-              class="rounded-xl pa-12"
+              class="rounded-xl pa-sm-12 py-6 px-6"
             >
               <v-form
                 ref="form"

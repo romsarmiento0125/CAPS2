@@ -422,7 +422,7 @@
           var tempItem = [];
 
           allItems.forEach(data => {
-            if(data.quantity < data.qtyLimit){
+            if(data.quantity <= data.qtyLimit){
               tempItem.push({
                 name: data.name,
                 desc: data.description,

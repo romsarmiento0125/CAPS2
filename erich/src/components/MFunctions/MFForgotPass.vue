@@ -2,7 +2,7 @@
   <div>
     <v-container
       fluid
-      class="pa-16"
+      class="pa-sm-16"
     >
       <v-row>
         <v-col
@@ -44,7 +44,7 @@
             <v-stepper-items>
               <v-stepper-content step="1">
                 <v-card
-                  class="px-12 py-5"
+                  class="px-sm-12 py-5"
                   elevation="0"
                 >
                   <v-card-title
@@ -69,22 +69,50 @@
                   </v-card-text>
 
                   <div
-                    class="d-flex justify-end"
+                    class="d-none d-sm-block"
                   >
-                    <v-btn
-                      dark
-                      class="rounded-lg px-8 mr-2"
-                      color="#1106A0"
-                      @click="sendCode"
+                    <div
+                      class="d-flex justify-end"
                     >
-                      Send Code
-                    </v-btn>
-                    <v-btn
-                      class="rounded-lg px-10"
-                      @click="toLogin"  
-                    >
-                      Cancel
-                    </v-btn>
+                      <v-btn
+                        dark
+                        class="rounded-lg px-8 mr-2"
+                        color="#1106A0"
+                        @click="sendCode"
+                      >
+                        Send Code
+                      </v-btn>
+                      <v-btn
+                        class="rounded-lg px-10"
+                        @click="toLogin"  
+                      >
+                        Cancell
+                      </v-btn>
+                    </div>
+                  </div>
+
+                  <div
+                    class="d-sm-none"
+                  >
+                    <div class="d-flex justify-end">
+                      <v-btn
+                        dark
+                        class="rounded-lg mr-2"
+                        color="#1106A0"
+                        @click="sendCode"
+                        small
+                      >
+                        Send Codee
+                      </v-btn>
+                      <v-btn
+                        class="rounded-lg"
+                        @click="toLogin"  
+                        small
+                      >
+                        Cancel
+                      </v-btn>
+                    </div>
+                    
                   </div>
                 </v-card>
 
@@ -93,7 +121,7 @@
 
               <v-stepper-content step="2">
                 <v-card
-                  class="px-12 py-5"
+                  class="px-sm-12 py-5"
                   elevation="0"
                 >
                   <v-card-title
@@ -117,29 +145,52 @@
                   </v-card-text>
 
                   <div
-                    class=""
+                    class="d-none d-sm-block"
                   >
-                    <v-btn
-                      dark
-                      class="rounded-lg px-10 mr-2"
-                      color="#1106A0"
-                      @click="verifyCode"
-                    >
-                      Verify Code
-                    </v-btn>
-                    <v-btn
-                      class="rounded-lg px-10"
-                      @click="toLogin"  
-                    >
-                      Cancel
-                    </v-btn>
+                    <div class="d-flex justify-end">
+                      <v-btn
+                        dark
+                        class="rounded-lg px-10 mr-2"
+                        color="#1106A0"
+                        @click="verifyCode"
+                      >
+                        Verify Code
+                      </v-btn>
+                      <v-btn
+                        class="rounded-lg px-10"
+                        @click="toLogin"  
+                      >
+                        Cancel
+                      </v-btn>
+                    </div>
+                  </div>
+
+                  <div class="d-sm-none">
+                    <div class="d-flex justify-end">
+                      <v-btn
+                        dark
+                        class="rounded-lg"
+                        color="#1106A0"
+                        @click="verifyCode"
+                        small
+                      >
+                        Verify Code
+                      </v-btn>
+                      <v-btn
+                        class="rounded-lg"
+                        @click="toLogin"
+                        small
+                      >
+                        Cancel
+                      </v-btn>
+                    </div>
                   </div>
                 </v-card>
               </v-stepper-content>
 
               <v-stepper-content step="3">
                 <v-card
-                  class="px-12 py-5"
+                  class="px-sm-12 py-sm-5"
                   elevation="0"
                 >
                   <v-card-title
@@ -180,22 +231,51 @@
                   </v-card-text>
 
                   <div
-                    class="d-flex justify-end"
+                    class="d-none d-sm-block"
                   >
-                    <v-btn
-                      dark
-                      class="rounded-lg px-8 mr-2"
-                      color="#1106A0"
-                      @click="changePass"
+                    <div
+                      class="d-flex justify-end"
                     >
-                      Change Password
-                    </v-btn>
-                    <v-btn
-                      class="rounded-lg px-10"
-                      @click="toLogin"  
+                      <v-btn
+                        dark
+                        class="rounded-lg px-8 mr-2"
+                        color="#1106A0"
+                        @click="changePass"
+                      >
+                        Change Password
+                      </v-btn>
+                      <v-btn
+                        class="rounded-lg px-10"
+                        @click="toLogin"  
+                      >
+                        Cancel
+                      </v-btn>
+                    </div>
+                  </div>
+                  
+                  <div
+                    class="d-sm-none"
+                  >
+                    <div
+                      class="d-flex justify-end"
                     >
-                      Cancel
-                    </v-btn>
+                      <v-btn
+                        dark
+                        class="rounded-lg"
+                        color="#1106A0"
+                        @click="changePass"
+                        small
+                      >
+                        Change Password
+                      </v-btn>
+                      <v-btn
+                        class="rounded-lg"
+                        @click="toLogin" 
+                        small
+                      >
+                        Cancel
+                      </v-btn>
+                    </div>
                   </div>
                 </v-card>
               </v-stepper-content>

@@ -35,7 +35,7 @@
     <div
       class="d-sm-none"
     >
-      <home-header-mobile v-if="false"></home-header-mobile>
+      <home-header-mobile v-if="headerCond"></home-header-mobile>
       <home-account-mobile v-else></home-account-mobile>
     </div>
 
