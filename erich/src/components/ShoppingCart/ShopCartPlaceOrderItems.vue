@@ -2,7 +2,7 @@
   <div>
     <v-container
       fluid
-      class="con"
+      class="con d-none d-sm-block"
     >
       <v-row>
         <v-col
@@ -58,6 +58,183 @@
                                 class="d-flex align-center"
                               >
                                 <span class="ma-3">{{item.item_name}}</span>
+                                &nbsp;
+                                <span>{{item.item_desc}}</span>
+                              </div>
+                            </div>
+                      
+                          </div>
+                        </v-col>
+                        <v-col
+                          cols="4"
+                          class="d-flex justify-end"
+                        >
+                          <div
+                            class="d-flex align-center mr-6"
+                          >
+                            <div
+                              class=""
+                            >
+                              <span>{{item.item_quantity}}&nbsp;x&nbsp;{{priceRound(item.item_price - ((item.item_discount / 100) * item.item_price))}}</span>
+                              <br>
+                              <span
+                                class="title fontNum"
+                              >P&nbsp;{{priceRound((item.item_price - ((item.item_discount / 100) * item.item_price)) * item.item_quantity)}}</span>
+                            </div>
+                          </div>
+                        </v-col>
+                      </v-row>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-simple-table>
+              </v-list-item-group>
+            </v-list>
+          </div>
+        </v-col>
+      </v-row>
+      <v-divider></v-divider>
+      <v-row
+        class="mt-3 mr-2"
+      >
+        <v-col
+          offset="1"
+          cols="10"
+        >
+          <div
+            class="d-flex"
+          >
+            <v-row>
+              <v-col cols="6">
+                 <h4
+                  class="font-weight-bold fontNum"
+                >Subtotal</h4>
+              </v-col>
+
+              <v-col cols="6" class="d-flex justify-end">
+                <div class="d-flex">
+                  <v-icon
+                  size="15px"
+                  class="px-1"
+                  >
+                      mdi-currency-php
+                  </v-icon>
+
+                  <h4
+                      class="font-weight-regular"
+                    >{{priceRound(subTotPrice)}}</h4>
+                </div>
+              </v-col>
+            </v-row>
+            
+          </div>
+
+          <div
+             class="d-flex my-2 mb-5"
+          >
+            <h4
+              class="font-weight-bold fontNum"
+            >Shipping Method</h4>
+            <v-spacer></v-spacer>
+
+             <h4
+              class="font-weight-regular"
+            >{{shipFee}}</h4>
+          </div>
+        </v-col>
+      </v-row>
+      <v-divider></v-divider>
+      <v-row>
+        <v-col
+          offset="1"
+          cols="10"
+        >
+          <div
+            class="d-flex mr-4 mt-2"
+          >
+          <v-row>
+            <v-col cols="6">
+               <h3
+                  class="title fontBlue"
+                >Total</h3>
+            </v-col>
+            <v-col cols="6" class="d-flex justify-end">
+              <div class="d-flex">
+                <v-icon 
+                class="px-1"
+                size="20px"
+                color="#1106A0"
+                >
+                  mdi-currency-php
+                </v-icon>
+                <h3
+                  class="title fontBlue"
+                >{{priceRound(totPrice)}}</h3>
+              </div>
+            </v-col>
+          </v-row>
+          </div>
+        </v-col>
+      </v-row>
+    </v-container>
+
+    <v-container
+      fluid
+      class="con d-sm-none"
+    >
+      <v-row>
+        <v-col
+          offset-sm="1"
+          sm="10"
+          cols="12"
+          class="mx-sm-15 mb-5 pa-0 mx-0"
+        >
+          <div
+            class=""
+          >
+            <v-list
+              color=""
+              class="ma-0 pa-0"
+            >
+              <v-list-item-group
+              >
+                <v-simple-table
+                  height="200px"
+                >
+                  <v-list-item
+                    v-for="item in items"
+                    :key="item.id"
+                    class="ma-0 pa-0"
+                  >
+                    <v-list-item-content
+                    >
+                      <v-row
+                      >
+                        <v-col
+                          cols="8"
+                          class="ma-0 pa-0"
+                        >
+                          <div
+                            class="d-flex ma-2"
+                            
+                          >
+                            <div
+                              class="d-flex"
+                            >
+                              <div
+                                class="imgbg ma-1 pa-0"
+                              >
+                                <v-img
+                                  :src="imagePath+'/'+item.item_image"
+                                  height="50px"
+                                  width="50px"
+                                  contain
+                                ></v-img>
+                              </div>
+                            
+                              <div
+                                class="d-flex align-center"
+                              >
+                                <span class="">{{item.item_name}}</span>
                                 &nbsp;
                                 <span>{{item.item_desc}}</span>
                               </div>

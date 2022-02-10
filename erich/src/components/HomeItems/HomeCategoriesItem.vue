@@ -31,7 +31,7 @@
                     class="d-flex pt-1 pl-2"
                   >
                    <v-row >
-                      <v-col cols="6" class="d-flex">
+                      <v-col cols="4" class="d-flex">
                         <h4
                           class="borderDisc mt-1 px-2  pink--text"
                           v-if="item.discount != 0"
@@ -40,7 +40,7 @@
                             - {{item.discount}}%
                         </h4>
                       </v-col>
-                      <v-col cols="6" class="d-flex justify-center">
+                      <v-col cols="8" class="d-flex justify-center">
                         <h5
                           class="borderQuan px-1 mt-1 ml-4 d-flex justify-center white--text"
                           v-if="(item.quantity - item.qtyLimit) >= 1"
@@ -146,10 +146,10 @@
               </v-card>
 
               <v-card
-                min-height="335px"
-                min-width="180px"
-                max-height="335px"
-                max-width="180px"
+                min-height="300px"
+                min-width="150px"
+                max-height="300px"
+                max-width="150px"
                 class="elevation-1 d-sm-none"
               >
                 <div>
@@ -182,9 +182,9 @@
                   <div class="d-flex justify-center">
                     <v-img
                       :src="imagePath+'/'+item.image"
-                      min-height="120px"
+                      min-height="100px"
                       min-width="130px"
-                      max-height="120px"
+                      max-height="100px"
                       max-width="130px"
                       contain
                     ></v-img>
@@ -219,20 +219,20 @@
                   <div class="px-5 mt-1">
                     <h4
                       class="d-inline-block text-truncate"
-                      style="max-width: 160px;" 
+                      style="max-width: 130px;" 
                     >{{item.name}}</h4>
                   </div>
 
                   <div class="px-5 mt-n2">
                     <h5
                       class="d-inline-block text-truncate fontDesc"
-                      style="max-width: 160px;" 
+                      style="max-width: 130px;" 
                     >{{item.description}}</h5>
                   </div>
                   
                   <div>
                     <v-row>
-                      <v-col cols="" class="ml-5 mt-n2">
+                      <v-col cols="12" class="ml-5 mt-n2 pb-0">
                         <h5 class="fontDesc font-weight-black">
                           {{item.size}}
                         </h5> 
@@ -242,11 +242,11 @@
                         <v-col cols="">
                           <div
                             class="d-flex"
-                            >
+                          >
                             <v-spacer></v-spacer>
                               <v-btn
                                 class="mr-3 mt-n1"
-                                large
+                                medium
                                 icon
                                 white
                                 text

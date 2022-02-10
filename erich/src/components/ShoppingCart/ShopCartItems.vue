@@ -395,8 +395,8 @@
                               class="d-flex align-center"
                             >
                               <v-img
-                                max-height="150px"
-                                max-width="150px"
+                                max-height="120px"
+                                max-width="120px"
                                 contain
                                 :src="imagePath+'/'+item.item_image"
                               ></v-img>
@@ -493,17 +493,17 @@
                                 class="my-0 mx-lg-15 mx-4 d-flex align-center justify-center"
                               >
                                 <v-icon 
-                                small
-                                color="#858585" 
-                                class="pr-1"
+                                  small
+                                  color="#858585" 
+                                  class=""
                                 >
                                   mdi-currency-php
                                 </v-icon>
-                                <h4
+                                <h5
                                   class="pa-0 ma-0 fontDesc"
                                 >
                                   {{priceRound((item.item_price - ((item.item_discount / 100) * item.item_price)) * item.item_quantity)}}
-                                </h4>
+                                </h5>
                               </div>
 
                               <v-btn
@@ -511,7 +511,7 @@
                                 color="#1106A0"
                                 plain
                                 @click="openDeleteWarning(item.id)"
-                                large
+                                small
                               >
                                 <v-icon>
                                   mdi-trash-can-outline

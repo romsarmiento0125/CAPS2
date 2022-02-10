@@ -144,9 +144,9 @@
 
               <v-card
                 min-height="335px"
-                min-width="180px"
+                min-width="150px"
                 max-height="335px"
-                max-width="180px"
+                max-width="150px"
                 class="elevation-1 d-sm-none"
               >
                 <div>
@@ -179,9 +179,9 @@
                   <div class="d-flex justify-center">
                     <v-img
                       :src="imagePath+'/'+item.image"
-                      min-height="120px"
+                      min-height="100px"
                       min-width="130px"
-                      max-height="120px"
+                      max-height="100px"
                       max-width="130px"
                       contain
                     ></v-img>
@@ -216,20 +216,20 @@
                   <div class="px-5 mt-1">
                     <h4
                       class="d-inline-block text-truncate"
-                      style="max-width: 160px;" 
+                      style="max-width: 130px;" 
                     >{{item.name}}</h4>
                   </div>
 
                   <div class="px-5 mt-n2">
                     <h5
                       class="d-inline-block text-truncate fontDesc"
-                      style="max-width: 160px;" 
+                      style="max-width: 130px;" 
                     >{{item.description}}</h5>
                   </div>
                   
                   <div>
                     <v-row>
-                      <v-col cols="" class="ml-5 mt-n2">
+                      <v-col cols="12" class="ml-5 mt-n2">
                         <h5 class="fontDesc font-weight-black">
                           {{item.size}}
                         </h5> 

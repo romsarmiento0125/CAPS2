@@ -104,7 +104,6 @@
           lg="6"
           md="6"
         >
-          <!-- <checkout-items></checkout-items> -->
           <order-items></order-items>
         </v-col>
       </v-row>
@@ -178,7 +177,7 @@
     },
 
     data: () => ({
-      dialog: true,
+      dialog: false,
       customerPickup: {
         Email: "",
         Name: "",
@@ -231,7 +230,7 @@
         this.customerPickup.Mobilenumber = this.usersMobileNumber;
         this.customerPickup.pickupDate = this.pickupDate;
         this.customerPickup.pickupTime = this.pickupTime;
-        
+
         axios.post(this.getDomain()+'api/customerpickup/store', {
           register: this.customerPickup,
           items: this.customerPickupItems,
@@ -242,6 +241,7 @@
         }
         })
         .then(res => {
+          // console.log(res.data);
           // console.log(res.data.status);
           if(res.data.status){
             this.showMessage();

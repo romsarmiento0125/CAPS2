@@ -116,8 +116,8 @@
                             lg="6"
                             md="6"
                             sm="6"
-                            cols="6"
-                            class="mt-1"
+                            cols="3"
+                            class=""
                           >
                             <v-btn
                               plain
@@ -137,18 +137,37 @@
                             lg="6"
                             md="6"
                             sm="6"
-                            cols="6"
+                            cols="9"
                             class="d-flex justify-end"
                           >
-                            <v-btn
-                              dark
-                              class="px-sm-6 mr-sm-6"
-                              color="#1106A0"
-                              :to="{name: 'Cart' , params: { id: 'delivery', title: 'Delivery'}}"
-                              @click="placeOrderDeliver()"
+                            <div
+                              class="d-sm-none"
                             >
-                              Continue Shipping
-                            </v-btn>
+                              <v-btn
+                                small
+                                dark
+                                class=""
+                                color="#1106A0"
+                                :to="{name: 'Cart' , params: { id: 'delivery', title: 'Delivery'}}"
+                                @click="placeOrderDeliver()"
+                              >
+                                Continue Shipping
+                              </v-btn>
+                            </div>
+                            
+                            <div
+                              class="d-none d-sm-block"
+                            >
+                              <v-btn
+                                dark
+                                class="px-sm-6 mr-sm-6"
+                                color="#1106A0"
+                                :to="{name: 'Cart' , params: { id: 'delivery', title: 'Delivery'}}"
+                                @click="placeOrderDeliver()"
+                              >
+                                Continue Shipping
+                              </v-btn>
+                            </div>
                           </v-col>
                         </v-row>
                       </div>

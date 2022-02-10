@@ -2,7 +2,7 @@
   <div>
     <v-container
       fluid
-      class="pa-16"
+      class="pa-sm-16"
     >
       <v-row>
         <v-col
@@ -15,7 +15,7 @@
           cols="12"
         >
           <v-card
-            class="rounded-xl pa-12"
+            class="rounded-xl pa-sm-12 pa-6"
           >
             <v-card-title
               class="font-weight-black pt-0 pl-0 text-h5 fontTitle"
@@ -74,7 +74,7 @@
     <div class="text-center">
       <v-dialog
         v-model="dialog"
-        width="30%"
+        width="400px"
       >
         <v-card
           class="pt-5"
