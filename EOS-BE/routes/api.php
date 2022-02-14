@@ -142,6 +142,11 @@ Route::middleware('auth:sanctum')->group( function (){
     Route::get('/adminalldata', [allAdminItem::class, 'index']);
 
     Route::post('/userall/store', [userAllOrderController::class, 'store']);
+
+    Route::put('/updateCreds/{id}', [erichlogincontroller::class, 'update']);
+
+    Route::post('/addaddress/store', [erichlogincontroller::class, 'addAddress']);
+    Route::put('/defaddress/{id}', [erichlogincontroller::class, 'defAddress']);
 });
 
 Route::post('/customerlogin',[erichlogincontroller::class,'login']);

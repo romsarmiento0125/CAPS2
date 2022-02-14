@@ -178,6 +178,74 @@ class erichlogincontroller extends Controller
             ],200);
         }
     }
+
+    public function update(Request $request, $id)
+    {
+        $existingItem = erichcustomer::find($id);
+
+        $existingItem->first_Name = $request->name;
+        $existingItem->last_Name = $request->surname;
+        $existingItem->mobile_Number = $request->number;
+        $existingItem->gender = $request->gender;
+        $existingItem->birthday = $request->birthday;
+
+        $existingItem->save();
+
+        return response()->json([
+            'data' => $existingItem,
+        ]);
+    }
+
+    public function addAddress(Request $request)
+    {
+        $registerAddress = new customeraddress();
+
+        $registerAddress->email = $request->register['Email'];
+        $registerAddress->municipality = $request->register['Municipality'];
+        $registerAddress->barangay = $request->register['Barangay'];
+        $registerAddress->underBarangay = $request->register['UnderBarangay'];
+        $registerAddress->homeAddress = $request->register['HomeAddress'];
+        $registerAddress->shipFee = $request->register['ShipFee'];
+        $registerAddress->default = $request->register['Default'];
+
+        $registerAddress->save();
+
+        return response()->json([
+            'data' => customeraddress::where('email', $request->register['Email'])->get(),
+        ]);
+    }
+
+    public function defAddress(Request $request, $id)
+    {
+        $defaultAdd = customeraddress::where('email', $request->email)->where('default', 'True')->get()->first();
+
+        $trueAddress = customeraddress::find($id);
+        $falseAddress = customeraddress::find( $defaultAdd->id);
+
+        $trueAddress->default = "True";
+        $falseAddress->default = "False";
+
+        $trueAddress->save();
+        $falseAddress->save();
+
+        return response()->json([
+            'false' => $falseAddress,
+            'true' => $trueAddress,
+            'data' => customeraddress::where('email', $request->email)->get()
+        ]);
+
+    }
+    
+    public function destroy($id)
+    {
+        $existingItem = customeraddress::find($id);
+        $existingItem->delete();
+
+        return response()->json([
+            'data' => customeraddress::where('email', $request->email)->get()
+        ]);
+    }
+
     // /**
     //  * Display a listing of the resource.
     //  *

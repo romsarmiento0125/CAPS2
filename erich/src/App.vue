@@ -77,8 +77,8 @@
               localStorage.removeItem("id");
               window.location.href = this.getLogout();
             }
-            
           })
+          .catch(err => console.error(err));
         }
       },
       getCategoryItems() {
